@@ -1,0 +1,29 @@
+# Do NOT update manually; changes here will be overwritten by Copier
+_commit: v2.5.4
+_src_path: git@github.com:ifegmbh/ife-addons-repo-template.git
+additional_ruff_rules: []
+ci: GitHub
+convert_readme_fragments_to_markdown: true
+customer_repo: true
+enable_checklog_odoo: true
+generate_requirements_txt: false
+github_add_codeowners: true
+github_check_license: true
+github_ci_extra_env: {}
+github_enable_codecov: false
+github_enable_makepot: false
+github_enforce_dev_status_compatibility: true
+include_wkhtmltopdf: true
+is_enterprice_dependent: false
+odoo_test_flavor: Odoo
+odoo_version: 18.0
+org_name: IFE Gesellschaft für Forschung und Entwicklung
+org_slug: ifegmbh
+rebel_module_groups: []
+repo_description: ''
+repo_name: Additive|Drives GmbH
+repo_slug: additive
+repo_website: https://www.ife.de
+use_pyproject_toml: true
+use_ruff: true
+
