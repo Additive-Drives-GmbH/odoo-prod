@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="external_layout_din5008_inherit"
+        inherit_id="l10n_din5008.external_layout_din5008"
+    >
+        <!-- hide Country-->
+        <xpath
+            expr="//div[hasclass('colored_address')]/t[@t-if='company.country_id']/span[1]"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('colored_address')]/t[@t-if='company.country_id']/span[2]"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+
+        <!-- Adjust Footer -->
+        <xpath expr="//div[hasclass('company_details')]//td[1]" position="attributes">
+            <attribute name="colspan" />
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[2]" position="attributes">
+            <attribute name="colspan" />
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[3]" position="attributes">
+            <attribute name="colspan" />
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[4]" position="attributes">
+            <attribute name="colspan" />
+        </xpath>
+        <xpath
+            expr="//div[hasclass('company_details')]//td[1]/ul"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[1]" position="inside">
+            <ul class="list-inline">
+                <li t-if="company.name">
+                    <span t-field="company.name" />
+                </li>
+            </ul>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('company_details')]//td[2]/ul"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[2]" position="inside">
+            <ul class="list-inline">
+                <li>Registred Seat</li>
+                <li t-if="company.street">
+                    <span t-field="company.street" />
+                </li>
+                <li t-if="company.zip">D-<span t-field="company.zip" /> <span
+                    t-field="company.city"
+                /></li>
+                <li t-if="foreign_partner">
+                    <span t-field="company.country_id" />
+                </li>
+                <li t-if="company.email">Mail: <span t-field="company.email" /></li>
+                <li t-if="company.phone">Phone: <span t-field="company.phone" /></li>
+            </ul>
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[2]" position="after">
+            <td class="text-start">
+                <ul class="list-inline">
+                    <li t-if="company.general_manager_ids">General Manager</li>
+                    <t t-foreach="company.general_manager_ids" t-as="manager">
+                        <li>
+                            <span t-field="manager.name" />
+                        </li>
+                    </t>
+                </ul>
+            </td>
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[5]" position="after">
+            <xpath expr="//div[hasclass('company_details')]//td[4]" position="move" />
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[4]/ul/t" position="before">
+            <li>Bank Details</li>
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[5]/ul/li" position="before">
+            <li>Registry Court</li>
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[4]" position="attributes">
+            <attribute name="t-if" add="not foreign_partner" separator="and" />
+        </xpath>
+        <xpath
+            expr="//div[hasclass('company_details')]//td[4]/ul/t"
+            position="attributes"
+        >
+            <attribute
+                name="t-foreach"
+            >company.partner_id.bank_ids.filtered(lambda x: not x.foreign_account)[:2]</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('company_details')]//td[5]/ul/li/t"
+            position="attributes"
+        >
+            <attribute name="t-if">not vat_label</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('company_details')]//td[5]/ul/li/t"
+            position="after"
+        >
+            <t t-out="vat_label" />
+        </xpath>
+        <xpath expr="//div[hasclass('company_details')]//td[4]" position="after">
+            <td t-if="company.partner_id.bank_ids and foreign_partner">
+                <ul class="list-inline">
+                    <li>Bank Details</li>
+                    <t
+                        t-foreach="company.partner_id.bank_ids.filtered(lambda x: x.foreign_account)[:2]"
+                        t-as="bank"
+                    >
+                        <li>
+                            <span t-field="bank.bank_id.name" />
+                        </li>
+                        <li class="text-nowrap">IBAN: <span
+                            t-field="bank.acc_number"
+                        /></li>
+                        <li>BIC: <span t-field="bank.bank_id.bic" /></li>
+                    </t>
+                </ul>
+            </td>
+        </xpath>
+    </template>
+
+    <!-- invoice layout -->
+    <template
+        id="external_layout_din5008_account_move_inherit"
+        inherit_id="l10n_din5008.external_layout_din5008_account_move"
+    >
+        <!-- hide phone -->
+        <xpath expr="//address" position="attributes">
+            <attribute
+                name="t-options"
+            >{"widget": "contact", "fields": ["address", "name"], "no_marker": True}</attribute>
+        </xpath>
+        <!-- move tax -->
+        <xpath
+            expr="//div[@id='partner_vat_address_same_as_shipping']"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+    </template>
+</odoo>

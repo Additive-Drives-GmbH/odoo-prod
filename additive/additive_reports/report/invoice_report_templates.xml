@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="report_invoice_document_inherit"
+        inherit_id="account.report_invoice_document"
+    >
+        <xpath expr="//t[@t-set='forced_vat']" position="after">
+            <t t-set="euro_currency" t-value="env.ref('base.EUR')" />
+            <t
+                t-if="o.partner_id.lang == 'en_US' and o.currency_id.id != euro_currency.id"
+            >
+                <t t-set="foreign_partner" t-value="True" />
+            </t>
+            <t
+                t-if="(o.partner_id.lang == 'en_US' and o.currency_id.id != euro_currency.id) or o.partner_id.lang == 'de_DE'"
+            >
+                <t t-set="vat_label" t-value="'UST-ID'" />
+            </t>
+            <t t-else="">
+                <t t-set="vat_label" t-value="'VAT-ID'" />
+            </t>
+        </xpath>
+        <!-- Remove  table-borderless -->
+        <xpath expr="//table[@name='invoice_line_table']" position="attributes">
+            <attribute
+                name="class"
+            >o_has_total_table table o_main_table mb-0</attribute>
+        </xpath>
+        <xpath expr="//div[@id='total']//table" position="attributes">
+            <attribute
+                name="class"
+            >o_has_total_table table o_main_table avoid-page-break-inside mb-0</attribute>
+        </xpath>
+
+        <!-- Move Totals table -->
+        <xpath
+            expr="//table[@name='invoice_line_table']//t[@t-foreach='lines']"
+            position="after"
+        >
+            <xpath expr="//div[@id='total']//table" position="move" />
+            <p>All prices are net prices</p>
+        </xpath>
+        <!-- Move unit of measure -->
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th name="th_uom" class="text-end">
+                <span>Unit of Measure</span>
+            </th>
+        </xpath>
+        <xpath expr="//td[@name='td_quantity']" position="after">
+            <td class="text-end">
+                <xpath
+                    expr="//td[@name='td_quantity']/span[@t-field='line.product_uom_id']"
+                    position="move"
+                />
+            </td>
+        </xpath>
+        <!-- Include currency -->
+        <xpath expr="//td[@name='td_price_unit']/span" position="attributes">
+            <attribute
+                name="t-options"
+            >{"widget": "monetary", "display_currency": o.currency_id}</attribute>
+        </xpath>
+        <!-- hide tax column -->
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+            <attribute name="t-attf-class">d-none</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
+            <attribute name="t-attf-class">d-none</attribute>
+        </xpath>
+        <!-- hide payment term -->
+        <xpath expr="//div[@id='payment_term']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//p[@name='payment_communication']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+    </template>
+
+    <template
+        id="report_invoice_document_din5008_inherit"
+        inherit_id="l10n_din5008.report_invoice_document"
+    >
+        <xpath expr="//tr[@t-if='o.name']" position="before">
+            <tr t-if="o.invoice_user_id">
+                <td>Contact:</td>
+                <td>
+                    <t t-out="o.invoice_user_id.name" />
+                </td>
+            </tr>
+            <tr t-if="o.invoice_user_id.login">
+                <td>E-Mail:</td>
+                <td>
+                    <t t-out="o.invoice_user_id.login" />
+                </td>
+            </tr>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.name']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='din5008_document_title']/span" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='din5008_document_title']/span" position="after">
+            <strong>
+                <span t-if="o.name">
+                Invoice No. <t t-out="o.name" /></span>
+            </strong>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.invoice_date_due']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.delivery_date']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.invoice_date']" position="after">
+            <tr
+                t-if="o.invoice_line_ids and o.invoice_line_ids.sale_line_ids and o.invoice_line_ids.sale_line_ids[0].move_ids and o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id"
+            >
+                <td>Date of achievement:</td>
+                <td>
+                    <t
+                        t-out="o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id.date_done"
+                    />
+                </td>
+            </tr>
+            <tr
+                t-if="o.invoice_line_ids and o.invoice_line_ids.sale_line_ids and o.invoice_line_ids.sale_line_ids[0].move_ids and o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id"
+            >
+                <td>Delivery Note:</td>
+                <td>
+                    <t
+                        t-out="o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id.name"
+                    />
+                </td>
+            </tr>
+            <tr t-if="o.commercial_partner_id.debitor_number">
+                <td>Customer No.:</td>
+                <td>
+                    <t t-out="o.commercial_partner_id.debitor_number" />
+                </td>
+            </tr>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.ref']" position="after">
+            <tr t-if="o.commercial_partner_id.vat">
+                <td>VAT-Customer:</td>
+                <td>
+                    <t t-out="o.commercial_partner_id.vat" />
+                </td>
+            </tr>
+            <tr t-if="o.partner_id.our_nr_by_customer">
+                <td>Vendor/Supplier-No.:</td>
+                <td>
+                    <t t-out="o.partner_id.our_nr_by_customer" />
+                </td>
+            </tr>
+            <tr t-if="o.partner_id.lang == 'en_US'">
+                <td>Goods-No.(HS-Code):</td>
+            </tr>
+            <tr t-if="o.country_of_origin_id">
+                <td>Country of Origin:</td>
+                <td>
+                    <t t-out="o.country_of_origin_id.name" />
+                </td>
+            </tr>
+            <tr t-if="o.partner_id.lang == 'en_US' and o.partner_shipping_id">
+                <td>Delivery address:</td>
+                <td>
+                    <t t-out="o.partner_shipping_id.name" />
+                </td>
+            </tr>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="after">
+            <td>Reference No.:</td>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.ref']/td[1]" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-if='o.ref']/td[1]" position="after">
+            <td>Purchase Order No.:</td>
+        </xpath>
+        <xpath expr="//div[hasclass('invoice_main')]" position="after">
+            <div id="fiscal_position" class="clearfix mt-3">
+                <div class="justify-text">
+                    <p
+                        t-if="not is_html_empty(o.fiscal_position_id.note)"
+                        name="note"
+                        class="mb-2"
+                    >
+                        <span t-field="o.fiscal_position_id.note" />
+                    </p>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template
+        id="document_tax_totals_template"
+        inherit_id="account.document_tax_totals_template"
+    >
+        <xpath expr="//tr[@class='o_subtotal']/td/span" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+
+        <xpath expr="//tr[@class='o_subtotal']/td/span" position="after">
+            <span>Total Net</span>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="report_saleorder_document_inherit"
+        inherit_id="sale.report_saleorder_document"
+    >
+        <xpath expr="//t[@t-set='forced_vat']" position="after">
+            <t t-set="euro_currency" t-value="env.ref('base.EUR')" />
+            <t
+                t-if="doc.partner_id.lang == 'en_US' and doc.currency_id.id != euro_currency.id"
+            >
+                <t t-set="foreign_partner" t-value="True" />
+            </t>
+            <t
+                t-if="(doc.partner_id.lang == 'en_US' and doc.currency_id.id != euro_currency.id) or doc.partner_id.lang == 'de_DE'"
+            >
+                <t t-set="vat_label" t-value="'UST-ID'" />
+            </t>
+            <t t-else="">
+                <t t-set="vat_label" t-value="'VAT-ID'" />
+            </t>
+        </xpath>
+    </template>
+</odoo>
