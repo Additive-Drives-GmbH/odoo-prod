@@ -1,0 +1,113 @@
+<odoo>
+    <!-- Tree View for SyscoonFinanceinterfaceTemplate -->
+    <record id="view_syscoon_financeinterface_template_list" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.template.list</field>
+        <field name="model">syscoon.financeinterface.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="belegfeld_1_use_ref" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for SyscoonFinanceinterfaceTemplate -->
+    <record id="view_syscoon_financeinterface_template_form" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.template.form</field>
+        <field name="model">syscoon.financeinterface.template</field>
+        <field name="arch" type="xml">
+            <form string=" Export Template">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="belegfeld_1_use_ref" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="ASCII Lines">
+                            <field name="line_ids" context="{'list_view_ref': 'syscoon_financeinterface.view_syscoon_financeinterface_template_line_list', 'default_type': 'ascii'}"/>
+                        </page>
+                        <page string="XML Lines">
+                            <field name="xml_line_ids" context="{'list_view_ref': 'syscoon_financeinterface.view_syscoon_financeinterface_template_line_list', 'default_type': 'xml'}"/>
+                        </page>
+                        <page string="Info">
+                            <span>
+                                if you need to use python code in the force value field, you can use the following variables:<br/>
+                                # Available variables:<br/>
+                                #  - env: Odoo Environment on which the action is triggered<br/>
+                                #  - current_value: value of the heading key of the line<br/>
+                                #  - interface: Odoo Model of the templateModel on which the action is triggered; is a void recordset<br/>
+                                #  - uid, user: current user id and record of the current user<br/>
+                                #  - move: move record that is linked to this line while evaluated<br/>
+                                #  - time, datetime, dateutil, timezone: useful Python libraries<br/>
+                                #  - float_compare: Odoo function to compare floats based on specific precisions<br/><br/>
+
+                                # Example:<br/>
+                                #  - value = 'Static Value'<br/>
+                                #  - value = current_value and current_value[:6] or ""  # if you want to use the first 6 characters of the current value<br/>
+                                #  - value = current_value and current_value[2:] or ""  # if you want to use all characters of the current value except the first 2 characters<br/>
+                                #  - value = current_value and current_value[2:7] or ""  # if you want to use the characters 3 to 7 of the current value<br/>
+                                #  - value = (current_value or "").replace("/", "")  # if you want to remove all slashes from the current value<br/>
+                                #  - value = (current_value or "").replace("-", "")  # if you want to remove all dashes from the current value<br/>
+                                #  - value = (current_value or "").replace("_", "")  # if you want to remove all underscores from the current value<br/>
+                                #  - value = interface.start_date<br/>
+                                #  - value = interface.end_date<br/>
+                                #  - value = move.ref or ''<br/>
+                                #  - value = move.partner_id.ref or ''<br/>
+                                #  - value = move.date and move.date.strftime('%Y-%m-%d') or ''<br/>
+                            </span>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for SyscoonFinanceinterfaceTemplateLine -->
+    <record id="view_syscoon_financeinterface_template_line_list" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.template.line.list</field>
+        <field name="model">syscoon.financeinterface.template.line</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" decoration-warning="value_code">
+                <field name="sequence"/>
+                <field name="type" optional="hide"/>
+                <field name="name"/>
+                <field name="value_code" optional="show"/>
+                <field name="expression" optional="hide"/>
+                <field name="description" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for SyscoonFinanceinterfaceTemplateLine -->
+    <record id="view_syscoon_financeinterface_template_line_form" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.template.line.form</field>
+        <field name="model">syscoon.financeinterface.template.line</field>
+        <field name="arch" type="xml">
+            <form string=" Template Line">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="expression"/>
+                        <field name="description"/>
+                        <field name="template_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for SyscoonFinanceinterfaceTemplate -->
+    <record id="action_syscoon_financeinterface_template" model="ir.actions.act_window">
+        <field name="name">Export Templates</field>
+        <field name="res_model">syscoon.financeinterface.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

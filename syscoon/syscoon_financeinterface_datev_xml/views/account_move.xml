@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="syscoon_financeinterface_xml_view_move_form" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.xml.account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="priority" eval="99"/>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="replace">
+                <field name="date" string="Accounting Date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="syscoon_financeinterface_xml_view_move_form_2" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.xml.account.move.form.2</field>
+        <field name="model">account.move</field>
+        <field name="priority" eval="99"/>
+        <field name="inherit_id" ref="syscoon_financeinterface.view_move_form_syscoon_financeinterface"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='syscoon_financeinterface_export']" position="inside">
+                <field name="datev_bedi_export_id" readonly="1" invisible="not datev_bedi_export_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

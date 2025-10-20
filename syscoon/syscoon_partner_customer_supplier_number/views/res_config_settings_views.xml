@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='quick_edit_mode']" position="after">
+                <block title="Customer- / Supplier-Numbers" id="syscoon_financeinterface_general_settings">
+                    <setting company_dependent="1" help="Enable if you want to print the Customer Number at Customer Invoices or Refunds ">
+                        <field name="allow_account_number_report" string="Allow Customer-Number in Reports"/>
+                    </setting>
+                    <setting string="Create Automatic Numbers" help="If you enable this option, Odoo will create the customer/supplier numbers automatically for you.">
+                        <field name="create_auto_number_on" widget="many2many_checkboxes"/>
+                    </setting>
+                    <setting company_dependent="1" help="Customer number sequence for generating the customer number." invisible="not allow_account_number_report">
+                        <label for="customer_number_sequence_id"/>
+                        <div class="o_row">
+                            <field name="customer_number_sequence_id" domain="[('company_id', '=', company_id), ('code', '=', 'partner.auto.customer.number')]"/>
+                            <button name="action_create_customer_sequence" type="object"
+                                string="Create Customer Number Sequence"
+                                help="Creates a new customer number sequence if it does not exist yet."
+                                class="btn-link mb-1 px-0" icon="fa-refresh"
+                                invisible="customer_number_sequence_id"/>
+                        </div>
+                    </setting>
+                    <setting company_dependent="1" help="Supplier number sequence for generating the supplier number." invisible="not allow_account_number_report">
+                        <label for="supplier_number_sequence_id"/>
+                        <div class="o_row">
+                            <field name="supplier_number_sequence_id" domain="[('company_id', '=', company_id), ('code', '=', 'partner.auto.supplier.number')]"/>
+                            <button name="action_create_supplier_sequence" type="object"
+                                string="Create Supplier Number Sequence"
+                                help="Creates a new supplier number sequence if it does not exist yet."
+                                class="btn-link mb-1 px-0" icon="fa-refresh"
+                                invisible="supplier_number_sequence_id"/>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
