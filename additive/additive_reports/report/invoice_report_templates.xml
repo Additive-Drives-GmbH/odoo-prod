@@ -200,11 +200,11 @@
         id="document_tax_totals_template"
         inherit_id="account.document_tax_totals_template"
     >
-        <xpath expr="//tr[@class='o_subtotal']/td/span" position="attributes">
+        <xpath expr="//tr[hasclass('o_subtotal')]/td/span" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
 
-        <xpath expr="//tr[@class='o_subtotal']/td/span" position="after">
+        <xpath expr="//tr[hasclass('o_subtotal')]/td/span" position="after">
             <span>Total Net</span>
         </xpath>
     </template>
