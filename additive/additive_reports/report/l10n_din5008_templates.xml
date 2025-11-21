@@ -40,7 +40,9 @@
         <xpath expr="//div[hasclass('company_details')]//td[1]" position="inside">
             <ul class="list-inline">
                 <li t-if="company.name">
-                    <span t-field="company.name" />
+                    <strong>
+                        <span t-field="company.name" />
+                    </strong>
                 </li>
             </ul>
         </xpath>
@@ -52,7 +54,9 @@
         </xpath>
         <xpath expr="//div[hasclass('company_details')]//td[2]" position="inside">
             <ul class="list-inline">
-                <li>Registred Seat</li>
+                <li>
+                    <strong>Registred Seat</strong>
+                </li>
                 <li t-if="company.street">
                     <span t-field="company.street" />
                 </li>
@@ -69,8 +73,13 @@
         <xpath expr="//div[hasclass('company_details')]//td[2]" position="after">
             <td class="text-start">
                 <ul class="list-inline">
-                    <li t-if="company.general_manager_ids">General Manager</li>
-                    <t t-foreach="company.general_manager_ids" t-as="manager">
+                    <li t-if="company.general_manager_ids">
+                        <strong>General Manager</strong>
+                    </li>
+                    <t
+                        t-foreach="company.general_manager_ids.sorted(key=lambda r: r.name, reverse=True)"
+                        t-as="manager"
+                    >
                         <li>
                             <span t-field="manager.name" />
                         </li>
@@ -82,10 +91,14 @@
             <xpath expr="//div[hasclass('company_details')]//td[4]" position="move" />
         </xpath>
         <xpath expr="//div[hasclass('company_details')]//td[4]/ul/t" position="before">
-            <li>Bank Details</li>
+            <li>
+                <strong>Bank Details</strong>
+            </li>
         </xpath>
         <xpath expr="//div[hasclass('company_details')]//td[5]/ul/li" position="before">
-            <li>Registry Court</li>
+            <li>
+                <strong>Registry Court</strong>
+            </li>
         </xpath>
         <xpath expr="//div[hasclass('company_details')]//td[4]" position="attributes">
             <attribute name="t-if" add="not foreign_partner" separator="and" />
@@ -113,7 +126,9 @@
         <xpath expr="//div[hasclass('company_details')]//td[4]" position="after">
             <td t-if="company.partner_id.bank_ids and foreign_partner">
                 <ul class="list-inline">
-                    <li>Bank Details</li>
+                    <li>
+                        <strong>Bank Details</strong>
+                    </li>
                     <t
                         t-foreach="company.partner_id.bank_ids.filtered(lambda x: x.foreign_account)[:2]"
                         t-as="bank"
@@ -121,13 +136,22 @@
                         <li>
                             <span t-field="bank.bank_id.name" />
                         </li>
+                        <li>BIC: <span t-field="bank.bank_id.bic" /></li>
                         <li class="text-nowrap">IBAN: <span
                             t-field="bank.acc_number"
                         /></li>
-                        <li>BIC: <span t-field="bank.bank_id.bic" /></li>
                     </t>
                 </ul>
             </td>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('company_details')]//td[last()]//li[3]"
+            position="after"
+        >
+            <xpath
+                expr="//div[hasclass('company_details')]//td[last()]//li[2]"
+                position="move"
+            />
         </xpath>
     </template>
 
