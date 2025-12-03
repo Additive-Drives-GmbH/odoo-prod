@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_textblock_form" model="ir.ui.view">
+        <field name="name">text.block.form.view</field>
+        <field name="model">text.block</field>
+        <field name="arch" type="xml">
+            <form class="oe_form_li">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="textblock" />
+                            <field name="post_page_break" />
+                            <field name="pre_page_break" />
+                            <field name="not_print" />
+                            <field name="is_template" invisible="1" />
+                        </group>
+                        <group>
+                            <field
+                                name="model_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color','no_create': True, 'no_open':True}"
+                            />
+                            <field
+                                name="template_id"
+                                invisible="is_template"
+                                domain="[('model_ids','in',model_ids),('is_template','=',True)]"
+                                options="{'no_create': True, 'no_open':True}"
+                            />
+                            <field
+                                name="company_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True, 'no_open':True}"
+                                invisible="not is_template"
+                            />
+                            <field name="res_model_id" invisible="1" />
+                            <field name="res_model" invisible="1" />
+                            <field name="res_id" invisible="1" />
+                            <field name="object_id" invisible="1" />
+                        </group>
+                    </group>
+                    <separator string="Text Block" />
+                    <field
+                        name="text"
+                        no_label="True"
+                        widget="html"
+                        class="oe_form_field_li"
+                        options="{'style-inline': true, 'codeview': true }"
+                    />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_textblock_tree" model="ir.ui.view">
+        <field name="name">text.block.list.view</field>
+        <field name="model">text.block</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="textblock" />
+                <field
+                    name="model_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color'}"
+                />
+                <field name="company_ids" widget="many2many_tags" />
+                <field name="text" widget="html" column_invisible="1" />
+                <field name="not_print" optional="show" />
+            </list>
+        </field>
+    </record>
+
+    <!--Used for product textblock-->
+    <record id="view_textblock_product_form" model="ir.ui.view">
+        <field name="name">text.block.product.form.view</field>
+        <field name="model">text.block</field>
+        <field name="arch" type="xml">
+            <form class="oe_form_li">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="textblock" />
+                            <field name="is_template" invisible="1" />
+                            <field name="preline_check" />
+                            <field name="inline_check" />
+                            <field name="postline_check" />
+                        </group>
+                        <group>
+                            <field
+                                name="model_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color','no_create': True, 'no_open':True}"
+                            />
+                            <field
+                                name="template_id"
+                                invisible="is_template"
+                                domain="[('model_ids','in',model_ids),('is_template','=',True)]"
+                                options="{'no_create': True, 'no_open':True}"
+                            />
+                            <field
+                                name="company_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True, 'no_open':True}"
+                                invisible="not is_template"
+                            />
+                            <field name="res_model_id" invisible="1" />
+                            <field name="res_model" invisible="1" />
+                            <field name="res_id" invisible="1" />
+                            <field name="object_id" invisible="1" />
+                        </group>
+                    </group>
+                    <separator string="Text Block" />
+                    <field
+                        name="text"
+                        no_label="True"
+                        widget="html"
+                        class="oe_form_field_li"
+                        options="{'style-inline': true, 'codeview': true }"
+                    />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_textblock_product_tree" model="ir.ui.view">
+        <field name="name">text.block.list.view</field>
+        <field name="model">text.block</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="textblock" />
+                <field
+                    name="model_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color'}"
+                />
+                <field name="company_ids" widget="many2many_tags" />
+                <field name="text" widget="html" column_invisible="1" />
+                <field name="preline_check" />
+                <field name="inline_check" />
+                <field name="postline_check" />
+            </list>
+        </field>
+    </record>
+
+    <record id="text_block_product_action" model="ir.actions.act_window">
+        <field name="name">Product Text Block</field>
+        <field name="res_model">text.block</field>
+        <field name="view_mode">list</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_textblock_product_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_textblock_product_form')})]"
+        />
+        <field
+            name="domain"
+        >[('model_ids.model','in',('product.template','product.product')),('is_template','=',True)]</field>
+        <field
+            name="context"
+        >{'default_res_model': 'product.product','default_is_template':True}</field>
+    </record>
+
+    <menuitem
+        name="Products Text Blocks"
+        action="text_block_product_action"
+        groups="base.group_user"
+        id="text_block_product_menu"
+        parent="sale.product_menu_catalog"
+    />
+</odoo>

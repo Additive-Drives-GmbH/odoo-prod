@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_text_block_form_inherit" model="ir.ui.view">
+        <field name="name">text.block.form.view.inherit</field>
+        <field name="model">text.block</field>
+        <field name="inherit_id" ref="ife_textblock.view_textblock_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='not_print']" position="after">
+                <field name="not_print_custom_view" />
+                <field name="show_in_invoice" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_text_block_tree_inherit" model="ir.ui.view">
+        <field name="name">text.block.list.view.inherit</field>
+        <field name="model">text.block</field>
+        <field name="inherit_id" ref="ife_textblock.view_textblock_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='not_print']" position="after">
+                <field name="not_print_custom_view" optional="show" />
+                <field name="show_in_invoice" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="text_block_sale_action" model="ir.actions.act_window">
+        <field name="name">Text Block Action</field>
+        <field name="res_model">text.block</field>
+        <field name="view_mode">list,form</field>
+        <field
+            name="domain"
+        >[('model_ids.model','in',('sale.order','sale.order.line','sale.order.template')),('is_template','=',True)]</field>
+        <field
+            name="context"
+        >{'default_res_model': 'sale.order','default_is_template':True}</field>
+    </record>
+
+    <menuitem
+        name="Text Blocks"
+        action="text_block_sale_action"
+        groups="base.group_user"
+        id="text_block_sale_menu"
+        parent="sale.menu_sale_config"
+    />
+</odoo>

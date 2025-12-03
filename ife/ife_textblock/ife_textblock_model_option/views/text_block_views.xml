@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_text_block_form_inherit" model="ir.ui.view">
+        <field name="name">text.block.form.view</field>
+        <field name="model">text.block</field>
+        <field name="inherit_id" ref="ife_textblock.view_textblock_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='object_id']" position="after">
+                <field name="textblock_position" invisible="not is_template" />
+                <field name="direct_render" invisible="not is_template" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

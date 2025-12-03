@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="text_block_repair_action" model="ir.actions.act_window">
+        <field name="name">Text Block Action</field>
+        <field name="res_model">text.block</field>
+        <field name="view_mode">list,form</field>
+        <field
+            name="domain"
+        >[('model_ids.model','=','repair.order'),('is_template','=',True)]</field>
+        <field
+            name="context"
+        >{'default_res_model': 'repair.order','default_is_template':True}</field>
+    </record>
+
+    <menuitem
+        name="Text Blocks"
+        action="text_block_repair_action"
+        id="text_block_repair_menu"
+        parent="repair.repair_menu_config"
+    />
+</odoo>
