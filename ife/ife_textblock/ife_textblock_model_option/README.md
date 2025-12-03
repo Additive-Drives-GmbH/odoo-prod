@@ -10,7 +10,6 @@ Addon needs no configuration
 ## History:
 
 - 18.0.1.0.0:Initial Version
-- 18.0.1.0.1: Use more explicit xpath
 
 ## Maintainer:
 
