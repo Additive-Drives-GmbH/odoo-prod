@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_order_form_view" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <!-- Pre-Lines Text-blocks -->
+
+            <xpath expr="//field[@name='order_line']" position="before">
+                <separator string="Pre-Lines Textblocks" />
+                <field
+                    name="above_text_block_ids"
+                    context="{'default_res_model':'sale.order'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                        <field
+                            name="not_print_custom_view"
+                            optional="hidden"
+                            readonly="False"
+                        />
+                        <field name="template_id" column_invisible="1" />
+                        <field name="text" column_invisible="1" />
+                    </list>
+                </field>
+            </xpath>
+
+            <!--Post-Lines Text-blocks-->
+
+            <xpath expr="//field[@name='order_line']" position="after">
+                <separator string="Post-Lines Textblocks" />
+                <field
+                    name="bottom_text_block_ids"
+                    context="{'default_res_model':'sale.order'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                        <field
+                            name="not_print_custom_view"
+                            optional="hidden"
+                            readonly="False"
+                        />
+                        <field name="template_id" column_invisible="1" />
+                        <field name="text" column_invisible="1" />
+                    </list>
+                </field>
+            </xpath>
+
+            <!--Lines Tex-blocks -->
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='name']"
+                position="before"
+            >
+                <field
+                    optional="show"
+                    name="text_block_id"
+                    context="{'default_res_model' : 'sale.order.line', 'default_inline_check':True}"
+                    domain="[('res_id', '=', id),('inline_check','=',True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

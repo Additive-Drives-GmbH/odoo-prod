@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Add 'color' in ir.model form view -->
+    <record model="ir.ui.view" id="model_form_view">
+        <field name="model">ir.model</field>
+        <field name="inherit_id" ref="base.view_model_form" />
+        <field name="arch" type="xml">
+            <field name="model" position="after">
+                <field name="color" widget="color_picker" />
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ife_textblock_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-22 09:43+0000\n"
+"PO-Revision-Date: 2025-01-22 09:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ife_textblock_stock
+#: model:ir.model.fields,field_description:ife_textblock_stock.field_stock_picking__text_block_id
+msgid "In-Line Textblock"
+msgstr "Inline Textblock"
+
+#. module: ife_textblock_stock
+#: model:ir.model.fields,field_description:ife_textblock_stock.field_stock_picking__bottom_text_block_ids
+#: model_terms:ir.ui.view,arch_db:ife_textblock_stock.stock_picking_form_view_ext
+msgid "Post-Lines Textblocks"
+msgstr "Postline Textblöcke"
+
+#. module: ife_textblock_stock
+#: model:ir.model.fields,field_description:ife_textblock_stock.field_stock_picking__above_text_block_ids
+#: model_terms:ir.ui.view,arch_db:ife_textblock_stock.stock_picking_form_view_ext
+msgid "Pre-Lines Textblocks"
+msgstr "Preline Textblöcke"
+
+#. module: ife_textblock_stock
+#: model:ir.ui.menu,name:ife_textblock_stock.text_block_stock_menu
+msgid "Text Block"
+msgstr "Textblock"
+
+#. module: ife_textblock_stock
+#: model:ir.actions.act_window,name:ife_textblock_stock.text_block_stock_action
+msgid "Text Block Action"
+msgstr "Textblock Aktion"
+
+#. module: ife_textblock_stock
+#: model:ir.model,name:ife_textblock_stock.model_text_block
+msgid "Text block that can added to reports in related models"
+msgstr ""
+
+#. module: ife_textblock_stock
+#: model:ir.model,name:ife_textblock_stock.model_stock_picking
+msgid "Transfer"
+msgstr ""

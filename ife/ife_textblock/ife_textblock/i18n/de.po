@@ -1,0 +1,242 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ife_textblock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-30 21:09+0000\n"
+"PO-Revision-Date: 2025-01-30 21:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_ir_model__color
+msgid "Color Index"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__company_ids
+msgid "Companies"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__res_model_id
+msgid "Document Model"
+msgstr ""
+
+#. module: ife_textblock
+#: model:res.groups,name:ife_textblock.group_edit_textblock
+msgid "Edit Textblock"
+msgstr "Textblock bearbeiten"
+
+#. module: ife_textblock
+#: model:ir.model.fields,help:ife_textblock.field_text_block__sequence
+msgid "Gives the sequence order when displaying a list of textblock."
+msgstr "Gibt die Reihenfolge an, in der eine Liste von Textblöcken angezeigt wird"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__id
+msgid "ID"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,help:ife_textblock.field_text_block__not_print
+msgid "If checked the textblock will not be print at documents."
+msgstr "Wenn diese Option aktiviert ist, wird der Textblock auf Dokumenten nicht gedruckt."
+
+#. module: ife_textblock
+#: model:ir.model.fields,help:ife_textblock.field_text_block__company_ids
+msgid ""
+"If no company is selected, the text block will be available for all "
+"companies."
+msgstr ""
+"Wenn kein Unternehmen ausgewählt wird, ist der Textblock für alle "
+"Unternehmen verfügbar."
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_product_product__text_block_id
+#: model:ir.model.fields,field_description:ife_textblock.field_product_template__text_block_id
+#: model:ir.model.fields,field_description:ife_textblock.field_textblock_item_mixin__text_block_id
+msgid "In-Line Textblock"
+msgstr "Inline Textblock"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__inline_check
+msgid "In-line"
+msgstr "Inline"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__is_template
+msgid "Is Template"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ife_textblock
+#. odoo-python
+#: code:addons/ife_textblock/models/text_block.py:0
+msgid "Manual text block"
+msgstr "Manueller Textblock"
+
+#. module: ife_textblock
+#: model:ir.model,name:ife_textblock.model_textblock_item_mixin
+msgid ""
+"Mixin model for applying to any object that wants to handle Textblock Items"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__res_model
+msgid "Model"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model,name:ife_textblock.model_ir_model
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__model_ids
+msgid "Models"
+msgstr "Modelle"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__not_print
+msgid "Not on Reports"
+msgstr "Nicht auf Dokumente drucken"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__pre_page_break
+msgid "Page Break After"
+msgstr "Nachstehender Seitenumbruch"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__post_page_break
+msgid "Page Break Before"
+msgstr "Vorstehender Seitenumbruch"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__object_id
+msgid "Post Document ID"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_product_product__bottom_text_block_ids
+#: model:ir.model.fields,field_description:ife_textblock.field_product_template__bottom_text_block_ids
+#: model:ir.model.fields,field_description:ife_textblock.field_textblock_item_mixin__bottom_text_block_ids
+msgid "Post-Lines Textblocks"
+msgstr "Postline Textblöcke"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__postline_check
+msgid "Post-line"
+msgstr "Postline"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_product_product__above_text_block_ids
+#: model:ir.model.fields,field_description:ife_textblock.field_product_template__above_text_block_ids
+#: model:ir.model.fields,field_description:ife_textblock.field_textblock_item_mixin__above_text_block_ids
+msgid "Pre-Lines Textblocks"
+msgstr "Preline Textblöcke"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__preline_check
+msgid "Pre-line"
+msgstr "Preline"
+
+#. module: ife_textblock
+#: model:ir.model,name:ife_textblock.model_product_template
+msgid "Product"
+msgstr "Produkt"
+
+#. module: ife_textblock
+#: model:ir.actions.act_window,name:ife_textblock.text_block_product_action
+msgid "Product Text Block"
+msgstr "Produkttextblock"
+
+#. module: ife_textblock
+#: model:ir.model,name:ife_textblock.model_product_product
+msgid "Product Variant"
+msgstr "Produktvariante"
+
+#. module: ife_textblock
+#: model:ir.ui.menu,name:ife_textblock.text_block_product_menu
+msgid "Products Text Blocks"
+msgstr "Produkttextblöcke"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__res_id
+msgid "Related Document ID"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__sequence
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__template_id
+msgid "Template"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__text
+msgid "Text"
+msgstr ""
+
+#. module: ife_textblock
+#: model_terms:ir.ui.view,arch_db:ife_textblock.view_textblock_form
+#: model_terms:ir.ui.view,arch_db:ife_textblock.view_textblock_product_form
+msgid "Text Block"
+msgstr "Textblock"
+
+#. module: ife_textblock
+#: model:ir.model,name:ife_textblock.model_text_block
+msgid "Text block that can added to reports in related models"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,field_description:ife_textblock.field_text_block__textblock
+msgid "Textblock"
+msgstr ""
+
+#. module: ife_textblock
+#: model_terms:ir.ui.view,arch_db:ife_textblock.view_product_product_form_inherit
+#: model_terms:ir.ui.view,arch_db:ife_textblock.view_product_template_form_inherit
+msgid "Textblocks"
+msgstr ""
+
+#. module: ife_textblock
+#: model:ir.model.fields,help:ife_textblock.field_text_block__is_template
+msgid "Used to separate template textblocks from items"
+msgstr ""
+
+#. module: ife_textblock
+#. odoo-python
+#: code:addons/ife_textblock/models/product.py:0
+msgid "We can not have more than one in-line text block."
+msgstr "Es kann nicht mehr als einen Inline-Textblock geben"
