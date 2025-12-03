@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="syscoon_number_mode_customers" model="syscoon.numbers.automatic.mode">
+        <field name="name">Partner (Customer Numbers)</field>
+        <field name="code">partner_customer</field>
+    </record>
+
+    <record id="syscoon_number_mode_suppliers" model="syscoon.numbers.automatic.mode">
+        <field name="name">Partner (Supplier Numbers)</field>
+        <field name="code">partner_supplier</field>
+    </record>
+
+    <record id="syscoon_number_mode_invoice_customers" model="syscoon.numbers.automatic.mode">
+        <field name="name">Invoice (Customer Numbers)</field>
+        <field name="code">invoice_customer</field>
+    </record>
+
+    <record id="syscoon_number_mode_invoice_suppliers" model="syscoon.numbers.automatic.mode">
+        <field name="name">Invoice (Supplier Numbers)</field>
+        <field name="code">invoice_supplier</field>
+    </record>
+
+    <record id="syscoon_number_mode_so_customers" model="syscoon.numbers.automatic.mode">
+        <field name="name">Sale Order (Customer Numbers)</field>
+        <field name="code">so_customer</field>
+    </record>
+
+    <record id="syscoon_number_mode_po_suppliers" model="syscoon.numbers.automatic.mode">
+        <field name="name">Purchase Order (Supplier Numbers)</field>
+        <field name="code">po_supplier</field>
+    </record>
+</odoo>

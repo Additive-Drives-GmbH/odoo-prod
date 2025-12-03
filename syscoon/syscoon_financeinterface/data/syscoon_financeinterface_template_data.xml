@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <!-- Template record for Datev export -->
+    <record id="syscoon_financeinterface_main_template" model="syscoon.financeinterface.template">
+        <field name="name">Datev Export Template</field>
+    </record>
+
+    <!-- Template lines for the Datev export template -->
+    <record id="syscoon_financeinterface_main_template_line_1" model="syscoon.financeinterface.template.line">
+        <field name="name">Umsatz</field>
+        <field name="sequence">1</field>
+        <field name="expression">^\d{1,10}[,]\d{2}$</field>
+        <field name="description">Sales/amount for the data record. Amount must be positive. Example: 1234567890,12</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_2" model="syscoon.financeinterface.template.line">
+        <field name="name">Soll-/Haben-Kennzeichen</field>
+        <field name="sequence">2</field>
+        <field name="expression">^[\"](S|H)[\"]$</field>
+        <field name="description">Debit/credit indicator refers to field #7 Account. S = TARGET (default), H = HAVE</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_3" model="syscoon.financeinterface.template.line">
+        <field name="name">WKZ Umsatz</field>
+        <field name="sequence">3</field>
+        <field name="expression">^[\"]([A-Z]{3})[\"]$</field>
+        <field name="description">ISO code of the currency. #22 from header = default. List of ISO codes</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_4" model="syscoon.financeinterface.template.line">
+        <field name="name">Kurs</field>
+        <field name="sequence">4</field>
+        <field name="expression">^([1-9]\d{0,3}[,]\d{2,6})$</field>
+        <field name="description">If a turnover in foreign currency is specified in #1, #4, #5 and #6 must be transferred. The foreign currency rate determines how the specified turnover, which is transferred in foreign currency, is to be converted into the base currency if it is a non-EMU country. Example: 1234,123456. Attention: The value 0 is not permitted.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_5" model="syscoon.financeinterface.template.line">
+        <field name="name">Basisumsatz</field>
+        <field name="sequence">5</field>
+        <field name="expression">^(\d{1,10}[,]\d{2})$</field>
+        <field name="description">If the basic turnover field is used, the WKZ basic turnover field must also be filled. Example: 1123123123,12</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_6" model="syscoon.financeinterface.template.line">
+        <field name="name">WKZ Basisumsatz</field>
+        <field name="sequence">6</field>
+        <field name="expression"></field>
+        <field name="description">Currency code of the stored base currency. If the WKZ basic turnover field is used, the basic turnover field must also be used. Note the ISO code (see doc. no. 1080170)</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_7" model="syscoon.financeinterface.template.line">
+        <field name="name">Konto</field>
+        <field name="sequence">7</field>
+        <field name="expression">^(\d{1,9})$</field>
+        <field name="description">G/L or person account. Example: 4400. May have a maximum of 8 or 9 digits (depending on the G/L account number length used in the inventory). The person account length may only be 1 digit longer than the defined G/L account number length.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_8" model="syscoon.financeinterface.template.line">
+        <field name="name">Gegenkonto (ohne BU-Schlüssel)</field>
+        <field name="sequence">8</field>
+        <field name="expression">^(\d{1,9})$</field>
+        <field name="description">G/L or person account. Example: 70000. May have a maximum of 8 or 9 digits (depending on the G/L account number length used in the inventory). The personal account length may only be 1 digit longer than the defined G/L account number length.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_9" model="syscoon.financeinterface.template.line">
+        <field name="name">BU-Schlüssel</field>
+        <field name="sequence">9</field>
+        <field name="expression">^(\[\"\d{4}\)$</field>
+        <field name="description">Control identifier for mapping various functions/topics. Further details</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_10" model="syscoon.financeinterface.template.line">
+        <field name="name">Belegdatum</field>
+        <field name="sequence">10</field>
+        <field name="expression">^(\d{4})$</field>
+        <field name="description">Format: DDMM. Example: 0105. The year is always determined from field #13 of the header.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_11" model="syscoon.financeinterface.template.line">
+        <field name="name">Belegfeld 1</field>
+        <field name="sequence">11</field>
+        <field name="expression">^([\w$%\-\/]{0,36})$</field>
+        <field name="description">Invoice/document number.
+Used as a "key" for clearing open invoices.
+Example: Rg32029/2024. Special characters: $ &amp; % * + - /.
+Other characters are not permitted (in particular spaces, umlauts, periods, commas, semicolons and colons).
+To skip special character `/` please replace the current expression with `^([\w$%\-]{0,36})$` or `^([\w$%\-]{0,36})$`
+To Remove the first X char ex: `^.{X}([\w$%\-\/]{0,36})$`
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_12" model="syscoon.financeinterface.template.line">
+        <field name="name">Belegfeld 2</field>
+        <field name="sequence">12</field>
+        <field name="expression">^([\w$%\-\/]{0,12})$</field>
+        <field name="description">Document number or OPOS processing information such as due date. Format: DDMMYY (see doc. no. 9211385)</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_13" model="syscoon.financeinterface.template.line">
+        <field name="name">Skonto</field>
+        <field name="sequence">13</field>
+        <field name="expression">^([1-9]\d{0,7}[,]\d{2})$</field>
+        <field name="description">Discount amount/deduction. Only permitted for payments. Example: 12123123,12. Attention: The value 0 is not permitted.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_14" model="syscoon.financeinterface.template.line">
+        <field name="name">Buchungstext</field>
+        <field name="sequence">14</field>
+        <field name="expression">^(.{0,60})$</field>
+        <field name="description">0-60 characters
+To remove the first x characters, use the following expression: ^.{x}(.{0,60})$
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_15" model="syscoon.financeinterface.template.line">
+        <field name="name">Postensperre</field>
+        <field name="sequence">15</field>
+        <field name="expression">^(0|1)$</field>
+        <field name="description">Dunning or payment block.
+0 = no block (default).
+1 = block. The invoice can be excluded from the dunning process / payment proposal
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_16" model="syscoon.financeinterface.template.line">
+        <field name="name">Diverse Adressnummer</field>
+        <field name="sequence">16</field>
+        <field name="expression">^(\w{0,9})$</field>
+        <field name="description">Only relevant in connection with OPOS.
+Address number of a diverse address.
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+
+    <record id="syscoon_financeinterface_main_template_line_17" model="syscoon.financeinterface.template.line">
+        <field name="name">Geschäftspartnerbank</field>
+        <field name="sequence">17</field>
+        <field name="expression">^(\d{3})$</field>
+        <field name="description">Only relevant in connection with OPOS.
+If a specific business partner bank is to be used for a direct debit or transfer.
+When importing the business partner bank, the SEPA mandate reference field (field no. 105) must also always be filled in.
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_18" model="syscoon.financeinterface.template.line">
+        <field name="name">Sachverhalt</field>
+        <field name="sequence">18</field>
+        <field name="expression">^(\d{2})$</field>
+        <field name="description">Only relevant in connection with OPOS.
+Indicator for a dunning interest/dunning fee data record.
+31 = dunning interest
+40 = dunning fee
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_19" model="syscoon.financeinterface.template.line">
+        <field name="name">Zinssperre</field>
+        <field name="sequence">19</field>
+        <field name="expression">^(0|1)$</field>
+        <field name="description">Only relevant in connection with OPOS.
+Lock for dunning interest.
+0 = no lock (default)
+1 = lock
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_20" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleglink</field>
+        <field name="sequence">20</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">Link to the posting document that was stored digitally in a document management system (e.g. DATEV DMS).
+BEDI = Unternehmen online
+General: ^([""].{0,210}[""])$
+Specific:^([""](BEDI|DDMS|DORG)[ ][""][""][ GUID ][""][""][""])$
+The document link consists of a program abbreviation and the GUID.
+As the document link field is a text field, the quotation marks must be doubled in the interface file.
+Example: "BEDI ""E0A08953-FBAA-4054-AF36-993D5D68F040"""
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_21" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo - Art 1</field>
+        <field name="sequence">21</field>
+        <field name="expression">^([""].{0,20}[""])$</field>
+        <field name="description">In a DATEV-Format created from a DATEV accounting program, these fields can contain information from a document (e.g. an electronic account transaction).
+If the field length of a document info content field is exceeded, the information is continued in the next document info field.
+Important note: A document info always consists of the components document info type and document info content. If you want to use the document info, please always fill in both fields.
+Example:
+Document info type: Account transactions of the respective bank
+Document info content: Posting-specific content for the above-mentioned information types
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_22" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo - Inhalt 1</field>
+        <field name="sequence">22</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_23" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo - Art 2</field>
+        <field name="sequence">23</field>
+        <field name="expression">^([""].{0,20}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_24" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo - Inhalt 2</field>
+        <field name="sequence">24</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_25" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo - Art 3</field>
+        <field name="sequence">25</field>
+        <field name="expression">^([""].{0,20}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_26" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Inhalt 3</field>
+        <field name="sequence">26</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_27" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Art 4</field>
+        <field name="sequence">27</field>
+        <field name="expression">^([""].{0,20}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_28" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Inhalt 4</field>
+        <field name="sequence">28</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_29" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Art 5</field>
+        <field name="sequence">29</field>
+        <field name="expression">^([""].{0,20}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_30" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Inhalt 5</field>
+        <field name="sequence">30</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_31" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Art 6</field>
+        <field name="sequence">31</field>
+        <field name="expression">^([""].{0,20}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_32" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Inhalt 6</field>
+        <field name="sequence">32</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_33" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Art 7</field>
+        <field name="sequence">33</field>
+        <field name="expression">^([""].{0,20}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_34" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Inhalt 7</field>
+        <field name="sequence">34</field>
+        <field name="expression">^([""].{0,210}[""])$</field>
+        <field name="description">see #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_35" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Art 8</field>
+        <field name="sequence">35</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">See #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_36" model="syscoon.financeinterface.template.line">
+        <field name="name">Beleginfo-Inhalt 8</field>
+        <field name="sequence">36</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">See #21</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_37" model="syscoon.financeinterface.template.line">
+        <field name="name">KOST1 - Kostenstelle</field>
+        <field name="sequence">37</field>
+        <field name="expression">^([\w ]{0,36})$</field>
+        <field name="description">KOST1 is used to assign the business transaction for subsequent cost accounting. The length used must first be set in the master data of the KOST program.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_38" model="syscoon.financeinterface.template.line">
+        <field name="name">KOST2 - Kostenstelle</field>
+        <field name="sequence">38</field>
+        <field name="expression">^([\w ]{0,36})$</field>
+        <field name="description">KOST2 is used to assign the business transaction for subsequent cost accounting. The length used must first be set in the master data of the KOST program.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_39" model="syscoon.financeinterface.template.line">
+        <field name="name">KOST-Menge</field>
+        <field name="sequence">39</field>
+        <field name="expression">^\d{12}[,]\d{4}$</field>
+        <field name="description">The KOST quantity field is used to record the value added for a specific reference value for a cost center. This reference value can be e.g. kg, g, cm, m, %. The reference value is defined in the cost accounting master data.
+        Example: 123123123,1234</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_40" model="syscoon.financeinterface.template.line">
+        <field name="name">EU-Mitgliedstaat u. UStID (Bestimmung)</field>
+        <field name="sequence">40</field>
+        <field name="expression">^(.{0,15})$</field>
+        <field name="description">The VAT ID no. consists of 2-digit country code (see doc. no. 1080169). Exceptions: Greece = EL, Northern Ireland = XI. 13-digit VAT ID no. Example: DE133546770. The VAT ID no. can also have letters, e.g. for Austria. For detailed information on entering EU information in the booking record, see doc. no. 9211462</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_41" model="syscoon.financeinterface.template.line">
+        <field name="name">EU-Steuersatz (Bestimmung)</field>
+        <field name="sequence">41</field>
+        <field name="expression">^\d{2}[,]\d{2}$</field>
+        <field name="description">Only for corresponding EU bookings: The tax rate applicable in the EU country of destination. Example: 12.12</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_42" model="syscoon.financeinterface.template.line">
+        <field name="name">Abw. Versteuerungsart</field>
+        <field name="sequence">42</field>
+        <field name="expression">^((I|K|P|S))$</field>
+        <field name="description">For postings that are to be processed in a VAT type that differs from the client master data coding, the different taxation type can be transferred in the posting record: I = actual taxation, K = no VAT invoice, P = flat rate (e.g. for agriculture and forestry), S = debit taxation</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_43" model="syscoon.financeinterface.template.line">
+        <field name="name">Sachverhalt L+L</field>
+        <field name="sequence">43</field>
+        <field name="expression">^(\d{1,3})$</field>
+        <field name="description">Facts according to § 13b para. 1 and 2 UStG. Attention: The value 0 is not permitted. (see doc. no. 1034915 and 1003613)</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_44" model="syscoon.financeinterface.template.line">
+        <field name="name">Funktionsergänzung L+L</field>
+        <field name="sequence">44</field>
+        <field name="expression">^\d{0,3}$</field>
+        <field name="description">Tax rate / function for L+L facts. Attention: The value 0 is not permitted. Example: Value 190 for 19%</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_45" model="syscoon.financeinterface.template.line">
+        <field name="name">BU 49 Hauptfunktiontyp</field>
+        <field name="sequence">45</field>
+        <field name="expression">^\d$</field>
+        <field name="description">When using the BU key 49 for "other tax rates", the tax situation must also be specified</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_46" model="syscoon.financeinterface.template.line">
+        <field name="name">BU 49 Hauptfunktionsnummer</field>
+        <field name="sequence">46</field>
+        <field name="expression">^\d{0,2}$</field>
+        <field name="description">see #45</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_47" model="syscoon.financeinterface.template.line">
+        <field name="name">BU 49 Funktionsergänzung</field>
+        <field name="sequence">47</field>
+        <field name="expression">^\d{0,3}$</field>
+        <field name="description">see #45</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_48" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 1</field>
+        <field name="sequence">48</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">Additional information that can be entered for posting records. This additional information has the character of a memo and can be entered freely.
+Important note:
+    Additional information always consists of the components information type and information content. If you want to use the additional information, please always fill in both fields.
+Example:
+    Information type: Branch or quantity sizes (sqm)
+    Information content: Posting-specific content for the above-mentioned information types.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_49" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 1</field>
+        <field name="sequence">49</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_50" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 2</field>
+        <field name="sequence">50</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_51" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 2</field>
+        <field name="sequence">51</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_52" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 3</field>
+        <field name="sequence">52</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_53" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 3</field>
+        <field name="sequence">53</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_54" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 4</field>
+        <field name="sequence">54</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_55" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 4</field>
+        <field name="sequence">55</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_56" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 5</field>
+        <field name="sequence">56</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_57" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 5</field>
+        <field name="sequence">57</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_58" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 6</field>
+        <field name="sequence">58</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_59" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 6</field>
+        <field name="sequence">59</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_60" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 7</field>
+        <field name="sequence">60</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_61" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 7</field>
+        <field name="sequence">61</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_62" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 8</field>
+        <field name="sequence">62</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_63" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 8</field>
+        <field name="sequence">63</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_64" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 9</field>
+        <field name="sequence">64</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_65" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 9</field>
+        <field name="sequence">65</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_66" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 10</field>
+        <field name="sequence">66</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_67" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 10</field>
+        <field name="sequence">67</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_68" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 11</field>
+        <field name="sequence">68</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_69" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 11</field>
+        <field name="sequence">69</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_70" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 12</field>
+        <field name="sequence">70</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_71" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 12</field>
+        <field name="sequence">71</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_72" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 13</field>
+        <field name="sequence">72</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_73" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 13</field>
+        <field name="sequence">73</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_74" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 14</field>
+        <field name="sequence">74</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_75" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 14</field>
+        <field name="sequence">75</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_76" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 15</field>
+        <field name="sequence">76</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_77" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 15</field>
+        <field name="sequence">77</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_78" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 16</field>
+        <field name="sequence">78</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_79" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 16</field>
+        <field name="sequence">79</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_80" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 17</field>
+        <field name="sequence">80</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_81" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 17</field>
+        <field name="sequence">81</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_82" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 18</field>
+        <field name="sequence">82</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_83" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 18</field>
+        <field name="sequence">83</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_84" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 19</field>
+        <field name="sequence">84</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_85" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 19</field>
+        <field name="sequence">85</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_86" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Art 20</field>
+        <field name="sequence">86</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_87" model="syscoon.financeinterface.template.line">
+        <field name="name">Zusatzinformation - Inhalt 20</field>
+        <field name="sequence">87</field>
+        <field name="expression">^(.{0,210})$</field>
+        <field name="description">see #48</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_88" model="syscoon.financeinterface.template.line">
+        <field name="name">Stück</field>
+        <field name="sequence">88</field>
+        <field name="expression">^\d{0,8}$</field>
+        <field name="description">Only has an effect with SKR 14 Agriculture and forestry, for other SKRs the fields are read over or exported empty during import/export.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_89" model="syscoon.financeinterface.template.line">
+        <field name="name">Gewicht</field>
+        <field name="sequence">89</field>
+        <field name="expression">^(\d{1,8}[,]\d{2})$</field>
+        <field name="description">see #88</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_90" model="syscoon.financeinterface.template.line">
+        <field name="name">Zahlweise</field>
+        <field name="sequence">90</field>
+        <field name="expression">^\d{0,2}$</field>
+        <field name="description">OPOS information municipal
+1 = Direct debit
+2 = Reminder
+3 = Payment
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_91" model="syscoon.financeinterface.template.line">
+        <field name="name">Forderungsart</field>
+        <field name="sequence">91</field>
+        <field name="expression">^(\w{0,10})$</field>
+        <field name="description">OPOS information municipal</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_92" model="syscoon.financeinterface.template.line">
+        <field name="name">Veranlagungsjahr</field>
+        <field name="sequence">92</field>
+        <field name="expression">^(([2])([0])([0-9]{2}))$</field>
+        <field name="description">OPOS information municipal. Format: YYYY</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_93" model="syscoon.financeinterface.template.line">
+        <field name="name">Zugeordnete Fälligkeit</field>
+        <field name="sequence">93</field>
+        <field name="expression">^((0[1-9]|[1-2][0-9]|3[0-1])(0[1-9]|1[0-2])([2])([0])([0-9]{2}))$</field>
+        <field name="description">OPOS information municipal. Format: DDMMYYYYY</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_94" model="syscoon.financeinterface.template.line">
+        <field name="name">Skontotyp</field>
+        <field name="sequence">94</field>
+        <field name="expression">^\d$</field>
+        <field name="description">1 = Purchase of goods, 2 = Purchase of raw materials and supplies</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_95" model="syscoon.financeinterface.template.line">
+        <field name="name">Auftragsnummer</field>
+        <field name="sequence">95</field>
+        <field name="expression">^(.{0,30})$</field>
+        <field name="description">General name of the order / project. The booking type (#96) must also be specified with the order number. For invoices for PayPal payments: Order ID or transaction ID (see doc. no. 1002651)</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_96" model="syscoon.financeinterface.template.line">
+        <field name="name">Buchungstyp</field>
+        <field name="sequence">96</field>
+        <field name="expression">^([A-Z]{2})$</field>
+        <field name="description">AA = Requested advance payment / partial invoice, AG = Advance payment received (cash receipt), AV = Advance payment received (liability), SR = Final invoice, SU = Final invoice (transfer posting), SG = Final invoice (cash receipt), SO = Other</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_97" model="syscoon.financeinterface.template.line">
+        <field name="name">USt-Schlüssel (Anzahlungen)</field>
+        <field name="sequence">97</field>
+        <field name="expression">^\d{0,2}$</field>
+        <field name="description">VAT key of the subsequent final invoice</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_98" model="syscoon.financeinterface.template.line">
+        <field name="name">EU-Mitgliedstaat (Anzahlungen)</field>
+        <field name="sequence">98</field>
+        <field name="expression">^([A-Z]{2})$</field>
+        <field name="description">EU member state of the subsequent final invoice (see doc. no. 1080169). Exceptions: Greece=EL, Northern Ireland=XI</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_99" model="syscoon.financeinterface.template.line">
+        <field name="name">Sachverhalt L+L (Anzahlungen)</field>
+        <field name="sequence">99</field>
+        <field name="expression">^\d{0,3}$</field>
+        <field name="description">L+L facts of the subsequent final invoice Facts according to § 13b para. 1 and 2 UStG. Attention: The value 0 is not permitted. (see doc. no. 1034915 and 1003613)</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_100" model="syscoon.financeinterface.template.line">
+        <field name="name">EU-Steuersatz (Anzahlungen)</field>
+        <field name="sequence">100</field>
+        <field name="expression">^(\d{1,2}[,]\d{2})$</field>
+        <field name="description">EU tax rate of the subsequent final invoice. Only for corresponding EU postings: The tax rate applicable in the EU country of destination. Example: 12.12</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_101" model="syscoon.financeinterface.template.line">
+        <field name="name">Erlöskonto (Anzahlungen)</field>
+        <field name="sequence">101</field>
+        <field name="expression">^(\d{4.8})$</field>
+        <field name="description">Revenue account of the later final invoice</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_102" model="syscoon.financeinterface.template.line">
+        <field name="name">Herkunft-Kz</field>
+        <field name="sequence">102</field>
+        <field name="expression">^([A-Z]{2})$</field>
+        <field name="description">Will be replaced by SV (batch processing) during import</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_103" model="syscoon.financeinterface.template.line">
+        <field name="name">Leerfeld</field>
+        <field name="sequence">103</field>
+        <field name="expression">^(.{0,36})$</field>
+        <field name="description">Used by DATEV</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_104" model="syscoon.financeinterface.template.line">
+        <field name="name">KOST-Datum</field>
+        <field name="sequence">104</field>
+        <field name="expression">^((0[1-9]|[1-2]\d|3[0-1])(0[1-9]|1[0-2])([2])([0])(\d{2}))$</field>
+        <field name="description">Format: DDMMYYYYY</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_105" model="syscoon.financeinterface.template.line">
+        <field name="name">SEPA-Mandatsreferenz</field>
+        <field name="sequence">105</field>
+        <field name="expression">^(.{0,35})$</field>
+        <field name="description">Individual identifier of a mandate assigned by the creditor (e.g. invoice or customer number). When importing the SEPA mandate reference, the Business partner bank field (#17) must also be filled in.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_106" model="syscoon.financeinterface.template.line">
+        <field name="name">Skontosperre</field>
+        <field name="sequence">106</field>
+        <field name="expression">^[0|1]$</field>
+        <field name="description">1 = cash discount block, 0 = no cash discount block. This field allows you to transfer individual items for which a payment with cash discount is not permitted. When the payment is posted, the block is only effective in "Post payments" mode. The block is not taken into account in "Generate payment proposals" mode.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_107" model="syscoon.financeinterface.template.line">
+        <field name="name">Gesellschaftername</field>
+        <field name="sequence">107</field>
+        <field name="expression">^(.{0,76})$</field>
+        <field name="description">Must match the assigned shareholder in the central master data</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_108" model="syscoon.financeinterface.template.line">
+        <field name="name">Beteiligtennummer</field>
+        <field name="sequence">108</field>
+        <field name="expression">^(\d{4})$</field>
+        <field name="description">Mandatory field for the assignment of shareholders to the accounting record. The shareholder number must correspond to the official number from the declaratory statement; this may not be assigned arbitrarily. The maintenance of shareholder data and the creation of special balance sheet items is only possible in consultation with the tax office. Subject #107-110</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_109" model="syscoon.financeinterface.template.line">
+        <field name="name">Identifikationsnummer</field>
+        <field name="sequence">109</field>
+        <field name="expression">^(.{0,11})$</field>
+        <field name="description"></field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_110" model="syscoon.financeinterface.template.line">
+        <field name="name">Zeichnernummer</field>
+        <field name="sequence">110</field>
+        <field name="expression">^(.{0,20})$</field>
+        <field name="description"></field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_111" model="syscoon.financeinterface.template.line">
+        <field name="name">Postensperre bis</field>
+        <field name="sequence">111</field>
+        <field name="expression">^((0[1-9]|[1-2]\d|3[0-1])(0[1-9]|1[0-2])([2])([0])(\d{2}))$</field>
+        <field name="description">Format: DDMMYYYYY</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_112" model="syscoon.financeinterface.template.line">
+        <field name="name">Bezeichnung SoBil-Sachverhalt</field>
+        <field name="sequence">112</field>
+        <field name="expression">^(.{0,30})$</field>
+        <field name="description"></field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_113" model="syscoon.financeinterface.template.line">
+        <field name="name">Kennzeichen SoBil-Buchung</field>
+        <field name="sequence">113</field>
+        <field name="expression">^(\d{1,2})$</field>
+        <field name="description">1 = SoBil posting created, 0 = SoBil posting not created (default)</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_114" model="syscoon.financeinterface.template.line">
+        <field name="name">Festschreibung</field>
+        <field name="sequence">114</field>
+        <field name="expression">^(0|1)$</field>
+        <field name="description">empty = not defined; is automatically fixed. 0 = no fixing, 1 = fixing. If a posting record in this field has the content 1, the entire batch is fixed after the import.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_115" model="syscoon.financeinterface.template.line">
+        <field name="name">Leistungsdatum</field>
+        <field name="sequence">115</field>
+        <field name="expression">^((0[1-9]|[1-2]\d|3[0-1])(0[1-9]|1[0-2])([2])([0])(\d{2}))$</field>
+        <field name="description">
+        Format: DDMMYYYY
+        When importing the service date, the field "116 Date Zuord. Tax period" must be filled.
+        The service date must be used in consultation with the tax consultant.
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_116" model="syscoon.financeinterface.template.line">
+        <field name="name">Datum Zuord. Steuerperiode</field>
+        <field name="sequence">116</field>
+        <field name="expression">^((0[1-9]|[1-2]\d|3[0-1])(0[1-9]|1[0-2])([2])([0])(\d{2}))$</field>
+        <field name="description">Format: DDMMYYYY</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_117" model="syscoon.financeinterface.template.line">
+        <field name="name">Fälligkeit</field>
+        <field name="sequence">117</field>
+        <field name="expression">^((0[1-9]|[1-2]\d|3[0-1])(0[1-9]|1[0-2])([2])([0])(\d{2}))$</field>
+        <field name="description">Only relevant in connection with OPOS. Format: DDMMYYYY. OPOS processing information via document field 2 (field number 12) cannot be used in this case.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_118" model="syscoon.financeinterface.template.line">
+        <field name="name">Generalumkehr</field>
+        <field name="sequence">118</field>
+        <field name="expression">^((0|1))$</field>
+        <field name="description">G or 1 = general reversal
+0 = no general reversal
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_119" model="syscoon.financeinterface.template.line">
+        <field name="name">Steuersatz</field>
+        <field name="sequence">119</field>
+        <field name="expression">^(\d{1,2}[,]\d{2})$</field>
+        <field name="description">Required when using BU keys without a fixed tax rate (e.g. BU key 100). Further information under doc. no. 9231347</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_120" model="syscoon.financeinterface.template.line">
+        <field name="name">Land</field>
+        <field name="sequence">120</field>
+        <field name="expression">^([A-Z]{2})$</field>
+        <field name="description">Note ISO code (see doc. no. 1080169). Example: DE for Germany. Enter together with #119 (tax rate).</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_121" model="syscoon.financeinterface.template.line">
+        <field name="name">Abrechnungsreferenz</field>
+        <field name="sequence">121</field>
+        <field name="expression">^(.{0,50})$</field>
+        <field name="description">The settlement reference represents a bracket of all transactions of the payment service provider and the associated payout. It is provided via the payment data service and taken into account when generating booking proposals.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_122" model="syscoon.financeinterface.template.line">
+        <field name="name">BVV-Position (Betriebsvermögensvergleich)</field>
+        <field name="sequence">122</field>
+        <field name="expression">^([1|2|3|4|5])$</field>
+        <field name="description">For details on the field, see doc. no. 1018649:
+1 = Capital adjustment
+2 = Withdrawal / distribution current FY
+3 = Contribution / capital injection current FY
+4 = Transfer § 6b reserve
+5 = Transfer (no allocation)
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_123" model="syscoon.financeinterface.template.line">
+        <field name="name">EU-Mitgliedstaat u. UStID (Ursprung)</field>
+        <field name="sequence">123</field>
+        <field name="expression">^(.{0,15})$</field>
+        <field name="description">The VAT ID no. consists of:
+    2-digit country code (see doc. no. 1080169)
+Exceptions:
+    Greece = EL
+    Northern Ireland = XI
+    13-digit VAT ID no.
+Example: DE133546770
+    The VAT ID no. can also have letters, e.g. for Austria.Detailed information on entering EU information in the booking record: Doc. no. 9211462.</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_124" model="syscoon.financeinterface.template.line">
+        <field name="name">EU-Steuersatz (Ursprung)</field>
+        <field name="sequence">124</field>
+        <field name="expression">^\d{2}[,]\d{2}$</field>
+        <field name="description">Only for corresponding EU bookings:
+The tax rate applicable in the EU country of origin.
+Example: 12.12
+        </field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <record id="syscoon_financeinterface_main_template_line_125" model="syscoon.financeinterface.template.line">
+        <field name="name">Abw. Skontokonto</field>
+        <field name="sequence">125</field>
+        <field name="expression">^(\d{1,9})$</field>
+        <field name="description">Accounts with the account purpose "other operating expenses" are permitted here for payment postings with cash discount deduction. An entry in this field means that the cash discount amount is posted to this expense account. If the import file does not contain any information on the cash discount account, the cash discount amount is posted to the corresponding collective cash discount account.Detailed information on using the function: Doc. no. 1036387</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+
+    <!-- FOR xml -->
+    <record id="syscoon_financeinterface_main_template_line_xml_500" model="syscoon.financeinterface.template.line">
+        <field name="name">booking_text</field>
+        <field name="sequence">500</field>
+        <field name="expression"></field>
+        <field name="type">xml</field>
+        <field name="description">To remove the first x Char use: `^.{x}`</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+    <record id="syscoon_financeinterface_main_template_line_xml_501" model="syscoon.financeinterface.template.line">
+        <field name="name">cost_category_id</field>
+        <field name="sequence">501</field>
+        <field name="expression"></field>
+        <field name="type">xml</field>
+        <field name="description">To remove the first x Char use: `^.{x}`</field>
+        <field name="template_id" ref="syscoon_financeinterface_main_template"/>
+    </record>
+</odoo>

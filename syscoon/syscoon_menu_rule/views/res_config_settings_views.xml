@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Res config settings form view customizations -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.syscoon_menu_rule</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <block id="user_default_rights" position="inside">
+                <setting string="Menu Visibility Rules" id="menu_access_rule" help="Select menus to be hidden in this company">
+                    <field name="restrict_menu_ids" widget="many2many_tags"/>
+                </setting>
+            </block>
+
+        </field>
+    </record>
+
+</odoo>

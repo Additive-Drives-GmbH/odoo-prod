@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_finance_interface" name="Finance Interface" parent="account.menu_finance" sequence="30" groups="group_syscoon_financeinterface" />
+    <menuitem id="menu_syscoon_financeinterface_export" action="syscoon_financeinterface_action" parent="menu_finance_interface" sequence="10"/>
+    <menuitem id="menu_finance_interface_configuration" name="Configuration" parent="menu_finance_interface" sequence="90" groups="base.group_no_one" >
+        <menuitem id="menu_syscoon_financeinterface_template" name="Export Templates" action="action_syscoon_financeinterface_template" sequence="10"/>
+        <menuitem id="menu_syscoon_financeinterface_bookingtex_config" action="syscoon_financeinterface_bookingtext_config_action" sequence="20" />
+    </menuitem>
+</odoo>

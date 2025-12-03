@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_syscoon" model="ir.ui.view">
+        <field name="name">res.partner.form.syscoon</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale']" position="inside">
+                <label for="customer_number"/>
+                <div class="o_row">
+                    <field name="customer_number" readonly="customer_number"/>
+                    <button name="action_create_custmer_number" type="object"
+                        string="Create Customer Number"
+                        help="Creates a new Customer Number if it does not exist yet."
+                        class="btn-link mb-1 px-0" icon="fa-refresh"
+                        confirm="This will create a new Customer Number."
+                        invisible="customer_number"/>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='purchase']" position="inside">
+                <label for="supplier_number"/>
+                <div class="o_row">
+                    <field name="supplier_number" readonly="supplier_number"/>
+                    <button name="action_create_supplier_number" type="object"
+                        string="Create Supplier Number"
+                        help="Creates a new Supplier Number if it does not exist yet."
+                        class="btn-link mb-1 px-0" icon="fa-refresh"
+                        confirm="This will create a new Supplier Number."
+                        invisible="supplier_number"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_partner_list">
+        <field name="name">res.partner.list.form.inherit.syscoon</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="customer_number" optional="hide"/>
+                <field name="supplier_number" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="res_partner_view_search_syscoon" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.syscoon</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="customer_number" filter_domain="[('customer_number', 'ilike', self)]"/>
+                <field name="supplier_number" filter_domain="[('supplier_number', 'ilike', self)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+    <record id="res_partner_view_kanban_syscoon" model="ir.ui.view">
+        <field name="name">res.partner.kanban.syscoon.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="customer_number" invisible="1"/>
+                <field name="supplier_number" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

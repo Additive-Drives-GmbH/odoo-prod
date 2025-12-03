@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="syscoon_financeinterface_bookingtext_config_form_view" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.bookingtext.config.form.view</field>
+        <field name="model">syscoon.financeinterface.bookingtext.config</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Export Bookingtext Config">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="sequence"/>
+                        <field name="journal_id"/>
+                        <field name="field"/>
+                    </group>
+                </sheet>
+                 <!-- Chatter -->
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="syscoon_financeinterface_bookingtext_config_list_view" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.bookingtext.config.list.view</field>
+        <field name="model">syscoon.financeinterface.bookingtext.config</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="field"/>
+                <field name="journal_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="syscoon_financeinterface_bookingtext_config_action" model="ir.actions.act_window">
+        <field name="name">Export Bookingtext Config</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">syscoon.financeinterface.bookingtext.config</field>
+        <field name="view_id" ref="syscoon_financeinterface_bookingtext_config_list_view"/>
+    </record>
+
+</odoo>

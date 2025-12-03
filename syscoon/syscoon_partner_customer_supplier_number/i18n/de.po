@@ -1,0 +1,286 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* syscoon_partner_customer_supplier_number
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-29 09:51+0000\n"
+"PO-Revision-Date: 2025-05-29 12:01+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__add_number_to_partner_ref
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_config_settings__add_number_to_partner_ref
+msgid "Add Number To Partner Ref"
+msgstr "Nummer hinzufügen zu Partnernummer"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Allow Customer-Number in Reports"
+msgstr "Erlaube Kundennummer in Berichten"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__allow_account_number_report
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_config_settings__allow_account_number_report
+msgid "Allow In Reports"
+msgstr "Erlauben in Berichten"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__code
+msgid "Code"
+msgstr ""
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model,name:syscoon_partner_customer_supplier_number.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model,name:syscoon_partner_customer_supplier_number.model_res_config_settings
+msgid "Config Settings"
+msgstr "Einstellungen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model,name:syscoon_partner_customer_supplier_number.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__create_auto_number_on
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_config_settings__create_auto_number_on
+msgid "Create Auto Number On"
+msgstr "Automatische Nummerierung erstellen am"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Create Automatic Numbers"
+msgstr "Automatische Nummern erstellen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.view_partner_syscoon
+msgid "Create Customer Number"
+msgstr "Kundennummer erstellen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Create Customer Number Sequence"
+msgstr "Kundennummern Sequenz erstellen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.view_partner_syscoon
+msgid "Create Supplier Number"
+msgstr "Lieferantennummer erstellen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Create Supplier Number Sequence"
+msgstr "Lieferantennummer Sequenz erstellen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.view_partner_syscoon
+msgid "Creates a new Customer Number if it does not exist yet."
+msgstr "Erstellt eine neue Kundennummer, falls diese noch nicht existiert."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.view_partner_syscoon
+msgid "Creates a new Supplier Number if it does not exist yet."
+msgstr ""
+"Erstellt eine neue Lieferantennummer, falls diese noch nicht existiert."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Creates a new customer number sequence if it does not exist yet."
+msgstr ""
+"Erstellt eine neue Kundennummernsequenz, falls diese noch nicht existiert."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Creates a new supplier number sequence if it does not exist yet."
+msgstr ""
+"Erstellt eine neue Lieferantennummersequenz, falls diese noch nicht "
+"existiert."
+
+#. module: syscoon_partner_customer_supplier_number
+#. odoo-python
+#: code:addons/syscoon_partner_customer_supplier_number/models/account_move.py:0
+msgid "Customer No."
+msgstr "Kunden-Nr."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_partner__customer_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_users__customer_number
+msgid "Customer Number"
+msgstr "Kundennummer"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__customer_number_sequence_id
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_config_settings__customer_number_sequence_id
+msgid "Customer Number Sequence"
+msgstr "Kundennummern Sequenz erstellen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Customer number sequence for generating the customer number."
+msgstr "Kundennummernsequenz zur Generierung der Kundennummer."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Customer- / Supplier-Numbers"
+msgstr "Kunden-/Lieferanten-Nummern"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__display_name
+msgid "Display Name"
+msgstr "Name"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid ""
+"Enable if you want to print the Customer Number at Customer Invoices or "
+"Refunds"
+msgstr ""
+"Aktivieren Sie diese Option, wenn Sie die Kundennummer auf Kundenrechnungen "
+"oder Gutschriften drucken möchten"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__id
+msgid "ID"
+msgstr ""
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid ""
+"If you enable this option, Odoo will create the customer/supplier numbers "
+"automatically for you."
+msgstr ""
+"Wenn Sie diese Option aktivieren, erstellt Odoo die "
+"Kunden-/Lieferantennummern automatisch für Sie."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:syscoon.numbers.automatic.mode,name:syscoon_partner_customer_supplier_number.syscoon_number_mode_invoice_customers
+msgid "Invoice (Customer Numbers)"
+msgstr "Rechnung (Kundennummer)"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:syscoon.numbers.automatic.mode,name:syscoon_partner_customer_supplier_number.syscoon_number_mode_invoice_suppliers
+msgid "Invoice (Supplier Numbers)"
+msgstr "Rechnung (Lieferantennummern)"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model,name:syscoon_partner_customer_supplier_number.model_account_move
+msgid "Journal Entry"
+msgstr "Journalbuchungen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert von"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__name
+msgid "Name"
+msgstr ""
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:syscoon.numbers.automatic.mode,name:syscoon_partner_customer_supplier_number.syscoon_number_mode_customers
+msgid "Partner (Customer Numbers)"
+msgstr "Partner (Kundennummer)"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:syscoon.numbers.automatic.mode,name:syscoon_partner_customer_supplier_number.syscoon_number_mode_suppliers
+msgid "Partner (Supplier Numbers)"
+msgstr "Partner (Lieferantennummern)"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model,name:syscoon_partner_customer_supplier_number.model_purchase_order
+msgid "Purchase Order"
+msgstr "Einkaufsauftrag"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:syscoon.numbers.automatic.mode,name:syscoon_partner_customer_supplier_number.syscoon_number_mode_po_suppliers
+msgid "Purchase Order (Supplier Numbers)"
+msgstr "Bestellauftrag (Lieferantennummern)"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:syscoon.numbers.automatic.mode,name:syscoon_partner_customer_supplier_number.syscoon_number_mode_so_customers
+msgid "Sale Order (Customer Numbers)"
+msgstr "Verkaufsauftrag (Kundennummern)"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model,name:syscoon_partner_customer_supplier_number.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,help:syscoon_partner_customer_supplier_number.field_res_config_settings__create_auto_number_on
+msgid ""
+"Select when customer/supplier numbers should be created. Please notice, "
+"without a selection no numbers will be created automatically."
+msgstr ""
+"Wählen Sie aus, wann Kunden-/Lieferantennummern erstellt werden sollen. "
+"Bitte beachten Sie: Ohne eine Auswahl werden keine Nummern automatisch "
+"erstellt."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,help:syscoon_partner_customer_supplier_number.field_res_company__create_auto_number_on
+msgid ""
+"Select when the customer/supplier numbers should be created automatically."
+msgstr ""
+"Wählen Sie aus, wann die Kunden-/Lieferantennummern automatisch erstellt "
+"werden sollen."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_partner__supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_users__supplier_number
+msgid "Supplier Number"
+msgstr "Lieferantennummer"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__supplier_number_sequence_id
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_config_settings__supplier_number_sequence_id
+msgid "Supplier Number Sequence"
+msgstr "Lieferantennummer Sequenz erstellen"
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
+msgid "Supplier number sequence for generating the supplier number."
+msgstr "Lieferantennummernsequenz zur Generierung der Lieferantennummer."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.view_partner_syscoon
+msgid "This will create a new Customer Number."
+msgstr "Dies wird eine neue Kundennummer erstellen."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.view_partner_syscoon
+msgid "This will create a new Supplier Number."
+msgstr "Dies wird eine neue Lieferantennummer erstellen."
+
+#. module: syscoon_partner_customer_supplier_number
+#: model:ir.model,name:syscoon_partner_customer_supplier_number.model_syscoon_numbers_automatic_mode
+msgid "syscoon Numbers Automatic Mode"
+msgstr "syscoon-Nummern Automatikmodus"
