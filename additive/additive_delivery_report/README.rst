@@ -33,6 +33,8 @@ Changelog
 =========
 
 - 18.0.1.0.0: initial version
+- 18.0.1.0.0: remove commodity column from information block + adjust
+  table columns
 
 Bug Tracker
 ===========

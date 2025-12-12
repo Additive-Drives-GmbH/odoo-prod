@@ -12,12 +12,3 @@ class StockPicking(models.Model):
             if move.product_id.product_tmpl_id.country_of_origin:
                 countries |= move.product_id.product_tmpl_id.country_of_origin
         return countries
-
-    def _get_commodity_codes(self):
-        """Get unique HS codes from all products in the picking."""
-        self.ensure_one()
-        hs_codes = set()
-        for move in self.move_ids:
-            if move.product_id.hs_code:
-                hs_codes.add(move.product_id.hs_code)
-        return sorted(list(hs_codes))
