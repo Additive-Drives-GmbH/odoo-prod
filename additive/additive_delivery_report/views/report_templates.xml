@@ -108,18 +108,6 @@
                                     <span t-esc="o.partner_id.supplier_no" />
                                 </td>
                             </tr>
-                            <tr t-if="o._get_commodity_codes()">
-                                <td class="info-label">Commodity Code:</td>
-                                <td class="info-value">
-                                    <t
-                                        t-foreach="o._get_commodity_codes()"
-                                        t-as="hs_code"
-                                    >
-                                        <span t-esc="hs_code" />
-                                        <t t-if="not hs_code_last">, </t>
-                                    </t>
-                                </td>
-                            </tr>
                             <tr t-if="countries_origin">
                                 <td class="info-label">Country of Origin:</td>
                                 <td class="info-value">
