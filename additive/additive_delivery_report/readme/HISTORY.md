@@ -1,2 +1,3 @@
 - 18.0.1.0.0: initial version
 - 18.0.1.0.0: remove commodity column from information block + adjust table columns
+- 18.0.1.1.1: get purchaser orders no. and supplier no. from partner_id parent if they are not filled.
