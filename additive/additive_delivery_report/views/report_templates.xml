@@ -90,10 +90,14 @@
                                     <span t-esc="o.sale_id.name" />
                                 </td>
                             </tr>
-                            <tr t-if="o.partner_id.purchase_order_no">
+                            <tr
+                                t-if="o.partner_id.purchase_order_no or (o.partner_id.parent_id and o.partner_id.parent_id.purchase_order_no)"
+                            >
                                 <td class="info-label">Purchase Order No.:</td>
                                 <td class="info-value">
-                                    <span t-esc="o.partner_id.purchase_order_no" />
+                                    <span
+                                        t-esc="o.partner_id.purchase_order_no or o.partner_id.parent_id.purchase_order_no"
+                                    />
                                 </td>
                             </tr>
                             <tr t-if="o.partner_id.vat">
@@ -102,10 +106,14 @@
                                     <span t-esc="o.partner_id.vat" />
                                 </td>
                             </tr>
-                            <tr t-if="o.partner_id.supplier_no">
+                            <tr
+                                t-if="o.partner_id.supplier_no or (o.partner_id.parent_id and o.partner_id.parent_id.supplier_no)"
+                            >
                                 <td class="info-label">Vendor/Supplier-No.:</td>
                                 <td class="info-value">
-                                    <span t-esc="o.partner_id.supplier_no" />
+                                    <span
+                                        t-esc="o.partner_id.supplier_no or o.partner_id.parent_id.supplier_no"
+                                    />
                                 </td>
                             </tr>
                             <tr t-if="countries_origin">
