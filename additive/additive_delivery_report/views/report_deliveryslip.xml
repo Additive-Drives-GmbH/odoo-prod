@@ -178,7 +178,7 @@
             <attribute name="class">text-start</attribute>
             <attribute
                 name="style"
-            >border: 1px solid #000; vertical-align: top;</attribute>
+            >border: 1px solid #000; vertical-align: top; font-weight: bold;</attribute>
         </xpath>
 
         <!-- Update lot_serial column alignment -->
@@ -189,7 +189,7 @@
             <attribute name="class">text-start</attribute>
             <attribute
                 name="style"
-            >border: 1px solid #000; vertical-align: top;</attribute>
+            >border: 1px solid #000; vertical-align: top; font-weight: bold;</attribute>
         </xpath>
 
         <!-- Update Delivered column header alignment for move line table -->
@@ -200,7 +200,7 @@
             <attribute name="class">text-start</attribute>
             <attribute
                 name="style"
-            >border: 1px solid #000; vertical-align: top;</attribute>
+            >border: 1px solid #000; vertical-align: top; font-weight: bold;</attribute>
         </xpath>
 
         <xpath
