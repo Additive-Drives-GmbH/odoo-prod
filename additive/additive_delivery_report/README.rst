@@ -37,6 +37,7 @@ Changelog
   table columns
 - 18.0.1.1.1: get purchaser orders no. and supplier no. from partner_id
   parent if they are not filled.
+- 18.0.1.1.2: adjust column ordered and delivered to be have bold fonts
 
 Bug Tracker
 ===========
