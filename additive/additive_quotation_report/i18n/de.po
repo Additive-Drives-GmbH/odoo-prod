@@ -1,0 +1,107 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* additive_quotation_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-31 14:38+0000\n"
+"PO-Revision-Date: 2025-12-31 14:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Please Note:</strong>"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Subject To Change we offer:</strong>"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>The order includes the following work packages:</strong>"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid ""
+"Additive Drives does not take responsibility for the functionality of any "
+"customer supplies."
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "All prices are net prices"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order__contact_id
+msgid "Contact"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Contact:"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order__country_of_origin_id
+msgid "Country Of Origin"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Country of Origin"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Mail:"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid ""
+"Manufacturing prices are indicative and can be confirmed after design "
+"freeze."
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Offer No."
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Order Confirmation –"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Phone:"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Reference-No."
+msgstr ""
+
+#. module: additive_quotation_report
+#: model:ir.model,name:additive_quotation_report.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid ""
+"The overall timeline of the project depends on the timely provision of the "
+"parts or services by the customer."
+msgstr ""
