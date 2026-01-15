@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_document_sequence"
+        inherit_id="purchase.report_purchaseorder_document"
+        priority="15"
+    >
+        <!-- Pre-Lines Text-blocks -->
+
+        <xpath
+            expr="//table[hasclass('o_has_total_table','table', 'o_main_table', 'table-borderless')]"
+            position="before"
+        >
+            <t
+                t-foreach="o.above_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)"
+                t-as="t"
+            >
+                <t t-if="t.post_page_break and t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only pre-->
+                <t t-if="t.pre_page_break and not t.post_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only Post-->
+                <t t-if="t.post_page_break and not t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+                <!-- no Post no pre-->
+                <t t-if="not t.post_page_break and not t.pre_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+            </t>
+        </xpath>
+
+        <!-- Post-Lines Text-blocks -->
+
+        <xpath expr="//p[@t-field='o.notes']" position="after">
+            <t
+                t-foreach="o.bottom_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)"
+                t-as="t"
+            >
+                <t t-if="t.post_page_break and t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only pre-->
+                <t t-if="t.pre_page_break and not t.post_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only Post-->
+                <t t-if="t.post_page_break and not t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+                <!-- no Post no pre-->
+                <t t-if="not t.post_page_break and not t.pre_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+            </t>
+        </xpath>
+
+        <!-- Lines Text-blocks-->
+
+        <xpath expr="//t[@t-foreach='o.order_line']/tr[1]/t[1]" position="after">
+            <tr t-if="not line.display_type">
+                <td colspan="99">
+                    <span t-field="line.text_block_id.text" />
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

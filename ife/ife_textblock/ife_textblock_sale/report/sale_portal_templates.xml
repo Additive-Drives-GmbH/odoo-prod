@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="sale_order_portal_content"
+        inherit_id="sale.sale_order_portal_content"
+    >
+        <!--Add the texblock above in the custom view-->
+        <xpath expr="//table[@id='sales_order_table']" position="before">
+            <div id="textblock" name="textblock">
+                <t
+                    t-foreach="sale_order.above_text_block_ids.filtered(
+    lambda x:
+        not x.not_print
+        and (
+            sale_order.state in ('draft','sent')
+            or x.show_in_order
+        )
+).sorted(lambda x: x.sequence)"
+                    t-as="t"
+                >
+                    <t t-if="not t.not_print_custom_view">
+                        <t t-if="t.post_page_break and t.pre_page_break">
+                            <p style="page-break-before: always;" />
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                            <p style="page-break-after: always;" />
+                        </t>
+                        <!-- only pre-->
+                        <t t-if="t.pre_page_break and not t.post_page_break">
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                            <p style="page-break-after: always;" />
+                        </t>
+                        <!-- only Post-->
+                        <t t-if="t.post_page_break and not t.pre_page_break">
+                            <p style="page-break-before: always;" />
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                        </t>
+                        <!-- no Post no pre-->
+                        <t t-if="not t.post_page_break and not t.pre_page_break">
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+        <!--Add the texblock Bottom in the custom view-->
+        <xpath expr="//div[@id='total']" position="after">
+            <div id="textblock" name="textblock">
+                <t
+                    t-foreach="sale_order.bottom_text_block_ids.filtered(
+    lambda x:
+        not x.not_print
+        and (
+            sale_order.state in ('draft','sent')
+            or x.show_in_order
+        )
+).sorted(lambda x: x.sequence)"
+                    t-as="t"
+                >
+                    <t t-if="not t.not_print_custom_view">
+                        <t t-if="t.post_page_break and t.pre_page_break">
+                            <p style="page-break-before: always;" />
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                            <p style="page-break-after: always;" />
+                        </t>
+                        <!-- only pre-->
+                        <t t-if="t.pre_page_break and not t.post_page_break">
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                            <p style="page-break-after: always;" />
+                        </t>
+                        <!-- only Post-->
+                        <t t-if="t.post_page_break and not t.pre_page_break">
+                            <p style="page-break-before: always;" />
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                        </t>
+                        <!-- no Post no pre-->
+                        <t t-if="not t.post_page_break and not t.pre_page_break">
+                            <div>
+                                <t t-out="t.text" />
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+        <!--Add the Inlines texblock in the custom view-->
+        <xpath
+            expr="//section[@id='details']//t[@name='product_line_row']"
+            position="inside"
+        >
+            <tr
+                t-if="
+                line.text_block_id
+                and not line.text_block_id.not_print_custom_view
+                and (
+                    sale_order.state in ('draft','sent')
+                    or line.text_block_id.show_in_order
+                )
+            "
+            >
+                <td colspan="99">
+                    <span style="" t-field="line.text_block_id.text" />
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

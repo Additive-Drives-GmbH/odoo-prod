@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_picking_form_view_ext" model="ir.ui.view">
+        <field name="name">stock.picking.form.view.ext</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <!-- Pre-Lines Text-blocks -->
+            <xpath expr="//field[@name='move_ids_without_package']" position="before">
+                <separator string="Pre-Lines Textblocks" />
+                <field
+                    name="above_text_block_ids"
+                    context="{'default_res_model': 'stock.picking'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                    </list>
+                </field>
+            </xpath>
+
+            <!-- Post-Lines Text-blocks -->
+            <xpath expr="//field[@name='move_ids_without_package']" position="after">
+                <separator string="Post-Lines Textblocks" />
+                <field
+                    name="bottom_text_block_ids"
+                    context="{'default_res_model': 'stock.picking'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                    </list>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

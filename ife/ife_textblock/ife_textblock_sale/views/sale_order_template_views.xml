@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_sale_order_template_form_extended" model="ir.ui.view">
+        <field name="name">sale.order.template.form.view.ext</field>
+        <field name="model">sale.order.template</field>
+        <field name="inherit_id" ref="sale_management.sale_order_template_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='sale_order_template_line_ids']"
+                position="before"
+            >
+                <separator string="Pre-Lines Textblocks" />
+                <field
+                    name="above_text_block_ids"
+                    context="{'default_res_model':'sale.order.template'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                        <field
+                            name="not_print_custom_view"
+                            optional="hidden"
+                            readonly="False"
+                        />
+                        <field name="template_id" column_invisible="1" />
+                        <field name="text" column_invisible="1" />
+                    </list>
+                </field>
+            </xpath>
+
+            <xpath
+                expr="//field[@name='sale_order_template_line_ids']"
+                position="after"
+            >
+                <separator string="Post-Lines Textblocks" />
+                <field
+                    name="bottom_text_block_ids"
+                    context="{'default_res_model':'sale.order.template'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                        <field
+                            name="not_print_custom_view"
+                            optional="hidden"
+                            readonly="False"
+                        />
+                        <field name="template_id" column_invisible="1" />
+                        <field name="text" column_invisible="1" />
+                    </list>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

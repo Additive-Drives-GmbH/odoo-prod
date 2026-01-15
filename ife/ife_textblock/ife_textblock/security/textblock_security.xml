@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="group_edit_textblock" model="res.groups">
+        <field name="name">Edit Textblock</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
+    <record id="textblock_comp_rule" model="ir.rule">
+        <field name="name">Textblock multi-company</field>
+        <field name="model_id" ref="model_text_block" />
+        <field
+            name="domain_force"
+        >['|',('company_ids', 'parent_of', company_ids),('company_ids', '=', False)]</field>
+    </record>
+</odoo>

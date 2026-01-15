@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ife_textblock_repair
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-22 09:41+0000\n"
+"PO-Revision-Date: 2025-01-22 09:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ife_textblock_repair
+#: model:ir.model.fields,field_description:ife_textblock_repair.field_repair_order__text_block_id
+msgid "In-Line Textblock"
+msgstr "Inline Textblock"
+
+#. module: ife_textblock_repair
+#: model:ir.model.fields,field_description:ife_textblock_repair.field_repair_order__bottom_text_block_ids
+#: model_terms:ir.ui.view,arch_db:ife_textblock_repair.repair_order_view_ext
+msgid "Post-Lines Textblocks"
+msgstr "Postline Textblöcke"
+
+#. module: ife_textblock_repair
+#: model:ir.model.fields,field_description:ife_textblock_repair.field_repair_order__above_text_block_ids
+#: model_terms:ir.ui.view,arch_db:ife_textblock_repair.repair_order_view_ext
+msgid "Pre-Lines Textblocks"
+msgstr "Preline Textblöcke"
+
+#. module: ife_textblock_repair
+#: model:ir.model,name:ife_textblock_repair.model_repair_order
+msgid "Repair Order"
+msgstr "Reparaturauftrag"
+
+#. module: ife_textblock_repair
+#: model:ir.ui.menu,name:ife_textblock_repair.text_block_repair_menu
+msgid "Text Block"
+msgstr "Textblock"
+
+#. module: ife_textblock_repair
+#: model:ir.actions.act_window,name:ife_textblock_repair.text_block_repair_action
+msgid "Text Block Action"
+msgstr "Textblock Aktion"
+
+#. module: ife_textblock_repair
+#: model:ir.model,name:ife_textblock_repair.model_text_block
+msgid "Text block that can added to reports in related models"
+msgstr ""
