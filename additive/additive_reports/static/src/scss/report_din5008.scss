@@ -1,6 +1,5 @@
 .din_page.header img {
-    float: left !important;
-    margin-left: 5mm;
+    max-height: 27mm !important;
 }
 .din_page.footer .company_details table {
     table-layout: auto !important;
@@ -10,4 +9,7 @@
 .din_page.footer .company_details td {
     white-space: nowrap;
     vertical-align: top;
+}
+table.o_main_table tr.o_line_section td {
+    background-color: #a0a0a0 !important;
 }
