@@ -8,6 +8,7 @@
             <xpath expr="//field[@name='not_print']" position="after">
                 <field name="not_print_custom_view" />
                 <field name="show_in_invoice" />
+                <field name="show_in_order" />
             </xpath>
         </field>
     </record>
@@ -20,6 +21,7 @@
             <xpath expr="//field[@name='not_print']" position="after">
                 <field name="not_print_custom_view" optional="show" />
                 <field name="show_in_invoice" optional="show" />
+                <field name="show_in_order" optional="show" />
             </xpath>
         </field>
     </record>

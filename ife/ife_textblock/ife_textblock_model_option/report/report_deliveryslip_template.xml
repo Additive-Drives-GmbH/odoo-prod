@@ -7,7 +7,7 @@
         <!-- Auto Render Pre-Lines Text-blocks -->
 
         <xpath
-            expr="//t[@t-foreach='o.above_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)']"
+            expr="//t[contains(@t-foreach, 'above_text_block_ids')]"
             position="after"
         >
             <t
@@ -47,7 +47,7 @@
 
         <!-- Post-Lines Text-blocks -->
         <xpath
-            expr="//t[@t-foreach='o.bottom_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)']"
+            expr="//t[contains(@t-foreach, 'bottom_text_block_ids')]"
             position="after"
         >
             <t

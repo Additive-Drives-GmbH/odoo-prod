@@ -8,7 +8,14 @@
         <xpath expr="//table[@id='sales_order_table']" position="before">
             <div id="textblock" name="textblock">
                 <t
-                    t-foreach="sale_order.above_text_block_ids.filtered(lambda x: not x.not_print).sorted(lambda x: x.sequence)"
+                    t-foreach="sale_order.above_text_block_ids.filtered(
+    lambda x:
+        not x.not_print
+        and (
+            sale_order.state in ('draft','sent')
+            or x.show_in_order
+        )
+).sorted(lambda x: x.sequence)"
                     t-as="t"
                 >
                     <t t-if="not t.not_print_custom_view">
@@ -47,7 +54,14 @@
         <xpath expr="//div[@id='total']" position="after">
             <div id="textblock" name="textblock">
                 <t
-                    t-foreach="sale_order.bottom_text_block_ids.filtered(lambda x: not x.not_print).sorted(lambda x: x.sequence)"
+                    t-foreach="sale_order.bottom_text_block_ids.filtered(
+    lambda x:
+        not x.not_print
+        and (
+            sale_order.state in ('draft','sent')
+            or x.show_in_order
+        )
+).sorted(lambda x: x.sequence)"
                     t-as="t"
                 >
                     <t t-if="not t.not_print_custom_view">
@@ -87,7 +101,16 @@
             expr="//section[@id='details']//t[@name='product_line_row']"
             position="inside"
         >
-            <tr t-if="not line.text_block_id.not_print_custom_view">
+            <tr
+                t-if="
+                line.text_block_id
+                and not line.text_block_id.not_print_custom_view
+                and (
+                    sale_order.state in ('draft','sent')
+                    or line.text_block_id.show_in_order
+                )
+            "
+            >
                 <td colspan="99">
                     <span style="" t-field="line.text_block_id.text" />
                 </td>
