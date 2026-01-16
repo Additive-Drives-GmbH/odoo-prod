@@ -20,7 +20,7 @@
                 <t t-set="vat_label" t-value="'VAT-ID'" />
             </t>
         </xpath>
-        <!-- Remove  table-borderless -->
+        <!-- Show Text before table -->
         <xpath expr="//table[hasclass('o_main_table')]" position="before">
             <t t-if="doc.state in ('draft','sent')">
                 <p>
@@ -33,18 +33,66 @@
                 </p>
             </t>
         </xpath>
-
+        <!-- Remove  table-borderless -->
         <xpath expr="//table[hasclass('o_main_table')]" position="attributes">
             <attribute name="class">o_has_total_table table o_main_table</attribute>
             <attribute name="style">page-break-before: always;</attribute>
         </xpath>
+        <!-- hide tax column -->
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
+            <attribute name="t-attf-class">{{'d-none'}}</attribute>
+        </xpath>
+        <!-- add new column item-->
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th name="th_item" class="text-start">Item</th>
+        </xpath>
+        <xpath expr="//td[@name='td_name']" position="before">
+            <td name="td_item">
+                <span t-field="line.product_id.name">Bacon Burger</span>
+            </td>
+        </xpath>
+        <!-- rename quantity -->
+        <xpath expr="//th[@name='th_quantity']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th name="th_quantity" class="text-end text-nowrap">Qant.</th>
+        </xpath>
+        <!-- rename amount -->
+        <xpath expr="//th[@name='th_subtotal']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_subtotal']" position="after">
+            <th name="th_subtotal" class="text-end">Line Price</th>
+        </xpath>
+        <!-- center section line -->
+        <xpath expr="//td[@name='td_section_line']" position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <!-- hide total table -->
         <xpath expr="//div[@id='total']//table" position="attributes">
-            <attribute name="class">o_has_total_table table o_main_table</attribute>
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <!--add new total row-->
+        <xpath expr="//tbody" position="inside">
+            <t t-set="tax_totals" t-value="doc.tax_totals" />
+            <t t-set="currency" t-value="doc.currency_id" />
+            <tr class="is-subtotal text-end">
+                <td name="td_total" colspan="99">
+                    <strong class="mr16">Total</strong>
+                    <strong
+                        t-out="tax_totals['total_amount_currency']"
+                        t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"
+                    >31.05</strong>
+                </td>
+            </tr>
         </xpath>
 
         <!-- Move Totals table -->
         <xpath expr="//table[hasclass('o_main_table')][1]" position="after">
-            <xpath expr="//div[@id='total']//table" position="move" />
             <p>All prices are net prices</p>
         </xpath>
         <xpath expr="//span[@t-field='doc.note']" position="before">
