@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_text_block_user,text.block,model_text_block,base.group_user,1,0,0,0
+access_text_block_admin,text.block,model_text_block,group_edit_textblock,1,1,1,1
+ir_model_group_textblock_user,ir.model.textblock.user,base.model_ir_model,base.group_user,1,0,0,0
+ir_model_group_textblock_admin,ir.model.textblock.admin,base.model_ir_model,group_edit_textblock,1,1,1,1

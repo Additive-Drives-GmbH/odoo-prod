@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_deliveryslip_document_textblock_option"
+        inherit_id="ife_textblock_stock.report_delivery_document"
+    >
+        <!-- Auto Render Pre-Lines Text-blocks -->
+
+        <xpath
+            expr="//t[contains(@t-foreach, 'above_text_block_ids')]"
+            position="after"
+        >
+            <t
+                t-set="pre_lines_textblock"
+                t-value="request.env['text.block'].search([('direct_render', '=', True),('textblock_position', '=', 'pre'),('model_ids.model', '=', 'stock.picking'),('is_template', '=', True)])"
+            />
+            <t t-foreach="pre_lines_textblock.sorted(lambda x: x.sequence)" t-as="t">
+                <t t-if="t.post_page_break and t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only pre-->
+                <t t-if="t.pre_page_break and not t.post_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only Post-->
+                <t t-if="t.post_page_break and not t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+                <!-- no Post no pre-->
+                <t t-if="not t.post_page_break and not t.pre_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+            </t>
+        </xpath>
+
+        <!-- Post-Lines Text-blocks -->
+        <xpath
+            expr="//t[contains(@t-foreach, 'bottom_text_block_ids')]"
+            position="after"
+        >
+            <t
+                t-set="post_lines_textblock"
+                t-value="request.env['text.block'].search([('direct_render', '=', True),('textblock_position', '=', 'post'),('model_ids.model', '=', 'stock.picking'),('is_template', '=', True)])"
+            />
+            <t t-foreach="post_lines_textblock.sorted(lambda x: x.sequence)" t-as="t">
+                <t t-if="t.post_page_break and t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only pre-->
+                <t t-if="t.pre_page_break and not t.post_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only Post-->
+                <t t-if="t.post_page_break and not t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+                <!-- no Post no pre-->
+                <t t-if="not t.post_page_break and not t.pre_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

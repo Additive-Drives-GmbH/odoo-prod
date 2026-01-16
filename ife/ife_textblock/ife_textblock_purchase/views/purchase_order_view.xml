@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="purchase_order_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <!-- Pre-Lines Text-blocks -->
+            <xpath expr="//field[@name='order_line']" position="before">
+                <separator string="Pre-Lines Textblocks" />
+                <field
+                    name="above_text_block_ids"
+                    context="{'default_res_model': 'purchase.order'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                    </list>
+                </field>
+            </xpath>
+
+            <!-- Post-Lines Text-blocks -->
+
+            <xpath expr="//field[@name='order_line']" position="after">
+                <separator string="Post-Lines Textblocks" />
+                <field
+                    name="bottom_text_block_ids"
+                    context="{'default_res_model': 'purchase.order'}"
+                >
+                    <list>
+                        <field name="sequence" widget="handle" />
+                        <field name="textblock" />
+                        <field name="post_page_break" optional="hidden" />
+                        <field name="pre_page_break" optional="hidden" />
+                        <field name="not_print" optional="hidden" />
+                    </list>
+                </field>
+            </xpath>
+
+            <!-- Tree -->
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='date_planned']"
+                position="after"
+            >
+                <field
+                    name="text_block_id"
+                    domain="[('res_id','=',id),('inline_check','=',True)]"
+                    context="{'default_res_model': 'purchase.order.line','inline_check':True}"
+                    optional="show"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
