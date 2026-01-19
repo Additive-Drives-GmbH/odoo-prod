@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-31 14:38+0000\n"
-"PO-Revision-Date: 2025-12-31 14:38+0000\n"
+"POT-Creation-Date: 2026-01-16 13:23+0000\n"
+"PO-Revision-Date: 2026-01-16 13:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "31.05"
+msgstr ""
 
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
@@ -27,8 +32,18 @@ msgstr ""
 
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Zwischensumme</strong>"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
 msgid "<strong>The order includes the following work packages:</strong>"
 msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Total</strong>"
+msgstr "<strong>Gesamt</strong>"
 
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
@@ -40,6 +55,11 @@ msgstr ""
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
 msgid "All prices are net prices"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Bacon Burger"
 msgstr ""
 
 #. module: additive_quotation_report
@@ -60,6 +80,21 @@ msgstr ""
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
 msgid "Country of Origin"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model:ir.model.fields,help:additive_quotation_report.field_sale_order_line__report_description
+msgid "Description to be included in the sale report"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Item"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Line Price"
 msgstr ""
 
 #. module: additive_quotation_report
@@ -90,14 +125,29 @@ msgid "Phone:"
 msgstr ""
 
 #. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Qant."
+msgstr ""
+
+#. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
 msgid "Reference-No."
 msgstr ""
 
 #. module: additive_quotation_report
+#: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order_line__report_description
+msgid "Report Description"
+msgstr "Produktbezeichnung auf Ausdruck"
+
+#. module: additive_quotation_report
 #: model:ir.model,name:additive_quotation_report.model_sale_order
 msgid "Sales Order"
 msgstr "Verkaufsauftrag"
+
+#. module: additive_quotation_report
+#: model:ir.model,name:additive_quotation_report.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Verkaufsauftragszeile"
 
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit

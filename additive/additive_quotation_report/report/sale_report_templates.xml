@@ -36,7 +36,6 @@
         <!-- Remove  table-borderless -->
         <xpath expr="//table[hasclass('o_main_table')]" position="attributes">
             <attribute name="class">o_has_total_table table o_main_table</attribute>
-            <attribute name="style">page-break-before: always;</attribute>
         </xpath>
         <!-- hide tax column -->
         <xpath expr="//th[@name='th_taxes']" position="attributes">
@@ -76,16 +75,41 @@
         <xpath expr="//div[@id='total']//table" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
+        <!-- adjust subtotal border-->
+        <xpath expr="//td[@name='td_section_subtotal']/strong" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_section_subtotal']" position="attributes">
+            <attribute name="style">padding-left: 10px</attribute>
+            <attribute name="colspan">1</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_section_subtotal']" position="before">
+            <td
+                name="td_section_subtotal_border"
+                style="border-right: 1px solid #000;"
+                colspan="5"
+            >
+                <strong>Subtotal</strong>
+            </td>
+        </xpath>
         <!--add new total row-->
         <xpath expr="//tbody" position="inside">
             <t t-set="tax_totals" t-value="doc.tax_totals" />
             <t t-set="currency" t-value="doc.currency_id" />
-            <tr class="is-subtotal text-end">
-                <td name="td_total" colspan="99">
-                    <strong class="mr16">Total</strong>
+            <tr
+                class="is-subtotal text-end"
+                style="background-color: #a0a0a0 !important;"
+            >
+                <td
+                    colspan="5"
+                    style="border-right: 1px solid #000; padding-right: 0px;"
+                >
+                    <strong>Total</strong>
+                </td>
+                <td colspan="1" style="padding-left: 10px;">
                     <strong
                         t-out="tax_totals['total_amount_currency']"
-                        t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"
+                        t-options='{"widget": "monetary", "display_currency": currency}'
                     >31.05</strong>
                 </td>
             </tr>
@@ -119,6 +143,17 @@
                     </ul>
                 </t>
             </p>
+        </xpath>
+        <xpath
+            expr="//td[@name='td_name']/span[@t-field='line.name']"
+            position="attributes"
+        >
+            <attribute name="t-if">not line.report_description</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_name']/span[@t-field='line.name']" position="after">
+            <t t-if="line.report_description">
+                <span t-field="line.report_description" />
+            </t>
         </xpath>
     </template>
 
