@@ -193,3 +193,16 @@ msgstr "<strong>Gesamtbetrag</strong>"
 #: model_terms:ir.ui.view,arch_db:additive_reports.document_tax_totals_template
 msgid "<span>Total Net</span>"
 msgstr "<span>Gesamt Netto</span>"
+
+#. module: account
+#: model_terms:ir.ui.view,arch_db:account.bill_preview
+#: model_terms:ir.ui.view,arch_db:account.report_invoice_document
+msgid "<span>Description</span>"
+msgstr "<span>Bezeichnung</span>"
+
+#. module: account
+#: model_terms:ir.ui.view,arch_db:account.bill_preview
+#: model_terms:ir.ui.view,arch_db:account.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:account.report_payment_receipt_document
+msgid "<span>Amount</span>"
+msgstr "<span>Gesamtpreis</span>"

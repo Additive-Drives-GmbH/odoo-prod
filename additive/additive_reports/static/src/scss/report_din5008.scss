@@ -13,3 +13,15 @@
 table.o_main_table tr.o_line_section td {
     background-color: #a0a0a0 !important;
 }
+
+.din_page.invoice_note table.din_company_info > tbody > tr > td {
+    vertical-align: top !important;
+}
+
+.din_page.invoice_note .information_block td {
+    padding-right: 2mm;
+}
+.din_page.invoice_note h2 {
+    color: #000000 !important;
+    font-size: 12pt;
+}

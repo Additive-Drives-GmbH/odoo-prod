@@ -38,7 +38,9 @@
             position="after"
         >
             <xpath expr="//div[@id='total']//table" position="move" />
-            <p>All prices are net prices</p>
+            <t t-if="o.partner_id.country_id and o.partner_id.country_id.code != 'DE'">
+                <p>All prices are net prices</p>
+            </t>
         </xpath>
         <!-- Move unit of measure -->
         <xpath expr="//th[@name='th_quantity']" position="after">
@@ -46,12 +48,15 @@
                 <span>Unit of Measure</span>
             </th>
         </xpath>
+        <xpath
+            expr="//td[@name='td_quantity']/span[@t-field='line.product_uom_id']"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
         <xpath expr="//td[@name='td_quantity']" position="after">
             <td class="text-end">
-                <xpath
-                    expr="//td[@name='td_quantity']/span[@t-field='line.product_uom_id']"
-                    position="move"
-                />
+                <span t-field="line.product_uom_id" />
             </td>
         </xpath>
         <!-- Include currency -->
@@ -193,6 +198,9 @@
                     </p>
                 </div>
             </div>
+        </xpath>
+        <xpath expr="//t[@t-set='din5008_address_block']//tr" position="attributes">
+            <attribute name="class">d-none</attribute>
         </xpath>
     </template>
 
