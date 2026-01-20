@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="report_common_purchase_din5008_template_document_information_inherit"
+        inherit_id="l10n_din5008_purchase.report_common_purchase_din5008_template_document_information"
+    >
+        <xpath
+            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.name']"
+            position="before"
+        >
+            <tr name='purchase_title'>
+                <td>
+                    <strong>Purchase Order</strong>
+                </td>
+            </tr>
+            <tr t-if="o.partner_id and o.partner_id.our_nr_by_vendor">
+                <td>Customer Nr.:</td>
+                <td>
+                    <t t-out="o.partner_id.our_nr_by_vendor" />
+                </td>
+            </tr>
+            <tr t-if="o.project_id">
+                <td>Project:</td>
+                <td>
+                    <t t-out="o.project_id.name" />
+                </td>
+            </tr>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.partner_ref']"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_approve']"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_order']"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.incoterm_id']"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.user_id']"
+            position="after"
+        >
+            <tr t-if="o.user_id and o.user_id.phone">
+                <td>Phone:</td>
+                <td>
+                    <t t-out="o.user_id.phone" />
+                </td>
+            </tr>
+            <tr t-if="o.user_id and o.user_id.email">
+                <td>Email:</td>
+                <td>
+                    <t t-out="o.user_id.email" />
+                </td>
+            </tr>
+        </xpath>
+    </template>
+    <template
+        id="report_common_purchase_din5008_template_address_block_inherit"
+        inherit_id="l10n_din5008_purchase.report_common_purchase_din5008_template_address_block"
+    >
+        <xpath
+            expr="//td[hasclass('shipping_address')][1]/address"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('shipping_address')][1]/address" position="after">
+            <strong>
+                <span t-field="o.dest_address_id.name" />,
+                <span t-field="o.dest_address_id.street" />,
+                <span t-field="o.dest_address_id.city" /> <span
+                t-field="o.dest_address_id.zip"
+            />
+            </strong>
+        </xpath>
+        <xpath
+            expr="//td[hasclass('shipping_address')][2]/address"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('shipping_address')][2]/address" position="after">
+            <strong>
+                <span t-field="o.picking_type_id.warehouse_id.partner_id.name" />,
+                <span t-field="o.picking_type_id.warehouse_id.partner_id.street" />,
+                <span t-field="o.picking_type_id.warehouse_id.partner_id.city" /> <span
+                t-field="o.picking_type_id.warehouse_id.partner_id.zip"
+            />
+            </strong>
+        </xpath>
+        <xpath expr="//td[hasclass('shipping_address')][1]" position="attributes">
+            <attribute
+                name="style"
+            >width:90mm !important; min-width:90mm !important;</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('shipping_address')][2]" position="attributes">
+            <attribute
+                name="style"
+            >width:90mm !important; min-width:90mm !important;</attribute>
+        </xpath>
+        <xpath expr="//tr[1]" position="before">
+            <tr
+                t-if="o and o._name=='purchase.order' and o.date_order"
+                name="order_deadline_row"
+            >
+                <td class="shipping_address">
+                    <span class="fw-bold">Order Deadline:</span>
+                    <span>
+                        <t t-out="o.date_order" t-options="{'widget': 'date'}" />
+                    </span>
+                </td>
+            </tr>
+        </xpath>
+        <xpath expr="//tr[2]" position="after">
+            <tr t-if="o and o._name=='purchase.order'" name="invoice_address_row">
+                <td class="shipping_address">
+                    <span class="fw-bold">Invoice Addresse:</span>
+                    <span>invoice@additive-drives.de</span>
+                </td>
+            </tr>
+            <tr t-if="o and o._name=='purchase.order'" name="payment_terms_row">
+                <td class="shipping_address" t-if="o.payment_term_id">
+                    <span class="fw-bold">Payment Terms:</span>
+                    <span>
+                        <t t-out="o.payment_term_id.name" />
+                    </span>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+
+    <template
+        id="report_common_purchase_din5008_template_document_title_inherit"
+        inherit_id="l10n_din5008_purchase.report_common_purchase_din5008_template_document_title"
+    >
+        <xpath expr="//span" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+    </template>
+</odoo>
