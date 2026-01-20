@@ -1,0 +1,99 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* additive_purchase_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-19 21:20+0000\n"
+"PO-Revision-Date: 2026-01-19 21:20+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
+msgid "31.05"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+msgid ""
+"<span class=\"fw-bold\">Invoice Addresse:</span>\n"
+"                    <span>invoice@additive-drives.de</span>"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+msgid "<span class=\"fw-bold\">Order Deadline:</span>"
+msgstr "<span class=\"fw-bold\">Liefertermin:</span>"
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+msgid "<span class=\"fw-bold\">Payment Terms:</span>"
+msgstr "<span class=\"fw-bold\">Zahlungsbedingung:</span>"
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
+msgid "<strong class=\"mr16\">Total</strong>"
+msgstr "<strong class=\"mr16\">Total</strong>"
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
+msgid "<strong>Purchase Order</strong>"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model:ir.model,name:additive_purchase_report.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
+msgid "Customer Nr.:"
+msgstr "Kundennr.:"
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
+msgid "Email:"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
+msgid "Item"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
+msgid "Mit freundlichen Grüßen<br/>"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model:ir.model.fields,field_description:additive_purchase_report.field_res_partner__our_nr_by_vendor
+#: model:ir.model.fields,field_description:additive_purchase_report.field_res_users__our_nr_by_vendor
+msgid "Our Number by Vendor"
+msgstr "Kundennr"
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
+msgid "Phone:"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
+msgid "Project:"
+msgstr "Projekt:"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>Stückpreis</strong>"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+msgid "<strong>Amount</strong>"
+msgstr "<strong>Gesamtpreis</strong>"
