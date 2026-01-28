@@ -11,6 +11,9 @@
             >
                 <t t-set="foreign_partner" t-value="True" />
             </t>
+            <t t-if="o.partner_id.lang == 'en_US'">
+                <t t-set="english_partner" t-value="True" />
+            </t>
             <t
                 t-if="(o.partner_id.lang == 'en_US' and o.currency_id.id != euro_currency.id) or o.partner_id.lang == 'de_DE'"
             >

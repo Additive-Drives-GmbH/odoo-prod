@@ -32,8 +32,8 @@ msgstr "Bankkonten"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "Bank Details"
-msgstr "Bankverbindung"
+msgid "<strong>Bank Details</strong>"
+msgstr "<strong>Bankverbindung</strong>"
 
 #. module: additive_reports
 #: model:ir.model.fields,help:additive_reports.field_account_setup_bank_manual_config__foreign_account
@@ -106,9 +106,13 @@ msgstr ""
 #. module: additive_reports
 #: model:ir.model.fields,field_description:additive_reports.field_base_document_layout__general_manager_ids
 #: model:ir.model.fields,field_description:additive_reports.field_res_company__general_manager_ids
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
 msgid "General Manager"
 msgstr "Geschäftsführer"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>General Manager</strong>"
+msgstr "<strong>Geschäftsführer</strong>"
 
 #. module: additive_reports
 #: model:ir.model.fields,help:additive_reports.field_base_document_layout__general_manager_ids
@@ -164,13 +168,13 @@ msgstr "Referenz-Nr."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "Registred Seat"
-msgstr "Firmensitz/ Geschäftsaddresse"
+msgid "<strong>Registred Seat</strong>"
+msgstr "<strong>Firmensitz/ Geschäftsaddresse</strong>"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "Registry Court"
-msgstr "Amtsgericht Dresden"
+msgid "<strong>Registry Court</strong>"
+msgstr "<strong>Amtsgericht Dresden</strong>"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit

@@ -23,5 +23,27 @@ table.o_main_table tr.o_line_section td {
 }
 .din_page.invoice_note h2 {
     color: #000000 !important;
-    font-size: 12pt;
+    font-size: 9pt;
+}
+.din_page.invoice_note .address .colored_address {
+    font-size: 7pt;
+}
+
+.din_page.invoice_note tr .information_block {
+    width: auto !important;
+}
+.din_page.invoice_note tr .information_block table {
+    width: auto !important;
+}
+.din_page.invoice_note tr .information_block table td {
+    white-space: nowrap;
+    vertical-align: top;
+    padding-right: 3mm;
+}
+
+.din_page.invoice_note .page {
+    width: 100%;
+}
+.din_page.invoice_note .page table.o_main_table {
+    width: 100% !important;
 }
