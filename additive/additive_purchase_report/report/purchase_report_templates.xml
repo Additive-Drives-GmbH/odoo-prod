@@ -11,13 +11,16 @@
         </xpath>
         <!--Add Border-->
         <xpath expr="//table[hasclass('o_main_table')]" position="attributes">
-            <attribute name="class">o_has_total_table table o_main_table</attribute>
+            <attribute name="class">table o_main_table</attribute>
         </xpath>
         <!--Add item column-->
         <xpath expr="//th[@name='th_description']" position="before">
             <th name="th_item" class="text-start">Item</th>
         </xpath>
         <xpath expr="//td[@id='product']" position="before">
+            <td>
+                <span t-field="line.position_formatted" />
+            </td>
             <td id="item" class="text-start">
                 <span t-field="line.product_id.display_name" />
             </td>
@@ -64,11 +67,17 @@
             <t t-if="o.partner_id.lang and o.partner_id.lang == 'de_DE'">
                 <p>Mit freundlichen Grüßen<br />
                 <span t-field="o.user_id.name" /><br />
-                <span
-                    t-if="o.user_id and o.user_id.employee_id and o.user_id.employee_id.job_id"
-                    t-field="o.user_id.employee_id.job_id.name"
-                /></p>
+                <strong>
+                    <span
+                        t-if="o.user_id and o.user_id.employee_id and o.user_id.employee_id.job_id"
+                        t-field="o.user_id.employee_id.job_id.name"
+                    />
+                </strong></p>
             </t>
+        </xpath>
+        <!--Add Position column-->
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th class="text-start">Pos</th>
         </xpath>
     </template>
 </odoo>

@@ -22,10 +22,8 @@ msgstr ""
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
-msgid ""
-"<span class=\"fw-bold\">Invoice Addresse:</span>\n"
-"                    <span>invoice@additive-drives.de</span>"
-msgstr ""
+msgid "<span class=\"fw-bold\">Invoice Addresse:</span>"
+msgstr "<span class=\"fw-bold\">Addresse für Rechnungen:</span>"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
@@ -38,6 +36,11 @@ msgid "<span class=\"fw-bold\">Payment Terms:</span>"
 msgstr "<span class=\"fw-bold\">Zahlungsbedingung:</span>"
 
 #. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+msgid "<span class=\"fw-bold\">Shipping Address:</span>"
+msgstr "<span class=\"fw-bold\">Lieferadresse:</span>"
+
+#. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "<strong class=\"mr16\">Total</strong>"
 msgstr "<strong class=\"mr16\">Total</strong>"
@@ -45,7 +48,7 @@ msgstr "<strong class=\"mr16\">Total</strong>"
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
 msgid "<strong>Purchase Order</strong>"
-msgstr ""
+msgstr "<strong>Bestellung</strong>"
 
 #. module: additive_purchase_report
 #: model:ir.model,name:additive_purchase_report.model_res_partner
@@ -81,7 +84,7 @@ msgstr "Kundennr"
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
 msgid "Phone:"
-msgstr ""
+msgstr "Telefone:"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
@@ -97,3 +100,34 @@ msgstr "<strong>Stückpreis</strong>"
 #: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
 msgid "<strong>Amount</strong>"
 msgstr "<strong>Gesamtpreis</strong>"
+
+#. module: l10n_din5008_purchase
+#: model_terms:ir.ui.view,arch_db:l10n_din5008_purchase.report_common_purchase_din5008_template
+#: model_terms:ir.ui.view,arch_db:l10n_din5008_purchase.report_common_purchase_din5008_template_document_information
+msgid "Purchase Representative:"
+msgstr "Bestellerin:"
+
+#. module: additive_purchase_report
+#: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order_line__position
+msgid "Position"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order_line__position_formatted
+msgid "Position Formatted"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.view_res_config_settings_form
+msgid "Purchase Order Line Positions"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model:ir.actions.server,name:additive_purchase_report.action_compute_purchase_position
+msgid "Recompute positions"
+msgstr ""
+
+#. module: additive_purchase_report
+#: model:ir.model,name:additive_purchase_report.model_ir_actions_report
+msgid "Report Action"
+msgstr "Berichtsaktion"
