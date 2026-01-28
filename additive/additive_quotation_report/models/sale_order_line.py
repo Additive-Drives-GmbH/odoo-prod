@@ -32,12 +32,6 @@ class SaleOrderLine(models.Model):
                 )
         return lines
 
-    def _prepare_invoice_line(self, **optional_values):
-        self.ensure_one()
-        invoice_line_values = super()._prepare_invoice_line(**optional_values)
-        invoice_line_values["report_description"] = self.report_description
-        return invoice_line_values
-
     @api.model
     def _format_position(self, position):
         """
