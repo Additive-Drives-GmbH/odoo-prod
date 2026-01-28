@@ -99,6 +99,11 @@
             <li>
                 <strong>Registry Court</strong>
             </li>
+            <t t-if="foreign_partner or english_partner">
+                <li>
+                    Amtsgericht Dresden
+                </li>
+            </t>
         </xpath>
         <xpath expr="//div[hasclass('company_details')]//td[4]" position="attributes">
             <attribute name="t-if" add="not foreign_partner" separator="and" />
@@ -124,21 +129,24 @@
             <t t-out="vat_label" />
         </xpath>
         <xpath expr="//div[hasclass('company_details')]//td[4]" position="after">
-            <td t-if="company.partner_id.bank_ids and foreign_partner">
+            <td
+                t-if="company.partner_id.bank_ids and foreign_partner"
+                name="foreign_banks"
+            >
                 <ul class="list-inline">
                     <li>
                         <strong>Bank Details</strong>
                     </li>
                     <t
                         t-foreach="company.partner_id.bank_ids.filtered(lambda x: x.foreign_account)[:2]"
-                        t-as="bank"
+                        t-as="foreign_bank"
                     >
                         <li>
-                            <span t-field="bank.bank_id.name" />
+                            <span t-field="foreign_bank.bank_id.name" />
                         </li>
-                        <li>BIC: <span t-field="bank.bank_id.bic" /></li>
+                        <li>BIC: <span t-field="foreign_bank.bank_id.bic" /></li>
                         <li class="text-nowrap">IBAN: <span
-                            t-field="bank.acc_number"
+                            t-field="foreign_bank.acc_number"
                         /></li>
                     </t>
                 </ul>
@@ -152,6 +160,12 @@
                 expr="//div[hasclass('company_details')]//td[last()]//li[2]"
                 position="move"
             />
+        </xpath>
+        <xpath
+            expr="//ul/t[@t-as='bank']/li[hasclass('text-nowrap')]"
+            position="before"
+        >
+            <xpath expr="//ul/t[@t-as='bank']/li[contains(., 'BIC')]" position="move" />
         </xpath>
     </template>
 
