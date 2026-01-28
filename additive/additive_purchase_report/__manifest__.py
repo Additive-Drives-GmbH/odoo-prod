@@ -16,6 +16,8 @@
         "views/res_partner_views.xml",
         "report/l10n_din5008_purchase_templates.xml",
         "report/purchase_report_templates.xml",
+        "views/purchase_order_views.xml",
+        "views/res_config_settings_views.xml",
     ],
     "auto_install": False,
     "installable": True,

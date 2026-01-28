@@ -9,7 +9,7 @@
             position="before"
         >
             <tr name='purchase_title'>
-                <td>
+                <td class="text-nowrap">
                     <strong>Purchase Order</strong>
                 </td>
             </tr>
@@ -25,6 +25,10 @@
                     <t t-out="o.project_id.name" />
                 </td>
             </tr>
+            <xpath
+                expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_order']"
+                position="move"
+            />
         </xpath>
         <xpath
             expr="//div[hasclass('information_block')]/table/tr[@t-if='o.partner_ref']"
@@ -34,12 +38,6 @@
         </xpath>
         <xpath
             expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_approve']"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath
-            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_order']"
             position="attributes"
         >
             <attribute name="class">d-none</attribute>
@@ -62,7 +60,7 @@
             </tr>
             <tr t-if="o.user_id and o.user_id.email">
                 <td>Email:</td>
-                <td>
+                <td class="text-nowrap">
                     <t t-out="o.user_id.email" />
                 </td>
             </tr>
@@ -72,45 +70,53 @@
         id="report_common_purchase_din5008_template_address_block_inherit"
         inherit_id="l10n_din5008_purchase.report_common_purchase_din5008_template_address_block"
     >
-        <xpath
-            expr="//td[hasclass('shipping_address')][1]/address"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//td[hasclass('shipping_address')][1]/address" position="after">
-            <strong>
-                <span t-field="o.dest_address_id.name" />,
-                <span t-field="o.dest_address_id.street" />,
-                <span t-field="o.dest_address_id.city" /> <span
-                t-field="o.dest_address_id.zip"
-            />
-            </strong>
-        </xpath>
-        <xpath
-            expr="//td[hasclass('shipping_address')][2]/address"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//td[hasclass('shipping_address')][2]/address" position="after">
-            <strong>
-                <span t-field="o.picking_type_id.warehouse_id.partner_id.name" />,
-                <span t-field="o.picking_type_id.warehouse_id.partner_id.street" />,
-                <span t-field="o.picking_type_id.warehouse_id.partner_id.city" /> <span
-                t-field="o.picking_type_id.warehouse_id.partner_id.zip"
-            />
-            </strong>
-        </xpath>
         <xpath expr="//td[hasclass('shipping_address')][1]" position="attributes">
-            <attribute
-                name="style"
-            >width:90mm !important; min-width:90mm !important;</attribute>
+            <attribute name="class">shipping_address d-none</attribute>
         </xpath>
         <xpath expr="//td[hasclass('shipping_address')][2]" position="attributes">
-            <attribute
-                name="style"
-            >width:90mm !important; min-width:90mm !important;</attribute>
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//td[hasclass('shipping_address')][1]" position="after">
+            <t t-if='o.dest_address_id'>
+                <td class="shipping_address">
+                    <span class="fw-bold">Shipping Address:</span>
+                </td>
+                <td>
+                    <div style="margin-left:-15mm">
+                        <strong>
+                            <span t-field="o.dest_address_id.name" />,
+                            <span t-field="o.dest_address_id.street" />,
+                            <span t-field="o.dest_address_id.city" /> <span
+                            t-field="o.dest_address_id.zip"
+                        />
+                        </strong>
+                    </div>
+                </td>
+            </t>
+            <t
+                t-elif="'picking_type_id' in o._fields and o.picking_type_id.warehouse_id"
+            >
+                <td class="shipping_address">
+                    <span class="fw-bold">Shipping Address:</span>
+                </td>
+                <td>
+                    <div style="margin-left:-15mm">
+                        <strong>
+                            <span
+                            t-field="o.picking_type_id.warehouse_id.partner_id.name"
+                        />,
+                            <span
+                            t-field="o.picking_type_id.warehouse_id.partner_id.street"
+                        />,
+                            <span
+                            t-field="o.picking_type_id.warehouse_id.partner_id.city"
+                        /> <span
+                            t-field="o.picking_type_id.warehouse_id.partner_id.zip"
+                        />
+                        </strong>
+                    </div>
+                </td>
+            </t>
         </xpath>
         <xpath expr="//tr[1]" position="before">
             <tr
@@ -119,9 +125,13 @@
             >
                 <td class="shipping_address">
                     <span class="fw-bold">Order Deadline:</span>
-                    <span>
-                        <t t-out="o.date_order" t-options="{'widget': 'date'}" />
-                    </span>
+                </td>
+                <td>
+                    <div style="margin-left:-15mm">
+                        <span>
+                            <t t-out="o.date_order" t-options="{'widget': 'date'}" />
+                        </span>
+                    </div>
                 </td>
             </tr>
         </xpath>
@@ -129,15 +139,23 @@
             <tr t-if="o and o._name=='purchase.order'" name="invoice_address_row">
                 <td class="shipping_address">
                     <span class="fw-bold">Invoice Addresse:</span>
-                    <span>invoice@additive-drives.de</span>
+                </td>
+                <td>
+                    <div style="margin-left:-15mm">
+                        <span>invoice@additive-drives.de</span>
+                    </div>
                 </td>
             </tr>
             <tr t-if="o and o._name=='purchase.order'" name="payment_terms_row">
                 <td class="shipping_address" t-if="o.payment_term_id">
                     <span class="fw-bold">Payment Terms:</span>
-                    <span>
-                        <t t-out="o.payment_term_id.name" />
-                    </span>
+                </td>
+                <td t-if="o.payment_term_id">
+                    <div style="margin-left:-15mm">
+                        <span>
+                            <t t-out="o.payment_term_id.name" />
+                        </span>
+                    </div>
                 </td>
             </tr>
         </xpath>
