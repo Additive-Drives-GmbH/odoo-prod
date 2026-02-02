@@ -18,10 +18,6 @@ class TextBlock(models.Model):
         help="If checked the textblock will be shown in invoice.",
     )
 
-    show_in_order = fields.Boolean(
-        help="If unchecked, the text block is only shown on quotations.",
-    )
-
     sale_line_id = fields.Many2one("sale.order.line", string="SO Line")
 
     @api.onchange("show_in_invoice")
@@ -41,16 +37,6 @@ class TextBlock(models.Model):
 
     def _prepare_textblock_values(self, **kwargs):
         res = super()._prepare_textblock_values(**kwargs)
-
         if "sale_line_id" in kwargs:
             res["sale_line_id"] = kwargs["sale_line_id"]
-
-        res.update(
-            {
-                "not_print_custom_view": self.not_print_custom_view,
-                "show_in_order": self.show_in_order,
-                "show_in_invoice": self.show_in_invoice,
-            }
-        )
-
         return res
