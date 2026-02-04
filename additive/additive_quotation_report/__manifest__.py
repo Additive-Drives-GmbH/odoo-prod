@@ -11,6 +11,11 @@
         "report/sale_report_templates.xml",
         "views/sale_order_views.xml",
     ],
+    "assets": {
+        "web.report_assets_common": [
+            "additive_quotation_report/static/src/**/*",
+        ],
+    },
     "auto_install": False,
     "installable": True,
 }
