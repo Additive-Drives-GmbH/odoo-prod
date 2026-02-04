@@ -78,14 +78,8 @@
                                     />
                                 </td>
                             </tr>
-                            <tr t-if="o.partner_id.debitor_number">
-                                <td class="info-label">Customer No.:</td>
-                                <td class="info-value">
-                                    <span t-esc="o.partner_id.debitor_number" />
-                                </td>
-                            </tr>
                             <tr t-if="o.sale_id">
-                                <td class="info-label">Reference-No.:</td>
+                                <td class="info-label">Reference No.:</td>
                                 <td class="info-value">
                                     <span t-esc="o.sale_id.name" />
                                 </td>
@@ -100,10 +94,16 @@
                                     />
                                 </td>
                             </tr>
-                            <tr t-if="o.partner_id.vat">
-                                <td class="info-label">VAT-Customer:</td>
+                            <tr t-if="o.sale_id.project_id">
+                                <td class="info-label">Project:</td>
                                 <td class="info-value">
-                                    <span t-esc="o.partner_id.vat" />
+                                    <span t-esc="o.sale_id.project_id.name" />
+                                </td>
+                            </tr>
+                            <tr t-if="o.partner_id.debitor_number">
+                                <td class="info-label">Customer No.:</td>
+                                <td class="info-value">
+                                    <span t-esc="o.partner_id.debitor_number" />
                                 </td>
                             </tr>
                             <tr
@@ -116,6 +116,12 @@
                                     />
                                 </td>
                             </tr>
+                            <tr t-if="o.partner_id.vat">
+                                <td class="info-label">VAT:</td>
+                                <td class="info-value">
+                                    <span t-esc="o.partner_id.vat" />
+                                </td>
+                            </tr>
                             <tr t-if="countries_origin">
                                 <td class="info-label">Country of Origin:</td>
                                 <td class="info-value">
@@ -123,12 +129,6 @@
                                         <span t-esc="country.name" />
                                         <t t-if="not country_last">, </t>
                                     </t>
-                                </td>
-                            </tr>
-                            <tr t-if="o.sale_id.project_id">
-                                <td class="info-label">Project:</td>
-                                <td class="info-value">
-                                    <span t-esc="o.sale_id.project_id.name" />
                                 </td>
                             </tr>
                         </table>
@@ -152,8 +152,10 @@
                 t-if="o and o._name == 'stock.picking'"
                 style="margin-top: 85px; margin-bottom: 20px;"
             >
-                <t t-if="is_delivery_report">Delivery Note</t>
-                <span t-field="o.name" />
+                <strong>
+                    <t t-if="is_delivery_report">Delivery Note</t>
+                    <span t-field="o.name" />
+                </strong>
             </h2>
         </xpath>
     </template>

@@ -204,13 +204,15 @@
         </xpath>
 
         <xpath
-            expr="//div[@class='page']/div[@class='oe_structure'][last()]"
+            expr="//div[hasclass('page')]/div[hasclass('oe_structure')][last()]"
             position="before"
         >
             <div class="mt-5">
-                <p style="margin-bottom: 30px;">Best regards</p>
+                <p style="margin-bottom: 0px;">Best regards</p>
                 <p t-if="o.sale_id.user_id" style="margin-bottom: 60px;">
-                    <span t-esc="o.sale_id.user_id.name" />
+                    <strong>
+                        <span t-esc="o.sale_id.user_id.name" />
+                    </strong>
                 </p>
 
                 <div
