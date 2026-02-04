@@ -23,12 +23,12 @@
         <!-- Show Text before table -->
         <xpath expr="//table[hasclass('o_main_table')]" position="before">
             <t t-if="doc.state in ('draft','sent')">
-                <p>
+                <p style="margin-bottom: -5mm;">
                     <strong>Subject To Change we offer:</strong>
                 </p>
             </t>
             <t t-else="">
-                <p>
+                <p style="margin-bottom: -5mm;">
                     <strong>The order includes the following work packages:</strong>
                 </p>
             </t>
@@ -58,7 +58,7 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//th[@name='th_quantity']" position="after">
-            <th name="th_quantity" class="text-end text-nowrap">Qant.</th>
+            <th name="th_quantity" class="text-end text-nowrap">Qnt.</th>
         </xpath>
         <!-- rename amount -->
         <xpath expr="//th[@name='th_subtotal']" position="attributes">
@@ -75,23 +75,6 @@
         <xpath expr="//div[@id='total']//table" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
-        <!-- adjust subtotal border-->
-        <xpath expr="//td[@name='td_section_subtotal']/strong" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//td[@name='td_section_subtotal']" position="attributes">
-            <attribute name="style">padding-left: 10px</attribute>
-            <attribute name="colspan">1</attribute>
-        </xpath>
-        <xpath expr="//td[@name='td_section_subtotal']" position="before">
-            <td
-                name="td_section_subtotal_border"
-                style="border-right: 1px solid #000;"
-                colspan="5"
-            >
-                <strong>Subtotal</strong>
-            </td>
-        </xpath>
         <!--add new total row-->
         <xpath expr="//tbody" position="inside">
             <t t-set="tax_totals" t-value="doc.tax_totals" />
@@ -100,16 +83,11 @@
                 class="is-subtotal text-end"
                 style="background-color: #a0a0a0 !important;"
             >
-                <td
-                    colspan="5"
-                    style="border-right: 1px solid #000; padding-right: 0px;"
-                >
-                    <strong>Total</strong>
-                </td>
-                <td colspan="1" style="padding-left: 10px;">
+                <td name="td_total" colspan="99">
+                    <strong class="mr16">Total</strong>
                     <strong
                         t-out="tax_totals['total_amount_currency']"
-                        t-options='{"widget": "monetary", "display_currency": currency}'
+                        t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"
                     >31.05</strong>
                 </td>
             </tr>
@@ -117,13 +95,13 @@
 
         <!-- Move Totals table -->
         <xpath expr="//table[hasclass('o_main_table')][1]" position="after">
-            <p>All prices are net prices</p>
+            <p style="margin-top: -5mm;">All prices are net prices</p>
         </xpath>
         <xpath expr="//span[@t-field='doc.note']" position="before">
             <p>
                 <strong>Please Note:</strong>
                 <t t-if="doc.state in ('draft','sent')">
-                    <ul style="color: red;">
+                    <ul>
                         <li>
                                 Manufacturing prices are indicative and can be confirmed after design freeze.
                             </li>
@@ -154,6 +132,20 @@
             <t t-if="line.report_description">
                 <span t-field="line.report_description" />
             </t>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+            <attribute
+                name="t-options"
+            >{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}</attribute>
+        </xpath>
+        <xpath expr="//table/thead/tr/th[@class='text-start'][1]" position="attributes">
+            <attribute name="class">text-start d-none</attribute>
+        </xpath>
+        <xpath expr="//table/thead/tr/th[@class='text-start'][1]" position="after">
+            <th class="text-start">Pos.</th>
+        </xpath>
+        <xpath expr="//span[@t-field='line.product_uom']" position="attributes">
+            <attribute name="class">d-none</attribute>
         </xpath>
     </template>
 
