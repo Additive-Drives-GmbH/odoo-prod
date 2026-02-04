@@ -1,5 +1,7 @@
 .din_page.header img {
     max-height: 27mm !important;
+    float: left !important;
+    margin-left: 5mm;
 }
 .din_page.footer .company_details table {
     table-layout: auto !important;
@@ -26,7 +28,12 @@ table.o_main_table tr.o_line_section td {
     font-size: 9pt;
 }
 .din_page.invoice_note .address .colored_address {
-    font-size: 7pt;
+    font-size: 7pt !important;
+}
+
+.din_page.invoice_note .address,
+.din_page.invoice_note .shipping_address {
+    font-size: 10pt !important;
 }
 
 .din_page.invoice_note tr .information_block {

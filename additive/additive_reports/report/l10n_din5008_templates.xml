@@ -187,5 +187,15 @@
         >
             <attribute name="class">d-none</attribute>
         </xpath>
+        <xpath expr="//div[hasclass('page_number')]" position="attributes">
+            <attribute name="class">text-end page_number d-none</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('page_number')]" position="after">
+            <div class="text-end page_number">
+                <div class="text-muted">
+                    <span class="page" /> of <span class="topage" />
+                </div>
+            </div>
+        </xpath>
     </template>
 </odoo>
