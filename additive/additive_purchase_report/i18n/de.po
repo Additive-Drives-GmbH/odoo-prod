@@ -84,7 +84,7 @@ msgstr "Kundennr"
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
 msgid "Phone:"
-msgstr "Telefone:"
+msgstr "Telefon:"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
@@ -131,3 +131,9 @@ msgstr ""
 #: model:ir.model,name:additive_purchase_report.model_ir_actions_report
 msgid "Report Action"
 msgstr "Berichtsaktion"
+
+#. module: l10n_din5008_purchase
+#: model_terms:ir.ui.view,arch_db:l10n_din5008_purchase.report_common_purchase_din5008_template
+#: model_terms:ir.ui.view,arch_db:l10n_din5008_purchase.report_common_purchase_din5008_template_document_information
+msgid "Order Deadline:"
+msgstr "Bestelldatum:"

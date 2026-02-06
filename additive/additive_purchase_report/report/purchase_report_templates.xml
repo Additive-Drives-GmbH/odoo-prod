@@ -66,7 +66,9 @@
         <xpath expr="//div[@id='total']" position="after">
             <t t-if="o.partner_id.lang and o.partner_id.lang == 'de_DE'">
                 <p>Mit freundlichen Grüßen<br />
-                <span t-field="o.user_id.name" /><br />
+                <strong>
+                    <span t-field="o.user_id.name" />
+                </strong><br />
                 <strong>
                     <span
                         t-if="o.user_id and o.user_id.employee_id and o.user_id.employee_id.job_id"
