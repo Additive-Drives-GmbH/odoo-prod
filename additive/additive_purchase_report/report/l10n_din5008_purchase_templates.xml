@@ -9,10 +9,15 @@
             position="before"
         >
             <tr name='purchase_title'>
-                <td class="text-nowrap">
+                <td class="text-nowrap" style="padding-top: 12mm">
                     <strong>Purchase Order</strong>
                 </td>
             </tr>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.name']"
+            position="after"
+        >
             <tr t-if="o.partner_id and o.partner_id.our_nr_by_vendor">
                 <td>Customer Nr.:</td>
                 <td>
@@ -123,13 +128,13 @@
                 t-if="o and o._name=='purchase.order' and o.date_order"
                 name="order_deadline_row"
             >
-                <td class="shipping_address">
+                <td class="shipping_address" style="padding-top: 12mm">
                     <span class="fw-bold">Order Deadline:</span>
                 </td>
                 <td>
-                    <div style="margin-left:-15mm">
+                    <div style="margin-left:-15mm;padding-top: 12mm">
                         <span>
-                            <t t-out="o.date_order" t-options="{'widget': 'date'}" />
+                            <t t-out="o.date_planned" t-options="{'widget': 'date'}" />
                         </span>
                     </div>
                 </td>
