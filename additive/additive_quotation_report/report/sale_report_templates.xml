@@ -138,10 +138,13 @@
                 name="t-options"
             >{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}</attribute>
         </xpath>
-        <xpath expr="//table/thead/tr/th[@class='text-start'][1]" position="attributes">
+        <xpath
+            expr="//table/thead/tr/th[hasclass('text-start')][1]"
+            position="attributes"
+        >
             <attribute name="class">text-start d-none</attribute>
         </xpath>
-        <xpath expr="//table/thead/tr/th[@class='text-start'][1]" position="after">
+        <xpath expr="//table/thead/tr/th[hasclass('text-start')][1]" position="after">
             <th class="text-start">Pos.</th>
         </xpath>
         <xpath expr="//span[@t-field='line.product_uom']" position="attributes">
@@ -211,6 +214,20 @@
                 <t t-out="doc.company_id.city" />,
                 <t t-out="datetime.datetime.now().strftime('%d.%m.%Y')" />
             </div>
+        </xpath>
+    </template>
+    <template
+        id="external_layout_din5008_saleorder_inherit"
+        inherit_id="l10n_din5008_sale.external_layout_din5008_saleorder"
+    >
+        <xpath
+            expr="//div[@id='partner_vat_address_same_as_shipping'][1]"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='main_addr_id.vat']" position="attributes">
+            <attribute name="class">d-none</attribute>
         </xpath>
     </template>
 </odoo>
