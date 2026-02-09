@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+from odoo.sql_db import SQL
 from odoo.tools.translate import html_translate
 
 
@@ -95,6 +96,85 @@ class TextBlock(models.Model):
             self.postline_check = self.template_id.postline_check
         else:
             self.textblock = _("Manual text block")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        for record in records:
+            if record.template_id:
+                record._copy_field_translations_sql(record.template_id, "text")
+        return records
+
+    def write(self, vals):
+        records_to_copy = self.env[self._name]
+
+        if "template_id" in vals and vals["template_id"]:
+            records_to_copy = self
+        elif "text" in vals:
+            new_text = vals.get("text", "")
+            for record in self:
+                if record.template_id:
+                    lang = self.env.lang or "en_US"
+                    template_text = (
+                        record.template_id.with_context(lang=lang).text or ""
+                    )
+                    if self._is_same_html(new_text, template_text):
+                        records_to_copy |= record
+
+        res = super().write(vals)
+
+        for record in records_to_copy:
+            if record.template_id:
+                record._copy_field_translations_sql(record.template_id, "text")
+        return res
+
+    def _is_same_html(self, html1, html2):
+        """
+        Compare two HTML strings, normalizing whitespace.
+        """
+
+        def normalize(html):
+            if not html:
+                return ""
+            return "".join(str(html).split())
+
+        return normalize(html1) == normalize(html2)
+
+    def _copy_field_translations_sql(self, template, field_name):
+        """
+        Copy a field's translations using direct SQL.
+        Completely replaces the field value including all translations.
+        """
+        self.ensure_one()
+
+        if not template:
+            return
+
+        # Ensure template is flushed to DB
+        template.flush_recordset([field_name])
+
+        # Invalidate cache before SQL update
+        self.invalidate_recordset([field_name])
+
+        # Build and execute SQL
+        self.env.cr.execute(
+            SQL(
+                """
+                UPDATE %(table)s AS target
+                SET %(field)s = source.%(field)s
+                FROM %(table)s AS source
+                WHERE source.id = %(template_id)s
+                AND target.id = %(record_id)s
+                """,
+                table=SQL.identifier(self._table),
+                field=SQL.identifier(field_name),
+                template_id=template.id,
+                record_id=self.id,
+            )
+        )
+
+        # Mark as modified
+        self.modified([field_name])
 
     def _prepare_textblock_values(self, **kwargs):
         """Give the values to create the corresponding text block.
