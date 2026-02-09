@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="view_res_partner_form_bank" model="ir.ui.view">
-        <field name="name">res.partner.property.form.incoming.bank</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account.view_partner_property_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='allow_out_payment']" position="after">
-                <field name="foreign_account" widget="boolean_toggle" />
-            </xpath>
-        </field>
-    </record>
-
     <record id="view_partner_form_inherit" model="ir.ui.view">
         <field name="name">res.partner.form</field>
         <field name="model">res.partner</field>
