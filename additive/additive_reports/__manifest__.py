@@ -7,6 +7,7 @@
     "author": "IFE Gesellschaft für Forschung und Entwicklung",
     "website": "https://www.ife.de",
     "depends": [
+        "web",
         "l10n_din5008",
         "sale",
         "account",
@@ -18,7 +19,6 @@
         "report/sale_report_templates.xml",
         "report/invoice_report_templates.xml",
         "views/res_company_views.xml",
-        "views/res_bank_views.xml",
         "views/res_partner_views.xml",
         "views/account_move_views.xml",
     ],

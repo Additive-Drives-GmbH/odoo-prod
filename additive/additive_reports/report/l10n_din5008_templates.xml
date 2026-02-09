@@ -4,20 +4,35 @@
         id="external_layout_din5008_inherit"
         inherit_id="l10n_din5008.external_layout_din5008"
     >
-        <!-- hide Country-->
-        <xpath
-            expr="//div[hasclass('colored_address')]/t[@t-if='company.country_id']/span[1]"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath
-            expr="//div[hasclass('colored_address')]/t[@t-if='company.country_id']/span[2]"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
+        <xpath expr="//table[hasclass('company_header')]//tr/td[1]" position="inside">
+            <img
+                t-if="company.logo"
+                t-att-src="image_data_uri(company.logo)"
+                t-att-style="'max-height: %dmm;' % (din_header_spacing or 27)"
+                class="logo_left"
+            />
         </xpath>
 
+        <xpath
+            expr="//table[hasclass('company_header')]//tr/td[2]/img"
+            position="attributes"
+        >
+            <attribute name="class">logo_right</attribute>
+        </xpath>
+
+        <xpath expr="//table[hasclass('company_header')]" position="after">
+            <script>
+                var match = window.location.search.match(/page=(\d+)/);
+                var page = match ? parseInt(match[1]) : 0;
+                if (page === 1) {
+                    var r = document.querySelector('.logo_right');
+                    if (r) { r.style.display = 'none'; }
+                } else {
+                    var l = document.querySelector('.logo_left');
+                    if (l) { l.style.display = 'none'; }
+                }
+            </script>
+        </xpath>
         <!-- Adjust Footer -->
         <xpath expr="//div[hasclass('company_details')]//td[1]" position="attributes">
             <attribute name="colspan" />
@@ -55,7 +70,7 @@
         <xpath expr="//div[hasclass('company_details')]//td[2]" position="inside">
             <ul class="list-inline">
                 <li>
-                    <strong>Registred Seat</strong>
+                    <strong>Registered Seat</strong>
                 </li>
                 <li t-if="company.street">
                     <span t-field="company.street" />
@@ -105,17 +120,6 @@
                 </li>
             </t>
         </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[4]" position="attributes">
-            <attribute name="t-if" add="not foreign_partner" separator="and" />
-        </xpath>
-        <xpath
-            expr="//div[hasclass('company_details')]//td[4]/ul/t"
-            position="attributes"
-        >
-            <attribute
-                name="t-foreach"
-            >company.partner_id.bank_ids.filtered(lambda x: not x.foreign_account)[:2]</attribute>
-        </xpath>
         <xpath
             expr="//div[hasclass('company_details')]//td[5]/ul/li/t"
             position="attributes"
@@ -127,30 +131,6 @@
             position="after"
         >
             <t t-out="vat_label" />
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[4]" position="after">
-            <td
-                t-if="company.partner_id.bank_ids and foreign_partner"
-                name="foreign_banks"
-            >
-                <ul class="list-inline">
-                    <li>
-                        <strong>Bank Details</strong>
-                    </li>
-                    <t
-                        t-foreach="company.partner_id.bank_ids.filtered(lambda x: x.foreign_account)[:2]"
-                        t-as="foreign_bank"
-                    >
-                        <li>
-                            <span t-field="foreign_bank.bank_id.name" />
-                        </li>
-                        <li>BIC: <span t-field="foreign_bank.bank_id.bic" /></li>
-                        <li class="text-nowrap">IBAN: <span
-                            t-field="foreign_bank.acc_number"
-                        /></li>
-                    </t>
-                </ul>
-            </td>
         </xpath>
         <xpath
             expr="//div[hasclass('company_details')]//td[last()]//li[3]"
@@ -167,6 +147,9 @@
         >
             <xpath expr="//ul/t[@t-as='bank']/li[contains(., 'BIC')]" position="move" />
         </xpath>
+        <xpath expr="//div[hasclass('company_details')]" position="after">
+            <xpath expr="//div[hasclass('page_number')]" position="move" />
+        </xpath>
     </template>
 
     <!-- invoice layout -->
@@ -179,23 +162,6 @@
             <attribute
                 name="t-options"
             >{"widget": "contact", "fields": ["address", "name"], "no_marker": True}</attribute>
-        </xpath>
-        <!-- move tax -->
-        <xpath
-            expr="//div[@id='partner_vat_address_same_as_shipping']"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//div[hasclass('page_number')]" position="attributes">
-            <attribute name="class">text-end page_number d-none</attribute>
-        </xpath>
-        <xpath expr="//div[hasclass('page_number')]" position="after">
-            <div class="text-end page_number">
-                <div class="text-muted">
-                    <span class="page" /> of <span class="topage" />
-                </div>
-            </div>
         </xpath>
     </template>
 </odoo>

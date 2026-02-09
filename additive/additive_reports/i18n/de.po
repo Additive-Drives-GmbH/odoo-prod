@@ -36,12 +36,6 @@ msgid "<strong>Bank Details</strong>"
 msgstr "<strong>Bankverbindung</strong>"
 
 #. module: additive_reports
-#: model:ir.model.fields,help:additive_reports.field_account_setup_bank_manual_config__foreign_account
-#: model:ir.model.fields,help:additive_reports.field_res_partner_bank__foreign_account
-msgid "Check this box if the bank account is used for foreign transactions."
-msgstr "Aktivieren Sie dieses Kontrollkästchen, wenn das Bankkonto für Auslandstransaktionen verwendet wird"
-
-#. module: additive_reports
 #: model:ir.model,name:additive_reports.model_res_company
 msgid "Companies"
 msgstr "Unternehmen"
@@ -96,12 +90,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "E-Mail:"
 msgstr "E-mail."
-
-#. module: additive_reports
-#: model:ir.model.fields,field_description:additive_reports.field_account_setup_bank_manual_config__foreign_account
-#: model:ir.model.fields,field_description:additive_reports.field_res_partner_bank__foreign_account
-msgid "Foreign Account"
-msgstr ""
 
 #. module: additive_reports
 #: model:ir.model.fields,field_description:additive_reports.field_base_document_layout__general_manager_ids
@@ -168,7 +156,7 @@ msgstr "Referenz-Nr."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "<strong>Registred Seat</strong>"
+msgid "<strong>Registered Seat</strong>"
 msgstr "<strong>Firmensitz/ Geschäftsaddresse</strong>"
 
 #. module: additive_reports
