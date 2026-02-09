@@ -2,69 +2,81 @@
 <odoo>
     <template
         id="report_saleorder_document"
-        inherit_id="sale.report_saleorder_document"
-        priority="15"
+        inherit_id="ife_textblock_sale.report_saleorder_document"
     >
-        <!-- Pre-Lines Text-blocks -->
-
+        <!--filter out proforma textblocks-->
         <xpath
-            expr="//table[hasclass('o_has_total_table','table','o_main_table','table-borderless')]"
-            position="before"
+            expr="//t[contains(@t-foreach, 'above_text_block_ids')]"
+            position="attributes"
         >
-            <t
-                t-foreach="doc.above_text_block_ids.filtered(
-    lambda p:
-        not p.not_print
-        and (
-            doc.state in ('draft', 'sent')
-            or p.show_in_order
-        )
-).sorted(lambda x: x.sequence)"
-                t-as="t"
-            >
-                <t t-if="t.post_page_break and t.pre_page_break">
-                    <p style="page-break-before: always;" />
-                    <p>
-                        <t t-out="t.text" />
-                    </p>
-                    <p style="page-break-after: always;" />
-                </t>
-                <!-- only pre-->
-                <t t-if="t.pre_page_break and not t.post_page_break">
-                    <p>
-                        <t t-out="t.text" />
-                    </p>
-                    <p style="page-break-after: always;" />
-                </t>
-                <!-- only Post-->
-                <t t-if="t.post_page_break and not t.pre_page_break">
-                    <p style="page-break-before: always;" />
-                    <p>
-                        <t t-out="t.text" />
-                    </p>
-                </t>
-                <!-- no Post no pre-->
-                <t t-if="not t.post_page_break and not t.pre_page_break">
-                    <p>
-                        <t t-out="t.text" />
-                    </p>
-                </t>
-            </t>
+            <attribute name="t-if">
+                not is_pro_forma
+            </attribute>
+            <attribute
+                name="t-foreach"
+            >doc.above_text_block_ids.filtered(lambda p: not p.not_print and not p.proforma).sorted(lambda x: x.sequence)</attribute>
         </xpath>
-
-        <!-- Post-Lines Text-blocks -->
+        <!--filter out proforma textblocks-->
+        <xpath
+            expr="//t[contains(@t-foreach, 'bottom_text_block_ids')]"
+            position="attributes"
+        >
+            <attribute name="t-if">
+                not is_pro_forma
+            </attribute>
+            <attribute
+                name="t-foreach"
+            >doc.bottom_text_block_ids.filtered(lambda p: not p.not_print and not p.proforma).sorted(lambda x: x.sequence)</attribute>
+        </xpath>
+        <!--filter out proforma textblocks-->
+        <xpath
+            expr="//tr[@t-if='not line.display_type and line.text_block_id and not line.text_block_id.not_print']"
+            position="attributes"
+        >
+            <attribute name="t-if">
+                not line.text_block_id.not_print and not is_pro_forma and not line.text_block_id.proforma
+            </attribute>
+        </xpath>
 
         <xpath expr="//p[@id='fiscal_position_remark']" position="after">
+            <!-- Proforma Above Text Blocks -->
             <t
-                t-foreach="doc.bottom_text_block_ids.filtered(
-    lambda p:
-        not p.not_print
-        and (
-            doc.state in ('draft', 'sent')
-            or p.show_in_order
-        )
-).sorted(lambda x: x.sequence)"
+                t-foreach="doc.above_text_block_ids.filtered(lambda p: not p.not_print and p.proforma and (p.country_id == doc.partner_id.country_id or p.country_id == doc.partner_shipping_id.country_id)).sorted(lambda x: x.sequence)"
                 t-as="t"
+                t-if='is_pro_forma'
+            >
+                <t t-if="t.post_page_break and t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only pre-->
+                <t t-if="t.pre_page_break and not t.post_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                    <p style="page-break-after: always;" />
+                </t>
+                <!-- only Post-->
+                <t t-if="t.post_page_break and not t.pre_page_break">
+                    <p style="page-break-before: always;" />
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+                <!-- no Post no pre-->
+                <t t-if="not t.post_page_break and not t.pre_page_break">
+                    <p>
+                        <t t-out="t.text" />
+                    </p>
+                </t>
+            </t>
+            <t
+                t-foreach="doc.bottom_text_block_ids.filtered(lambda p: not p.not_print and p.proforma and (p.country_id == doc.partner_id.country_id or p.country_id == doc.partner_shipping_id.country_id)).sorted(lambda x: x.sequence)"
+                t-as="t"
+                t-if='is_pro_forma'
             >
                 <t t-if="t.post_page_break and t.pre_page_break">
                     <p style="page-break-before: always;" />
@@ -95,15 +107,12 @@
                 </t>
             </t>
         </xpath>
-
-        <!-- Lines Text-blocks-->
-
         <xpath expr="//t[@t-foreach='lines_to_report']/tr[1]/t[1]" position="inside">
             <tr
-                t-if="not line.display_type and line.text_block_id and not line.text_block_id.not_print"
+                t-if="not line.display_type and line.proforma_textblock_id and line.proforma_textblock_id.proforma and is_pro_forma and not line.proforma_textblock_id.not_print_custom_view and (line.proforma_textblock_id.country_id == doc.partner_id.country_id or line.proforma_textblock_id.country_id == doc.partner_shipping_id.country_id)"
             >
                 <td colspan="99">
-                    <span style="" t-field="line.text_block_id.text" />
+                    <span style="" t-field="line.proforma_textblock_id.text" />
                 </td>
             </tr>
         </xpath>

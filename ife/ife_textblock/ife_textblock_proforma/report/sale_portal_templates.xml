@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="sale_order_portal_content"
+        inherit_id="sale.sale_order_portal_content"
+    >
+        <!--filter out proforma textblocks-->
+        <xpath
+            expr="//t[@t-foreach='sale_order.above_text_block_ids.filtered(lambda x: not x.not_print).sorted(lambda x: x.sequence)']"
+            position="attributes"
+        >
+            <attribute
+                name="t-foreach"
+            >sale_order.above_text_block_ids.filtered(lambda x: not x.not_print and not x.proforma).sorted(lambda x: x.sequence)</attribute>
+        </xpath>
+        <!--filter out proforma textblocks-->
+        <xpath
+            expr="//t[@t-foreach='sale_order.bottom_text_block_ids.filtered(lambda x: not x.not_print).sorted(lambda x: x.sequence)']"
+            position="attributes"
+        >
+            <attribute
+                name="t-foreach"
+            >sale_order.bottom_text_block_ids.filtered(lambda x: not x.not_print and not x.proforma).sorted(lambda x: x.sequence)</attribute>
+        </xpath>
+        <!--filter out proforma textblocks-->
+        <xpath
+            expr="//tr[@t-if='not line.text_block_id.not_print_custom_view']"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >not line.text_block_id.not_print_custom_view and not line.text_block_id.proforma</attribute>
+        </xpath>
+    </template>
+</odoo>

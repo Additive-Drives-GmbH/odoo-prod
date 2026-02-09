@@ -53,9 +53,7 @@ class SaleOrder(models.Model):
     def _onchange_sale_order_template_id(self):  # pylint: disable=W8110
         super()._onchange_sale_order_template_id()
         if self.sale_order_template_id:
-            sale_order_template = self.sale_order_template_id.with_context(
-                lang=self.partner_id.lang
-            )
+            sale_order_template = self.sale_order_template_id
 
             above_text_block_data = [Command.clear()]
             bottom_text_block_data = [Command.clear()]

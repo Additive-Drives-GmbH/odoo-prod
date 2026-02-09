@@ -39,10 +39,12 @@ class AccountMoveLine(models.Model):
         return res
 
     def update_inline_textblock(self, product):
-        if product and product.bottom_text_block_ids:
-            res_model_id = self.env["ir.model"]._get("account.move.line")
-            for block in product.bottom_text_block_ids:
-                if block.inline_check:
+        if product:
+            if product.bottom_text_block_ids:
+                res_model_id = self.env["ir.model"]._get("account.move.line")
+                for block in product.bottom_text_block_ids.filtered(
+                    lambda t: t.inline_check
+                ):
                     self.text_block_id = self.env["text.block"].create(
                         block._prepare_textblock_values(
                             inline_check=True,
@@ -52,6 +54,25 @@ class AccountMoveLine(models.Model):
                             model_ids=[(6, 0, res_model_id.ids)],
                         )
                     )
+            # check product template
+            else:
+                if (
+                    product.product_tmpl_id
+                    and product.product_tmpl_id.above_text_block_ids
+                ):
+                    res_model_id = self.env["ir.model"]._get("account.move.line")
+                    for block in product.product_tmpl_id.above_text_block_ids.filtered(
+                        lambda t: t.inline_check
+                    ):
+                        self.text_block_id = self.env["text.block"].create(
+                            block._prepare_textblock_values(
+                                inline_check=True,
+                                res_id=self.id,
+                                res_model="account.move.line",
+                                res_model_id=res_model_id.id,
+                                model_ids=[(6, 0, res_model_id.ids)],
+                            )
+                        )
 
     def update_preline_textblock(self, product, sequence):
         existing_above_text_block = self.move_id.above_text_block_ids.filtered(
@@ -62,25 +83,50 @@ class AccountMoveLine(models.Model):
             Command.unlink(existing_above_text_block.ids)
         ]
         above_text_block_data = []
-        if product and product.bottom_text_block_ids.filtered(
-            lambda t: t.preline_check
-        ):
-            above_text_block_data += [
-                Command.create(
-                    line._prepare_textblock_values(
-                        sequence=sequence,
-                        res_id=self.move_id.id,
-                        res_model_id=res_model_id.id,
-                        res_model="account.move",
-                        model_ids=[(6, 0, res_model_id.ids)],
-                        move_line_id=self.id,
+        if product:
+            if product.bottom_text_block_ids.filtered(lambda t: t.preline_check):
+                above_text_block_data += [
+                    Command.create(
+                        line._prepare_textblock_values(
+                            sequence=sequence,
+                            res_id=self.move_id.id,
+                            res_model_id=res_model_id.id,
+                            res_model="account.move",
+                            model_ids=[(6, 0, res_model_id.ids)],
+                            move_line_id=self.id,
+                        )
                     )
-                )
-                for line in product.bottom_text_block_ids.filtered(
-                    lambda t: t.preline_check
-                ).sorted(lambda o: o.sequence)
-            ]
-            self.move_id.above_text_block_ids = above_text_block_data
+                    for line in product.bottom_text_block_ids.filtered(
+                        lambda t: t.preline_check
+                    ).sorted(lambda o: o.sequence)
+                ]
+                self.move_id.above_text_block_ids = above_text_block_data
+            # check product template
+            else:
+                if (
+                    product.product_tmpl_id
+                    and product.product_tmpl_id.above_text_block_ids.filtered(
+                        lambda t: t.preline_check
+                    )
+                ):
+                    above_text_block_data += [
+                        Command.create(
+                            line._prepare_textblock_values(
+                                sequence=sequence,
+                                res_id=self.move_id.id,
+                                res_model_id=res_model_id.id,
+                                res_model="account.move",
+                                model_ids=[(6, 0, res_model_id.ids)],
+                                move_line_id=self.id,
+                            )
+                        )
+                        for line in (
+                            product.product_tmpl_id.above_text_block_ids.filtered(
+                                lambda t: t.preline_check
+                            ).sorted(lambda o: o.sequence)
+                        )
+                    ]
+                    self.move_id.above_text_block_ids = above_text_block_data
 
     def update_postline_textblock(self, product, sequence):
         existing_bottom_text_block = self.move_id.bottom_text_block_ids.filtered(
@@ -91,22 +137,47 @@ class AccountMoveLine(models.Model):
             Command.unlink(existing_bottom_text_block.ids)
         ]
         bottom_text_block_data = []
-        if product and product.bottom_text_block_ids.filtered(
-            lambda t: t.postline_check
-        ):
-            bottom_text_block_data += [
-                Command.create(
-                    line._prepare_textblock_values(
-                        sequence=sequence,
-                        object_id=self.move_id.id,
-                        res_model_id=res_model_id.id,
-                        res_model="account.move",
-                        model_ids=[(6, 0, res_model_id.ids)],
-                        move_line_id=self.id,
+        if product:
+            if product.bottom_text_block_ids.filtered(lambda t: t.postline_check):
+                bottom_text_block_data += [
+                    Command.create(
+                        line._prepare_textblock_values(
+                            sequence=sequence,
+                            object_id=self.move_id.id,
+                            res_model_id=res_model_id.id,
+                            res_model="account.move",
+                            model_ids=[(6, 0, res_model_id.ids)],
+                            move_line_id=self.id,
+                        )
                     )
-                )
-                for line in product.bottom_text_block_ids.filtered(
-                    lambda t: t.postline_check
-                ).sorted(lambda o: o.sequence)
-            ]
-            self.move_id.bottom_text_block_ids = bottom_text_block_data
+                    for line in product.bottom_text_block_ids.filtered(
+                        lambda t: t.postline_check
+                    ).sorted(lambda o: o.sequence)
+                ]
+                self.move_id.bottom_text_block_ids = bottom_text_block_data
+            # check product template
+            else:
+                if (
+                    product.product_tmpl_id
+                    and product.product_tmpl_id.above_text_block_ids.filtered(
+                        lambda t: t.postline_check
+                    )
+                ):
+                    bottom_text_block_data += [
+                        Command.create(
+                            line._prepare_textblock_values(
+                                sequence=sequence,
+                                object_id=self.move_id.id,
+                                res_model_id=res_model_id.id,
+                                res_model="account.move",
+                                model_ids=[(6, 0, res_model_id.ids)],
+                                move_line_id=self.id,
+                            )
+                        )
+                        for line in (
+                            product.product_tmpl_id.above_text_block_ids.filtered(
+                                lambda t: t.postline_check
+                            ).sorted(lambda o: o.sequence)
+                        )
+                    ]
+                    self.move_id.bottom_text_block_ids = bottom_text_block_data

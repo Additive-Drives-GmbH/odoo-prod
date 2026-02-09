@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_order_form_view" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <!--Proforma Textblocks -->
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='name']"
+                position="before"
+            >
+                <field
+                    optional="show"
+                    name="proforma_textblock_id"
+                    context="{'default_res_model' : 'sale.order.line', 'default_proforma':True}"
+                    domain="[('res_id', '=', id),('proforma','=',True)]"
+                    groups="sale.group_proforma_sales"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='above_text_block_ids']/list/field[@name='textblock']"
+                position="after"
+            >
+                <field
+                    name="proforma"
+                    optional="show"
+                    groups="sale.group_proforma_sales"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='bottom_text_block_ids']/list/field[@name='textblock']"
+                position="after"
+            >
+                <field
+                    name="proforma"
+                    optional="show"
+                    groups="sale.group_proforma_sales"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
