@@ -133,3 +133,8 @@ msgid "we thank you for the good cooperation and deliver the following goods:"
 msgstr ""
 "wir bedanken uns für die gute Zusammenarbeit und liefern Ihnen folgende "
 "Ware:"
+
+#. module: additive_delivery_report
+#: model_terms:ir.ui.view,arch_db:additive_delivery_report.external_layout_delivery_title
+msgid "VAT:"
+msgstr "USt-IdNr.:"

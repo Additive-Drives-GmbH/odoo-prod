@@ -85,12 +85,12 @@
                                 </td>
                             </tr>
                             <tr
-                                t-if="o.partner_id.purchase_order_no or (o.partner_id.parent_id and o.partner_id.parent_id.purchase_order_no)"
+                                t-if="o.partner_id.commercial_partner_id.purchase_order_no"
                             >
                                 <td class="info-label">Purchase Order No.:</td>
                                 <td class="info-value">
                                     <span
-                                        t-esc="o.partner_id.purchase_order_no or o.partner_id.parent_id.purchase_order_no"
+                                        t-esc="o.partner_id.commercial_partner_id.purchase_order_no"
                                     />
                                 </td>
                             </tr>
@@ -100,19 +100,21 @@
                                     <span t-esc="o.sale_id.project_id.name" />
                                 </td>
                             </tr>
-                            <tr t-if="o.partner_id.debitor_number">
+                            <tr
+                                t-if="o.partner_id.commercial_partner_id.debitor_number"
+                            >
                                 <td class="info-label">Customer No.:</td>
                                 <td class="info-value">
-                                    <span t-esc="o.partner_id.debitor_number" />
+                                    <span
+                                        t-esc="o.partner_id.commercial_partner_id.debitor_number"
+                                    />
                                 </td>
                             </tr>
-                            <tr
-                                t-if="o.partner_id.supplier_no or (o.partner_id.parent_id and o.partner_id.parent_id.supplier_no)"
-                            >
+                            <tr t-if="o.partner_id.commercial_partner_id.supplier_no">
                                 <td class="info-label">Vendor/Supplier-No.:</td>
                                 <td class="info-value">
                                     <span
-                                        t-esc="o.partner_id.supplier_no or o.partner_id.parent_id.supplier_no"
+                                        t-esc="o.partner_id.commercial_partner_id.supplier_no"
                                     />
                                 </td>
                             </tr>
