@@ -37,10 +37,10 @@ table.o_main_table tr.o_line_section td {
 }
 .din_page.invoice_note .address .colored_address {
     font-size: 7pt !important;
-    width: 86mm;
+    width: 88mm;
 }
 .din_page.invoice_note .address .company_invoice_line {
-    width: 86mm;
+    width: 88mm;
 }
 
 .din_page.invoice_note .address,
@@ -61,8 +61,5 @@ table.o_main_table tr.o_line_section td {
 }
 
 .din_page.invoice_note .page {
-    width: 100%;
-}
-.din_page.invoice_note .page table.o_main_table {
-    width: 100% !important;
+    width: 95%;
 }
