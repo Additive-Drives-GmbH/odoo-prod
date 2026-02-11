@@ -21,22 +21,22 @@ msgid "31.05"
 msgstr ""
 
 #. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "<span class=\"fw-bold\">Invoice Addresse:</span>"
 msgstr "<span class=\"fw-bold\">Addresse für Rechnungen:</span>"
 
 #. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "<span class=\"fw-bold\">Order Deadline:</span>"
 msgstr "<span class=\"fw-bold\">Liefertermin:</span>"
 
 #. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "<span class=\"fw-bold\">Payment Terms:</span>"
 msgstr "<span class=\"fw-bold\">Zahlungsbedingung:</span>"
 
 #. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_address_block_inherit
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "<span class=\"fw-bold\">Shipping Address:</span>"
 msgstr "<span class=\"fw-bold\">Lieferadresse:</span>"
 
@@ -68,7 +68,7 @@ msgstr ""
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "Item"
-msgstr ""
+msgstr "Produkt"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit

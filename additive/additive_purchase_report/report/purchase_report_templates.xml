@@ -4,6 +4,101 @@
         id="report_purchaseorder_document_inherit"
         inherit_id="purchase.report_purchaseorder_document"
     >
+        <xpath expr="//table[hasclass('o_main_table')]" position="before">
+            <table class="table table-borderless" style="border-collapse: collapse;">
+                <tr>
+                    <t t-if='o.dest_address_id'>
+                        <td style="padding:0; margin:0;">
+                            <span class="fw-bold">Shipping Address:</span>
+                        </td>
+                        <td style="padding:0; margin:0;">
+                            <div>
+                                <strong>
+                                    <span t-field="o.dest_address_id.name" />,
+                                    <span t-field="o.dest_address_id.street" />,
+                                    <span t-field="o.dest_address_id.zip" /> <span
+                                    t-field="o.dest_address_id.city"
+                                />
+                                </strong>
+                            </div>
+                        </td>
+                    </t>
+                    <t
+                        t-elif="'picking_type_id' in o._fields and o.picking_type_id.warehouse_id"
+                    >
+                        <td style="padding:0; margin:0;">
+                            <span class="fw-bold">Shipping Address:</span>
+                        </td>
+                        <td style="padding:0; margin:0;">
+                            <div>
+                                <strong>
+                                    <span
+                                    t-field="o.picking_type_id.warehouse_id.partner_id.name"
+                                />,
+                                    <span
+                                    t-field="o.picking_type_id.warehouse_id.partner_id.street"
+                                />,
+                                    <span
+                                    t-field="o.picking_type_id.warehouse_id.partner_id.zip"
+                                /> <span
+                                    t-field="o.picking_type_id.warehouse_id.partner_id.city"
+                                />
+                                </strong>
+                            </div>
+                        </td>
+                    </t>
+                </tr>
+                <tr
+                    t-if="o and o._name=='purchase.order' and o.date_order"
+                    name="order_deadline_row"
+                >
+                    <td style="padding:0; margin:0;">
+                        <span class="fw-bold">Order Deadline:</span>
+                    </td>
+                    <td style="padding:0; margin:0;">
+                        <div>
+                            <span>
+                                <t
+                                    t-out="o.date_planned"
+                                    t-options="{'widget': 'date'}"
+                                />
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr
+                    t-if="o and o._name=='purchase.order'"
+                    name="invoice_address_row"
+                    style="padding-top:0mm"
+                >
+                    <td style="padding:0; margin:0;">
+                        <span class="fw-bold">Invoice Addresse:</span>
+                    </td>
+                    <td style="padding:0; margin:0;">
+                        <div>
+                            <span>invoice@additive-drives.de</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr
+                    t-if="o and o._name=='purchase.order'"
+                    name="payment_terms_row"
+                    style="padding-top:0mm"
+                >
+                    <td t-if="o.payment_term_id" style="padding:0; margin:0;">
+                        <span class="fw-bold">Payment Terms:</span>
+                    </td>
+                    <td t-if="o.payment_term_id" style="padding:0; margin:0;">
+                        <div>
+                            <span>
+                                <t t-out="o.payment_term_id.name" />
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </xpath>
+
         <xpath expr="//div[@t-field='o.partner_id']" position="attributes">
             <attribute
                 name="t-options"
@@ -11,10 +106,11 @@
         </xpath>
         <!--Add Border-->
         <xpath expr="//table[hasclass('o_main_table')]" position="attributes">
-            <attribute name="class">table o_main_table</attribute>
+            <attribute name="class">table o_main_table o_has_total_table</attribute>
         </xpath>
         <!--Add item column-->
         <xpath expr="//th[@name='th_description']" position="before">
+            <th class="text-start">Pos</th>
             <th name="th_item" class="text-start">Item</th>
         </xpath>
         <xpath expr="//td[@id='product']" position="before">
@@ -77,9 +173,13 @@
                 </strong></p>
             </t>
         </xpath>
-        <!--Add Position column-->
-        <xpath expr="//th[@name='th_description']" position="before">
-            <th class="text-start">Pos</th>
+        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+            <attribute
+                name="t-options"
+            >{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.discount']" position="attributes">
+            <attribute name="style">padding-right: 2px;</attribute>
         </xpath>
     </template>
 </odoo>
