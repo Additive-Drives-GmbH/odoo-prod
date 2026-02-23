@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 18:36+0000\n"
-"PO-Revision-Date: 2025-10-06 18:36+0000\n"
+"POT-Creation-Date: 2026-02-19 17:24+0000\n"
+"PO-Revision-Date: 2026-02-19 17:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,24 +16,74 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_inherit
-msgid "<span>Unit of Measure</span>"
-msgstr "<span>ME</span>"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "BIC:"
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "1.05"
 msgstr ""
 
 #. module: additive_reports
-#: model:ir.model,name:additive_reports.model_res_partner_bank
-msgid "Bank Accounts"
-msgstr "Bankkonten"
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "27.00"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "31.05"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "4.05"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<span class=\"mr16\">Rounding</span>"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<span class=\"mr16\">Total Net</span>"
+msgstr "<span class=\"mr16\">Gesamt Netto</span>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<span> on </span>"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<strong class=\"mr16\">Total</strong>"
+msgstr "<strong class=\"mr16\">Gesamtbetrag</strong>"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
 msgid "<strong>Bank Details</strong>"
 msgstr "<strong>Bankverbindung</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>General Manager</strong>"
+msgstr "<strong>Geschäftsführer</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>Registered Seat</strong>"
+msgstr "<strong>Firmensitz/ Geschäftsadresse</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>Registry Court</strong>"
+msgstr "<strong>Amtsgericht Dresden</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_inherit
+msgid "All prices are net prices"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "Amtsgericht Dresden"
+msgstr ""
 
 #. module: additive_reports
 #: model:ir.model,name:additive_reports.model_res_company
@@ -87,6 +137,11 @@ msgid "Delivery address:"
 msgstr ""
 
 #. module: additive_reports
+#: model:ir.model.fields,help:additive_reports.field_account_move_line__report_description
+msgid "Description to be included in the sale report"
+msgstr ""
+
+#. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "E-Mail:"
 msgstr "E-mail."
@@ -96,11 +151,6 @@ msgstr "E-mail."
 #: model:ir.model.fields,field_description:additive_reports.field_res_company__general_manager_ids
 msgid "General Manager"
 msgstr "Geschäftsführer"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "<strong>General Manager</strong>"
-msgstr "<strong>Geschäftsführer</strong>"
 
 #. module: additive_reports
 #: model:ir.model.fields,help:additive_reports.field_base_document_layout__general_manager_ids
@@ -114,11 +164,6 @@ msgid "Goods-No.(HS-Code):"
 msgstr "Warennummer (HS-Code):"
 
 #. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "IBAN:"
-msgstr ""
-
-#. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "Invoice No."
 msgstr "Rechnung Nr."
@@ -127,6 +172,11 @@ msgstr "Rechnung Nr."
 #: model:ir.model,name:additive_reports.model_account_move
 msgid "Journal Entry"
 msgstr "Journalbuchung"
+
+#. module: additive_reports
+#: model:ir.model,name:additive_reports.model_account_move_line
+msgid "Journal Item"
+msgstr "Buchungszeile"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
@@ -155,14 +205,14 @@ msgid "Reference No.:"
 msgstr "Referenz-Nr."
 
 #. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "<strong>Registered Seat</strong>"
-msgstr "<strong>Firmensitz/ Geschäftsaddresse</strong>"
+#: model:ir.model.fields,field_description:additive_reports.field_account_move_line__report_description
+msgid "Report Description"
+msgstr ""
 
 #. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "<strong>Registry Court</strong>"
-msgstr "<strong>Amtsgericht Dresden</strong>"
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "Tax 15%"
+msgstr ""
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
@@ -173,28 +223,3 @@ msgstr "Ihre UST ID."
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "Vendor/Supplier-No.:"
 msgstr "Lieferanten-Nr."
-
-#. module: account
-#: model_terms:ir.ui.view,arch_db:account.bill_preview
-#: model_terms:ir.ui.view,arch_db:account.document_tax_totals_company_currency_template
-#: model_terms:ir.ui.view,arch_db:account.document_tax_totals_template
-msgid "<strong>Total</strong>"
-msgstr "<strong>Gesamtbetrag</strong>"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.document_tax_totals_template
-msgid "<span>Total Net</span>"
-msgstr "<span>Gesamt Netto</span>"
-
-#. module: account
-#: model_terms:ir.ui.view,arch_db:account.bill_preview
-#: model_terms:ir.ui.view,arch_db:account.report_invoice_document
-msgid "<span>Description</span>"
-msgstr "<span>Bezeichnung</span>"
-
-#. module: account
-#: model_terms:ir.ui.view,arch_db:account.bill_preview
-#: model_terms:ir.ui.view,arch_db:account.report_invoice_document
-#: model_terms:ir.ui.view,arch_db:account.report_payment_receipt_document
-msgid "<span>Amount</span>"
-msgstr "<span>Gesamtpreis</span>"
