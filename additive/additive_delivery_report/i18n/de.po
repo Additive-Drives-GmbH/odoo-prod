@@ -109,7 +109,7 @@ msgstr "Referenz-Nr.:"
 #. module: additive_delivery_report
 #: model:ir.model.fields,field_description:additive_delivery_report.field_res_partner__supplier_no
 #: model:ir.model.fields,field_description:additive_delivery_report.field_res_users__supplier_no
-msgid "Supplier Number"
+msgid "Supplier No"
 msgstr "Lieferantennr"
 
 #. module: additive_delivery_report
