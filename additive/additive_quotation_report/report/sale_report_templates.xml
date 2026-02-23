@@ -3,6 +3,7 @@
     <template
         id="report_saleorder_document_inherit"
         inherit_id="sale.report_saleorder_document"
+        priority="100"
     >
         <xpath expr="//t[@t-set='forced_vat']" position="after">
             <t t-set="euro_currency" t-value="env.ref('base.EUR')" />
@@ -43,15 +44,6 @@
         </xpath>
         <xpath expr="//td[@name='td_taxes']" position="attributes">
             <attribute name="t-attf-class">{{'d-none'}}</attribute>
-        </xpath>
-        <!-- add new column item-->
-        <xpath expr="//th[@name='th_description']" position="before">
-            <th name="th_item" class="text-start">Item</th>
-        </xpath>
-        <xpath expr="//td[@name='td_name']" position="before">
-            <td name="td_item">
-                <span t-field="line.product_id.name">Bacon Burger</span>
-            </td>
         </xpath>
         <!-- rename quantity -->
         <xpath expr="//th[@name='th_quantity']" position="attributes">
@@ -95,7 +87,10 @@
 
         <!-- Move Totals table -->
         <xpath expr="//table[hasclass('o_main_table')][1]" position="after">
-            <p style="margin-top: -5mm;">All prices are net prices</p>
+            <p
+                t-if="doc.partner_id.lang!='de_DE'"
+                style="margin-top: -5mm;"
+            >All prices are net prices</p>
         </xpath>
         <xpath expr="//span[@t-field='doc.note']" position="before">
             <p>
@@ -111,7 +106,7 @@
                     </ul>
                 </t>
                 <t t-else="">
-                    <ul style="color: red;">
+                    <ul>
                         <li>
                                 Additive Drives does not take responsibility for the functionality of any customer supplies.
                             </li>
@@ -150,6 +145,15 @@
         <xpath expr="//span[@t-field='line.product_uom']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
+        <!-- add new column item-->
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th name="th_item" class="text-start">Item</th>
+        </xpath>
+        <xpath expr="//td[@name='td_name']" position="before">
+            <td name="td_item">
+                <span t-field="line.product_id.name">Bacon Burger</span>
+            </td>
+        </xpath>
     </template>
 
     <template
@@ -171,7 +175,7 @@
                     Offer No. <t t-out="doc.name" />
                 </t>
                 <t t-else="">
-                    Order Confirmation –<t t-out="doc.name" />
+                    Order Confirmation <t t-out="doc.name" />
                 </t>
             </strong>
         </xpath>
@@ -196,10 +200,16 @@
                             <div t-field="doc.contact_id.phone" />
                         </td>
                     </tr>
-                    <tr t-if="doc.name">
-                        <td>Reference-No.</td>
+                    <tr t-if="'incoterm' in doc._fields and doc.incoterm">
+                        <td>Incoterm:</td>
                         <td>
-                            <div t-out="doc.name" />
+                            <div t-out="doc.incoterm.code" />
+                        </td>
+                    </tr>
+                    <tr t-if="doc.payment_term_id">
+                        <td>Payment Terms:</td>
+                        <td>
+                            <div t-field="doc.payment_term_id.name" />
                         </td>
                     </tr>
                     <tr t-if="doc.country_of_origin_id">
