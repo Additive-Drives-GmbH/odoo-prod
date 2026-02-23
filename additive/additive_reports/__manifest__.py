@@ -15,6 +15,7 @@
         "syscoon_partner_accounts",
     ],
     "data": [
+        "report/invoice_totals_template.xml",
         "report/l10n_din5008_templates.xml",
         "report/sale_report_templates.xml",
         "report/invoice_report_templates.xml",

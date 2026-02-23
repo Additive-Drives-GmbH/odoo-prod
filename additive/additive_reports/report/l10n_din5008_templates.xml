@@ -150,6 +150,25 @@
         <xpath expr="//div[hasclass('company_details')]" position="after">
             <xpath expr="//div[hasclass('page_number')]" position="move" />
         </xpath>
+        <xpath
+            expr="//td[@t-if='company.partner_id.bank_ids']//t[@t-foreach='company.partner_id.bank_ids[:2]']"
+            position="inside"
+        >
+            <li t-if="not bank_last" style="height: 2mm;" />
+        </xpath>
+        <!-- hide Country-->
+        <xpath
+            expr="//div[hasclass('colored_address')]/t[@t-if='company.country_id']/span[1]"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath
+            expr="//div[hasclass('colored_address')]/t[@t-if='company.country_id']/span[2]"
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
     </template>
 
     <!-- invoice layout -->

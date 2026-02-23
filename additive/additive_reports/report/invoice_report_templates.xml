@@ -29,38 +29,23 @@
                 name="class"
             >o_has_total_table table o_main_table mb-0</attribute>
         </xpath>
-        <xpath expr="//div[@id='total']//table" position="attributes">
-            <attribute
-                name="class"
-            >o_has_total_table table o_main_table avoid-page-break-inside mb-0</attribute>
+        <!-- hide total table -->
+        <xpath
+            expr="//div[@id='total']//table/t[@t-if='o.tax_totals']"
+            position="attributes"
+        >
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <!--add new total row-->
+        <xpath expr="//tbody[hasclass('invoice_tbody')]" position="inside">
+            <t t-call="additive_reports.additive_invoice_tax_totals_template" />
         </xpath>
 
         <!-- Move Totals table -->
-        <xpath
-            expr="//table[@name='invoice_line_table']//t[@t-foreach='lines']"
-            position="after"
-        >
-            <xpath expr="//div[@id='total']//table" position="move" />
+        <xpath expr="//table[@name='invoice_line_table']" position="after">
             <t t-if="o.partner_id.country_id and o.partner_id.country_id.code != 'DE'">
                 <p>All prices are net prices</p>
             </t>
-        </xpath>
-        <!-- Move unit of measure -->
-        <xpath expr="//th[@name='th_quantity']" position="after">
-            <th name="th_uom" class="text-end">
-                <span>Unit of Measure</span>
-            </th>
-        </xpath>
-        <xpath
-            expr="//td[@name='td_quantity']/span[@t-field='line.product_uom_id']"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//td[@name='td_quantity']" position="after">
-            <td class="text-end">
-                <span t-field="line.product_uom_id" />
-            </td>
         </xpath>
         <!-- Include currency -->
         <xpath expr="//td[@name='td_price_unit']/span" position="attributes">
@@ -81,6 +66,21 @@
         </xpath>
         <xpath expr="//p[@name='payment_communication']" position="attributes">
             <attribute name="class">d-none</attribute>
+        </xpath>
+
+        <xpath
+            expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']"
+            position="attributes"
+        >
+            <attribute name="t-if">not line.report_description</attribute>
+        </xpath>
+        <xpath
+            expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']"
+            position="after"
+        >
+            <t t-if="line.report_description">
+                <span t-field="line.report_description" />
+            </t>
         </xpath>
     </template>
 
@@ -181,13 +181,13 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="after">
-            <td>Reference No.:</td>
+            <td style="font-size: 10pt !important;">Reference No.:</td>
         </xpath>
         <xpath expr="//tr[@t-if='o.ref']/td[1]" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//tr[@t-if='o.ref']/td[1]" position="after">
-            <td>Purchase Order No.:</td>
+            <td style="font-size: 10pt !important;">Purchase Order No.:</td>
         </xpath>
         <xpath expr="//div[hasclass('invoice_main')]" position="after">
             <div id="fiscal_position" class="clearfix mt-3">
@@ -204,19 +204,6 @@
         </xpath>
         <xpath expr="//t[@t-set='din5008_address_block']//tr" position="attributes">
             <attribute name="class">d-none</attribute>
-        </xpath>
-    </template>
-
-    <template
-        id="document_tax_totals_template"
-        inherit_id="account.document_tax_totals_template"
-    >
-        <xpath expr="//tr[hasclass('o_subtotal')]/td/span" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
-
-        <xpath expr="//tr[hasclass('o_subtotal')]/td/span" position="after">
-            <span>Total Net</span>
         </xpath>
     </template>
 </odoo>
