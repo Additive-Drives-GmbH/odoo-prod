@@ -7,6 +7,4 @@ class ResPartner(models.Model):
     purchase_order_no = fields.Char(
         string="Purchase Order Number",
     )
-    supplier_no = fields.Char(
-        string="Supplier Number",
-    )
+    supplier_no = fields.Char()
