@@ -86,7 +86,7 @@
                 class="text-start"
                 style="border: 1px solid #000; white-space: nowrap; vertical-align: top;"
             >
-                <span t-esc="'{:03d}'.format((move_index + 1) * 10)" />
+                <span t-esc="'{:04d}'.format((move_index + 1) * 10)" />
             </td>
         </xpath>
 
@@ -208,7 +208,9 @@
             position="before"
         >
             <div class="mt-5">
-                <p style="margin-bottom: 0px;">Best regards</p>
+                <p>Best regards</p>
+                <br />
+                <br />
                 <p t-if="o.sale_id.user_id" style="margin-bottom: 60px;">
                     <strong>
                         <span t-esc="o.sale_id.user_id.name" />
@@ -234,7 +236,7 @@
                 class="text-start"
                 style="border: 1px solid #000; white-space: nowrap; vertical-align: top;"
             >
-                <span t-esc="'{:03d}'.format((line_index + 1) * 10)" />
+                <span t-esc="'{:04d}'.format((line_index + 1) * 10)" />
             </td>
         </xpath>
 
@@ -290,7 +292,7 @@
                 class="text-start"
                 style="border: 1px solid #000; white-space: nowrap; vertical-align: top;"
             >
-                <span t-esc="'{:03d}'.format((move_line_index + 1) * 10)" />
+                <span t-esc="'{:04d}'.format((move_line_index + 1) * 10)" />
             </td>
         </xpath>
 
