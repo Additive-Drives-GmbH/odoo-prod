@@ -76,3 +76,9 @@ class SaleOrderLine(models.Model):
                     sale_pos[line["order_id"]] += step
                     # end update
         return vals_list
+
+    def _prepare_invoice_line(self, **optional_values):
+        self.ensure_one()
+        invoice_line_values = super()._prepare_invoice_line(**optional_values)
+        invoice_line_values["report_description"] = self.report_description
+        return invoice_line_values
