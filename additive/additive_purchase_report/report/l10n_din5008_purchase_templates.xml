@@ -10,7 +10,8 @@
         >
             <tr name='purchase_title'>
                 <td class="text-nowrap" style="padding-top: 12mm">
-                    <strong>Purchase Order</strong>
+                    <strong t-if="o.state == 'purchase'">Purchase Order</strong>
+                    <strong t-if="o.state != 'purchase'">Request for Quotation</strong>
                 </td>
             </tr>
         </xpath>
@@ -67,6 +68,14 @@
                 <td>Email:</td>
                 <td class="text-nowrap">
                     <t t-out="o.user_id.email" />
+                </td>
+            </tr>
+        </xpath>
+        <xpath expr="//div[hasclass('information_block')]/table" position="inside">
+            <tr t-if="o.partner_id and o.partner_id.vat">
+                <td>VAT:</td>
+                <td>
+                    <t t-out="o.partner_id.vat" />
                 </td>
             </tr>
         </xpath>

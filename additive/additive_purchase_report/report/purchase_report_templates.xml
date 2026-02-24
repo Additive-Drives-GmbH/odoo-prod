@@ -161,7 +161,7 @@
         </xpath>
         <xpath expr="//div[@id='total']" position="after">
             <t t-if="o.partner_id.lang and o.partner_id.lang == 'de_DE'">
-                <p>Mit freundlichen Grüßen<br />
+                <p>Mit freundlichen Grüßen<br /><br />
                 <strong>
                     <span t-field="o.user_id.name" />
                 </strong><br />
@@ -180,6 +180,23 @@
         </xpath>
         <xpath expr="//span[@t-field='line.discount']" position="attributes">
             <attribute name="style">padding-right: 2px;</attribute>
+        </xpath>
+        <!-- use report description -->
+        <xpath expr="//span[@t-field='line.name']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.name']" position="after">
+            <span t-if="line.report_description" t-field="line.report_description" />
+        </xpath>
+        <!-- hide discount -->
+        <xpath
+            expr="//td[hasclass('text-end')]/span/span[@t-field='line.discount']/../.."
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_discount']" position="attributes">
+            <attribute name="class">d-none</attribute>
         </xpath>
     </template>
 </odoo>

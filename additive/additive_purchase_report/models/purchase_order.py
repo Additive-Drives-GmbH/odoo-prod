@@ -31,5 +31,5 @@ class PurchaseOrder(models.Model):
     def _recompute_positions(self):
         lines = self.order_line.filtered(lambda line: not line.display_type)
         lines = lines.sorted(key=lambda x: (x.sequence, x.id))
-        for position, line in enumerate(lines, start=1):
-            line.position = position
+        for index, line in enumerate(lines):
+            line.position = (index + 1) * 10
