@@ -1,0 +1,225 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* additive_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-19 17:24+0000\n"
+"PO-Revision-Date: 2026-02-19 17:24+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "1.05"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "27.00"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "31.05"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "4.05"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<span class=\"mr16\">Rounding</span>"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<span class=\"mr16\">Total Net</span>"
+msgstr "<span class=\"mr16\">Gesamt Netto</span>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<span> on </span>"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "<strong class=\"mr16\">Total</strong>"
+msgstr "<strong class=\"mr16\">Gesamtbetrag</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>Bank Details</strong>"
+msgstr "<strong>Bankverbindung</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>General Manager</strong>"
+msgstr "<strong>Geschäftsführer</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>Registered Seat</strong>"
+msgstr "<strong>Firmensitz/ Geschäftsadresse</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "<strong>Registry Court</strong>"
+msgstr "<strong>Amtsgericht Dresden</strong>"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_inherit
+msgid "All prices are net prices"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "Amtsgericht Dresden"
+msgstr ""
+
+#. module: additive_reports
+#: model:ir.model,name:additive_reports.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: additive_reports
+#: model:ir.model,name:additive_reports.model_base_document_layout
+msgid "Company Document Layout"
+msgstr "Dokumentenlayout des Unternehmens"
+
+#. module: additive_reports
+#: model:ir.model,name:additive_reports.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Contact:"
+msgstr "Kontakt."
+
+#. module: additive_reports
+#: model:ir.model.fields,field_description:additive_reports.field_account_bank_statement_line__country_of_origin_id
+#: model:ir.model.fields,field_description:additive_reports.field_account_move__country_of_origin_id
+msgid "Country Of Origin"
+msgstr "Ursprungsland"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Country of Origin:"
+msgstr "Ursprungsland."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Customer No.:"
+msgstr "Kunden-Nr."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Date of achievement:"
+msgstr "Lesitungsdatum."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Delivery Note:"
+msgstr "Lieferschein-Nr ."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Delivery address:"
+msgstr ""
+
+#. module: additive_reports
+#: model:ir.model.fields,help:additive_reports.field_account_move_line__report_description
+msgid "Description to be included in the sale report"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "E-Mail:"
+msgstr "E-mail."
+
+#. module: additive_reports
+#: model:ir.model.fields,field_description:additive_reports.field_base_document_layout__general_manager_ids
+#: model:ir.model.fields,field_description:additive_reports.field_res_company__general_manager_ids
+msgid "General Manager"
+msgstr "Geschäftsführer"
+
+#. module: additive_reports
+#: model:ir.model.fields,help:additive_reports.field_base_document_layout__general_manager_ids
+#: model:ir.model.fields,help:additive_reports.field_res_company__general_manager_ids
+msgid "General managers to be displayed in reports."
+msgstr "Geschäftsführer, die in Berichten angezeigt werden sollen."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Goods-No.(HS-Code):"
+msgstr "Warennummer (HS-Code):"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Invoice No."
+msgstr "Rechnung Nr."
+
+#. module: additive_reports
+#: model:ir.model,name:additive_reports.model_account_move
+msgid "Journal Entry"
+msgstr "Journalbuchung"
+
+#. module: additive_reports
+#: model:ir.model,name:additive_reports.model_account_move_line
+msgid "Journal Item"
+msgstr "Buchungszeile"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "Mail:"
+msgstr ""
+
+#. module: additive_reports
+#: model:ir.model.fields,field_description:additive_reports.field_res_partner__our_nr_by_customer
+#: model:ir.model.fields,field_description:additive_reports.field_res_users__our_nr_by_customer
+msgid "Our Number by Customer"
+msgstr "Lieferanten-Nr"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
+msgid "Phone:"
+msgstr "Tel:"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Purchase Order No.:"
+msgstr "Bestell-Nr."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Reference No.:"
+msgstr "Referenz-Nr."
+
+#. module: additive_reports
+#: model:ir.model.fields,field_description:additive_reports.field_account_move_line__report_description
+msgid "Report Description"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
+msgid "Tax 15%"
+msgstr ""
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "VAT-Customer:"
+msgstr "Ihre UST ID."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Vendor/Supplier-No.:"
+msgstr "Lieferanten-Nr."

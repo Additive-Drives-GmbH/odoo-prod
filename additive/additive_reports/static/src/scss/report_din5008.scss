@@ -1,0 +1,71 @@
+.din_page {
+    font-size: 10pt !important;
+}
+.din_page.header img {
+    max-height: 27mm !important;
+}
+
+.din_page.header .logo_left {
+    float: left;
+    margin-left: 5mm;
+}
+
+.din_page.header .logo_right {
+    float: right;
+    margin-right: 5mm;
+}
+.din_page.footer .company_details table {
+    table-layout: auto !important;
+    width: 100% !important;
+    border-collapse: collapse;
+}
+.din_page.footer .company_details td {
+    white-space: nowrap;
+    vertical-align: top;
+}
+table.o_main_table tr.o_line_section td {
+    background-color: #a0a0a0 !important;
+}
+
+.din_page.invoice_note table.din_company_info > tbody > tr > td {
+    vertical-align: top !important;
+}
+
+.din_page.invoice_note .information_block td {
+    padding-right: 2mm;
+}
+.din_page.invoice_note h2 {
+    color: #000000 !important;
+    font-size: 9pt;
+}
+.din_page.invoice_note .address .colored_address {
+    font-size: 7pt !important;
+    width: 88mm;
+}
+.din_page.invoice_note .address .company_invoice_line {
+    width: 88mm;
+}
+
+.din_page.invoice_note .address,
+.din_page.invoice_note .shipping_address {
+    font-size: 10pt !important;
+}
+
+.din_page.invoice_note tr .information_block {
+    width: auto !important;
+}
+.din_page.invoice_note tr .information_block table {
+    width: auto !important;
+}
+.din_page.invoice_note tr .information_block table td {
+    white-space: nowrap;
+    vertical-align: top;
+    padding-right: 3mm;
+}
+
+.din_page.invoice_note .page {
+    width: 95%;
+}
+.din_page.invoice_note .information_block td:nth-child(n + 2) {
+    font-size: 8pt !important;
+}
