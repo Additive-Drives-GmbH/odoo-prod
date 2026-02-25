@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v2.5.4
+_commit: v2.6.5
 _src_path: git@github.com:ifegmbh/ife-addons-repo-template.git
 additional_ruff_rules: []
 ci: GitHub
