@@ -23,7 +23,7 @@
 
         <xpath expr="//table[@name='stock_move_table']" position="attributes">
             <attribute name="class">table table-bordered</attribute>
-            <attribute name="style">border: 2px solid #000;</attribute>
+            <attribute name="style">border: 2px solid #000;margin-top:0mm</attribute>
         </xpath>
 
         <xpath
@@ -61,7 +61,7 @@
             expr="//table[@name='stock_move_table']/thead/tr/th[@name='th_sm_ordered']"
             position="attributes"
         >
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
@@ -72,7 +72,7 @@
             expr="//table[@name='stock_move_table']/thead/tr/th[@name='th_sm_quantity']"
             position="attributes"
         >
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
@@ -104,7 +104,7 @@
             expr="//table[@name='stock_move_table']/tbody/tr[@t-foreach='lines']/td[3]"
             position="attributes"
         >
-            <attribute name="class">o_td_quantity text-start</attribute>
+            <attribute name="class">o_td_quantity text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
@@ -122,7 +122,7 @@
             expr="//table[@name='stock_move_table']/tbody/tr[@t-foreach='lines']/td[4]"
             position="attributes"
         >
-            <attribute name="class">o_td_quantity text-start</attribute>
+            <attribute name="class">o_td_quantity text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
@@ -137,7 +137,7 @@
 
         <xpath expr="//table[@name='stock_move_line_table']" position="attributes">
             <attribute name="class">table table-bordered mt48</attribute>
-            <attribute name="style">border: 2px solid #000;</attribute>
+            <attribute name="style">border: 2px solid #000;margin-top:0mm</attribute>
         </xpath>
 
         <xpath
@@ -175,7 +175,7 @@
             expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_qty_ordered']"
             position="attributes"
         >
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top; font-weight: bold;</attribute>
@@ -186,7 +186,7 @@
             expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='lot_serial']"
             position="attributes"
         >
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top; font-weight: bold;</attribute>
@@ -197,7 +197,7 @@
             expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_quantity']"
             position="attributes"
         >
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top; font-weight: bold;</attribute>
@@ -251,7 +251,7 @@
             expr="//tr[@t-foreach='aggregated_lines']/td[@name='move_line_aggregated_qty_ordered']"
             position="attributes"
         >
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
@@ -264,12 +264,12 @@
             <attribute name="class">d-none</attribute>
         </xpath>
 
-        <!-- Change delivered quantity to text-start and hide UOM -->
+        <!-- Change delivered quantity to text-center and hide UOM -->
         <xpath
             expr="//tr[@t-foreach='aggregated_lines']/td[@name='move_line_aggregated_quantity']"
             position="attributes"
         >
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
@@ -303,15 +303,15 @@
         </xpath>
 
         <xpath expr="//t[@name='move_line_lot']/td" position="attributes">
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
         </xpath>
 
-        <!-- Change quantity column to text-start and hide UOM -->
+        <!-- Change quantity column to text-center and hide UOM -->
         <xpath expr="//td[@name='move_line_lot_quantity']" position="attributes">
-            <attribute name="class">text-start</attribute>
+            <attribute name="class">text-center</attribute>
             <attribute
                 name="style"
             >border: 1px solid #000; vertical-align: top;</attribute>
