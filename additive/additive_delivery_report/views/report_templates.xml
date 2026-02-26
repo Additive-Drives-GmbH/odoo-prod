@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="external_layout_din5008_deliveryslip_no_phone"
+        inherit_id="l10n_din5008_stock.external_layout_din5008_deliveryslip"
+    >
+        <xpath
+            expr="//t[@t-if='o.should_print_delivery_address()']/address"
+            position="attributes"
+        >
+            <attribute
+                name="t-options"
+            >{"widget": "contact", "fields": ["address", "name"], "no_marker": True}</attribute>
+        </xpath>
+        <xpath expr="//t[@t-else='']/address" position="attributes">
+            <attribute
+                name="t-options"
+            >{"widget": "contact", "fields": ["address", "name"], "no_marker": True}</attribute>
+        </xpath>
+    </template>
+
+    <template
+        id="external_layout_delivery_title"
+        inherit_id="l10n_din5008.external_layout_din5008"
+    >
+        <xpath expr="//div[@id='din5008_report_main_address']" position="before">
+            <t t-if="o and o._name == 'stock.picking'">
+                <t t-set="din5008_document_information">
+                    <t
+                        t-set="countries_origin"
+                        t-value="o._get_countries_of_origin()"
+                    />
+                    <style>
+                        .info-table {
+                            line-height: 1.2;
+                        }
+                        .info-table td {
+                            padding: 0.5px 0;
+                        }
+                        .info-table .info-label {
+                            white-space: nowrap;
+                            padding-right: 8px;
+                            font-size: 9pt;
+                        }
+                        .info-table .info-value {
+                            word-break: break-word;
+                            overflow-wrap: break-word;
+                            max-width: 200px;
+                            font-size: 9pt;
+                        }
+                    </style>
+                    <div class="information_block" style="margin-top: 40px;">
+                        <table class="info-table">
+                            <tr t-if="o.sale_id.user_id">
+                                <td class="info-label">Contact:</td>
+                                <td class="info-value">
+                                    <span t-esc="o.sale_id.user_id.name" />
+                                </td>
+                            </tr>
+                            <tr t-if="o.sale_id.user_id and o.sale_id.user_id.email">
+                                <td class="info-label">E-Mail:</td>
+                                <td class="info-value" style="word-break: break-all;">
+                                    <span t-esc="o.sale_id.user_id.email" />
+                                </td>
+                            </tr>
+                            <tr t-if="o.sale_id.user_id and o.sale_id.user_id.phone">
+                                <td class="info-label">Phone:</td>
+                                <td class="info-value">
+                                    <span t-esc="o.sale_id.user_id.phone" />
+                                </td>
+                            </tr>
+                            <tr t-if="o.sale_id.date_order">
+                                <td class="info-label">Date:</td>
+                                <td class="info-value">
+                                    <span
+                                        t-esc="o.sale_id.date_order"
+                                        t-options='{"widget": "date"}'
+                                    />
+                                </td>
+                            </tr>
+                            <tr t-if="o.sale_id">
+                                <td class="info-label">Reference No.:</td>
+                                <td class="info-value">
+                                    <span t-esc="o.sale_id.name" />
+                                </td>
+                            </tr>
+                            <tr
+                                t-if="o.partner_id.commercial_partner_id.purchase_order_no"
+                            >
+                                <td class="info-label">Purchase Order No.:</td>
+                                <td class="info-value">
+                                    <span
+                                        t-esc="o.partner_id.commercial_partner_id.purchase_order_no"
+                                    />
+                                </td>
+                            </tr>
+                            <tr t-if="o.sale_id.project_id">
+                                <td class="info-label">Project:</td>
+                                <td class="info-value">
+                                    <span t-esc="o.sale_id.project_id.name" />
+                                </td>
+                            </tr>
+                            <tr
+                                t-if="o.partner_id.commercial_partner_id.debitor_number"
+                            >
+                                <td class="info-label">Customer No.:</td>
+                                <td class="info-value">
+                                    <span
+                                        t-esc="o.partner_id.commercial_partner_id.debitor_number"
+                                    />
+                                </td>
+                            </tr>
+                            <tr t-if="o.partner_id.commercial_partner_id.supplier_no">
+                                <td class="info-label">Vendor/Supplier-No.:</td>
+                                <td class="info-value">
+                                    <span
+                                        t-esc="o.partner_id.commercial_partner_id.supplier_no"
+                                    />
+                                </td>
+                            </tr>
+                            <tr t-if="o.partner_id.vat">
+                                <td class="info-label">VAT:</td>
+                                <td class="info-value">
+                                    <span t-esc="o.partner_id.vat" />
+                                </td>
+                            </tr>
+                            <tr t-if="countries_origin">
+                                <td class="info-label">Country of Origin:</td>
+                                <td class="info-value">
+                                    <t t-foreach="countries_origin" t-as="country">
+                                        <span t-esc="country.name" />
+                                        <t t-if="not country_last">, </t>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+
+        <xpath expr="//t[@t-if='din5008_address_block']" position="attributes">
+            <attribute
+                name="t-if"
+            >din5008_address_block and not (o and o._name == 'stock.picking')</attribute>
+        </xpath>
+
+        <xpath expr="//h2" position="attributes">
+            <attribute name="t-if">not (o and o._name == 'stock.picking')</attribute>
+        </xpath>
+
+        <xpath expr="//h2" position="after">
+            <h2
+                t-if="o and o._name == 'stock.picking'"
+                style="margin-top:0mm;margin-bottom: 20px;"
+            >
+                <strong>
+                    <t t-if="is_delivery_report">Delivery Note</t>
+                    <span t-field="o.name" />
+                </strong>
+            </h2>
+        </xpath>
+    </template>
+</odoo>
