@@ -1,2 +1,0 @@
-* Jan Gessler
-* Mohssin Bouktaib
