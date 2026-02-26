@@ -6,14 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-18 10:26+0000\n"
-"PO-Revision-Date: 2025-12-18 10:26+0000\n"
+"POT-Creation-Date: 2025-01-30 21:09+0000\n"
+"PO-Revision-Date: 2025-01-30 21:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: ife_textblock_sale
+#: model:ir.model.fields,help:ife_textblock_sale.field_text_block__show_in_invoice
+msgid "If checked the textblock will be shown in invoice."
+msgstr ""
+
+#. module: ife_textblock_sale
+#: model:ir.model.fields,help:ife_textblock_sale.field_text_block__not_print_custom_view
+msgid "If checked the textblock will not be print at Customer View."
+msgstr ""
 
 #. module: ife_textblock_sale
 #: model:ir.model.fields,field_description:ife_textblock_sale.field_sale_order__text_block_id
@@ -56,31 +66,6 @@ msgid "SO Line"
 msgstr ""
 
 #. module: ife_textblock_sale
-#: model:ir.model.fields,field_description:ife_textblock_sale.field_text_block__show_in_order
-msgid "Show In Order"
-msgstr "Im Auftrag anzeigen"
-
-#. module: ife_textblock_sale
-#: model:ir.model,name:ife_textblock_sale.model_text_block
-msgid "Text block that can added to reports in related models"
-msgstr "Textbaustein, der Berichten in verknüpften Modellen hinzugefügt werden kann"
-
-#. module: ife_textblock_sale
-#: model:ir.model.fields,help:ife_textblock_sale.field_text_block__show_in_invoice
-msgid "If checked the textblock will be shown in invoice."
-msgstr "Wenn aktiviert, wird der Textbaustein auf der Rechnung angezeigt."
-
-#. module: ife_textblock_sale
-#: model:ir.model.fields,help:ife_textblock_sale.field_text_block__not_print_custom_view
-msgid "If checked the textblock will not be print at Customer View."
-msgstr "Wenn aktiviert, wird der Textbaustein in der Kundenansicht nicht gedruckt."
-
-#. module: ife_textblock_sale
-#: model:ir.model.fields,help:ife_textblock_sale.field_text_block__show_in_order
-msgid "If unchecked, the text block is only shown on quotations."
-msgstr "Wenn deaktiviert, wird der Textbaustein nur in Angeboten angezeigt."
-
-#. module: ife_textblock_sale
 #: model:ir.model,name:ife_textblock_sale.model_sale_order
 msgid "Sales Order"
 msgstr "Verkaufsauftrag"
@@ -104,3 +89,8 @@ msgstr "Textblock Aktion"
 #: model:ir.ui.menu,name:ife_textblock_sale.text_block_sale_menu
 msgid "Text Blocks"
 msgstr "Textblock"
+
+#. module: ife_textblock_sale
+#: model:ir.model,name:ife_textblock_sale.model_text_block
+msgid "Text block that can added to reports in related models"
+msgstr ""

@@ -152,7 +152,7 @@
         <xpath expr="//h2" position="after">
             <h2
                 t-if="o and o._name == 'stock.picking'"
-                style="margin-top: 85px; margin-bottom: 20px;"
+                style="margin-top:0mm;margin-bottom: 20px;"
             >
                 <strong>
                     <t t-if="is_delivery_report">Delivery Note</t>

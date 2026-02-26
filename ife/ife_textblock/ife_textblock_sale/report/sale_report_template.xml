@@ -12,14 +12,7 @@
             position="before"
         >
             <t
-                t-foreach="doc.above_text_block_ids.filtered(
-    lambda p:
-        not p.not_print
-        and (
-            doc.state in ('draft', 'sent')
-            or p.show_in_order
-        )
-).sorted(lambda x: x.sequence)"
+                t-foreach="doc.above_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)"
                 t-as="t"
             >
                 <t t-if="t.post_page_break and t.pre_page_break">
@@ -56,14 +49,7 @@
 
         <xpath expr="//p[@id='fiscal_position_remark']" position="after">
             <t
-                t-foreach="doc.bottom_text_block_ids.filtered(
-    lambda p:
-        not p.not_print
-        and (
-            doc.state in ('draft', 'sent')
-            or p.show_in_order
-        )
-).sorted(lambda x: x.sequence)"
+                t-foreach="doc.bottom_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)"
                 t-as="t"
             >
                 <t t-if="t.post_page_break and t.pre_page_break">
