@@ -161,19 +161,10 @@
                     <t t-out="o.partner_id.our_nr_by_customer" />
                 </td>
             </tr>
-            <tr t-if="o.partner_id.lang == 'en_US'">
-                <td>Goods-No.(HS-Code):</td>
-            </tr>
             <tr t-if="o.country_of_origin_id">
                 <td>Country of Origin:</td>
                 <td>
                     <t t-out="o.country_of_origin_id.name" />
-                </td>
-            </tr>
-            <tr t-if="o.partner_id.lang == 'en_US' and o.partner_shipping_id">
-                <td>Delivery address:</td>
-                <td>
-                    <t t-out="o.partner_shipping_id.name" />
                 </td>
             </tr>
         </xpath>
@@ -201,9 +192,6 @@
                     </p>
                 </div>
             </div>
-        </xpath>
-        <xpath expr="//t[@t-set='din5008_address_block']//tr" position="attributes">
-            <attribute name="class">d-none</attribute>
         </xpath>
     </template>
 </odoo>

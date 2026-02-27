@@ -132,11 +132,6 @@ msgid "Delivery Note:"
 msgstr "Lieferschein-Nr ."
 
 #. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Delivery address:"
-msgstr ""
-
-#. module: additive_reports
 #: model:ir.model.fields,help:additive_reports.field_account_move_line__report_description
 msgid "Description to be included in the sale report"
 msgstr ""
@@ -157,11 +152,6 @@ msgstr "Geschäftsführer"
 #: model:ir.model.fields,help:additive_reports.field_res_company__general_manager_ids
 msgid "General managers to be displayed in reports."
 msgstr "Geschäftsführer, die in Berichten angezeigt werden sollen."
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Goods-No.(HS-Code):"
-msgstr "Warennummer (HS-Code):"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
