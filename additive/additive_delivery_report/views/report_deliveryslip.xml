@@ -229,6 +229,22 @@
                 </div>
             </div>
         </xpath>
+
+        <!-- Hide original td -->
+        <xpath expr="//td/span[@t-field='move.product_id']/.." position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+
+        <!-- Add new td after the hidden one -->
+        <xpath expr="//td/span[@t-field='move.product_id']/.." position="after">
+            <td>
+                <span
+                    t-if="move.description_picking"
+                    t-out="move.description_picking"
+                />
+                <span t-else="" t-field="move.product_id" />
+            </td>
+        </xpath>
     </template>
 
     <template
@@ -327,6 +343,24 @@
         >
             <attribute name="class">d-none</attribute>
         </xpath>
+        <!-- Hide original td -->
+        <xpath
+            expr="//td/span[@t-field='move_line.product_id']/.."
+            position="attributes"
+        >
+            <attribute name="class">d-none</attribute>
+        </xpath>
+
+        <!-- Add new td after-->
+        <xpath expr="//td/span[@t-field='move_line.product_id']/.." position="after">
+            <td>
+                <span
+                    t-if="move_line.move_id.description_picking"
+                    t-out="move_line.move_id.description_picking"
+                />
+                <span t-else="" t-field="move_line.product_id" />
+            </td>
+        </xpath>
     </template>
 
     <template
@@ -378,6 +412,21 @@
         <xpath expr="//td[@t-if='has_hs_code']" position="attributes">
             <attribute name="class">d-none</attribute>
             <attribute name="style">display: none !important;</attribute>
+        </xpath>
+        <!-- Hide original td -->
+        <xpath expr="//tr[@t-foreach='aggregated_lines']/td[1]" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+
+        <!-- Add new td after the hidden one -->
+        <xpath expr="//tr[@t-foreach='aggregated_lines']/td[1]" position="after">
+            <td>
+                <span
+                    t-if="aggregated_lines[line]['move'].description_picking"
+                    t-esc="aggregated_lines[line]['move'].description_picking"
+                />
+                <span t-else="" t-esc="aggregated_lines[line]['name']" />
+            </td>
         </xpath>
     </template>
 </odoo>
