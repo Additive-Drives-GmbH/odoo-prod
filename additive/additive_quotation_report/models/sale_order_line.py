@@ -82,3 +82,9 @@ class SaleOrderLine(models.Model):
         invoice_line_values = super()._prepare_invoice_line(**optional_values)
         invoice_line_values["report_description"] = self.report_description
         return invoice_line_values
+
+    def _prepare_procurement_values(self, group_id=False):
+        values = super()._prepare_procurement_values(group_id)
+        if self.report_description:
+            values["description_picking"] = self.report_description
+        return values
