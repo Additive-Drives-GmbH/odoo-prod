@@ -50,7 +50,7 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//th[@name='th_quantity']" position="after">
-            <th name="th_quantity" class="text-end text-nowrap">Qnt.</th>
+            <th name="th_quantity" class="text-end text-nowrap" width="10%">Qnt.</th>
         </xpath>
         <!-- rename amount -->
         <xpath expr="//th[@name='th_subtotal']" position="attributes">

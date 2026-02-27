@@ -29,3 +29,9 @@ class StockRule(models.Model):
         if sale_line and sale_line.report_description:
             res["description_picking"] = sale_line.report_description
         return res
+
+    def _push_prepare_move_copy_values(self, move_to_copy, new_date):
+        res = super()._push_prepare_move_copy_values(move_to_copy, new_date)
+        if move_to_copy.description_picking:
+            res["description_picking"] = move_to_copy.description_picking
+        return res
