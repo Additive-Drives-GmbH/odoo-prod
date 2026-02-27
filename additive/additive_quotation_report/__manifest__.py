@@ -6,7 +6,13 @@
     "license": "LGPL-3",
     "author": "IFE Gesellschaft für Forschung und Entwicklung",
     "website": "https://www.ife.de",
-    "depends": ["account", "sale", "sale_order_line_position", "additive_reports"],
+    "depends": [
+        "account",
+        "sale",
+        "sale_order_line_position",
+        "additive_reports",
+        "sale_stock",
+    ],
     "data": [
         "report/sale_report_templates.xml",
         "views/sale_order_views.xml",

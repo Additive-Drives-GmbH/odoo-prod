@@ -146,13 +146,11 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <!-- add new column item-->
-        <xpath expr="//th[@name='th_description']" position="before">
-            <th name="th_item" class="text-start">Item</th>
+        <xpath expr="//th[@name='th_description']" position="attributes">
+            <attribute name="class">text-start d-none</attribute>
         </xpath>
-        <xpath expr="//td[@name='td_name']" position="before">
-            <td name="td_item">
-                <span t-field="line.product_id.name">Bacon Burger</span>
-            </td>
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="th_description" class="text-start">Item</th>
         </xpath>
     </template>
 
