@@ -81,7 +81,7 @@
 
         <!-- Lines Text-blocks -->
 
-        <xpath expr="//t[@t-foreach='o.order_line']/tr[1]/t[1]" position="after">
+        <xpath expr="//t[@t-foreach='o.order_line']/tr[1]" position="after">
             <tr
                 t-if="not order_line.display_type and order_line.text_block_id and not order_line.text_block_id.not_print"
             >
