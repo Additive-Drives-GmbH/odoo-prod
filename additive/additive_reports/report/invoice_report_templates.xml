@@ -82,6 +82,17 @@
                 <span t-field="line.report_description" />
             </t>
         </xpath>
+        <!--center section-->
+        <xpath
+            expr="//t[@t-elif=&quot;line.display_type == 'line_section'&quot;]/td"
+            position="attributes"
+        >
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <!-- hide uom-->
+        <xpath expr="//span[@t-field='line.product_uom_id']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
     </template>
 
     <template
