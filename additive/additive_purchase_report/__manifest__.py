@@ -1,0 +1,25 @@
+{
+    "name": "Additive Purchase Report",
+    "summary": "Purchase Report Customisations for Additive",
+    "category": "Custom",
+    "version": "18.0.1.0.0",
+    "license": "LGPL-3",
+    "author": "IFE Gesellschaft für Forschung und Entwicklung",
+    "website": "https://www.ife.de",
+    "depends": [
+        "purchase",
+        "l10n_din5008_purchase",
+        "project_purchase",
+        "hr",
+    ],
+    "data": [
+        "views/res_partner_views.xml",
+        "report/l10n_din5008_purchase_templates.xml",
+        "report/purchase_report_templates.xml",
+        "report/request_report_templates.xml",
+        "views/purchase_order_views.xml",
+        "views/res_config_settings_views.xml",
+    ],
+    "auto_install": False,
+    "installable": True,
+}
