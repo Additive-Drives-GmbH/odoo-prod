@@ -118,7 +118,10 @@
                 <span t-field="line.position_formatted" />
             </td>
             <td id="item" class="text-start">
-                <span t-field="line.product_id.display_name" />
+                <span
+                    t-if="line.report_description"
+                    t-field="line.report_description"
+                />
             </td>
         </xpath>
         <!--Remove tax column-->
@@ -181,12 +184,12 @@
         <xpath expr="//span[@t-field='line.discount']" position="attributes">
             <attribute name="style">padding-right: 2px;</attribute>
         </xpath>
-        <!-- use report description -->
-        <xpath expr="//span[@t-field='line.name']" position="attributes">
+        <!-- Hide Description -->
+        <xpath expr="//th[@name='th_description']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
-        <xpath expr="//span[@t-field='line.name']" position="after">
-            <span t-if="line.report_description" t-field="line.report_description" />
+        <xpath expr="//td[@id='product']" position="attributes">
+            <attribute name="class">d-none</attribute>
         </xpath>
         <!-- hide discount -->
         <xpath
@@ -196,6 +199,10 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//th[@name='th_discount']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <!--hide uom-->
+        <xpath expr="//span[@t-field='line.product_uom.name']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
     </template>

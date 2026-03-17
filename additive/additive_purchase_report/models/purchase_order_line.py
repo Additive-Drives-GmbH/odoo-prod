@@ -21,7 +21,7 @@ class PurchaseOrderLine(models.Model):
             lang = line.order_id.partner_id.lang
             if lang != self.env.lang:
                 line = line.with_context(lang=lang)
-            if line.product_id:
+            if line.product_id and not line.report_description:
                 line.report_description = (
                     line.product_id.description_purchase or line.product_id.display_name
                 )
@@ -34,7 +34,7 @@ class PurchaseOrderLine(models.Model):
             lang = line.order_id.partner_id.lang
             if lang != self.env.lang:
                 line = line.with_context(lang=lang)
-            if line.product_id:
+            if line.product_id and not line.report_description:
                 line.report_description = (
                     line.product_id.description_purchase or line.product_id.display_name
                 )
@@ -77,3 +77,34 @@ class PurchaseOrderLine(models.Model):
         if not position:
             return ""
         return str(position).zfill(4)
+
+    @api.model
+    def _prepare_purchase_order_line_from_procurement(
+        self,
+        product_id,
+        product_qty,
+        product_uom,
+        location_dest_id,
+        name,
+        origin,
+        company_id,
+        values,
+        po,
+    ):
+        res = super()._prepare_purchase_order_line_from_procurement(
+            product_id,
+            product_qty,
+            product_uom,
+            location_dest_id,
+            name,
+            origin,
+            company_id,
+            values,
+            po,
+        )
+        sale_line = values.get("move_dest_ids").sale_line_id
+        if "report_description" in sale_line._fields:
+            description = sale_line.report_description
+            if description:
+                res["report_description"] = description
+        return res

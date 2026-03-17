@@ -22,5 +22,9 @@
                 t-field="order_line.report_description"
             />
         </xpath>
+        <!--hide uom-->
+        <xpath expr="//span[@t-field='order_line.product_uom']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
     </template>
 </odoo>
