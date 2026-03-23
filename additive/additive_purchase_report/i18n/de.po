@@ -71,11 +71,6 @@ msgid "Customer Nr.:"
 msgstr "Kundennr.:"
 
 #. module: additive_purchase_report
-#: model:ir.model.fields,help:additive_purchase_report.field_purchase_order_line__report_description
-msgid "Description to be included in the sale report"
-msgstr ""
-
-#. module: additive_purchase_report
 #: model:ir.model.fields,field_description:additive_purchase_report.field_res_company__disable_purchase_position_recompute
 #: model:ir.model.fields,field_description:additive_purchase_report.field_res_config_settings__disable_purchase_position_recompute
 msgid "Do not recompute positions on purchase orders"
@@ -90,11 +85,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
 msgid "Email:"
 msgstr ""
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "Item"
-msgstr "Produkt"
 
 #. module: additive_purchase_report
 #: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order__locked_positions
@@ -163,11 +153,6 @@ msgstr ""
 #: model:ir.model,name:additive_purchase_report.model_ir_actions_report
 msgid "Report Action"
 msgstr "Berichtsaktion"
-
-#. module: additive_purchase_report
-#: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order_line__report_description
-msgid "Report Description"
-msgstr ""
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit

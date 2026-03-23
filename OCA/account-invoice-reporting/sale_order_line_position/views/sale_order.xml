@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
-        <field name="name">purchase.order.form.purchase.inherit</field>
-        <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.sale.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
         <field name="priority">100</field>
         <field name="arch" type="xml">
             <xpath
-                expr="//field[@name='order_line']//form//field[@name='tax_calculation_rounding_method']"
+                expr="//field[@name='order_line']//form//field[@name='sequence']"
                 position="after"
             >
                 <field name="position" force_save="1" />
@@ -21,10 +21,10 @@
         </field>
     </record>
 
-    <record model="ir.actions.server" id="action_compute_purchase_position">
+    <record model="ir.actions.server" id="action_compute_sale_position">
         <field name="name">Recompute positions</field>
-        <field name="model_id" ref="purchase.model_purchase_order" />
-        <field name="binding_model_id" ref="purchase.model_purchase_order" />
+        <field name="model_id" ref="sale.model_sale_order" />
+        <field name="binding_model_id" ref="sale.model_sale_order" />
         <field name="state">code</field>
         <field name="code">
         records.recompute_positions()
