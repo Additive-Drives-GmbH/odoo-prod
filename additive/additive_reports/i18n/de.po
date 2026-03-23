@@ -132,8 +132,8 @@ msgid "Delivery Note:"
 msgstr "Lieferschein-Nr ."
 
 #. module: additive_reports
-#: model:ir.model.fields,help:additive_reports.field_account_move_line__report_description
-msgid "Description to be included in the sale report"
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Delivery address:"
 msgstr ""
 
 #. module: additive_reports
@@ -193,11 +193,6 @@ msgstr "Bestell-Nr."
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "Reference No.:"
 msgstr "Referenz-Nr."
-
-#. module: additive_reports
-#: model:ir.model.fields,field_description:additive_reports.field_account_move_line__report_description
-msgid "Report Description"
-msgstr ""
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template

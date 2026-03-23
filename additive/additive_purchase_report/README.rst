@@ -35,8 +35,7 @@ Changelog
 =========
 
 - 18.0.1.0.0: initial version
-- 18.0.1.0.1: Update report description from related sale and show it in
-  report
+- 18.0.1.0.1: Remove report description
 
 Bug Tracker
 ===========

@@ -67,21 +67,6 @@
         <xpath expr="//p[@name='payment_communication']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
-
-        <xpath
-            expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']"
-            position="attributes"
-        >
-            <attribute name="t-if">not line.report_description</attribute>
-        </xpath>
-        <xpath
-            expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']"
-            position="after"
-        >
-            <t t-if="line.report_description">
-                <span t-field="line.report_description" />
-            </t>
-        </xpath>
         <!--center section-->
         <xpath
             expr="//t[@t-elif=&quot;line.display_type == 'line_section'&quot;]/td"

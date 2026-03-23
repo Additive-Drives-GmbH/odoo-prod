@@ -11,7 +11,6 @@
         "l10n_din5008_purchase",
         "project_purchase",
         "hr",
-        "sale_purchase_stock",
     ],
     "data": [
         "views/res_partner_views.xml",

@@ -8,15 +8,6 @@
             <xpath expr="//group[@name='sale_info_group']" position="inside">
                 <field name="country_of_origin_id" options="{'no_create': True}" />
             </xpath>
-            <xpath
-                expr="//field[@name='invoice_line_ids']/list/field[@name='name']"
-                position="after"
-            >
-                <field
-                    name="report_description"
-                    column_invisible="parent.move_type not in ['out_invoice', 'out_refund']"
-                />
-            </xpath>
         </field>
     </record>
 </odoo>
