@@ -117,17 +117,6 @@
                 </t>
             </p>
         </xpath>
-        <xpath
-            expr="//td[@name='td_name']/span[@t-field='line.name']"
-            position="attributes"
-        >
-            <attribute name="t-if">not line.report_description</attribute>
-        </xpath>
-        <xpath expr="//td[@name='td_name']/span[@t-field='line.name']" position="after">
-            <t t-if="line.report_description">
-                <span t-field="line.report_description" />
-            </t>
-        </xpath>
         <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
             <attribute
                 name="t-options"

@@ -9,12 +9,6 @@
                 <field name="contact_id" options="{'no_create': True}" />
                 <field name="country_of_origin_id" options="{'no_create': True}" />
             </xpath>
-            <xpath
-                expr="//field[@name='order_line']/list/field[@name='name']"
-                position="after"
-            >
-                <field name="report_description" />
-            </xpath>
         </field>
     </record>
 </odoo>

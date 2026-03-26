@@ -4,34 +4,6 @@ from odoo import api, fields, models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    report_description = fields.Text(
-        help="Description to be included in the sale report",
-    )
-
-    @api.onchange("product_id")
-    def _onchange_product_id_set_report_description(self):
-        for line in self:
-            lang = line.order_id._get_lang()
-            if lang != self.env.lang:
-                line = line.with_context(lang=lang)
-            if line.product_id:
-                line.report_description = (
-                    line.product_id.description_sale or line.product_id.display_name
-                )
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        lines = super().create(vals_list)
-        for line in lines:
-            lang = line.order_id._get_lang()
-            if lang != self.env.lang:
-                line = line.with_context(lang=lang)
-            if line.product_id:
-                line.report_description = (
-                    line.product_id.description_sale or line.product_id.display_name
-                )
-        return lines
-
     @api.model
     def _format_position(self, position):
         """
@@ -76,15 +48,3 @@ class SaleOrderLine(models.Model):
                     sale_pos[line["order_id"]] += step
                     # end update
         return vals_list
-
-    def _prepare_invoice_line(self, **optional_values):
-        self.ensure_one()
-        invoice_line_values = super()._prepare_invoice_line(**optional_values)
-        invoice_line_values["report_description"] = self.report_description
-        return invoice_line_values
-
-    def _prepare_procurement_values(self, group_id=False):
-        values = super()._prepare_procurement_values(group_id)
-        if self.report_description:
-            values["description_picking"] = self.report_description
-        return values

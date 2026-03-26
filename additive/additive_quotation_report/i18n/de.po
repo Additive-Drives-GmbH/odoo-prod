@@ -85,11 +85,6 @@ msgid "Country of Origin"
 msgstr "Herkunftsland"
 
 #. module: additive_quotation_report
-#: model:ir.model.fields,help:additive_quotation_report.field_sale_order_line__report_description
-msgid "Description to be included in the sale report"
-msgstr ""
-
-#. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
 msgid "Item"
 msgstr "Produkt"
@@ -132,11 +127,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
 msgid "Qant."
 msgstr ""
-
-#. module: additive_quotation_report
-#: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order_line__report_description
-msgid "Report Description"
-msgstr "Produktbezeichnung auf Ausdruck"
 
 #. module: additive_quotation_report
 #: model:ir.model,name:additive_quotation_report.model_sale_order
