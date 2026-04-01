@@ -1,0 +1,163 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* additive_quotation_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-16 13:23+0000\n"
+"PO-Revision-Date: 2026-01-16 13:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "31.05"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Please Note:</strong>"
+msgstr "<strong>Bitte Beachten:</strong>"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Subject To Change we offer:</strong>"
+msgstr "<strong>Vorbehaltlich Änderungen bieten wir an:</strong>"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Zwischensumme</strong>"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>The order includes the following work packages:</strong>"
+msgstr "<strong>Der Auftrag enthält die folgenden Arbeitspakete:</strong>"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "<strong>Total</strong>"
+msgstr "<strong>Gesamt</strong>"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid ""
+"Additive Drives does not take responsibility for the functionality of any "
+"customer supplies."
+msgstr ""
+"Additive Drives übernimmt keine Verantwortung für die Funktionalität von "
+"Kundenlieferungen."
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "All prices are net prices"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Bacon Burger"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order__contact_id
+msgid "Contact"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Contact:"
+msgstr "Kontakt:"
+
+#. module: additive_quotation_report
+#: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order__country_of_origin_id
+msgid "Country Of Origin"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Country of Origin"
+msgstr "Herkunftsland"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Item"
+msgstr "Produkt"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Line Price"
+msgstr "Betrag"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Mail:"
+msgstr "E-Mail:"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid ""
+"Manufacturing prices are indicative and can be confirmed after design "
+"freeze."
+msgstr ""
+"Die Preise für die Fertigung sind indikativ und können nach Abschluss der Konzeption bestätigt "
+"werden."
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Offer No."
+msgstr "Angebot Nr."
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Order Confirmation"
+msgstr "Auftragsbestätigung"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Phone:"
+msgstr ""
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Qant."
+msgstr ""
+
+#. module: additive_quotation_report
+#: model:ir.model,name:additive_quotation_report.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: additive_quotation_report
+#: model:ir.model,name:additive_quotation_report.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Verkaufsauftragszeile"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid ""
+"The overall timeline of the project depends on the timely provision of the "
+"parts or services by the customer."
+msgstr ""
+"Der Gesamtzeitplan des Projekts hängt von der rechtzeitigen Bereitstellung der Teile oder "
+"Dienstleistungen durch den Kunden ab."
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
+msgid "Qnt."
+msgstr "Menge"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Incoterm:"
+msgstr "Incoterm:"
+
+#. module: additive_quotation_report
+#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
+msgid "Payment Terms:"
+msgstr "Zahlungsbedingungen:"

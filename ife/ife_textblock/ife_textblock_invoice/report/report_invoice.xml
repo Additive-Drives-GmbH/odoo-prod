@@ -80,7 +80,7 @@
         <!-- Lines Text-blocks-->
 
         <xpath expr="//t[@t-foreach='lines']/tr[1]/t[1]" position="inside">
-            <tr>
+            <tr t-if="line.text_block_id and not line.text_block_id.not_print">
                 <td colspan="99">
                     <span style="" t-field="line.text_block_id.text" />
                 </td>

@@ -1,1 +1,2 @@
 - 18.0.1.0.0: initial version
+- 18.0.1.1.0: removed report_description field from purchase order lines

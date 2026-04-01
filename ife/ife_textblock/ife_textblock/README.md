@@ -11,6 +11,7 @@ Addon needs no configuration
 - 1.0.0 Initial Version
 - 1.0.1 : add default to copy method
 - 1.0.2: Add deafult form view to textblocks in products
+- 1.0.3: copy translations from template
 
 ## Maintainer:
 

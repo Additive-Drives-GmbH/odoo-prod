@@ -85,7 +85,9 @@
         <!-- Lines Text-blocks-->
 
         <xpath expr="//t[@t-foreach='o.order_line']/tr[1]/t[1]" position="after">
-            <tr t-if="not line.display_type">
+            <tr
+                t-if="not line.display_type and line.text_block_id and not line.text_block_id.not_print"
+            >
                 <td colspan="99">
                     <span t-field="line.text_block_id.text" />
                 </td>

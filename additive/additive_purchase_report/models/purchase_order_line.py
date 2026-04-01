@@ -6,38 +6,16 @@ class PurchaseOrderLine(models.Model):
 
     position = fields.Integer(readonly=True, index=True, default=False)
     position_formatted = fields.Char(compute="_compute_position_formatted")
-    report_description = fields.Text(
-        help="Description to be included in the sale report",
-    )
 
     @api.depends("position")
     def _compute_position_formatted(self):
         for record in self:
             record.position_formatted = record._format_position(record.position)
 
-    @api.onchange("product_id")
-    def _onchange_product_id_set_report_description(self):
-        for line in self:
-            lang = line.order_id.partner_id.lang
-            if lang != self.env.lang:
-                line = line.with_context(lang=lang)
-            if line.product_id:
-                line.report_description = (
-                    line.product_id.description_purchase or line.product_id.display_name
-                )
-
     @api.model_create_multi
     def create(self, vals_list):
         vals_list = self._add_next_position_on_new_line(vals_list)
         records = super().create(vals_list)
-        for line in records:
-            lang = line.order_id.partner_id.lang
-            if lang != self.env.lang:
-                line = line.with_context(lang=lang)
-            if line.product_id:
-                line.report_description = (
-                    line.product_id.description_purchase or line.product_id.display_name
-                )
         return records
 
     def unlink(self):

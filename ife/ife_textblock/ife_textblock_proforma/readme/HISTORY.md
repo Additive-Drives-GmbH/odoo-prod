@@ -1,0 +1,2 @@
+- 18.0.1.0.0: Initial Version
+- 18.0.1.0.1: Adjust inline textblock condition

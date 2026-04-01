@@ -12,15 +12,9 @@
         <xpath expr="//span[@t-field='order_line.date_planned']" position="attributes">
             <attribute name="t-options">{"widget": "date"}</attribute>
         </xpath>
-        <!-- use report description -->
-        <xpath expr="//span[@t-field='order_line.name']" position="attributes">
+        <!--hide uom-->
+        <xpath expr="//span[@t-field='order_line.product_uom']" position="attributes">
             <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//span[@t-field='order_line.name']" position="after">
-            <span
-                t-if="order_line.report_description"
-                t-field="order_line.report_description"
-            />
         </xpath>
     </template>
 </odoo>

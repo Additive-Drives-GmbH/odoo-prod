@@ -1,0 +1,50 @@
+from odoo import api, fields, models
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    @api.model
+    def _format_position(self, position):
+        """
+        Override to use 4 digits instead of 3
+        """
+        if not position:
+            return ""
+        return str(position).zfill(4)
+
+    def _get_position_step(self):
+        """
+        Return the increment step for positions."""
+        return 10
+
+    def _add_next_position_on_new_line(self, vals_list):
+        """
+        Override to use step of 10
+        """
+        step = self._get_position_step()
+        sale_ids = [
+            line["order_id"]
+            for line in vals_list
+            if not line.get("display_type") and line.get("order_id")
+        ]
+        if sale_ids:
+            ids = tuple(set(sale_ids))
+            self.flush_model()
+            query = """
+            SELECT order_id, coalesce(max(position), 0) FROM sale_order_line
+            WHERE order_id in %s GROUP BY order_id;
+            """
+            self.env.cr.execute(query, (ids,))
+            default_pos = {key: 1 for key in ids}
+            existing_pos = {
+                order_id: pos + 1 for order_id, pos in self.env.cr.fetchall()
+            }
+            sale_pos = {**default_pos, **existing_pos}
+            for line in vals_list:
+                if not line.get("display_type"):
+                    line["position"] = sale_pos[line["order_id"]]
+                    # start update
+                    sale_pos[line["order_id"]] += step
+                    # end update
+        return vals_list

@@ -1,0 +1,1 @@
+The **``ife_textblock_proforma``** module Add new checkbox proforma to text.block model , textblock with this option enabled will be shown in the proforma invoice report

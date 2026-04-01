@@ -67,20 +67,16 @@
         <xpath expr="//p[@name='payment_communication']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
-
+        <!--center section-->
         <xpath
-            expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']"
+            expr="//t[@t-elif=&quot;line.display_type == 'line_section'&quot;]/td"
             position="attributes"
         >
-            <attribute name="t-if">not line.report_description</attribute>
+            <attribute name="class">text-center</attribute>
         </xpath>
-        <xpath
-            expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']"
-            position="after"
-        >
-            <t t-if="line.report_description">
-                <span t-field="line.report_description" />
-            </t>
+        <!-- hide uom-->
+        <xpath expr="//span[@t-field='line.product_uom_id']" position="attributes">
+            <attribute name="class">d-none</attribute>
         </xpath>
     </template>
 
@@ -161,19 +157,10 @@
                     <t t-out="o.partner_id.our_nr_by_customer" />
                 </td>
             </tr>
-            <tr t-if="o.partner_id.lang == 'en_US'">
-                <td>Goods-No.(HS-Code):</td>
-            </tr>
             <tr t-if="o.country_of_origin_id">
                 <td>Country of Origin:</td>
                 <td>
                     <t t-out="o.country_of_origin_id.name" />
-                </td>
-            </tr>
-            <tr t-if="o.partner_id.lang == 'en_US' and o.partner_shipping_id">
-                <td>Delivery address:</td>
-                <td>
-                    <t t-out="o.partner_shipping_id.name" />
                 </td>
             </tr>
         </xpath>
@@ -201,9 +188,6 @@
                     </p>
                 </div>
             </div>
-        </xpath>
-        <xpath expr="//t[@t-set='din5008_address_block']//tr" position="attributes">
-            <attribute name="class">d-none</attribute>
         </xpath>
     </template>
 </odoo>
