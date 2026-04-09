@@ -87,10 +87,9 @@
 
         <!-- Move Totals table -->
         <xpath expr="//table[hasclass('o_main_table')][1]" position="after">
-            <p
-                t-if="doc.partner_id.lang!='de_DE'"
-                style="margin-top: -5mm;"
-            >All prices are net prices</p>
+            <p style="margin-top: -5mm;">
+                All prices are net prices
+            </p>
         </xpath>
         <xpath expr="//span[@t-field='doc.note']" position="before">
             <p>
