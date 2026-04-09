@@ -78,7 +78,7 @@
                 <td name="td_total" colspan="99">
                     <strong class="mr16">Total</strong>
                     <strong
-                        t-out="tax_totals['total_amount_currency']"
+                        t-out="tax_totals['base_amount_currency']"
                         t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"
                     >31.05</strong>
                 </td>
