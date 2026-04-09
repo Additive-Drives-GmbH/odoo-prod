@@ -33,129 +33,49 @@
                 }
             </script>
         </xpath>
+
+        <!-- manaTec 70747: remove company.report_header from header -->
+        <xpath expr="//table[hasclass('company_header')]//div[@t-field='company.report_header']/.." position="replace"/>
+
         <!-- Adjust Footer -->
-        <xpath expr="//div[hasclass('company_details')]//td[1]" position="attributes">
-            <attribute name="colspan" />
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[2]" position="attributes">
-            <attribute name="colspan" />
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[3]" position="attributes">
-            <attribute name="colspan" />
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[4]" position="attributes">
-            <attribute name="colspan" />
-        </xpath>
-        <xpath
-            expr="//div[hasclass('company_details')]//td[1]/ul"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[1]" position="inside">
-            <ul class="list-inline">
-                <li t-if="company.name">
-                    <strong>
-                        <span t-field="company.name" />
-                    </strong>
-                </li>
-            </ul>
-        </xpath>
-        <xpath
-            expr="//div[hasclass('company_details')]//td[2]/ul"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[2]" position="inside">
-            <ul class="list-inline">
-                <li>
-                    <strong>Registered Seat</strong>
-                </li>
-                <li t-if="company.street">
-                    <span t-field="company.street" />
-                </li>
-                <li t-if="company.zip">D-<span t-field="company.zip" /> <span
-                    t-field="company.city"
-                /></li>
-                <li t-if="foreign_partner">
-                    <span t-field="company.country_id" />
-                </li>
-                <li t-if="company.email">Mail: <span t-field="company.email" /></li>
-                <li t-if="company.phone">Phone: <span t-field="company.phone" /></li>
-            </ul>
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[2]" position="after">
-            <td class="text-start">
-                <ul class="list-inline">
-                    <li t-if="company.general_manager_ids">
-                        <strong>General Manager</strong>
-                    </li>
-                    <t
-                        t-foreach="company.general_manager_ids.sorted(key=lambda r: r.name, reverse=True)"
-                        t-as="manager"
-                    >
-                        <li>
-                            <span t-field="manager.name" />
+        <!-- manaTec 70747: replace the entire footer and rebuild it -->
+        <xpath expr="//div[hasclass('company_details')]//tr" position="replace">
+            <tr>
+                <td>
+                    <ul class="list-inline">
+                        <li t-if="company.name">
+                            <strong>
+                                <span t-field="company.name"/>
+                            </strong>
                         </li>
-                    </t>
-                </ul>
-            </td>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-inline">
+                        <li t-if="company.company_details"><span t-field="company.company_details"/></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-inline">
+                        <li t-if="company.general_manager_ids"><strong>General Manager</strong></li>
+                        <t t-foreach="company.general_manager_ids.sorted(key=lambda r: r.name, reverse=True)" t-as="manager">
+                            <li><span t-field="manager.name"/></li>
+                        </t>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-inline">
+                        <li t-if="company.report_footer"><span t-field="company.report_footer"/></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-inline">
+                        <li t-if="company.report_header"><span t-field="company.report_header"/></li>
+                    </ul>
+                </td>
+            </tr>
         </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[5]" position="after">
-            <xpath expr="//div[hasclass('company_details')]//td[4]" position="move" />
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[4]/ul/t" position="before">
-            <li>
-                <strong>Bank Details</strong>
-            </li>
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]//td[5]/ul/li" position="before">
-            <li>
-                <strong>Registry Court</strong>
-            </li>
-            <t t-if="foreign_partner or english_partner">
-                <li>
-                    Amtsgericht Dresden
-                </li>
-            </t>
-        </xpath>
-        <xpath
-            expr="//div[hasclass('company_details')]//td[5]/ul/li/t"
-            position="attributes"
-        >
-            <attribute name="t-if">not vat_label</attribute>
-        </xpath>
-        <xpath
-            expr="//div[hasclass('company_details')]//td[5]/ul/li/t"
-            position="after"
-        >
-            <t t-out="vat_label" />
-        </xpath>
-        <xpath
-            expr="//div[hasclass('company_details')]//td[last()]//li[3]"
-            position="after"
-        >
-            <xpath
-                expr="//div[hasclass('company_details')]//td[last()]//li[2]"
-                position="move"
-            />
-        </xpath>
-        <xpath
-            expr="//ul/t[@t-as='bank']/li[hasclass('text-nowrap')]"
-            position="before"
-        >
-            <xpath expr="//ul/t[@t-as='bank']/li[contains(., 'BIC')]" position="move" />
-        </xpath>
-        <xpath expr="//div[hasclass('company_details')]" position="after">
-            <xpath expr="//div[hasclass('page_number')]" position="move" />
-        </xpath>
-        <xpath
-            expr="//td[@t-if='company.partner_id.bank_ids']//t[@t-foreach='company.partner_id.bank_ids[:2]']"
-            position="inside"
-        >
-            <li t-if="not bank_last" style="height: 2mm;" />
-        </xpath>
+
         <!-- hide Country-->
         <xpath
             expr="//div[hasclass('colored_address')]/t[@t-if='company.country_id']/span[1]"
