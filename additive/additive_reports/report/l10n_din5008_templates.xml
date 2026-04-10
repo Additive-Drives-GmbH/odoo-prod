@@ -35,7 +35,7 @@
         </xpath>
 
         <!-- manaTec 70747: remove company.report_header from header -->
-        <xpath expr="//table[hasclass('company_header')]//div[@t-field='company.report_header']/.." position="replace"/>
+        <xpath expr="//table[hasclass('company_header')]//div[@t-field='company.report_header']" position="replace"/>
 
         <!-- Adjust Footer -->
         <!-- manaTec 70747: replace the entire footer and rebuild it -->
