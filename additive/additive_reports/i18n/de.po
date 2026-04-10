@@ -6,34 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 09:05+0000\n"
-"PO-Revision-Date: 2026-04-08 09:05+0000\n"
+"POT-Creation-Date: 2026-04-09 14:35+0000\n"
+"PO-Revision-Date: 2026-04-09 14:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
-msgid "1.05"
-msgstr ""
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
-msgid "27.00"
-msgstr ""
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
-msgid "31.05"
-msgstr ""
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
-msgid "4.05"
-msgstr ""
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.additive_invoice_tax_totals_template
@@ -57,33 +37,13 @@ msgstr "<strong class=\"mr16\">Gesamtbetrag</strong>"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "<strong>Bank Details</strong>"
-msgstr "<strong>Bankverbindung</strong>"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
 msgid "<strong>General Manager</strong>"
 msgstr "<strong>Geschäftsführer</strong>"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "<strong>Registered Seat</strong>"
-msgstr "<strong>Firmensitz/ Geschäftsadresse</strong>"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "<strong>Registry Court</strong>"
-msgstr "<strong>Amtsgericht Dresden</strong>"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_inherit
 msgid "All prices are net prices"
 msgstr "Alle Preise verstehen sich als Nettopreise"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "Amtsgericht Dresden"
-msgstr ""
 
 #. module: additive_reports
 #: model:ir.model,name:additive_reports.model_res_company
@@ -133,11 +93,6 @@ msgstr "Lieferschein-Nr ."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Delivery address:"
-msgstr ""
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "E-Mail:"
 msgstr "E-mail."
 
@@ -164,25 +119,10 @@ msgid "Journal Entry"
 msgstr "Journalbuchung"
 
 #. module: additive_reports
-#: model:ir.model,name:additive_reports.model_account_move_line
-msgid "Journal Item"
-msgstr "Buchungszeile"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "Mail:"
-msgstr ""
-
-#. module: additive_reports
 #: model:ir.model.fields,field_description:additive_reports.field_res_partner__our_nr_by_customer
 #: model:ir.model.fields,field_description:additive_reports.field_res_users__our_nr_by_customer
 msgid "Our Number by Customer"
 msgstr "Lieferanten-Nr"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.external_layout_din5008_inherit
-msgid "Phone:"
-msgstr "Tel:"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
