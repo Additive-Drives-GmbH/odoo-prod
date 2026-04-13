@@ -1,6 +1,6 @@
 {
     "name": "Additive Delivery Reports",
-    "version": "18.0.1.1.2",
+    "version": "18.0.1.1.3",
     "category": "Reporting",
     "summary": "Extend and Adjust Delivery Note Report",
     "author": "IFE Gesellschaft für Forschung und Entwicklung",
@@ -9,6 +9,8 @@
     "depends": [
         "stock",
         "sale_stock",
+        "sale_project",
+        "project_stock",
         "stock_delivery",
         "l10n_din5008_stock",
         "l10n_din5008",
