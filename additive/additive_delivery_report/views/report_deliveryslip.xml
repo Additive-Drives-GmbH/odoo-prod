@@ -211,10 +211,8 @@
             expr="//div[hasclass('page')]/div[hasclass('oe_structure')][last()]"
             position="before"
         >
-            <div class="mt-5">
+            <div class="mt-2">
                 <p>Best regards</p>
-                <br />
-                <br />
                 <p t-if="o.sale_id.user_id" style="margin-bottom: 60px;">
                     <strong>
                         <span t-esc="o.sale_id.user_id.name" />
