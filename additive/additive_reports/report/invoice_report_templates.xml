@@ -189,5 +189,7 @@
                 </div>
             </div>
         </xpath>
+        <!-- task 70748: remove Beneficiary Block  -->
+        <xpath expr="//t[@t-if='invoice_partner and invoice_partner != commercial_partner']" position="replace"/>
     </template>
 </odoo>
