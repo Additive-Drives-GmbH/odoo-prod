@@ -60,10 +60,6 @@
         <xpath expr="//td[@name='td_taxes']" position="attributes">
             <attribute name="t-attf-class">d-none</attribute>
         </xpath>
-        <!-- hide payment term -->
-        <xpath expr="//div[@id='payment_term']" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
         <xpath expr="//p[@name='payment_communication']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
