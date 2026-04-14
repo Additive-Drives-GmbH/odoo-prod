@@ -4,6 +4,9 @@
         id="external_layout_din5008_inherit"
         inherit_id="l10n_din5008.external_layout_din5008"
     >
+        <xpath expr="//div[hasclass('information_block')]" position="attributes">
+            <attribute name="class" add="lh-sm" separator=" "/>
+        </xpath>
         <xpath expr="//table[hasclass('company_header')]//tr/td[1]" position="inside">
             <img
                 t-if="company.logo"

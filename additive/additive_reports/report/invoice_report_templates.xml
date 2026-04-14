@@ -40,13 +40,6 @@
         <xpath expr="//tbody[hasclass('invoice_tbody')]" position="inside">
             <t t-call="additive_reports.additive_invoice_tax_totals_template" />
         </xpath>
-
-        <!-- Move Totals table -->
-        <xpath expr="//table[@name='invoice_line_table']" position="after">
-            <t t-if="o.partner_id.country_id and o.partner_id.country_id.code != 'DE'">
-                <p>All prices are net prices</p>
-            </t>
-        </xpath>
         <!-- Include currency -->
         <xpath expr="//td[@name='td_price_unit']/span" position="attributes">
             <attribute
