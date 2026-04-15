@@ -31,11 +31,8 @@
                     <t t-out="o.project_id.name" />
                 </td>
             </tr>
-            <xpath
-                expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_order']"
-                position="move"
-            />
         </xpath>
+        <xpath expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_order']" position="replace"/>
         <xpath
             expr="//div[hasclass('information_block')]/table/tr[@t-if='o.partner_ref']"
             position="attributes"
