@@ -40,13 +40,6 @@
         <xpath expr="//tbody[hasclass('invoice_tbody')]" position="inside">
             <t t-call="additive_reports.additive_invoice_tax_totals_template" />
         </xpath>
-
-        <!-- Move Totals table -->
-        <xpath expr="//table[@name='invoice_line_table']" position="after">
-            <t t-if="o.partner_id.country_id and o.partner_id.country_id.code != 'DE'">
-                <p>All prices are net prices</p>
-            </t>
-        </xpath>
         <!-- Include currency -->
         <xpath expr="//td[@name='td_price_unit']/span" position="attributes">
             <attribute
@@ -59,10 +52,6 @@
         </xpath>
         <xpath expr="//td[@name='td_taxes']" position="attributes">
             <attribute name="t-attf-class">d-none</attribute>
-        </xpath>
-        <!-- hide payment term -->
-        <xpath expr="//div[@id='payment_term']" position="attributes">
-            <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//p[@name='payment_communication']" position="attributes">
             <attribute name="class">d-none</attribute>
@@ -168,13 +157,13 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="after">
-            <td style="font-size: 10pt !important;">Reference No.:</td>
+            <td>Reference No.:</td>
         </xpath>
         <xpath expr="//tr[@t-if='o.ref']/td[1]" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//tr[@t-if='o.ref']/td[1]" position="after">
-            <td style="font-size: 10pt !important;">Purchase Order No.:</td>
+            <td>Purchase Order No.:</td>
         </xpath>
         <xpath expr="//div[hasclass('invoice_main')]" position="after">
             <div id="fiscal_position" class="clearfix mt-3">
@@ -188,6 +177,12 @@
                     </p>
                 </div>
             </div>
+        </xpath>
+        <!-- task 70748: remove Beneficiary Block  -->
+        <xpath expr="//t[@t-if='invoice_partner and invoice_partner != commercial_partner']" position="replace"/>
+        <!-- task 70748: minimize line height by setting CSS Class on information block  -->
+        <xpath expr="//div[hasclass('information_block')]" position="attributes">
+            <attribute name="class" add="lh-sm" separator=" "/>
         </xpath>
     </template>
 </odoo>

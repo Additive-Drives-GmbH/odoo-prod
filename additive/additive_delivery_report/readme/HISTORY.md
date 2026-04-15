@@ -2,3 +2,4 @@
 - 18.0.1.0.0: remove commodity column from information block + adjust table columns
 - 18.0.1.1.1: get purchaser orders no. and supplier no. from partner_id parent if they are not filled.
 - 18.0.1.1.2: adjust column ordered and delivered to be have bold fonts
+- 18.0.1.1.3: Simplify report template by removing inline font styles for better maintainability.

@@ -1,2 +1,9 @@
 - 18.0.1.0.0: initial version
 - 18.0.1.0.1: Adjust logo bottom space and company address line width remove delivery address from right side
+- 18.0.1.0.2: refactoring footer and moving company.report_header from header into footer
+- 18.0.1.0.3: Consistent font size
+- 18.0.1.0.4: DIN 5008 improvements:
+    - Normalize font sizes (9pt) and reduce line height in information block.
+    - Restore standard Odoo payment terms.
+    - Remove redundant "All prices are net prices" section.
+    - Remove beneficiary block from invoice reports.
