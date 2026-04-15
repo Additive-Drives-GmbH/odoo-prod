@@ -9,6 +9,8 @@
     "depends": [
         "stock",
         "sale_stock",
+        "sale_project",
+        "project_stock",
         "stock_delivery",
         "l10n_din5008_stock",
         "l10n_din5008",
