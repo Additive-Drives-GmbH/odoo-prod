@@ -53,7 +53,7 @@
                     name="order_deadline_row"
                 >
                     <td style="padding:0; margin:0;">
-                        <span class="fw-bold">Order Deadline:</span>
+                        <span class="fw-bold">Expected Arrival:</span>
                     </td>
                     <td style="padding:0; margin:0;">
                         <div>
@@ -126,24 +126,6 @@
             position="attributes"
         >
             <attribute name="class">text-end d-none</attribute>
-        </xpath>
-        <!--Hide Total-->
-        <xpath expr="//div[@id='total']" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <!--Add new Total-->
-        <xpath expr="//tbody" position="inside">
-            <t t-set="tax_totals" t-value="o.tax_totals" />
-            <t t-set="currency" t-value="o.currency_id" />
-            <tr class="is-subtotal text-end">
-                <td name="td_total" colspan="99">
-                    <strong class="mr16">Total</strong>
-                    <strong
-                        t-out="tax_totals['total_amount_currency']"
-                        t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"
-                    >31.05</strong>
-                </td>
-            </tr>
         </xpath>
         <!--Add Payment terms-->
         <xpath expr="//span[@t-field='o.payment_term_id']" position="attributes">

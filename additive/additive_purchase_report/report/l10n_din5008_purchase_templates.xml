@@ -39,12 +39,12 @@
         >
             <attribute name="class">d-none</attribute>
         </xpath>
-        <xpath
-            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_approve']"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
+        <!-- Task 70749: Show date_approve ("Order Date:","Bestelldatum:") after purchase title -->
+        <xpath expr="//div[hasclass('information_block')]/table/tr[@name='purchase_title']" position="after">
+            <xpath expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_approve']" position="move"/>
         </xpath>
+        <!-- Task 70749: Remove date_planned ("Expected Arrival:","Erwartete Ankunft:") from information block -->
+        <xpath expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_planned']" position="replace"/>
         <xpath
             expr="//div[hasclass('information_block')]/table/tr[@t-if='o.incoterm_id']"
             position="attributes"
