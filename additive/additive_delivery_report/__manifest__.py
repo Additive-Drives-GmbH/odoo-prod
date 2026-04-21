@@ -1,6 +1,6 @@
 {
     "name": "Additive Delivery Reports",
-    "version": "18.0.1.1.3",
+    "version": "18.0.1.1.4",
     "category": "Reporting",
     "summary": "Extend and Adjust Delivery Note Report",
     "author": "IFE Gesellschaft für Forschung und Entwicklung",

@@ -128,20 +128,20 @@
                                 </td>
                             </tr>
                             <tr t-if="o.project_id">
-                                <td class="info-label" style="font-size:10pt;">Project:</td>
-                                <td class="info-value" style="font-size:8pt;">
+                                <td class="info-label">Project:</td>
+                                <td class="info-value">
                                     <span t-field="o.project_id" />
                                 </td>
                             </tr>
                             <tr t-if="o.date_done">
-                                <td class="info-label" style="font-size:10pt;">Shipping Date:</td>
-                                <td class="info-value" style="font-size:8pt;">
+                                <td class="info-label">Shipping Date:</td>
+                                <td class="info-value">
                                     <span t-field="o.date_done" />
                                 </td>
                             </tr>
                             <tr t-if="o.origin and o.picking_type_id.code == 'outgoing'">
-                                <td class="info-label" style="font-size:10pt;">Origin:</td>
-                                <td class="info-value" style="font-size:8pt;">
+                                <td class="info-label">Origin:</td>
+                                <td class="info-value">
                                     <span t-field="o.origin" />
                                 </td>
                             </tr>
