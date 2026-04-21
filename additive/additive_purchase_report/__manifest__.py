@@ -2,7 +2,7 @@
     "name": "Additive Purchase Report",
     "summary": "Purchase Report Customisations for Additive",
     "category": "Custom",
-    "version": "18.0.1.0.2",
+    "version": "18.0.1.0.3",
     "license": "LGPL-3",
     "author": "IFE Gesellschaft für Forschung und Entwicklung",
     "website": "https://www.ife.de",

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-23 11:59+0000\n"
-"PO-Revision-Date: 2026-02-23 11:59+0000\n"
+"POT-Creation-Date: 2026-04-21 15:04+0000\n"
+"PO-Revision-Date: 2026-04-21 15:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,18 +17,13 @@ msgstr ""
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "31.05"
-msgstr ""
+msgid "<span class=\"fw-bold\">Expected Arrival:</span>"
+msgstr "<span class=\"fw-bold\">Erwartete Ankunft:</span>"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "<span class=\"fw-bold\">Invoice Addresse:</span>"
 msgstr "<span class=\"fw-bold\">Addresse für Rechnungen:</span>"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "<span class=\"fw-bold\">Order Deadline:</span>"
-msgstr "<span class=\"fw-bold\">Liefertermin:</span>"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
@@ -43,11 +38,6 @@ msgstr "<span class=\"fw-bold\">Lieferadresse:</span>"
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
 msgid "<span>invoice@additive-drives.de</span>"
-msgstr ""
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "<strong class=\"mr16\">Total</strong>"
 msgstr ""
 
 #. module: additive_purchase_report
