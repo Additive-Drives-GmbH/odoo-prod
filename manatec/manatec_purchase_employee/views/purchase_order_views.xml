@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List View  -->
+    <record id="purchase_order_tree_inherit_manatec" model="ir.ui.view">
+        <field name="name">purchase.order.tree.view.inherit.manatec</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="shorthand" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Form View  -->
+    <record id="purchase_order_form_inherit_manatec" model="ir.ui.view">
+        <field name="name">purchase.order.form.view.inherit.manatec</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="employee_id"/>
+                <field name="shorthand"/>
+            </xpath>
+        </field>
+    </record>
+    <!-- Search View (Purchase Orders) -->
+    <record id="purchase_order_view_search_inherit_manatec" model="ir.ui.view">
+        <field name="name">purchase.order.select.inherit.manatec</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="shorthand"/>
+            </xpath>
+            <xpath expr="//filter[@name='order_date']" position="after">
+                <separator/>
+                <filter string="With Shorthand" name="with_shorthand" domain="[('shorthand', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View (RFQs) -->
+    <record id="view_purchase_order_filter_inherit_manatec" model="ir.ui.view">
+        <field name="name">request.quotation.select.inherit.manatec</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="shorthand"/>
+            </xpath>
+            <xpath expr="//filter[@name='order_date']" position="after">
+                <separator/>
+                <filter string="With Shorthand" name="with_shorthand" domain="[('shorthand', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
