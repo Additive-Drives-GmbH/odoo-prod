@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_common_purchase_din5008_template_document_information_inherit" inherit_id="l10n_din5008_purchase.report_common_purchase_din5008_template_document_information" priority="20">
+        <xpath expr="//div[hasclass('information_block')]/table" position="inside">
+            <tr t-if="o.origin">
+                <td>Reference Nr:</td>
+                <td><span t-field="o.origin"/></td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>
