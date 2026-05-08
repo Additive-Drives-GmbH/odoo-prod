@@ -41,6 +41,11 @@ msgid "<span>invoice@additive-drives.de</span>"
 msgstr ""
 
 #. module: additive_purchase_report
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
+msgid "Best regards<br/><br/>"
+msgstr "Mit freundlichen Grüßen<br/><br/>"
+
+#. module: additive_purchase_report
 #: model:ir.model,name:additive_purchase_report.model_res_company
 msgid "Companies"
 msgstr "Unternehmen"
@@ -48,7 +53,7 @@ msgstr "Unternehmen"
 #. module: additive_purchase_report
 #: model:ir.model,name:additive_purchase_report.model_res_config_settings
 msgid "Config Settings"
-msgstr "Konfigurationseinstellungen "
+msgstr "Konfigurationseinstellungen"
 
 #. module: additive_purchase_report
 #: model:ir.model,name:additive_purchase_report.model_res_partner
@@ -79,11 +84,6 @@ msgstr ""
 #. module: additive_purchase_report
 #: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order__locked_positions
 msgid "Locked Positions"
-msgstr ""
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "Mit freundlichen Grüßen<br/><br/>"
 msgstr ""
 
 #. module: additive_purchase_report
