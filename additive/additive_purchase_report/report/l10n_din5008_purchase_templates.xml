@@ -33,12 +33,6 @@
             </tr>
         </xpath>
         <xpath expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_order']" position="replace"/>
-        <xpath
-            expr="//div[hasclass('information_block')]/table/tr[@t-if='o.partner_ref']"
-            position="attributes"
-        >
-            <attribute name="class">d-none</attribute>
-        </xpath>
         <!-- Task 70749: Show date_approve ("Order Date:","Bestelldatum:") after purchase title -->
         <xpath expr="//div[hasclass('information_block')]/table/tr[@name='purchase_title']" position="after">
             <xpath expr="//div[hasclass('information_block')]/table/tr[@t-if='o.date_approve']" position="move"/>
