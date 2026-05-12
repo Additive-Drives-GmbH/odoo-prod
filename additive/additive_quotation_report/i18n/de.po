@@ -47,15 +47,6 @@ msgstr "<strong>Gesamt</strong>"
 
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
-msgid ""
-"Additive Drives does not take responsibility for the functionality of any "
-"customer supplies."
-msgstr ""
-"Additive Drives übernimmt keine Verantwortung für die Funktionalität von "
-"Kundenlieferungen."
-
-#. module: additive_quotation_report
-#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
 msgid "All prices are net prices"
 msgstr "Alle Preise verstehen sich als Nettopreise"
 
@@ -100,15 +91,6 @@ msgid "Mail:"
 msgstr "E-Mail:"
 
 #. module: additive_quotation_report
-#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
-msgid ""
-"Manufacturing prices are indicative and can be confirmed after design "
-"freeze."
-msgstr ""
-"Die Preise für die Fertigung sind indikativ und können nach Abschluss der Konzeption bestätigt "
-"werden."
-
-#. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_l10n_din5008_inherit
 msgid "Offer No."
 msgstr "Angebot Nr."
@@ -137,15 +119,6 @@ msgstr "Verkaufsauftrag"
 #: model:ir.model,name:additive_quotation_report.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Verkaufsauftragszeile"
-
-#. module: additive_quotation_report
-#: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
-msgid ""
-"The overall timeline of the project depends on the timely provision of the "
-"parts or services by the customer."
-msgstr ""
-"Der Gesamtzeitplan des Projekts hängt von der rechtzeitigen Bereitstellung der Teile oder "
-"Dienstleistungen durch den Kunden ab."
 
 #. module: additive_quotation_report
 #: model_terms:ir.ui.view,arch_db:additive_quotation_report.report_saleorder_document_inherit
