@@ -46,8 +46,7 @@
         </xpath>
 
         <!-- Post-Lines Text-blocks -->
-
-        <xpath expr="//p[@t-field='o.notes']" position="after">
+        <xpath expr="//div[@id='total']" position="after">
             <t
                 t-foreach="o.bottom_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)"
                 t-as="t"

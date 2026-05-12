@@ -1,0 +1,14 @@
+.din_page {
+    div#total {
+        tr {
+            &:first-child {
+                &.o_subtotal,
+                &.o_total {
+                    td {
+                        border-top: none !important;
+                    }
+                }
+            }
+        }
+    }
+}
