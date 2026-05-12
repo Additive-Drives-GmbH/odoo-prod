@@ -91,31 +91,6 @@
                 All prices are net prices
             </p>
         </xpath>
-        <xpath expr="//span[@t-field='doc.note']" position="before">
-            <p>
-                <strong>Please Note:</strong>
-                <t t-if="doc.state in ('draft','sent')">
-                    <ul>
-                        <li>
-                                Manufacturing prices are indicative and can be confirmed after design freeze.
-                            </li>
-                        <li>
-                                Additive Drives does not take responsibility for the functionality of any customer supplies.
-                            </li>
-                    </ul>
-                </t>
-                <t t-else="">
-                    <ul>
-                        <li>
-                                Additive Drives does not take responsibility for the functionality of any customer supplies.
-                            </li>
-                        <li>
-                                The overall timeline of the project depends on the timely provision of the parts or services by the customer.
-                            </li>
-                    </ul>
-                </t>
-            </p>
-        </xpath>
         <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
             <attribute
                 name="t-options"
