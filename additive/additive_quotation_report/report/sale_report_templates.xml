@@ -121,9 +121,32 @@
         id="report_saleorder_document_l10n_din5008_inherit"
         inherit_id="l10n_din5008_sale.report_saleorder_document"
     >
-        <xpath expr="//div[hasclass('information_block')]/table" position="attributes">
-            <attribute name="class">information_block d-none</attribute>
+        <!-- hide part with validity_date -->
+        <xpath expr="//tr[@t-if='doc.validity_date']/.." position="replace" />
+        <!-- and hide the part with the commitment date as well -->
+        <xpath expr="//tr[@t-if='doc.commitment_date']/.." position="replace" />
+
+        <!-- show the payment term name as well as the custom field country_of_origin_id in the info block -->
+        <xpath expr="//div[hasclass('information_block')]/table" position="inside">
+            <tr t-if="doc.payment_term_id">
+                <td>Payment Terms:</td>
+                <td>
+                    <div t-field="doc.payment_term_id.name"/>
+                </td>
+            </tr>
+            <tr t-if="doc.country_of_origin_id">
+                <td>Country of Origin:</td>
+                <td>
+                    <div t-field="doc.country_of_origin_id.code"/>
+                </td>
+            </tr>
         </xpath>
+
+        <!-- rename 'Incoterms' to 'Incoterms (ICC)' -->
+        <xpath expr="//tr[@t-if=&quot;'incoterm' in doc._fields and doc.incoterm&quot;]/td[1]" position="replace">
+            <td>Incoterm (ICC):</td>
+        </xpath>
+
         <xpath expr="//t[@t-set='din5008_address_block']/tr" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
@@ -140,50 +163,12 @@
                 </t>
             </strong>
         </xpath>
+
+        <!-- show the location and Date-->
         <xpath expr="//div[hasclass('information_block')]/table" position="after">
-            <t t-if="doc.state=='sale'">
-                <table>
-                    <tr t-if="doc.contact_id">
-                        <td>Contact:</td>
-                        <td>
-                            <div t-field="doc.contact_id.name" />
-                        </td>
-                    </tr>
-                    <tr t-if="doc.contact_id.email">
-                        <td>Mail:</td>
-                        <td>
-                            <div t-field="doc.contact_id.email" />
-                        </td>
-                    </tr>
-                    <tr t-if="doc.contact_id.phone">
-                        <td>Phone:</td>
-                        <td>
-                            <div t-field="doc.contact_id.phone" />
-                        </td>
-                    </tr>
-                    <tr t-if="'incoterm' in doc._fields and doc.incoterm">
-                        <td>Incoterm:</td>
-                        <td>
-                            <div t-out="doc.incoterm.code" />
-                        </td>
-                    </tr>
-                    <tr t-if="doc.payment_term_id">
-                        <td>Payment Terms:</td>
-                        <td>
-                            <div t-field="doc.payment_term_id.name" />
-                        </td>
-                    </tr>
-                    <tr t-if="doc.country_of_origin_id">
-                        <td>Country of Origin</td>
-                        <td>
-                            <div t-field="doc.country_of_origin_id.code" />
-                        </td>
-                    </tr>
-                </table>
-            </t>
             <div style="position: absolute; top: 45mm; right: 10mm;">
-                <t t-out="doc.company_id.city" />,
-                <t t-out="datetime.datetime.now().strftime('%d.%m.%Y')" />
+                <t t-out="doc.company_id.city"/>,
+                <t t-out="datetime.datetime.now().strftime('%d.%m.%Y')"/>
             </div>
         </xpath>
     </template>
