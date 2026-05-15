@@ -36,11 +36,6 @@ msgid "All prices are net prices"
 msgstr "Alle Preise verstehen sich als Nettopreise"
 
 #. module: additive_quotation_report
-#: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order__contact_id
-msgid "Contact"
-msgstr ""
-
-#. module: additive_quotation_report
 #: model:ir.model.fields,field_description:additive_quotation_report.field_sale_order__country_of_origin_id
 msgid "Country Of Origin"
 msgstr ""
