@@ -102,20 +102,7 @@
         <xpath expr="//tr[@t-if='o.invoice_date_due']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
-        <xpath expr="//tr[@t-if='o.delivery_date']" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
         <xpath expr="//tr[@t-if='o.invoice_date']" position="after">
-            <tr
-                t-if="o.invoice_line_ids and o.invoice_line_ids.sale_line_ids and o.invoice_line_ids.sale_line_ids[0].move_ids and o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id"
-            >
-                <td>Date of achievement:</td>
-                <td>
-                    <t
-                        t-out="o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id.date_done"
-                    />
-                </td>
-            </tr>
             <tr
                 t-if="o.invoice_line_ids and o.invoice_line_ids.sale_line_ids and o.invoice_line_ids.sale_line_ids[0].move_ids and o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id"
             >
