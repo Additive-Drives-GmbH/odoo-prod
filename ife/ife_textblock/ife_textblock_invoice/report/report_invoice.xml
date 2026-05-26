@@ -42,7 +42,7 @@
         </xpath>
 
         <!-- Post-Lines Text-blocks -->
-        <xpath expr="//div[hasclass('clearfix','invoice_main')]" position="after">
+        <xpath expr="//p[@name='payment_communication']/.." position="after">
             <t
                 t-foreach="o.bottom_text_block_ids.filtered(lambda p: not p.not_print).sorted(lambda x: x.sequence)"
                 t-as="t"

@@ -11,6 +11,7 @@ Addon needs no configuration
 - 18.0.1.0.0: Add text-block fields & print text-blocks on invoices documents
 - 18.0.1.0.1: retrieve inline,postline and preline texblock from product template when
   they are not set on product variant
+- 18.0.1.0.2: Move text-blocks before qrcode
 
 ## Maintainer:
 

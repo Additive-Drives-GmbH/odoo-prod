@@ -37,6 +37,7 @@ Changelog
 - 18.0.1.0.0: initial version
 - 18.0.1.0.1: Adjust logo bottom space and company address line width
   remove delivery address from right side
+- 18.0.1.0.5: Removed date_done logic and re-enabled delivery_date field
 
 Bug Tracker
 ===========
