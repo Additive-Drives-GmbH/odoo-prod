@@ -43,6 +43,7 @@ Changelog
   - Reorganized invoice report XPath logic for better readability and maintainability.
   - Standardized label text by removing unnecessary punctuation.
   - Adjusted SCSS styles: address element width and font sizing in DIN 5008 reports.
+- 18.0.1.0.8: Added general border width to reports
 
 Bug Tracker
 ===========
