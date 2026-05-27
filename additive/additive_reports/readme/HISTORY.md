@@ -8,3 +8,4 @@
     - Remove redundant "All prices are net prices" section.
     - Remove beneficiary block from invoice reports.
 - 18.0.1.0.5: Removed date_done logic and re-enabled delivery_date field
+- 18.0.1.0.6: Added general border width to reports

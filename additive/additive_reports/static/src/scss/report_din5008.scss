@@ -28,6 +28,10 @@ table.o_main_table tr.o_line_section td {
     background-color: #a0a0a0 !important;
 }
 
+.o_main_table {
+    thead, tbody, tfoot, tr, td, th { border-width: 1px}
+}
+
 .din_page.invoice_note table.din_company_info > tbody > tr > td {
     vertical-align: top !important;
 }
