@@ -36,6 +36,10 @@
         >
             <attribute name="t-if">False</attribute>
         </xpath>
+        <!-- hide total table in company currency -->
+        <xpath expr="//div[hasclass('totals_taxes_company_currency')]" position="attributes">
+            <attribute name="class" add="d-none" separator=" " />
+        </xpath>
         <!--add new total row-->
         <xpath expr="//tbody[hasclass('invoice_tbody')]" position="inside">
             <t t-call="additive_reports.additive_invoice_tax_totals_template" />
@@ -103,18 +107,8 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//tr[@t-if='o.invoice_date']" position="after">
-            <tr
-                t-if="o.invoice_line_ids and o.invoice_line_ids.sale_line_ids and o.invoice_line_ids.sale_line_ids[0].move_ids and o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id"
-            >
-                <td>Delivery Note:</td>
-                <td>
-                    <t
-                        t-out="o.invoice_line_ids.sale_line_ids[0].move_ids.filtered(lambda p: p.state == 'done' and p.picking_code == 'outgoing').picking_id.name"
-                    />
-                </td>
-            </tr>
             <tr t-if="o.commercial_partner_id.debitor_number">
-                <td>Customer No.:</td>
+                <td>Customer No.</td>
                 <td>
                     <t t-out="o.commercial_partner_id.debitor_number" />
                 </td>
@@ -128,7 +122,7 @@
                 </td>
             </tr>
             <tr t-if="o.partner_id.our_nr_by_customer">
-                <td>Vendor/Supplier-No.:</td>
+                <td>Vendor/Supplier-No.</td>
                 <td>
                     <t t-out="o.partner_id.our_nr_by_customer" />
                 </td>
@@ -144,13 +138,13 @@
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="after">
-            <td>Reference No.:</td>
+            <td>Reference No.</td>
         </xpath>
         <xpath expr="//tr[@t-if='o.ref']/td[1]" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
         <xpath expr="//tr[@t-if='o.ref']/td[1]" position="after">
-            <td>Purchase Order No.:</td>
+            <td>Purchase Order No.</td>
         </xpath>
         <xpath expr="//div[hasclass('invoice_main')]" position="after">
             <div id="fiscal_position" class="clearfix mt-3">
