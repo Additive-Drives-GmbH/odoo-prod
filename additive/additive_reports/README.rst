@@ -35,8 +35,10 @@ Changelog
 =========
 
 - 18.0.1.0.0: initial version
-- 18.0.1.0.1: Adjust logo bottom space and company address line width
-  remove delivery address from right side
+- 18.0.1.0.1: Adjust logo bottom space and company address line width remove delivery address from right side
+- 18.0.1.0.2: refactoring footer and moving company.report_header from header into footer
+- 18.0.1.0.3: Consistent font size
+- 18.0.1.0.4: DIN 5008 improvements
 - 18.0.1.0.5: Removed date_done logic and re-enabled delivery_date field
 - 18.0.1.0.7: DIN 5008 invoice report improvements:
   - Hide the totals table when using the company currency (moved the ``d-none`` logic into a dedicated template).
