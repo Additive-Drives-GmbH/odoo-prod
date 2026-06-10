@@ -9,3 +9,8 @@
     - Remove beneficiary block from invoice reports.
 - 18.0.1.0.5: Removed date_done logic and re-enabled delivery_date field
 - 18.0.1.0.6: Added general border width to reports
+- 18.0.1.0.7: DIN 5008 invoice report improvements:
+    - Hide the totals table when using the company currency (moved the `d-none` logic into a dedicated template).
+    - Reorganized invoice report XPath logic for better readability and maintainability.
+    - Standardized label text by removing unnecessary punctuation.
+    - Adjusted SCSS styles: address element width and font sizing in DIN 5008 reports.
