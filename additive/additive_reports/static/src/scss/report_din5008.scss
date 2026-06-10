@@ -24,6 +24,17 @@
     white-space: nowrap;
     vertical-align: top;
 }
+
+.din_page.invoice_note td .address {
+    width: 100mm;
+    .company_invoice_line {
+        width: 80mm;
+    }
+}
+
+.din_page.invoice_note td .address .colored_address {
+    font-size: 7pt !important;
+}
 table.o_main_table tr.o_line_section td {
     background-color: #a0a0a0 !important;
 }
