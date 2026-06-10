@@ -57,13 +57,9 @@ msgstr "Dokumentenlayout des Unternehmens"
 
 #. module: additive_reports
 #: model:ir.model,name:additive_reports.model_res_partner
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "Contact"
 msgstr "Kontakt"
-
-#. module: additive_reports
-#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Contact:"
-msgstr "Kontakt."
 
 #. module: additive_reports
 #: model:ir.model.fields,field_description:additive_reports.field_account_bank_statement_line__country_of_origin_id
@@ -73,28 +69,28 @@ msgstr "Ursprungsland"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Country of Origin:"
-msgstr "Ursprungsland."
+msgid "Country of Origin"
+msgstr "Ursprungsland"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Customer No.:"
+msgid "Customer No."
 msgstr "Kunden-Nr."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Date of achievement:"
-msgstr "Lesitungsdatum."
+msgid "Date of achievement"
+msgstr "Leistungsdatum"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Delivery Note:"
-msgstr "Lieferschein-Nr ."
+msgid "Delivery Note"
+msgstr "Lieferschein-Nr."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "E-Mail:"
-msgstr "E-mail."
+msgid "E-Mail"
+msgstr "E-mail"
 
 #. module: additive_reports
 #: model:ir.model.fields,field_description:additive_reports.field_base_document_layout__general_manager_ids
@@ -126,12 +122,12 @@ msgstr "Lieferanten-Nr"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Purchase Order No.:"
+msgid "Purchase Order No."
 msgstr "Bestell-Nr."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Reference No.:"
+msgid "Reference No."
 msgstr "Referenz-Nr."
 
 #. module: additive_reports
@@ -141,10 +137,10 @@ msgstr ""
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "VAT-Customer:"
-msgstr "Ihre UST ID."
+msgid "VAT-Customer"
+msgstr "Ihre UST ID"
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
-msgid "Vendor/Supplier-No.:"
+msgid "Vendor/Supplier-No."
 msgstr "Lieferanten-Nr."
