@@ -35,7 +35,10 @@ Changelog
 =========
 
 - 18.0.1.0.0: initial version
-- 18.0.1.0.1: Remove report description
+- 18.0.1.0.1: removed report_description field from purchase order lines
+- 18.0.1.0.2: enhance report template logic with adjusted XPath
+- 18.0.1.0.3: Update report templates to rename "Order Deadline" to "Expected Arrival" and other layout adjustments
+- 18.0.1.0.5: Update purchase report table to use bordered styling instead of borderless
 
 Bug Tracker
 ===========

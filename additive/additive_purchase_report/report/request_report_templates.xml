@@ -16,5 +16,11 @@
         <xpath expr="//span[@t-field='order_line.product_uom']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
+
+        <!-- don't make table borderless -->
+        <xpath expr="//table[hasclass('table-borderless') and hasclass('table')]" position="attributes">
+            <attribute name="class">table table-bordered</attribute>
+        </xpath>
+
     </template>
 </odoo>
