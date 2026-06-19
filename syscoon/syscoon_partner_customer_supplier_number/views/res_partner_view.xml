@@ -9,7 +9,7 @@
                 <label for="customer_number"/>
                 <div class="o_row">
                     <field name="customer_number" readonly="customer_number"/>
-                    <button name="action_create_custmer_number" type="object"
+                    <button name="action_create_customer_number" type="object"
                         string="Create Customer Number"
                         help="Creates a new Customer Number if it does not exist yet."
                         class="btn-link mb-1 px-0" icon="fa-refresh"

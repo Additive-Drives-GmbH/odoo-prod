@@ -17,6 +17,10 @@ Usage
 Change Log
 ==========
 
+18.0.0.0.12
+----------
+  * 5011-00193: removed ineffective write method, added explicit default for datev_exported field
+
 18.0.0.0.11
 ----------
   * CUS-01892: fixing payment term days to nb_days

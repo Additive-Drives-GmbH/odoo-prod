@@ -20,6 +20,30 @@ Usage
 Change Log
 ==========
 
+18.0.1.1.13
+-----------
+  * 5011-00194: fix tax rounding correction skipped under round_globally due to float comparison; compare drift against safety threshold using currency precision
+
+18.0.1.1.12
+-----------
+  * DV19-00052: fix Leistungsdatum date format to DDMMYYYY (8-digit, 4-digit year) per DATEV specification
+
+18.0.1.1.11
+-----------
+  * DV19-00051: Add "Enable Reverse Credit/Debit" setting for DATEV ASCII export
+
+18.0.1.1.10
+-----------
+  * CUS-02207: fix tax rounding correction for journal entries and apply correction after rounding
+
+18.0.1.1.9
+-----------
+  * CUS-02098: fix rounding issue in gross export by using compute_all with unrounded sum
+
+18.0.1.1.8
+-----------
+  * CUS-02056: Fix tax rounding difference in vendor bill exports
+
 18.0.1.1.7
 -----------
   * CUS-01914: Fix issues with the DATEV ASCII export csv total

@@ -90,6 +90,7 @@ class SyscoonFinanceinterface(models.Model):
                 "datas": csv_file,
             }
         )
+        self.write({"state": "export"})
         return partner_ids.write({"datev_exported": "true"})
 
     def _draft_datev_ascii_accounts(self):
@@ -178,7 +179,7 @@ class SyscoonFinanceinterface(models.Model):
         if child_id:
             values["Straße (Rechnungsadresse)"] = _clean_str(child_id.street)
             values["Postleitzahl (Rechnungsadresse)"] = _clean_str(child_id.zip)
-            values["Ort (Rechnungsadresse)"] = _clean_str(child_id.city, 30)
+            values["Ort (Rechnungsadresse)"] = _clean_str(child_id.city, 36)
             values["Land (Rechnungsadresse)"] = _clean_str(child_id.country_id.code)
             values["Adresszusatz (Rechnungsadresse)"] = _clean_str(child_id.street2)
         return values
@@ -227,7 +228,7 @@ class SyscoonFinanceinterface(models.Model):
         values["Adressart"] = "STR"
         values["Straße"] = _clean_str(partner_id.street)
         values["Postleitzahl"] = _clean_str(partner_id.zip)
-        values["Ort"] = _clean_str(partner_id.city, 30)
+        values["Ort"] = _clean_str(partner_id.city, 36)
         values["Land"] = _clean_str(partner_id.country_id.code)
         values["Telefon"] = _clean_str(partner_id.phone)
         values["E-Mail"] = _clean_str(partner_id._get_partner_email())

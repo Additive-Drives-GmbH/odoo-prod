@@ -10,6 +10,6 @@ class IrHttp(models.AbstractModel):
     def session_info(self):
         company = self.env["ir.ui.menu"]._active_company()
         if str(company.id) != request.session.get("active_cid", "0"):
-            self.env["ir.ui.menu"].clear_caches()
+            self.env.registry.clear_cache()
         request.session["active_cid"] = str(company.id)
         return super().session_info()

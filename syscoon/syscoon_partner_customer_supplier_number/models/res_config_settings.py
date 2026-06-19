@@ -22,7 +22,9 @@ class ResConfigSettings(models.TransientModel):
         domain=[("code", "=", "partner.auto.supplier.number")],
     )
     add_number_to_partner_ref = fields.Boolean(
-        related="company_id.add_number_to_partner_ref", readonly=False
+        "Add Customer or Supplier Number to Partner Reference",
+        related="company_id.add_number_to_partner_ref",
+        readonly=False,
     )
     create_auto_number_on = fields.Many2many(
         "syscoon.numbers.automatic.mode",

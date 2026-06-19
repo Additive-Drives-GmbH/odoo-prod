@@ -45,6 +45,9 @@
                     <setting company_dependent="1" help="Format of the date for the export. You can set the date freely as your interface needs it. For DATEV-ASCII the default format is 'ddmm'.">
                         <field name="company_datev_voucher_date_format" string="Date Format"/>
                     </setting>
+                    <setting company_dependent="1" help="Enables the reversal of entries in the Column 'Konto' and 'Gegenkonto' in the export.">
+                        <field name="company_datev_reverse_credit_debit" string="Enable Reverse Credit/Debit"/>
+                    </setting>
                 </block>
             </xpath>
         </field>

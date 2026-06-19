@@ -77,15 +77,78 @@ class SyscoonFinanceinterface(models.Model):
         comodel_name="account.journal", string="Journals", default=_default_journal
     )
     state = fields.Selection(
-        selection=[("draft", "Draft"), ("export", "Exported")],
+        selection=[
+            ("draft", "Draft"),
+            ("queued", "Queued"),
+            ("export", "Exported"),
+            ("error", "Error"),
+        ],
         default="draft",
         readonly=True,
         required=True,
+        tracking=True,
     )
+
+    # Item-based processing fields
+    item_ids = fields.One2many(
+        "syscoon.financeinterface.item", "export_id", "Export Items"
+    )
+    is_batch_supported = fields.Boolean(
+        "Batch Processing Supported",
+        compute="_compute_is_batch_supported",
+        help="Whether the current mode supports item-based batch processing.",
+    )
+    auto_process = fields.Boolean(
+        "Auto-Process",
+        default=True,
+        help="If enabled, items are processed automatically by a background job. "
+        "If disabled, you must click 'Process Items' to start processing manually.",
+    )
+    batch_limit = fields.Integer(
+        "Process Limit",
+        default=50,
+        help="Number of items to process at a time (both cron and manual). "
+        "Set to 0 to process all items at once.",
+    )
+    items_limit = fields.Integer(
+        "Search Limit",
+        default=-1,
+        help="Maximum number of invoices fetched when starting an export. "
+        "Set to -1 for no limit. Use a positive value to limit memory usage.",
+    )
+
+    # Statistics computed from items
+    total_items = fields.Integer(
+        "Total Items", compute="_compute_item_statistics", store=True
+    )
+    completed_items = fields.Integer(
+        "Completed Items", compute="_compute_item_statistics", store=True
+    )
+    failed_items = fields.Integer(
+        "Failed Items", compute="_compute_item_statistics", store=True
+    )
+    pending_items = fields.Integer(
+        "Pending Items", compute="_compute_item_statistics", store=True
+    )
+    progress = fields.Float("Progress", compute="_compute_item_statistics", store=True)
 
     def _compute_account_moves_count(self):
         for rec in self:
             rec.account_moves_count = len(rec.account_moves_ids)
+
+    @api.depends("item_ids.state")
+    def _compute_item_statistics(self):
+        """Compute statistics from item states."""
+        for record in self:
+            items = record.item_ids
+            record.total_items = len(items)
+            record.completed_items = len(items.filtered(lambda i: i.state == "completed"))
+            record.failed_items = len(items.filtered(lambda i: i.state == "failed"))
+            record.pending_items = len(items.filtered(lambda i: i.state == "pending"))
+            if record.total_items > 0:
+                record.progress = (record.completed_items / record.total_items) * 100
+            else:
+                record.progress = 0
 
     @api.constrains("start_date", "end_date", "mode")
     def _check_dates(self):
@@ -96,6 +159,20 @@ class SyscoonFinanceinterface(models.Model):
             if rec.is_range_needed and (not rec.start_date or not rec.end_date):
                 mode = rec.mode.replace("_", " ").upper()
                 raise UserError(_("Mode %s is require a 'Date Range' to export!", mode))
+
+    @api.depends("mode")
+    def _compute_is_batch_supported(self):
+        """Compute whether the current mode supports batch processing."""
+        for rec in self:
+            rec.is_batch_supported = rec._supports_batch_processing()
+
+    def _supports_batch_processing(self):
+        """Check if the current mode supports batch processing.
+
+        Override in mode-specific modules to return True if supported.
+        Base implementation returns False.
+        """
+        return False
 
     @api.depends("mode")
     def _compute_is_range_needed(self):
@@ -260,16 +337,14 @@ class SyscoonFinanceinterface(models.Model):
 
     def action_export(self):
         """Set the export to exported state"""
-        if hasattr(self, f"_export_{self.mode}"):
-            getattr(self, f"_export_{self.mode}")()
-        else:
+        if not hasattr(self, f"_export_{self.mode}"):
             raise UserError(
                 _(
                     "The export method %s is not implemented. Please implement it in the model!",
                     self.mode,
                 )
             )
-        return self.write({"state": "export"})
+        return getattr(self, f"_export_{self.mode}")()
 
     def action_draft(self):
         """Set the export to draft state"""
@@ -296,3 +371,152 @@ class SyscoonFinanceinterface(models.Model):
             "timezone": timezone,
             "float_compare": float_compare,
         }
+
+    # =========================================================================
+    # Item-based processing methods (generic, override in mode-specific modules)
+    # =========================================================================
+
+    def write(self, vals):
+        res = super().write(vals)
+        # Only trigger processing for modes that support batch processing
+        if "auto_process" in vals and vals.get("auto_process"):
+            batch_supported = self.filtered(lambda r: r._supports_batch_processing())
+            if batch_supported:
+                self.env["syscoon.financeinterface.item"]._trigger_processing()
+        return res
+
+    def action_process_items(self):
+        """Manually process pending items.
+
+        Respects batch_limit setting: processes up to batch_limit items at a time.
+        If batch_limit is 0, processes all pending items.
+        """
+        self.ensure_one()
+        self = self.with_company(self.company_id)
+        if self.state != "queued":
+            raise UserError(_("Can only process items when in 'Queued' state"))
+
+        pending_items = self.item_ids.filtered(lambda x: x.state == "pending")
+        if not pending_items:
+            raise UserError(_("No pending items to process"))
+
+        # Apply batch_limit (0 means process all)
+        if self.batch_limit > 0:
+            pending_items = pending_items[: self.batch_limit]
+
+        processed_count = len(pending_items)
+
+        # Process items one by one in the export's company context
+        for item in pending_items:
+            try:
+                item.process_item()
+            except Exception as e:
+                _logger.error("Error processing item %s: %s", item.id, str(e))
+                continue
+
+        # Check final state after processing
+        self._update_state_after_processing()
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Processing Complete"),
+                "message": _(
+                    "Processed %(count)d items. Completed: %(completed)d, "
+                    "Failed: %(failed)d, Pending: %(pending)d",
+                    count=processed_count,
+                    completed=self.completed_items,
+                    failed=self.failed_items,
+                    pending=self.pending_items,
+                ),
+                "type": "success" if self.failed_items == 0 else "warning",
+                "sticky": False,
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
+
+    def retry_failed_items(self):
+        """Reset all failed items to pending and restart processing."""
+        self.ensure_one()
+        failed_items = self.item_ids.filtered(lambda x: x.state == "failed")
+        if not failed_items:
+            raise UserError(_("No failed items to retry"))
+
+        failed_items.write(
+            {"state": "pending", "result": False, "attachment_ids": [Command.clear()]}
+        )
+        self.write({"state": "queued"})
+
+        # Only trigger auto-processing for modes that support batch processing
+        if self.auto_process and self._supports_batch_processing():
+            self.env["syscoon.financeinterface.item"]._trigger_processing()
+
+    def action_retry_failed_items(self):
+        """Retry all failed items immediately.
+
+        Processes each failed item and regenerates the final export ZIP.
+        The log is updated to reflect current failed items after retry.
+        """
+        self.ensure_one()
+        failed_items = self.item_ids.filtered(lambda x: x.state == "failed")
+        if not failed_items:
+            raise UserError(_("No failed items to retry"))
+
+        retry_count = len(failed_items)
+
+        # Process each failed item
+        for item in failed_items:
+            item.action_retry()
+
+        # Count results after retry
+        still_failed = len(self.item_ids.filtered(lambda x: x.state == "failed"))
+        now_completed = retry_count - still_failed
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Retry Complete"),
+                "message": _(
+                    "Retried %(count)d item(s). Success: %(success)d, Still Failed: %(failed)d",
+                    count=retry_count,
+                    success=now_completed,
+                    failed=still_failed,
+                ),
+                "type": "success" if still_failed == 0 else "warning",
+                "sticky": False,
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
+
+    def cancel_batch(self):
+        """Cancel all pending items in the batch."""
+        self.ensure_one()
+        pending_items = self.item_ids.filtered(lambda x: x.state == "pending")
+        pending_items.write({"state": "cancelled"})
+        self._update_state_after_processing()
+
+    def _update_state_after_processing(self):
+        """Update the export state based on item results.
+
+        Override in mode-specific modules if different logic is needed.
+
+        State logic:
+        - If pending items remain: stay in 'queued'
+        - If completed items exist: let _finalize_export() set 'export' state
+          (even if some items failed - partial success is still a success)
+        - If ALL items failed (no completed): set 'error' state
+        """
+        if self.pending_items > 0:
+            # Still have pending items, stay in queued
+            return
+
+        if self.completed_items > 0:
+            # We have successful exports - _finalize_export() will handle state
+            # Don't set error even if some items failed (partial success)
+            return
+
+        # Only set error if ALL items failed (no completed items)
+        if self.failed_items > 0:
+            self.write({"state": "error"})

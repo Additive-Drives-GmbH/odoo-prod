@@ -17,6 +17,10 @@ Description
 ChangeLog
 =========
 
+18.0.1.0.1
+----------
+* 5011-00188: Fix log warning with clear_cache() function
+
 18.0.1.0.0
 ----------
 * 5010-00008-1: Migrated from v17

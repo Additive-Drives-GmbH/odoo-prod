@@ -34,6 +34,9 @@ Configurable Automatic Number Generation: Choose exactly when customer and suppl
 Changelog
 =========
 
+* 18.0.1.0.1
+  * CUS-02113: Code cleanup - fix method name typo (custmer -> customer), fix N+1 query in account_move
+
 * 18.0.1.0.0
   * Added new syscoon.numbers.automatic.mode model to define number generation modes
   * Enhanced settings to allow selecting when numbers should be generated automatically

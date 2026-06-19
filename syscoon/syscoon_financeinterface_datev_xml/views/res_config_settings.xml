@@ -19,6 +19,9 @@
                     <setting company_dependent="1" help="Enabling this option will add the analytic accounts in to the XML export.">
                         <field name="company_export_xml_analytic_accounts" string="Analytic Accounts"/>
                     </setting>
+                    <setting company_dependent="1" help="This module allows to decrypt PDF files that are encrypted.">
+                        <field name="module_syscoon_financeinterface_datev_xml_decrypt" string="Decrypt PDF files that are encrypted"/>
+                    </setting>
                 </block>
             </xpath>
         </field>

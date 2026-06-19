@@ -1,9 +1,11 @@
 # © 2025 syscoon Estonia OÜ (<https://syscoon.com>)
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 import base64
+import gc
 import logging
 import os
 import re
+import shutil
 import tempfile
 import zipfile
 from collections import namedtuple
@@ -16,6 +18,9 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools import pdf
 
 _logger = logging.getLogger(__name__)
+
+# Module constants
+CLEAN_NUMBER_PATTERN = re.compile(r"\w+")  # Pattern for cleaning invoice numbers
 
 
 class SyscoonFinanceinterface(models.Model):
@@ -51,12 +56,82 @@ class SyscoonFinanceinterface(models.Model):
     bedi_moves_ids = fields.One2many(
         "account.move", "datev_bedi_export_id", readonly=True
     )
+    bedi_move_count = fields.Integer(
+        "BEDI Move Count", compute="_compute_bedi_move_count"
+    )
+    move_count = fields.Integer("Total Moves", compute="_compute_move_count", store=True)
+    working_zip_path = fields.Char(
+        "Working ZIP Path",
+        readonly=True,
+        help="Path to the incremental ZIP file being built during batch processing.",
+    )
+    working_zip_size = fields.Char(
+        "Working ZIP Size",
+        compute="_compute_working_zip_size",
+        help="Current size of the working ZIP file being built.",
+    )
+
+    @api.depends("working_zip_path")
+    def _compute_working_zip_size(self):
+        for record in self:
+            if record.working_zip_path and os.path.exists(record.working_zip_path):
+                size_bytes = os.path.getsize(record.working_zip_path)
+                # Format as human-readable size
+                if size_bytes < 1024:
+                    record.working_zip_size = f"{size_bytes} B"
+                elif size_bytes < 1024 * 1024:
+                    record.working_zip_size = f"{size_bytes / 1024:.1f} KB"
+                else:
+                    record.working_zip_size = f"{size_bytes / (1024 * 1024):.1f} MB"
+            else:
+                record.working_zip_size = False
+
+    @api.depends("bedi_moves_ids")
+    def _compute_bedi_move_count(self):
+        for record in self:
+            record.bedi_move_count = len(record.bedi_moves_ids)
+
+    @api.depends(
+        "start_date",
+        "end_date",
+        "xml_invoices",
+        "xml_mode",
+        "exclude_bedi_exported",
+        "state",
+        "items_limit",
+    )
+    def _compute_move_count(self):
+        for record in self:
+            if record.state != "draft":
+                continue
+
+            if record.mode == "datev_xml" and record.start_date and record.end_date:
+                move_domain = record._get_move_domain()
+                if move_domain:
+                    limit = (
+                        record.items_limit
+                        if record.items_limit and record.items_limit > 0
+                        else None
+                    )
+                    record.move_count = self.env["account.move"].search_count(
+                        move_domain, limit=limit
+                    )
+                else:
+                    record.move_count = 0
+            else:
+                record.move_count = 0
 
     def _period_required_by_mode(self):
         return super()._period_required_by_mode() + ["datev_xml"]
 
     def _type_selection_hide_modes(self):
         return super()._type_selection_hide_modes() + ["datev_xml"]
+
+    def _supports_batch_processing(self):
+        """DATEV XML mode supports batch processing."""
+        if self.mode == "datev_xml":
+            return True
+        return super()._supports_batch_processing()
 
     @api.onchange("xml_mode")
     def _onchange_xml_mode(self):
@@ -95,7 +170,63 @@ class SyscoonFinanceinterface(models.Model):
         return inv_pdfs
 
     def _export_datev_xml(self):
-        """Method that generates the export by the given parameters"""
+        """Method that generates the export by the given parameters.
+
+        Always uses item-based processing for consistency and visibility.
+        The auto_process flag only controls whether items are processed
+        automatically via cron or manually by the user.
+        """
+        return self._export_datev_xml_batch()
+
+    def action_export(self):
+        """Export button handler adapted to batch processing state."""
+        self.ensure_one()
+        if self.mode != "datev_xml":
+            return super().action_export()
+
+        # If already queued, either continue processing or finalize
+        if self.state == "queued":
+            pending_or_processing = self.item_ids.filtered(
+                lambda x: x.state in ["pending", "processing"]
+            )
+            if pending_or_processing:
+                return self.action_process_items()
+            # No pending/processing items: finalize/export result
+            return self._finalize_export()
+
+        return super().action_export()
+
+    def _export_datev_xml_batch(self):
+        """Start item-based export processing.
+
+        Creates one item per invoice and sets state to 'queued'.
+        If auto_process is True, triggers the cron job to process items automatically.
+        If auto_process is False, user must click 'Process Items' button manually.
+        """
+        total_count = self.move_count
+
+        if total_count == 0:
+            date_info = f"{self.start_date}"
+            if self.end_date and self.end_date != self.start_date:
+                date_info = f"{self.start_date} to {self.end_date}"
+            invoice_type = dict(self._fields["xml_invoices"].selection).get(
+                self.xml_invoices, "all"
+            )
+            raise UserError(
+                _(
+                    "No invoices found to export.\n"
+                    "Date range: %(date)s\n"
+                    "Invoice type: %(type)s\n"
+                    "Please verify your filters and ensure posted invoices exist.",
+                    date=date_info,
+                    type=invoice_type,
+                )
+            )
+
+        return self.start_batch_processing()
+
+    def _export_datev_xml_sync(self):
+        """Original synchronous export method for smaller datasets"""
 
         def clean_move_number(move):
             """
@@ -103,31 +234,14 @@ class SyscoonFinanceinterface(models.Model):
             number consisting only of
             alphanumeric characters
             """
-            return "".join(re.findall(r"\w+", move.name or ""))
+            return "".join(CLEAN_NUMBER_PATTERN.findall(move.name or ""))
 
         invoice_mode = self.xml_mode
-        invoice_selection = self.xml_invoices
-        exclude_bedi_exported = self.exclude_bedi_exported
-        invoice_type = []
-        self.write(
-            {
-                "xml_mode": invoice_mode,
-            }
-        )
-        if invoice_selection in ["customers", "both"]:
-            invoice_type.extend(["out_invoice", "out_refund"])
-        if invoice_selection in ["vendors", "both"]:
-            invoice_type.extend(["in_invoice", "in_refund"])
-        move_domain = [
-            ("date", ">=", self.start_date),
-            ("date", "<=", self.end_date),
-            ("move_type", "in", invoice_type),
-            ("state", "=", "posted"),
-        ]
-        if invoice_mode != "bedi":
-            move_domain.append(("export_id", "=", False))
-        if exclude_bedi_exported:
-            move_domain.append(("datev_bedi_export_id", "=", False))
+
+        move_domain = self._get_move_domain()
+        if not move_domain:
+            raise UserError(_("No invoice types selected"))
+
         moves = self.env["account.move"].search(move_domain)
         if not moves:
             raise UserError(
@@ -166,6 +280,7 @@ class SyscoonFinanceinterface(models.Model):
         return True
 
     def _draft_datev_xml(self):
+        self._cleanup_working_zip()
         self.env["ir.attachment"].search(
             [
                 ("res_id", "=", self.id),
@@ -173,6 +288,7 @@ class SyscoonFinanceinterface(models.Model):
                 ("name", "=", f"{self.name}.zip"),
             ]
         ).unlink()
+        self.item_ids.unlink()
         ctx = {"skip_invoice_sync": True, "skip_invoice_line_sync": True}
         return self.with_context(**ctx).write(
             {
@@ -192,8 +308,70 @@ class SyscoonFinanceinterface(models.Model):
                 errors = self.env["account.move"].browse(vals["move_errors"])
                 vals["move_errors"] = errors
                 vals["move_errors"].with_context(**ctx).write({"export_id": False})
+        # Non-blocking notes (e.g. city truncated to 30 chars for the XML)
+        log_messages = self._get_city_length_warnings(vals["moves_ok"])
         if vals["error_str"]:
-            self.write({"log": vals["error_str"]})
+            log_messages = [vals["error_str"]] + log_messages
+        if log_messages:
+            self.write({"log": "\n".join(log_messages)})
+
+    def _link_datev_xml_accounts_move_batch(self, batch):
+        """Link moves from batch processing"""
+        ctx = {"skip_invoice_sync": True, "skip_invoice_line_sync": True}
+
+        completed_items = batch.batch_item_ids.filtered(lambda x: x.state == "completed")
+        processed_moves = completed_items.mapped("move_id")
+        error_messages = []
+
+        for item in batch.batch_item_ids.filtered(lambda x: x.state == "failed"):
+            if item.result:
+                error_messages.append(f"Item {item.sequence}: {item.result}")
+
+        if processed_moves:
+            if self.xml_mode == "bedi":
+                processed_moves.with_context(**ctx).write(
+                    {"datev_bedi_export_id": self.id}
+                )
+            else:
+                processed_moves.with_context(**ctx).write({"export_id": self.id})
+
+        # Non-blocking notes (e.g. city truncated to 30 chars for the XML)
+        log_messages = error_messages + self._get_city_length_warnings(processed_moves)
+        if log_messages:
+            error_log = "\n".join(log_messages)
+            self.write({"log": error_log})
+
+    def _get_city_length_warnings(self, moves):
+        """Return non-blocking log notes for partners whose city exceeds the
+        DATEV city limit of 36 characters.
+
+        The city is truncated to 36 characters in the XML (see
+        ``account.move._prepare_datev_xml_address_values``) so the export is
+        not blocked. This note informs the user that a truncation happened.
+
+        Partners are de-duplicated so each affected partner is reported once,
+        regardless of how many moves reference it (e.g. the company partner,
+        which appears on every move).
+        """
+        max_length = 36
+        partners = moves.mapped("commercial_partner_id") | moves.mapped(
+            "company_id.partner_id"
+        )
+        warnings = []
+        for partner in partners:
+            if partner.city and len(partner.city) > max_length:
+                warnings.append(
+                    _(
+                        'The city "%(city)s" of partner %(partner)s exceeds '
+                        '%(max)s characters and was truncated to "%(truncated)s" '
+                        "in the DATEV XML export.",
+                        city=partner.city,
+                        partner=partner.name,
+                        max=max_length,
+                        truncated=partner.city[:max_length],
+                    )
+                )
+        return warnings
 
     def _get_missing_fields(self, partner, required_fields):
         return [
@@ -207,7 +385,7 @@ class SyscoonFinanceinterface(models.Model):
         ]
 
     def _check_partner_data(self, move):
-        """Check if the partner's address and account data are complete."""
+        """Check if the partner"s address and account data are complete."""
         param_config_obj = self.env["ir.config_parameter"].sudo()
 
         # Read config parameters and parse comma-separated values
@@ -252,103 +430,130 @@ class SyscoonFinanceinterface(models.Model):
 
     def generate_export_invoices(self, invoice_mode, moves):
         """Generates a list of dicts which have all the export lines to DATEV"""
-        error_str = ""
-        move_xmls = []
-        move_errors = []
-        moves_with_xml = []
-        moves_stat = {"success": self.env["account.move"], "failed": []}
+        result = {
+            "error_str": "",
+            "move_xmls": [],
+            "move_errors": [],
+            "moves_ok": self.env["account.move"],
+        }
+        failed_moves = []
 
         for move in moves:
             try:
-                error_list = []
+                xml, errors = self._process_single_move(move, invoice_mode)
 
-                attachments = move.attachment_ids
-                xml_attachments = attachments.filtered(
-                    lambda a: a.mimetype == "application/xml"
-                )
-                pdf_attachments = attachments.filtered(
-                    lambda a: a.mimetype == "application/pdf"
-                )
-
-                if invoice_mode == "x-rechnungen":
-                    # Only export vendor bills with exactly one XML and no PDF
-                    if move.move_type not in ["in_invoice", "in_refund"]:
-                        move_errors.append(move.id)
-                        error_str += _(
-                            "%(name)s (id=%(move_id)s) skipped: Only vendor bills "
-                            "allowed in X-Rechnungen export.\n",
-                            name=move.name,
-                            move_id=move.id,
-                        )
-                        continue
-
-                    if len(xml_attachments) != 1 or pdf_attachments:
-                        move_errors.append(move.id)
-                        error_str += _(
-                            "%(name)s (id=%(move_id)s) skipped: Must have exactly one XML"
-                            " and no PDF attachments for X-Rechnungen.\n",
-                            name=move.name,
-                            move_id=move.id,
-                        )
-                        continue
-
-                    xml = xml_attachments[0].raw  # use attached XML
-
+                if errors:
+                    result["move_errors"].append(move.id)
+                    result["error_str"] += "\n".join(errors) + "\n"
                 else:
-                    # Standard / Extended / BEDI
-                    # Vendor bill with XML only, treat as X-Rechnung so skip
-                    if (
-                        move.move_type in ["in_invoice", "in_refund"]
-                        and xml_attachments
-                        and not pdf_attachments
-                    ):
-                        move_errors.append(move.id)
-                        error_str += _(
-                            "%(name)s (id=%(move_id)s) skipped: Has only XML, treated as X-Rechnung."
-                            " Use X-Rechnungen export.\n",
-                            name=move.name,
-                            move_id=move.id,
-                        )
-                        continue
-
-                    # If both PDF and XML are attached,ignore XML, generate XML from move
-                    # Proceed normally to generate XML
-                    xml, error_list = self.get_invoice_xml(move, invoice_mode)
-
-                if not error_list:
-                    move_xmls.append(xml)
-                    moves_with_xml.append(move.id)
-                else:
-                    move_errors.append(move.id)
-                    error_str += "\n".join(error_list) + "\n"
-
-                moves_stat["success"] += move
+                    result["move_xmls"].append(xml)
+                    result["moves_ok"] |= move
 
             except Exception as e:
-                moves_stat["failed"].append({"move": move.name, "error": str(e)})
+                failed_moves.append({"move": move.name, "error": str(e)})
 
-        if moves_stat["failed"]:
-            error_text = "\n\n".join(
-                [f'{stat["move"]}\n\n{stat["error"]}' for stat in moves_stat["failed"]]
+        if failed_moves:
+            self._raise_failed_moves_error(failed_moves)
+
+        return result
+
+    def _process_single_move(self, move, invoice_mode):
+        """Process a single move and return XML and errors"""
+        xml_attachments, pdf_attachments = self._get_move_attachments(move)
+
+        if invoice_mode == "x-rechnungen":
+            return self._process_xrechnung_move(move, xml_attachments, pdf_attachments)
+
+        return self._process_standard_move(
+            move, invoice_mode, xml_attachments, pdf_attachments
+        )
+
+    def _get_move_attachments(self, move):
+        """Get XML and PDF attachments from move"""
+        attachments = move.attachment_ids
+        xml_attachments = attachments.filtered(lambda a: a.mimetype == "application/xml")
+        pdf_attachments = attachments.filtered(lambda a: a.mimetype == "application/pdf")
+        return xml_attachments, pdf_attachments
+
+    def _process_xrechnung_move(self, move, xml_attachments, pdf_attachments):
+        """Process move for X-Rechnungen mode - Vendor Bills.
+
+        Accepts two valid scenarios:
+        1. Vendor bill with PDF attachment (contains embedded X-Rechnung XML)
+        2. Vendor bill with separate XML attachment only (no PDF)
+        """
+        # Only export vendor bills
+        if move.move_type not in ["in_invoice", "in_refund"]:
+            error = _(
+                "%(name)s (id=%(move_id)s) skipped: Only vendor bills allowed "
+                "in X-Rechnungen export.\n",
+                name=move.name,
+                move_id=move.id,
             )
-            error_text = [
-                "Execution failed! The XML file is preventing the following",
-                f"moves from proceeding.\n{error_text}",
-            ]
-            raise ValidationError(_(" ".join(error_text)))
+            return None, [error]
 
-        moves_ok = self.env["account.move"].browse(moves_with_xml)
-        return {
-            "move_errors": move_errors,
-            "error_str": error_str,
-            "move_xmls": move_xmls,
-            "moves_ok": moves_ok,
-        }
+        # Option A: Vendor bill with PDF attachment (contains embedded X-Rechnung XML)
+        # Export the PDF as-is - the XML is embedded inside it
+        if pdf_attachments:
+            # Return empty bytes, PDF will be handled separately in batch processing
+            return b"", []
+
+        # Option B: Vendor bill with separate XML attachment (no PDF)
+        if xml_attachments:
+            return xml_attachments[0].raw, []
+
+        # Neither valid scenario
+        error = _(
+            "%(name)s (id=%(move_id)s) skipped: Must have either:\n"
+            "- One PDF attachment (with embedded X-Rechnung XML), or\n"
+            "- One XML attachment (no PDF)\n",
+            name=move.name,
+            move_id=move.id,
+        )
+        return None, [error]
+
+    def _process_standard_move(
+        self, move, invoice_mode, xml_attachments, pdf_attachments
+    ):
+        """Process move for Standard/Extended/BEDI modes"""
+        # Vendor bill with XML only, treat as X-Rechnung so skip
+        if (
+            move.move_type in ["in_invoice", "in_refund"]
+            and xml_attachments
+            and not pdf_attachments
+        ):
+            error = _(
+                "%(name)s (id=%(move_id)s) skipped: Has only XML, treated as X-Rechnung. "
+                "Use X-Rechnungen export.\n",
+                name=move.name,
+                move_id=move.id,
+            )
+            return None, [error]
+
+        # BEDI mode: Skip XML generation, only PDF is needed per invoice
+        if invoice_mode == "bedi":
+            return b"", []
+
+        # Generate XML from move
+        return self.get_invoice_xml(move, invoice_mode)
+
+    def _raise_failed_moves_error(self, failed_moves):
+        """Raise validation error for failed moves"""
+        error_text = "\n\n".join(
+            [f"{stat['move']}\n\n{stat['error']}" for stat in failed_moves]
+        )
+        error_message = [
+            "Execution failed! The XML file is preventing the following",
+            f"moves from proceeding.\n{error_text}",
+        ]
+        raise ValidationError(_(" ".join(error_message)))
 
     def get_invoice_pdf(self, moves):
-        """Return the PDF report for a given invoice"""
-        content = False
-        report_obj = self.env["ir.actions.report"]
+        """Return the PDF report for a given invoice.
+
+        If no PDF exists, generates one using account.move.send which
+        properly embeds factur-x.xml via account_edi_ubl_cii hooks.
+        """
         report = namedtuple("Report", ["content", "filetype"])
         attachments = self.env["ir.attachment"].search(
             [
@@ -361,27 +566,70 @@ class SyscoonFinanceinterface(models.Model):
             ],
             order="id asc",
         )
-        pdf_datas = [base64.decodebytes(attachment.datas) for attachment in attachments]
+        pdf_datas = self._get_pdf_data(attachments)
         res_ids = attachments.mapped("res_id")
+
+        # Generate PDF for moves without existing attachment
         if no_attachment_moves := moves.filtered(lambda m: m.id not in res_ids):
-            content, _filetype = report_obj._render_qweb_pdf(
-                "account.account_invoices", no_attachment_moves.ids
-            )
-            pdf_datas.append(content)
+            # Use account.move.send to generate PDF with embedded factur-x.xml
+            generated_pdfs = self._generate_pdf_with_embedded_xml(no_attachment_moves)
+            pdf_datas.extend(generated_pdfs)
+
         try:
-            report_make = report._make((pdf.merge_pdf(pdf_datas), "pdf"))
+            # CRITICAL: Skip merge for single PDF to preserve embedded factur-x.xml
+            # pdf.merge_pdf() strips embedded file attachments like factur-x.xml
+            merged_content = (
+                pdf_datas[0] if len(pdf_datas) == 1 else pdf.merge_pdf(pdf_datas)
+            )
+            report_make = report._make((merged_content, "pdf"))
             errors = False
         except Exception as e:
             report_make = False
+            move_name = moves[0].name if moves else "Unknown"
+            move_id = moves[0].id if moves else "N/A"
             errors = _(
                 "The PDF attached to invoice %(name)s appears to be corrupted.(id=%(id)s)\n"
                 "ERROR details: \n"
                 "%(error)s\n",
-                name=moves[0].name,
-                id=moves[0].id,
+                name=move_name,
+                id=move_id,
                 error=e,
             )
         return report_make, errors
+
+    def _generate_pdf_with_embedded_xml(self, moves):
+        """Generate PDFs with embedded factur-x.xml using Odoo's mechanism.
+
+        Uses account.move.send._generate_invoice_documents() which triggers
+        the account_edi_ubl_cii hooks to embed factur-x.xml into the PDF.
+
+        Falls back to plain PDF generation if account_edi_ubl_cii is not installed.
+        """
+        pdf_contents = []
+        move_send = self.env["account.move.send"]
+
+        for move in moves:
+            # Prepare invoice data with default settings
+            invoice_data = move_send._get_default_sending_settings(move)
+            invoice_data["pdf_report"] = move_send._get_default_pdf_report_id(move)
+
+            invoices_data = {move: invoice_data}
+
+            # Generate invoice documents
+            # If account_edi_ubl_cii is installed, factur-x.xml will be embedded
+            # If not, we get a plain PDF using Odoo's standard flow
+            move_send._generate_invoice_documents(invoices_data)
+
+            # Extract the generated PDF content
+            if invoice_data.get("pdf_attachment_values"):
+                pdf_contents.append(invoice_data["pdf_attachment_values"]["raw"])
+            elif move.invoice_pdf_report_id:
+                pdf_contents.append(base64.b64decode(move.invoice_pdf_report_id.datas))
+
+        return pdf_contents
+
+    def _get_pdf_data(self, attachments):
+        return [base64.decodebytes(attachment.datas) for attachment in attachments]
 
     def get_invoice_xml(self, move_id, invoice_mode):
         """Return the XML Export for a given invoice"""
@@ -404,23 +652,70 @@ class SyscoonFinanceinterface(models.Model):
             errors = [self.get_error_msg(move_id)]
             for arg in e.args:
                 errors.append(arg)
+            # Add helpful hint based on error
+            hint = self._get_error_hint(move_id, str(e))
+            if hint:
+                errors.append(hint)
             return "", errors
         return xml, []
+
+    def _get_error_hint(self, move, error_msg):
+        """Provide user-friendly hints for common XML validation errors.
+
+        Analyzes the error message and invoice data to give actionable advice.
+        """
+        hints = []
+
+        # Check for missing invoice_item_list (total_amount appears before expected)
+        if "invoice_item_list" in error_msg or "total_amount" in error_msg:
+            # Check if invoice has zero amount or no valid lines
+            valid_lines = move.invoice_line_ids.filtered(
+                lambda l: l.display_type not in ["line_section", "line_note"]
+                and l.price_subtotal != 0.0
+            )
+            if not valid_lines:
+                hints.append(
+                    _(
+                        "Hint: Invoice has no exportable line items. "
+                        "All lines either have zero amount, are section headers, or notes. "
+                        "DATEV XML requires at least one line with a non-zero amount."
+                    )
+                )
+            if move.amount_total == 0:
+                hints.append(
+                    _("Hint: Invoice total amount is 0. Check if the lines are correct.")
+                )
+
+        # Check for missing required fields
+        if "required" in error_msg.lower():
+            hints.append(
+                _(
+                    "Hint: Some required XML elements are missing. "
+                    "Check invoice and partner data completeness."
+                )
+            )
+
+        return "\n".join(hints) if hints else ""
 
     def write_export_invoice(self, dir_path, inv_doc):
         """
         Either both files are written or neither.
+        For BEDI mode, only PDF is written (xml will be empty).
         """
         inv_id, name, xml, report = inv_doc
 
         try:
-            xml_path = os.path.join(dir_path, name + ".xml")
-            if isinstance(xml, str):
-                with open(xml_path, "w", encoding="utf-8") as file:
-                    file.write(xml)
-            else:
-                with open(xml_path, "wb") as file:
-                    file.write(xml)
+            # Only write XML if it's not empty (BEDI mode uses empty xml)
+            xml_path = None
+            if xml:
+                xml_path = os.path.join(dir_path, name + ".xml")
+                if isinstance(xml, str):
+                    with open(xml_path, "w", encoding="utf-8") as file:
+                        file.write(xml)
+                else:
+                    with open(xml_path, "wb") as file:
+                        file.write(xml)
+
             pdf_path = os.path.join(dir_path, ".".join([name, report.filetype]))
             with open(pdf_path, "wb") as file:
                 file.write(report.content)
@@ -464,18 +759,21 @@ class SyscoonFinanceinterface(models.Model):
         Consumes the docs generator and additionally
         writes an xml file with info of the made exports
         """
-        WrittenDoc = namedtuple("WrittenDoc", ["inv", "name", "xml_path", "pdf_path"])
+        written_doc = namedtuple("written_doc", ["inv", "name", "xml_path", "pdf_path"])
 
         def get_doc_paths(doc):
-            return (dir_path + "/" + doc.pdf_path, dir_path + "/" + doc.xml_path)
+            # Return PDF path and XML path if it exists (None for BEDI mode)
+            xml_full_path = dir_path + "/" + doc.xml_path if doc.xml_path else None
+            return (dir_path + "/" + doc.pdf_path, xml_full_path)
 
         written_docs = []
         errors = []
         xml_path = False
         for move_id, name, xml_path, pdf_path in docs:
-            xp = xml_path.replace(dir_path + "/", "")
+            # Handle None xml_path for BEDI mode (no invoice XML generated)
+            xp = xml_path.replace(dir_path + "/", "") if xml_path else None
             pp = pdf_path.replace(dir_path + "/", "")
-            written_docs.append(WrittenDoc._make((move_id, name, xp, pp)))
+            written_docs.append(written_doc._make((move_id, name, xp, pp)))
             xml, errors = self.get_documents_xml(written_docs, invoice_mode)
             xml_path, file_err = self.write_export_invoice_info(dir_path, xml)
             if file_err:
@@ -550,3 +848,703 @@ class SyscoonFinanceinterface(models.Model):
             )
             return "", doc_error
         return xml_path, ""
+
+    def start_batch_processing(self):
+        """Start the batch processing.
+
+        Creates one item per invoice and sets state to 'queued'.
+        If auto_process is True, triggers the cron job for automatic processing.
+        If auto_process is False, waits for manual 'Process Items' click.
+        """
+        self.ensure_one()
+        if self.state != "draft":
+            raise UserError(_("Only draft exports can be started"))
+
+        processing_mode = "automatic (cron)" if self.auto_process else "manual"
+        self.message_post(
+            body=_(
+                "Export started - Processing %(count)d invoices\n"
+                "Processing mode: %(mode)s",
+                count=self.move_count,
+                mode=processing_mode,
+            ),
+            message_type="notification",
+            subtype_xmlid="mail.mt_note",
+        )
+
+        self._create_items()
+
+        self.message_post(
+            body=_("Created %(count)d items (one per invoice)", count=len(self.item_ids)),
+            message_type="notification",
+            subtype_xmlid="mail.mt_note",
+        )
+
+        self.write({"state": "queued"})
+
+        # Only trigger cron if auto_process is enabled
+        if self.auto_process:
+            self._trigger_processing()
+        else:
+            self.message_post(
+                body=_("Click 'Process Items' button to start processing"),
+                message_type="notification",
+                subtype_xmlid="mail.mt_note",
+            )
+
+    def _get_move_domain(self):
+        """Get the domain for moves to process - shared between compute and create"""
+        invoice_type = []
+        if self.xml_invoices in ["customers", "both"]:
+            invoice_type.extend(["out_invoice", "out_refund"])
+        if self.xml_invoices in ["vendors", "both"]:
+            invoice_type.extend(["in_invoice", "in_refund"])
+
+        if not invoice_type:
+            return []
+
+        move_domain = [
+            ("date", ">=", self.start_date),
+            ("date", "<=", self.end_date),
+            ("move_type", "in", invoice_type),
+            ("state", "=", "posted"),
+            ("company_id", "=", self.company_id.id),
+        ]
+
+        if self.xml_mode != "bedi":
+            move_domain.append(("export_id", "=", False))
+        if self.exclude_bedi_exported:
+            move_domain.append(("datev_bedi_export_id", "=", False))
+
+        move_domain.extend(self._get_processing_items_exclusion_domain())
+        return move_domain
+
+    def _get_processing_items_exclusion_domain(self):
+        """Get domain to exclude moves currently being processed in competing exports."""
+        if self.xml_mode == "bedi" and not self.exclude_bedi_exported:
+            return []
+
+        domain_items = [
+            ("state", "in", ["pending", "processing", "completed"]),
+            ("export_id.mode", "=", "datev_xml"),
+        ]
+        # If we are in an existing export context
+        if self.id:
+            domain_items.append(("export_id", "!=", self.id))
+
+        processing_items = self.env["syscoon.financeinterface.item"].search(domain_items)
+        if processing_items:
+            return [("id", "not in", processing_items.move_id.ids)]
+
+        return []
+
+    def _create_items(self):
+        """Create export items - one item per move"""
+        move_domain = self._get_move_domain()
+        if not move_domain:
+            raise UserError(_("No invoice types selected"))
+
+        limit = self.items_limit if self.items_limit and self.items_limit > 0 else None
+        moves = self.env["account.move"].search(move_domain, order="id", limit=limit)
+
+        _logger.info(
+            "Export %s: move_count=%s, actual_moves_found=%s",
+            self.id,
+            self.move_count,
+            len(moves),
+        )
+        if self.move_count != len(moves):
+            _logger.warning(
+                "Export %s: Move count mismatch! Expected %s, found %s",
+                self.id,
+                self.move_count,
+                len(moves),
+            )
+
+        if not moves:
+            raise UserError(_("No invoices found to process"))
+
+        # Create one item per move
+        items = []
+        for sequence, move in enumerate(moves, start=1):
+            items.append(
+                {
+                    "export_id": self.id,
+                    "name": f"Item {sequence}",
+                    "sequence": sequence,
+                    "move_id": move.id,
+                    "state": "pending",
+                }
+            )
+
+        self.env["syscoon.financeinterface.item"].create(items)
+
+    def _trigger_processing(self):
+        """Trigger the cron job to process items"""
+        cron = self.env.ref("syscoon_financeinterface.ir_cron_item_processor", False)
+        if cron:
+            cron._trigger()
+
+    def _get_working_zip_dir(self):
+        """Get filestore directory for working ZIPs.
+
+        Uses Odoo's ir.attachment._filestore() for the base path.
+        """
+        filestore = self.env["ir.attachment"]._filestore()
+        working_dir = os.path.join(filestore, "financeinterface_working")
+        if not os.path.exists(working_dir):
+            os.makedirs(working_dir, exist_ok=True)
+        return working_dir
+
+    def _get_working_zip_path(self):
+        """Get full path for this export's working ZIP."""
+        self.ensure_one()
+        return os.path.join(
+            self._get_working_zip_dir(), f"export_{self.id}_{self.name}.zip"
+        )
+
+    def _init_working_zip(self):
+        """Initialize working ZIP if not exists.
+
+        Note: Restoration from final attachment is handled separately by
+        _restore_working_zip_from_attachment() which is called during retry.
+        """
+        self.ensure_one()
+
+        # If working ZIP already exists, return it
+        if self.working_zip_path and os.path.exists(self.working_zip_path):
+            return self.working_zip_path
+
+        zip_path = self._get_working_zip_path()
+
+        # Create empty ZIP
+        with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED):
+            pass
+
+        self.write({"working_zip_path": zip_path})
+        return zip_path
+
+    def _append_to_working_zip(self, attachments):
+        """Append item attachments to working ZIP.
+
+        Args:
+            attachments: ir.attachment recordset to add to the ZIP
+        """
+        self.ensure_one()
+        if not attachments:
+            return
+        zip_path = self._init_working_zip()
+        try:
+            with zipfile.ZipFile(zip_path, "a", compression=zipfile.ZIP_DEFLATED) as zf:
+                # Get existing filenames to prevent duplicates
+                existing_names = set(zf.namelist())
+                for att in attachments:
+                    if self._should_skip_file(att.name):
+                        continue
+                    if att.name in existing_names:
+                        _logger.debug("Skipping duplicate file: %s", att.name)
+                        continue
+                    file_content = base64.b64decode(att.datas)
+                    zf.writestr(att.name, file_content)
+                    existing_names.add(att.name)
+                    del file_content
+        except zipfile.BadZipFile:
+            _logger.warning("Working ZIP corrupted for export %s, recreating...", self.id)
+            if os.path.exists(zip_path):
+                os.remove(zip_path)
+            self.write({"working_zip_path": False})
+            self._append_to_working_zip(attachments)  # Retry
+        gc.collect()
+
+    def _append_raw_to_working_zip(self, documents_data):
+        """Append raw document bytes directly to working ZIP.
+
+        Args:
+            documents_data: List of (filename, raw_bytes) tuples
+        """
+        self.ensure_one()
+        if not documents_data:
+            return
+        zip_path = self._init_working_zip()
+        try:
+            with zipfile.ZipFile(zip_path, "a", compression=zipfile.ZIP_DEFLATED) as zf:
+                # Get existing filenames to prevent duplicates
+                existing_names = set(zf.namelist())
+                for filename, content in documents_data:
+                    if self._should_skip_file(filename):
+                        continue
+                    if filename in existing_names:
+                        _logger.debug("Skipping duplicate file: %s", filename)
+                        continue
+                    zf.writestr(filename, content)
+                    existing_names.add(filename)
+        except zipfile.BadZipFile:
+            _logger.warning("Working ZIP corrupted for export %s, recreating...", self.id)
+            if os.path.exists(zip_path):
+                os.remove(zip_path)
+            self.write({"working_zip_path": False})
+            self._append_raw_to_working_zip(documents_data)  # Retry
+
+    def _cleanup_working_zip(self):
+        """Clean up working ZIP after finalization or reset."""
+        self.ensure_one()
+        if self.working_zip_path and os.path.exists(self.working_zip_path):
+            try:
+                os.remove(self.working_zip_path)
+                _logger.info("Cleaned up working ZIP: %s", self.working_zip_path)
+            except OSError as e:
+                _logger.warning(
+                    "Failed to clean up working ZIP %s: %s", self.working_zip_path, e
+                )
+        self.write({"working_zip_path": False})
+
+    def _restore_working_zip_from_attachment(self):
+        """Restore working ZIP from final attachment before it's deleted.
+
+        Called during retry to preserve existing files.
+        Must be called BEFORE the final attachment is deleted.
+        Removes document.xml so it can be regenerated during finalization.
+        """
+        self.ensure_one()
+
+        # Skip if working ZIP already exists
+        if self.working_zip_path and os.path.exists(self.working_zip_path):
+            return
+
+        # Find final ZIP attachment
+        final_zip_attachment = self.env["ir.attachment"].search(
+            [
+                ("res_model", "=", self._name),
+                ("res_id", "=", self.id),
+                ("name", "=", f"{self.name}.zip"),
+            ],
+            limit=1,
+        )
+
+        if not final_zip_attachment:
+            return
+
+        # Restore to working path
+        zip_path = self._get_working_zip_path()
+        final_zip_content = base64.b64decode(final_zip_attachment.datas)
+        with open(zip_path, "wb") as zip_file:
+            zip_file.write(final_zip_content)
+
+        # Remove document.xml from the restored ZIP so it will be regenerated
+        # during finalization with the updated list of completed items
+        self._remove_document_xml_from_working_zip(zip_path)
+
+        self.write({"working_zip_path": zip_path})
+        _logger.info("Restored working ZIP from final attachment for export %s", self.id)
+
+    def _remove_document_xml_from_working_zip(self, zip_path):
+        """Remove document.xml from working ZIP to allow regeneration.
+
+        Python's zipfile doesn't support deletion, so we recreate the ZIP
+        without document.xml.
+        """
+        if not os.path.exists(zip_path):
+            return
+
+        temp_path = zip_path + ".tmp"
+        try:
+            with zipfile.ZipFile(zip_path, "r") as zin, zipfile.ZipFile(
+                temp_path, "w", compression=zipfile.ZIP_DEFLATED
+            ) as zout:
+                for item in zin.infolist():
+                    if item.filename != "document.xml":
+                        zout.writestr(item, zin.read(item.filename))
+            # Replace original with filtered version
+            os.replace(temp_path, zip_path)
+            _logger.debug("Removed document.xml from working ZIP for regeneration")
+        except Exception as e:
+            _logger.warning("Failed to remove document.xml from ZIP: %s", e)
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+
+    def _finalize_export(self):
+        """Finalize the export by creating the final ZIP file with document.xml"""
+        # Free up memory before heavy operation
+        gc.collect()
+        try:
+            # Do not finalize while items are still processing
+            processing_items = self.item_ids.filtered(lambda x: x.state == "processing")
+            if processing_items:
+                _logger.info(
+                    "Postponing finalization for export %s: %d item(s) still processing",
+                    self.name,
+                    len(processing_items),
+                )
+                return
+
+            completed_items = self.item_ids.filtered(lambda x: x.state == "completed")
+
+            if not completed_items:
+                self._handle_no_completed_items()
+                return
+
+            with tempfile.TemporaryDirectory() as temp_dir:
+                final_zip_path = self._create_final_zip(temp_dir, completed_items)
+                self._save_final_attachment(final_zip_path, len(completed_items))
+
+            self._link_processed_moves()
+            self._send_notification()
+            self._cleanup_working_zip()
+
+        except Exception as e:
+            self._handle_finalize_error(e)
+
+    def _handle_no_completed_items(self):
+        """Handle case when no items were successfully processed."""
+        error_messages = [_("No items were successfully processed")]
+        for item in self.item_ids.filtered(lambda x: x.state == "failed"):
+            if item.result:
+                error_messages.append(f"{item.move_id.name}: {item.result}")
+
+        self.message_post(
+            body=_("Export failed - No items were successfully processed"),
+            message_type="notification",
+            subtype_xmlid="mail.mt_note",
+        )
+
+        self.write({"state": "error", "log": "\n".join(error_messages)})
+
+    def _create_final_zip(self, temp_dir, completed_items):
+        """Create final ZIP using incremental working ZIP if available."""
+        final_zip_path = os.path.join(temp_dir, f"{self.name}.zip")
+
+        if self.working_zip_path and os.path.exists(self.working_zip_path):
+            # Use incremental ZIP - just copy and add document.xml
+            shutil.copy2(self.working_zip_path, final_zip_path)
+            with zipfile.ZipFile(
+                final_zip_path, "a", compression=zipfile.ZIP_DEFLATED
+            ) as final_zip:
+                self._add_document_xml(final_zip, temp_dir, completed_items)
+        else:
+            # Fallback for backward compatibility (old exports without working ZIP)
+            with zipfile.ZipFile(
+                final_zip_path, "w", compression=zipfile.ZIP_DEFLATED
+            ) as final_zip:
+                self._merge_item_attachments(final_zip, completed_items)
+                self._add_document_xml(final_zip, temp_dir, completed_items)
+
+        return final_zip_path
+
+    def _merge_item_attachments(self, final_zip, completed_items):
+        """Merge all item attachment contents into the final ZIP."""
+        for item in completed_items:
+            attachments = item.attachment_ids
+            if not attachments:
+                continue
+
+            for attachment in attachments:
+                if self._should_skip_file(attachment.name):
+                    continue
+
+                file_content = base64.b64decode(attachment.datas)
+                final_zip.writestr(attachment.name, file_content)
+                del file_content
+
+        gc.collect()
+
+    def _extract_item_zip(self, temp_dir, item, prefix="item"):
+        """Extract an item's ZIP file to temp directory.
+
+        Args:
+            temp_dir: Directory to extract to
+            item: The item record containing the attachment
+            prefix: Prefix for the extracted file name (default: "item")
+
+        Returns:
+            Path to the extracted ZIP file
+        """
+        item_zip_data = base64.b64decode(item.attachment_ids[0].datas)
+        item_zip_path = os.path.join(temp_dir, f"{prefix}_{item.sequence}.zip")
+
+        with open(item_zip_path, "wb") as file:
+            file.write(item_zip_data)
+
+        return item_zip_path
+
+    def _copy_zip_contents(self, final_zip, item_zip_path):
+        """Copy contents from item ZIP to final ZIP, filtering by mode"""
+        with zipfile.ZipFile(item_zip_path, "r") as item_zip:
+            for file_info in item_zip.infolist():
+                # Security: sanitize filename to prevent path traversal attacks
+                safe_filename = os.path.basename(file_info.filename)
+                if not safe_filename or self._should_skip_file(safe_filename):
+                    continue
+
+                file_data = item_zip.read(file_info.filename)
+                final_zip.writestr(safe_filename, file_data)
+
+    def _should_skip_file(self, filename):
+        """Check if file should be skipped based on export mode"""
+        if self.xml_mode == "bedi":
+            # BEDI: skip all XML except document.xml
+            return filename.endswith(".xml") and not filename.endswith("document.xml")
+        # Other modes: don't skip any files
+        return False
+
+    def _add_document_xml(self, final_zip, temp_dir, completed_items):
+        """Generate and add document.xml to the final ZIP"""
+        written_docs = self._collect_written_docs(completed_items)
+
+        if not written_docs:
+            return
+
+        xml_content, doc_errors = self.get_documents_xml(written_docs, self.xml_mode)
+        if xml_content and not doc_errors:
+            final_zip.writestr("document.xml", xml_content)
+        elif doc_errors:
+            _logger.warning("Document XML errors: %s", doc_errors)
+
+    def _collect_written_docs(self, completed_items):
+        """Collect written_doc objects from all completed items"""
+        written_doc = namedtuple("written_doc", ["inv", "name", "xml_path", "pdf_path"])
+        written_docs = []
+
+        for item in completed_items:
+            attachments = item.attachment_ids
+            if not attachments:
+                continue
+
+            item_docs = self._create_written_docs_from_attachments(
+                item, attachments, written_doc
+            )
+            written_docs.extend(item_docs)
+
+        return written_docs
+
+    def _create_written_docs_from_attachments(self, item, attachments, written_doc):
+        """Create written_doc objects from item's attachments."""
+        move = item.move_id
+
+        move_files = {}
+        for attachment in attachments:
+            filename = attachment.name
+            if not filename:
+                continue
+
+            if filename.endswith(".xml"):
+                move_files["xml"] = filename
+            elif filename.endswith(".pdf"):
+                move_files["pdf"] = filename
+
+        if not move_files:
+            return []
+
+        doc = self._create_single_written_doc(move, move_files, written_doc)
+        return [doc] if doc else []
+
+    def _extract_item_docs(self, temp_dir, item, written_doc):
+        """Extract written_doc objects from a single item"""
+        item_zip_path = self._extract_item_zip(temp_dir, item, prefix="temp_item")
+
+        with zipfile.ZipFile(item_zip_path, "r") as item_zip:
+            move_files = self._group_files_by_move(item_zip.namelist())
+            # Single move per item
+            return self._create_written_docs(item.move_id, move_files, written_doc)
+
+    def _group_files_by_move(self, file_names):
+        """Group XML and PDF files by move name.
+
+        Security: sanitizes filenames to prevent path traversal.
+        """
+        move_files = {}
+
+        for filename in file_names:
+            # Security: sanitize filename to prevent path traversal
+            safe_filename = os.path.basename(filename)
+            if not safe_filename:
+                continue
+
+            base_name = safe_filename.rsplit(".", 1)[0]
+            if base_name not in move_files:
+                move_files[base_name] = {}
+
+            if safe_filename.endswith(".xml"):
+                move_files[base_name]["xml"] = safe_filename
+            elif safe_filename.endswith(".pdf"):
+                move_files[base_name]["pdf"] = safe_filename
+
+        return move_files
+
+    def _create_written_docs(self, move, move_files, written_doc):
+        """Create written_doc objects for a single move"""
+        written_docs = []
+
+        clean_name = "".join(CLEAN_NUMBER_PATTERN.findall(move.name or ""))
+        if clean_name not in move_files:
+            return written_docs
+
+        file_info = move_files[clean_name]
+        doc = self._create_single_written_doc(move, file_info, written_doc)
+        if doc:
+            written_docs.append(doc)
+
+        return written_docs
+
+    def _create_single_written_doc(self, move, file_info, written_doc):
+        """Create a single written_doc object"""
+        if self.xml_mode == "bedi" and "pdf" in file_info:
+            # BEDI: PDF only, no XML
+            return written_doc(
+                inv=move, name=move.name, xml_path="", pdf_path=file_info["pdf"]
+            )
+        if self.xml_mode == "x-rechnungen":
+            # X-Rechnungen: either PDF with embedded XML or XML only
+            if "pdf" in file_info:
+                return written_doc(
+                    inv=move, name=move.name, xml_path="", pdf_path=file_info["pdf"]
+                )
+            if "xml" in file_info:
+                return written_doc(
+                    inv=move, name=move.name, xml_path=file_info["xml"], pdf_path=""
+                )
+            return None
+        # Standard/Extended: both XML and PDF required
+        if (
+            self.xml_mode not in ["bedi", "x-rechnungen"]
+            and "xml" in file_info
+            and "pdf" in file_info
+        ):
+            return written_doc(
+                inv=move,
+                name=move.name,
+                xml_path=file_info["xml"],
+                pdf_path=file_info["pdf"],
+            )
+        return None
+
+    def _save_final_attachment(self, final_zip_path, completed_count):
+        """Create the final attachment and update state."""
+        # Remove existing final ZIP attachments to avoid duplicates when retrying
+        existing_zips = self.env["ir.attachment"].search(
+            [
+                ("res_model", "=", self._name),
+                ("res_id", "=", self.id),
+                ("name", "=like", f"{self.name}.zip"),
+            ]
+        )
+        if existing_zips:
+            existing_zips.unlink()
+
+        _logger.info("Creating final attachment for export: %s", final_zip_path)
+        with open(final_zip_path, "rb") as zip_file:
+            self.env["ir.attachment"].create(
+                {
+                    "name": f"{self.name}.zip",
+                    "res_model": self._name,
+                    "res_id": self.id,
+                    "type": "binary",
+                    "datas": base64.b64encode(zip_file.read()),
+                }
+            )
+            _logger.info("Final attachment created for export: %s", final_zip_path)
+        # Free memory
+        gc.collect()
+        # Check if there are failed items for notification message
+        failed_count = len(self.item_ids.filtered(lambda x: x.state == "failed"))
+
+        if failed_count > 0:
+            _logger.warning(
+                "Export completed with partial success - Final ZIP file created with "
+                "%d processed invoices. %d invoices failed. "
+                "Check the Export Items tab for error details.",
+                completed_count,
+                failed_count,
+            )
+            self.message_post(
+                body=_(
+                    "Export completed with partial success - Final ZIP file created with "
+                    "%(completed)d processed invoices. %(failed)d invoices failed. "
+                    "Check the Export Items tab for error details.",
+                    completed=completed_count,
+                    failed=failed_count,
+                ),
+                message_type="notification",
+                subtype_xmlid="mail.mt_note",
+            )
+        else:
+            _logger.info(
+                "Export completed successfully - Final ZIP file created with "
+                "%d processed invoices",
+                completed_count,
+            )
+            self.message_post(
+                body=_(
+                    "Export completed successfully - Final ZIP file created with "
+                    "%(completed)d processed invoices",
+                    completed=completed_count,
+                ),
+                message_type="notification",
+                subtype_xmlid="mail.mt_note",
+            )
+
+        # Always set state to "export" when we have completed items
+        # The failed_items field will indicate partial failures via UI warning
+        self.write({"state": "export"})
+
+    def _handle_finalize_error(self, error):
+        """Handle errors during finalization"""
+        _logger.error("Error finalizing export %s: %s", self.id, str(error))
+
+        self.message_post(
+            body=f"Export failed with error: {str(error)}",
+            message_type="notification",
+            subtype_xmlid="mail.mt_note",
+        )
+
+        self.write({"state": "error", "log": str(error)})
+
+    def _link_processed_moves(self):
+        """Link moves from completed items."""
+        completed_items = self.item_ids.filtered(lambda x: x.state == "completed")
+        processed_moves = completed_items.mapped("move_id")
+
+        if processed_moves:
+            ctx = {"skip_invoice_sync": True, "skip_invoice_line_sync": True}
+            if self.xml_mode == "bedi":
+                processed_moves.with_context(**ctx).write(
+                    {"datev_bedi_export_id": self.id}
+                )
+            else:
+                processed_moves.with_context(**ctx).write({"export_id": self.id})
+
+        # Log errors or clear log if all items succeeded
+        error_messages = []
+        for item in self.item_ids.filtered(lambda x: x.state == "failed"):
+            if item.result:
+                error_messages.append(f"{item.move_id.name}: {item.result}")
+
+        # Non-blocking notes (e.g. city truncated to 30 chars for the XML)
+        log_messages = error_messages + self._get_city_length_warnings(processed_moves)
+
+        if log_messages:
+            self.write({"log": "\n".join(log_messages)})
+        elif self.log:
+            # Clear log when all items succeed (e.g., after retry)
+            self.write({"log": ""})
+
+    def _send_notification(self):
+        """Send completion notification"""
+        completed_count = len(self.item_ids.filtered(lambda x: x.state == "completed"))
+        failed_count = len(self.item_ids.filtered(lambda x: x.state == "failed"))
+
+        body = _(
+            "Your DATEV XML export '%s' has been completed. "
+            "Processed %d invoices successfully."
+        ) % (self.name, completed_count)
+
+        if failed_count > 0:
+            body += _(" %d invoices failed.") % failed_count
+
+        self.env["mail.message"].create(
+            {
+                "message_type": "notification",
+                "subject": _("DATEV Export Completed"),
+                "body": body,
+                "partner_ids": [(4, self.env.user.partner_id.id)],
+            }
+        )

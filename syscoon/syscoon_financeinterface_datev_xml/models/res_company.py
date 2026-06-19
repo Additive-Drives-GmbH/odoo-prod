@@ -25,3 +25,7 @@ class ResCompany(models.Model):
         help="If disabled no analytic account will be exported.",
         default=True,
     )
+    module_syscoon_financeinterface_datev_xml_decrypt = fields.Boolean(
+        string="Decrypt PDF files that are encrypted",
+        help="This module allows to decrypt PDF files that are encrypted.",
+    )

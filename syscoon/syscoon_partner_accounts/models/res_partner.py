@@ -1,6 +1,7 @@
 # © 2025 syscoon Estonia OÜ (<https://syscoon.com>)
 # License OPL-1, See LICENSE file for full copyright and licensing details.
-from odoo import fields, models
+from odoo import _, fields, models
+from odoo.exceptions import UserError
 
 
 class ResPartner(models.Model):
@@ -15,13 +16,27 @@ class ResPartner(models.Model):
 
     def action_create_receivable_account(self):
         """Create a receivable account for the partner"""
-        self.create_accounts(self.env.company, {"asset_receivable": True})
+        company = self.env.company
+        types = company._get_partner_account_types(account_type="receivable")
+        self.create_accounts(company, types)
         return {"type": "ir.actions.act_window_close"}
 
     def action_create_payable_account(self):
         """Create a payable account for the partner"""
-        self.create_accounts(self.env.company, {"liability_payable": True})
+        company = self.env.company
+        types = company._get_partner_account_types(account_type="payable")
+        self.create_accounts(company, types)
         return {"type": "ir.actions.act_window_close"}
+
+    def create_customer_number(self):
+        company = self.env.company
+        types = {"separate_numbers": True}
+        return self.create_accounts(company, types)
+
+    def create_supplier_number(self):
+        company = self.env.company
+        types = {"separate_numbers": True}
+        return self.create_accounts(company, types)
 
     def create_accounts(self, company, types=None):
         """Create accounts for the partner"""
@@ -51,41 +66,120 @@ class ResPartner(models.Model):
         debitor_vals = self._prepare_debitor_vals(company, types)
         creditor_vals = self._prepare_creditor_vals(company, types)
         values = {**debitor_vals, **creditor_vals}
+        if company.add_number_to_partner_ref and not self.ref:
+            values.update(
+                {
+                    "ref": debitor_vals["customer_number"]
+                    or creditor_vals["supplier_number"]
+                }
+            )
         return values
 
     def _prepare_debitor_vals(self, company, types):
         """Prepare values for the debitor account"""
         values = {
             "debitor_number": self.debitor_number,
+            "customer_number": self.customer_number,
             "receivable_account_vals": {},
         }
-        sequence_id = self.env.company.receivable_sequence_id
+        sequence_id = self._get_receivable_sequence()
         if not values["debitor_number"] and types.get("asset_receivable"):
             values["debitor_number"] = sequence_id.next_by_id()
-            if company.use_separate_accounts:
-                template = company.receivable_template_id
-                code = values["debitor_number"]
+            if (
+                types.get("separate_accounts")
+                and "property_account_receivable_id" in self._fields
+            ):
                 values["receivable_account_vals"] = self._prepare_account_vals(
-                    company, template, code
+                    company=company,
+                    template=company.receivable_template_id,
+                    code=values["debitor_number"],
                 )
+        # Only copy debitor→customer if add_number_to_partner_number is checked
+        # (separate_numbers is False means copy is enabled)
+        if (
+            values["debitor_number"]
+            and not self.debitor_number
+            and not values["customer_number"]
+            and types.get("separate_numbers") is False
+        ):
+            values["customer_number"] = values["debitor_number"]
+        # NOTE: Removed separate number creation logic - customer_number creation
+        # is now controlled solely by create_auto_number_on in
+        # syscoon_partner_customer_supplier_number module
         return values
 
     def _prepare_creditor_vals(self, company, types):
         """Prepare values for the creditor account"""
         values = {
             "creditor_number": self.creditor_number,
+            "supplier_number": self.supplier_number,
             "payable_account_vals": {},
         }
-        sequence_id = self.env.company.payable_sequence_id
+        sequence_id = self._get_payable_sequence()
         if not values["creditor_number"] and types.get("liability_payable"):
             values["creditor_number"] = sequence_id.next_by_id()
-            if company.use_separate_accounts:
-                template = company.payable_template_id
-                code = values["creditor_number"]
+            if (
+                types.get("separate_accounts")
+                and "property_account_payable_id" in self._fields
+            ):
                 values["payable_account_vals"] = self._prepare_account_vals(
-                    company, template, code
+                    company=company,
+                    template=company.payable_template_id,
+                    code=values["creditor_number"],
                 )
+        # Only copy creditor→supplier if add_number_to_partner_number is checked
+        # (separate_numbers is False means copy is enabled)
+        if (
+            values["creditor_number"]
+            and not self.creditor_number
+            and not values["supplier_number"]
+            and types.get("separate_numbers") is False
+        ):
+            values["supplier_number"] = values["creditor_number"]
+        # NOTE: Removed separate number creation logic - supplier_number creation
+        # is now controlled solely by create_auto_number_on in
+        # syscoon_partner_customer_supplier_number module
         return values
+
+    def _prepare_customer_supplier_number_values(self, company, types):
+        """Override to copy from debitor/creditor when enabled.
+
+        Note: Does NOT call super() when copying to avoid generating unused sequences.
+        """
+        if company.add_number_to_partner_number:
+            vals = {}
+            if (
+                types.get("customer_number")
+                and not self.customer_number
+                and self.debitor_number
+            ):
+                vals["customer_number"] = self.debitor_number
+            if (
+                types.get("supplier_number")
+                and not self.supplier_number
+                and self.creditor_number
+            ):
+                vals["supplier_number"] = self.creditor_number
+            return vals
+        return super()._prepare_customer_supplier_number_values(company, types)
+
+    def _get_receivable_sequence(self):
+        """Get the receivable sequence"""
+        sequence_id = self.env.company.receivable_sequence_id
+        if not sequence_id:
+            raise UserError(
+                _("No receivable sequence defined for company %s", self.env.company.name)
+            )
+        return sequence_id
+
+    def _get_payable_sequence(self):
+        """Get the payable sequence"""
+        sequence_id = self.env.company.payable_sequence_id
+        if not sequence_id:
+            raise UserError(
+                _("No payable sequence defined for company %s", self.env.company.name)
+            )
+        return sequence_id
 
     def _prepare_account_vals(self, company, template, code):
         """Prepare values for the account"""

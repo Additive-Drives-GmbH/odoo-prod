@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Customizations for the l10n_din5008_account invoice document -->
+    <template id="l10n_din5008_report_invoice_document" inherit_id="l10n_din5008.report_invoice_document">
+        <xpath expr="//t[@t-set='din5008_document_information']//table" position="inside">
+            <t t-set="customer_number" t-value="o.with_company(o.company_id).partner_id.customer_number"/>
+            <tr t-if="o.company_id.allow_account_number_report and customer_number">
+                <td>Customer No.:</td>
+                <td>
+                    <t t-out="customer_number"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+
+</odoo>

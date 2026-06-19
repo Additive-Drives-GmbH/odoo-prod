@@ -5,6 +5,7 @@ from functools import lru_cache
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import float_compare
 
 
 class AccountMove(models.Model):
@@ -129,18 +130,78 @@ class AccountMove(models.Model):
             line.generate_export_line(data)
         self.group_converted_move_lines(data)
 
+    def _apply_tax_rounding_correction(self, lines, interface):
+        """Compare sum of rounded export amounts with move total.
+
+        Apply any rounding difference to the last export line.
+        Must be called AFTER rounding so the correction is not lost
+        by subsequent rounding steps.
+        """
+        if not lines:
+            return
+
+        exported_total = sum(
+            line.get("Umsatz (ohne Soll/Haben-Kz)") or 0.0 for line in lines
+        )
+
+        rounding_diff = abs(self.amount_total) - exported_total
+        if self.currency_id.is_zero(rounding_diff):
+            return
+
+        # Safety: only correct small drifts to avoid masking real data issues.
+        # Compare with currency precision to ignore float representation noise
+        # (e.g. 61.17 - 61.12 == 0.05000000000000426 in IEEE-754).
+        max_correction = 0.05 * len(lines)
+        if (
+            float_compare(
+                abs(rounding_diff),
+                max_correction,
+                precision_rounding=self.currency_id.rounding,
+            )
+            > 0
+        ):
+            return
+
+        last_line = lines[-1]
+        last_line["Umsatz (ohne Soll/Haben-Kz)"] = interface.currency_round(
+            (last_line.get("Umsatz (ohne Soll/Haben-Kz)") or 0.0) + rounding_diff,
+            self.currency_id,
+        )
+
+        if last_line.get("Basis-Umsatz"):
+            kurs = last_line.get("Kurs")
+            base_diff = rounding_diff / float(kurs) if kurs else rounding_diff
+            last_line["Basis-Umsatz"] = interface.currency_round(
+                (last_line.get("Basis-Umsatz") or 0.0) + base_diff,
+                self.company_currency_id,
+            )
+
     def group_converted_move_lines(self, data):
         lines = [
             data["lines"][ml]["export"]
             for ml in data["lines"]
             if data["lines"][ml]["move"].id == self.id
         ]
+        interface = data["interface"]
+        currency = self.currency_id
+
         if not self.journal_id.datev_ascii_group_moves:
+            # Non-grouped: round each line individually before output
+            for line in lines:
+                line["Umsatz (ohne Soll/Haben-Kz)"] = interface.currency_round(
+                    line["Umsatz (ohne Soll/Haben-Kz)"], currency
+                )
+                if line.get("Basis-Umsatz"):
+                    line["Basis-Umsatz"] = interface.currency_round(
+                        line["Basis-Umsatz"], self.company_currency_id
+                    )
+            self._apply_tax_rounding_correction(lines, interface)
             data["grouped_lines"] += [
-                data["interface"]._apply_template_config(self, line, data)
-                for line in lines
+                interface._apply_template_config(self, line, data) for line in lines
             ]
             return
+
+        # Grouped: sum unrounded values, then round the sums
         grouped_vals = {}
         sum_keys = ["Basis-Umsatz", "Umsatz (ohne Soll/Haben-Kz)"]
         for vals in lines:
@@ -150,9 +211,23 @@ class AccountMove(models.Model):
             )
             for sum_key in sum_keys:
                 grouped_vals[key][sum_key] += vals[sum_key] if vals[sum_key] else 0.0
-        new_lines = []
+
+        # Round after summing
         for line in grouped_vals.values():
-            new_lines.append(data["interface"]._apply_template_config(self, line, data))
+            line["Umsatz (ohne Soll/Haben-Kz)"] = interface.currency_round(
+                line["Umsatz (ohne Soll/Haben-Kz)"], currency
+            )
+            if line.get("Basis-Umsatz"):
+                line["Basis-Umsatz"] = interface.currency_round(
+                    line["Basis-Umsatz"], self.company_currency_id
+                )
+
+        grouped_list = list(grouped_vals.values())
+        self._apply_tax_rounding_correction(grouped_list, interface)
+
+        new_lines = []
+        for line in grouped_list:
+            new_lines.append(interface._apply_template_config(self, line, data))
         data["grouped_lines"] += new_lines
 
     def _generate_group_key(self, line_values):

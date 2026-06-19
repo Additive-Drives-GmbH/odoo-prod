@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * syscoon_financeinterface_datev_ascii_accounts
+# 	* syscoon_financeinterface_datev_ascii_accounts
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-10 08:56+0000\n"
-"PO-Revision-Date: 2021-10-10 08:56+0000\n"
+"POT-Creation-Date: 2026-03-18 15:11+0000\n"
+"PO-Revision-Date: 2026-03-18 15:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,32 +16,27 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_ascii_accounts.view_syscoon_financeinterface_configuration_datev_ascii_accoounts
-msgid "<span class=\"o_form_label\">DATEV Account Export Kind</span>"
-msgstr "<span class=\"o_form_label\">DATEV Kontoexport Art</span>"
-
-#. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model,name:syscoon_financeinterface_datev_ascii_accounts.model_account_account
 msgid "Account"
 msgstr "Konto"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface_export__datev_ascii_accounts_account
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface__datev_ascii_accounts_account
 msgid "Accounts"
 msgstr "Konten"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface_export__datev_ascii_accounts_account_kind
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface__datev_ascii_accounts_account_kind
 msgid "Accunts to export"
-msgstr "Konten für den Export"
+msgstr "Zu exportierende Konten"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__datev_ascii_accounts_account_kind__all
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__datev_ascii_accounts_account_kind__all
 msgid "All"
 msgstr "Alle"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__datev_ascii_accounts_account__both
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__datev_ascii_accounts_account__both
 msgid "Both"
 msgstr "Beide"
 
@@ -61,9 +56,9 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__datev_ascii_accounts_account__credit
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__datev_ascii_accounts_account__credit
 msgid "Credit Accounts"
-msgstr "Kreditoren Konten"
+msgstr "Habenkonten"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__res_company__export_finance_interface__datev_ascii_accounts
@@ -77,7 +72,6 @@ msgstr "DATEV ASCII Stammdaten-Export Einstellungen"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__mode__datev_ascii_accounts
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__mode__datev_ascii_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_ascii_accounts.syscoon_financeinterface_search_view
 msgid "DATEV ASCII Accounts"
 msgstr "DATEV ASCII Konten"
@@ -95,20 +89,20 @@ msgstr "DATEV Kontenepxort Art"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__res_company__datev_ascii_accounts_kind__rewe
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__datev_ascii_accounts_kind__rewe
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__datev_ascii_accounts_kind__rewe
 msgid "DATEV Standard (Rewe)"
 msgstr ""
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__res_company__datev_ascii_accounts_kind__duo
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__datev_ascii_accounts_kind__duo
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__datev_ascii_accounts_kind__duo
 msgid "DATEV Unternehmen Online"
 msgstr ""
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__datev_ascii_accounts_account__debit
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__datev_ascii_accounts_account__debit
 msgid "Debit Accounts"
-msgstr "Debitoren Konten"
+msgstr "Sollkonten"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_account_account__datev_diverse_account
@@ -119,22 +113,6 @@ msgstr "Diverses-Konto"
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_res_company__export_finance_interface
 msgid "Export Finance Interface"
 msgstr "Export Finanz-Interface"
-
-#. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface__mode
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface_export__mode
-msgid "Export Mode"
-msgstr "Export Modus"
-
-#. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface_export__type
-msgid "Export Type"
-msgstr "Export Typ"
-
-#. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model,name:syscoon_financeinterface_datev_ascii_accounts.model_syscoon_financeinterface_export
-msgid "Export Wizard for the syscoon financeinterface"
-msgstr "Export-Assistent für das syscoon Finanzinterface"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_account_account__datev_exported
@@ -153,25 +131,19 @@ msgid "False"
 msgstr "Falsch"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#. odoo-python
-#: code:addons/syscoon_financeinterface_datev_ascii_accounts/wizards/syscoon_financeinterface_export.py:0
-#, python-format
-msgid ""
-"For the DATEV ASCII account export you must select the type \"Date\" to do "
-"an export!"
-msgstr ""
-"Für den DATEV ASCII Kontenexport muss der Typ \"Datum\" gewählt sein um "
-"einen Export durchführen zu können!"
-
-#. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface_export__datev_ascii_accounts_kind
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface__datev_ascii_accounts_kind
 msgid "Kind"
 msgstr "Art"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__datev_ascii_accounts_account_kind__new
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_ascii_accounts.field_syscoon_financeinterface__mode
+msgid "Mode"
+msgstr "Export Modus"
+
+#. module: syscoon_financeinterface_datev_ascii_accounts
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface__datev_ascii_accounts_account_kind__new
 msgid "Only New"
-msgstr "Nur Neue"
+msgstr "Nur neue"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_ascii_accounts.view_syscoon_financeinterface_configuration_datev_ascii_accoounts
@@ -183,14 +155,8 @@ msgstr ""
 "zwischen DATEV Kanzlei Rewe und DATEV Unternehmen Online wählen."
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__syscoon_financeinterface_export__type__date
-msgid "Single Date"
-msgstr "Einzeldatum"
-
-#. module: syscoon_financeinterface_datev_ascii_accounts
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_ascii_accounts/models/syscoon_financeinterface.py:0
-#, python-format
 msgid "Something went wrong, because a export file could not generated!"
 msgstr ""
 "Irgendetwas ist fehlgeschlagen, denn eine Exportdatei konnte nicht erzeugt "
@@ -199,20 +165,12 @@ msgstr ""
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_ascii_accounts/models/syscoon_financeinterface.py:0
-#, python-format
 msgid ""
 "There are no accounts to export with your export-settings.\n"
 "Please check them!"
 msgstr ""
 "In Ihren Export-Einstellungen sind keine Konten zum Exportieren vorhanden.\n"
 "Bitte überprüfen Sie diese!"
-
-#. module: syscoon_financeinterface_datev_ascii_accounts
-#. odoo-python
-#: code:addons/syscoon_financeinterface_datev_ascii_accounts/models/syscoon_financeinterface.py:0
-#, python-format
-msgid "There are not all parameters given, that are necessary"
-msgstr "Es wurden nicht alle Parameter ausgefüllt, die notwendig sind"
 
 #. module: syscoon_financeinterface_datev_ascii_accounts
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_ascii_accounts.selection__res_partner__datev_exported__true

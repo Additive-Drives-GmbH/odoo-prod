@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Export Item Form View -->
+    <record id="view_financeinterface_item_form" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.item.form</field>
+        <field name="model">syscoon.financeinterface.item</field>
+        <field name="arch" type="xml">
+            <form string="Export Item">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,completed"/>
+                    <field name="export_auto_process" invisible="1"/>
+                    <field name="export_state" invisible="1"/>
+                    <button name="action_retry" type="object" string="Retry Now" class="btn-primary" invisible="state != 'failed' or (export_auto_process and export_state != 'export')"/>
+                    <button name="action_retry_queue" type="object" string="Queue Retry" class="btn-secondary" invisible="state != 'failed'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="export_id"/>
+                            <field name="move_id"/>
+                            <field name="partner_id"/>
+                            <field name="amount_total"/>
+                        </group>
+                        <group>
+                            <field name="state" widget="badge" decoration-success="state=='completed'" decoration-danger="state=='failed'" decoration-warning="state=='pending'" decoration-muted="state=='processing'"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </group>
+                    <group invisible="state != 'failed' or not result">
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error:</strong>
+                            <field name="result" readonly="1" nolabel="1"/>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Export Item List View -->
+    <record id="view_financeinterface_item_list" model="ir.ui.view">
+        <field name="name">syscoon.financeinterface.item.list</field>
+        <field name="model">syscoon.financeinterface.item</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state=='completed'" decoration-danger="state=='failed'" decoration-warning="state=='pending'" decoration-muted="state in ['processing', 'cancelled']">
+                <field name="move_id"/>
+                <field name="partner_id"/>
+                <field name="amount_total"/>
+                <field name="state" widget="badge" decoration-success="state=='completed'" decoration-danger="state=='failed'" decoration-warning="state=='pending'" decoration-muted="state in ['processing', 'cancelled']"/>
+                <field name="attachment_ids" widget="many2many_binary" optional="hide"/>
+                <field name="result" optional="hide"/>
+                <field name="export_auto_process" column_invisible="1"/>
+                <field name="export_state" column_invisible="1"/>
+                <button name="action_retry" string="Retry Now" type="object" icon="fa-refresh" invisible="state != 'failed' or (export_auto_process and export_state != 'export')" title="Process immediately"/>
+                <button name="action_retry_queue" string="Queue" type="object" icon="fa-clock-o" invisible="state != 'failed'" title="Queue for cron processing"/>
+            </list>
+        </field>
+    </record>
+</odoo>

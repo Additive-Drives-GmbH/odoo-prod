@@ -6,28 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 17:52+0000\n"
-"PO-Revision-Date: 2024-08-06 13:11+0200\n"
+"POT-Creation-Date: 2026-03-18 15:12+0000\n"
+"PO-Revision-Date: 2026-03-18 15:12+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "%(key)s does not fit to %(value)s. Please Check."
 msgstr "%(key)s passt nicht zu %(value)s. Bitte prüfen."
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "%(key)s with GUID %(value)s already exist and can not be imported"
 msgstr ""
 "%(key)s mit GUID %(value)s existiert bereits und kann nicht importiert "
@@ -36,23 +32,18 @@ msgstr ""
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "%s cant be converted."
 msgstr "%s kann nicht konvertiert werden."
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "%s does not exist. It must be S or H."
 msgstr "%s existiert nicht. Es muss S oder H sein."
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "%s does not exist. Please Check."
 msgstr "%s existiert nicht. Bitte prüfen."
 
@@ -261,9 +252,8 @@ msgstr "DATEV Skonto-Konto"
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_bank_statement_line__syscoon_datev_import_id
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_move__syscoon_datev_import_id
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_payment__syscoon_datev_import_id
 msgid "DATEV Import"
-msgstr ""
+msgstr "DATEV-Import"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model,name:syscoon_financeinterface_datev_import.model_syscoon_datev_import_config_rows
@@ -273,7 +263,6 @@ msgstr "DATEV Import Konfigurationszeile"
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_bank_statement_line__syscoon_datev_import_guid
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_move__syscoon_datev_import_guid
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_payment__syscoon_datev_import_guid
 msgid "DATEV Move GUID"
 msgstr "DATEV Buchungs GUID"
 
@@ -304,6 +293,11 @@ msgid "Datev Import Log"
 msgstr "DATEV Import Log"
 
 #. module: syscoon_financeinterface_datev_import
+#: model:ir.model,name:syscoon_financeinterface_datev_import.model_syscoon_datev_import_log
+msgid "Datev Import Logs"
+msgstr "Objekt zur Protokollierung des Imports"
+
+#. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_import.selection__syscoon_datev_import_assignment__account_move_line_field__debit
 msgid "Debit"
 msgstr "Soll"
@@ -331,7 +325,6 @@ msgstr "Beschreibung"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Discount"
 msgstr "Skonto"
 
@@ -363,7 +356,7 @@ msgstr "Anzeigename"
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_assignment__domain
 msgid "Domain"
-msgstr ""
+msgstr "Domäne"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_import.selection__syscoon_datev_import__state__draft
@@ -394,7 +387,6 @@ msgstr "Fehler"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Expense Discount Account not selected in Template!"
 msgstr "Skontokonto für Ausgaben ist nicht in der Vorlage hinterlegt!"
 
@@ -518,14 +510,12 @@ msgstr "DATEV Import Konfiguration"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Import done"
 msgstr "Import abgeschlossen"
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Import started"
 msgstr "Import gestartet"
 
@@ -542,7 +532,6 @@ msgstr "In einer Buchung?"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Income Discount Account not selected in Template!"
 msgstr "Skonto-Konto ist nicht in der Vorlage hinterlegt!"
 
@@ -564,7 +553,7 @@ msgstr ""
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model,name:syscoon_financeinterface_datev_import.model_account_move
 msgid "Journal Entry"
-msgstr "Journaleintrag"
+msgstr "Journalbuchung"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_import.selection__syscoon_datev_import_config__payment_difference_handling__open
@@ -575,15 +564,6 @@ msgstr "Offen halten"
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_import.selection__syscoon_datev_import_assignment__account_move_line_field__name
 msgid "Label"
 msgstr "Buchungstext"
-
-#. module: syscoon_financeinterface_datev_import
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import____last_update
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_assignment____last_update
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config____last_update
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config_rows____last_update
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_log____last_update
-msgid "Last Modified on"
-msgstr "Zuletzt geändert am"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__write_uid
@@ -609,11 +589,6 @@ msgid "Line"
 msgstr "Zeile"
 
 #. module: syscoon_financeinterface_datev_import
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config__locale
-msgid "Locale"
-msgstr "Lokalisierung"
-
-#. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__log_line
 msgid "Log"
 msgstr "Protokoll"
@@ -622,11 +597,6 @@ msgstr "Protokoll"
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_import.syscoon_datev_import_log_form_view
 msgid "Log-Line"
 msgstr "Log-Zeile"
-
-#. module: syscoon_financeinterface_datev_import
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Hauptanhang"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,help:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config__remove_datev_header
@@ -651,30 +621,32 @@ msgstr "Nachrichten"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Missing Required Field %s."
 msgstr "Fehlendes Pflichtfeld %s."
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Move %s imported"
 msgstr "Buchungs %s ist importiert"
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Move %s not imported"
 msgstr "Buchungs %s ist nicht importiert"
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Move %s not reconciled"
 msgstr "Buchungs %s nicht ausgeglichen"
+
+#. module: syscoon_financeinterface_datev_import
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
+msgid "Move %s reconciled"
+msgstr "Buchung %s abgestimmt"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:syscoon.datev.import.assignment,name:syscoon_financeinterface_datev_import.assignment_move_date
@@ -713,7 +685,6 @@ msgstr "Buchungen"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "Moves confirmed"
 msgstr "Buchungen bestätigt"
 
@@ -738,6 +709,11 @@ msgid "Name of the field in CSV-file"
 msgstr "Name des Feldes in der CSV-Datei"
 
 #. module: syscoon_financeinterface_datev_import
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Nächstes Aktivitäts-Kalenderereignis"
+
+#. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Termin für die nächste Aktivität"
@@ -755,7 +731,6 @@ msgstr "Nächste Aktivität"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "No Import File uploaded, please upload one!"
 msgstr "Keine Importdatei hochgeladen, bitte eine hochladen!"
 
@@ -785,11 +760,6 @@ msgid "Object"
 msgstr "Objekt"
 
 #. module: syscoon_financeinterface_datev_import
-#: model:ir.model,name:syscoon_financeinterface_datev_import.model_syscoon_datev_import_log
-msgid "Object for loggin the import"
-msgstr "Objekt zur Protokollierung des Imports"
-
-#. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_import.selection__syscoon_datev_import_log__state__standard
 msgid "Ok"
 msgstr "in ordnung"
@@ -813,6 +783,11 @@ msgstr "Buchungen bestätigen"
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config__quotechar
 msgid "Quotechar"
 msgstr "Textrenner"
+
+#. module: syscoon_financeinterface_datev_import
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__rating_ids
+msgid "Ratings"
+msgstr "Bewertungen"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config__ref
@@ -913,21 +888,18 @@ msgstr "Steuerschlüssel"
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "There are multiple partners with same creditor number %s."
 msgstr "Es gibt mehrere Partner mit derselben Kreditorennummer %s."
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "There are multiple partners with same debitor number %s."
 msgstr "Es gibt mehrere Partner mit derselben Debitorennummer %s."
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid ""
 "There is more than one file attached to this record. Please make sure that "
 "there is only one attached CSV-file."
@@ -938,7 +910,6 @@ msgstr ""
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
-#, python-format
 msgid "There is no Import Template for this company!"
 msgstr "Für dieses Unternehmen gibt es keine Importvorlage!"
 

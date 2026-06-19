@@ -33,7 +33,7 @@ class ResPartner(models.Model):
                 res._create_numbers(company, types)
         return records
 
-    def action_create_custmer_number(self):
+    def action_create_customer_number(self):
         """Create a customer number for the partner"""
         self._create_numbers(self.env.company, {"customer_number": True})
         return {"type": "ir.actions.act_window_close"}
@@ -43,16 +43,29 @@ class ResPartner(models.Model):
         self._create_numbers(self.env.company, {"supplier_number": True})
         return {"type": "ir.actions.act_window_close"}
 
-    def _create_numbers(self, company, types=None):
-        """Write the customer and supplier number"""
+    def _prepare_customer_supplier_number_values(self, company, types):
+        """Prepare customer/supplier number values from sequences.
+
+        Override this method to adjust number generation logic.
+        """
         vals = {}
         for field_key in ["customer_number", "supplier_number"]:
             if types.get(field_key) and not self[field_key]:
                 vals[field_key] = self._get_next_number(
                     company[field_key + "_sequence_id"]
                 )
+        return vals
+
+    def _prepare_accounting_number_values(self, company, types):
+        """Prepare all accounting number values including ref."""
+        vals = self._prepare_customer_supplier_number_values(company, types)
         if company.add_number_to_partner_ref and vals:
             vals["ref"] = self._get_ref_from_res(vals)
+        return vals
+
+    def _create_numbers(self, company, types=None):
+        """Write the customer and supplier number"""
+        vals = self._prepare_accounting_number_values(company, types or {})
         if vals:
             self.write(vals)
 

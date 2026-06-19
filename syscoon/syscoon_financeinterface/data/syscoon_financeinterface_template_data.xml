@@ -73,7 +73,7 @@
     <record id="syscoon_financeinterface_main_template_line_9" model="syscoon.financeinterface.template.line">
         <field name="name">BU-Schlüssel</field>
         <field name="sequence">9</field>
-        <field name="expression">^(\[\"\d{4}\)$</field>
+        <field name="expression">^(\d{1,4})$</field>
         <field name="description">Control identifier for mapping various functions/topics. Further details</field>
         <field name="template_id" ref="syscoon_financeinterface_main_template"/>
     </record>
@@ -962,7 +962,7 @@ Example:
     <record id="syscoon_financeinterface_main_template_line_115" model="syscoon.financeinterface.template.line">
         <field name="name">Leistungsdatum</field>
         <field name="sequence">115</field>
-        <field name="expression">^((0[1-9]|[1-2]\d|3[0-1])(0[1-9]|1[0-2])([2])([0])(\d{2}))$</field>
+        <field name="expression">^((?:0[1-9]|[1-2]\d|3[0-1])(?:0[1-9]|1[0-2])(?:[2])(?:[0])(?:\d{2}))$</field>
         <field name="description">
         Format: DDMMYYYY
         When importing the service date, the field "116 Date Zuord. Tax period" must be filled.
