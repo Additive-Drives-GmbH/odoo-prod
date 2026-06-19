@@ -2,7 +2,7 @@
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 {
     "name": "syscoon Financeinterface",
-    "version": "18.0.1.0.6",
+    "version": "18.0.1.0.8",
     "depends": ["account", "hr_expense", "syscoon_analytic_mixin", "syscoon_menu_rule"],
     "author": "syscoon Estonia OÜ",
     "license": "OPL-1",
@@ -13,12 +13,14 @@
     "category": "Accounting/Accounting",
     "data": [
         "data/syscoon_financeinterface_template_data.xml",
+        "data/ir_cron.xml",
         "reports/financeinterface_report.xml",
         "security/syscoon_financeinterface_security.xml",
         "security/ir.model.access.csv",
         "views/account_move.xml",
         "views/analytic_plan_views.xml",
         "views/syscoon_financeinterface.xml",
+        "views/syscoon_financeinterface_item.xml",
         "views/res_config_settings.xml",
         "views/syscoon_financeinterface_template_views.xml",
         "views/syscoon_financeinterface_bookingtext_views.xml",

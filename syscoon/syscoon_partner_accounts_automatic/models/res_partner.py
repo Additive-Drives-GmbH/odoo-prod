@@ -22,22 +22,20 @@ class ResPartner(models.Model):
     def _prepare_account_types(self):
         """Prepare the account types for the partner"""
         company = self.env.company
-        create_accounts = [auto.code for auto in company.create_auto_account_on]
-        types = {}
         if self.commercial_partner_id.id != self.id:
-            return types
-        if "partner_customer" in create_accounts:
-            types.update(
-                {
-                    "asset_receivable": True,
-                }
-            )
-        if "partner_supplier" in create_accounts:
-            types.update(
-                {
-                    "liability_payable": True,
-                }
-            )
-        if "asset_receivable" in types or "liability_payable" in types:
-            types["use_separate"] = bool(company.use_separate_accounts)
+            return {}
+
+        types = {}
+        receivable = company._get_partner_account_types(
+            account_type="receivable", trigger="partner_customer"
+        )
+        payable = company._get_partner_account_types(
+            account_type="payable", trigger="partner_supplier"
+        )
+
+        if receivable:
+            types.update(receivable)
+        if payable:
+            types.update(payable)
+
         return types

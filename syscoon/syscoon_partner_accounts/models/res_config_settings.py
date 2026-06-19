@@ -42,6 +42,10 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.use_separate_accounts",
         readonly=False,
     )
+    add_number_to_partner_number = fields.Boolean(
+        related="company_id.add_number_to_partner_number",
+        readonly=False,
+    )
 
     def action_create_receivable_sequence(self):
         self.ensure_one()

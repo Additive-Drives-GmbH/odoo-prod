@@ -2,7 +2,7 @@
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 {
     "name": "syscoon Finanzinterface - Datev XML Export",
-    "version": "18.0.0.2.6",
+    "version": "18.0.0.2.13",
     "author": "syscoon Estonia OÜ",
     "license": "OPL-1",
     "category": "Accounting",

@@ -8,12 +8,10 @@ $din-font-size: 9pt;
             max-height: 27mm !important;
             margin-top: 5mm !important;
         }
-
         .logo_left {
             float: left;
             margin-left: 5mm;
         }
-
         .logo_right {
             float: right;
             margin-right: 5mm;
@@ -27,13 +25,11 @@ $din-font-size: 9pt;
                 width: 100% !important;
                 border-collapse: collapse;
             }
-
             td {
                 white-space: nowrap;
                 vertical-align: top;
             }
         }
-
         .page_number {
             font-size: $din-font-size !important;
             margin-right: 0 !important;
@@ -45,11 +41,6 @@ $din-font-size: 9pt;
         h2 {
             color: #000000 !important;
             font-size: $din-font-size;
-        }
-
-
-        .din_page.invoice_note table.din_company_info > tbody > tr > td {
-            vertical-align: top !important;
         }
 
         table.din_company_info > tbody > tr > td {
@@ -67,7 +58,6 @@ $din-font-size: 9pt;
             .company_invoice_line {
                 width: 80mm;
             }
-
             .colored_address {
                 font-size: 7pt !important;
             }
@@ -104,9 +94,7 @@ $din-font-size: 9pt;
 }
 
 .o_main_table {
-    thead, tbody, tfoot, tr, td, th {
-        border-width: 1px
-    }
+    thead, tbody, tfoot, tr, td, th { border-width: 1px}
 }
 
 table.o_main_table tr.o_line_section td {

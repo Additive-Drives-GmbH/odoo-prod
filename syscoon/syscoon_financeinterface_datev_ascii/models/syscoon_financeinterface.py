@@ -71,6 +71,7 @@ class SyscoonFinanceinterface(models.Model):
             }
         )
         ctx = {"skip_invoice_sync": True, "skip_invoice_line_sync": True}
+        self.write({"state": "export"})
         return moves.with_context(**ctx).write({"export_id": self.id})
 
     def _draft_datev_ascii(self):

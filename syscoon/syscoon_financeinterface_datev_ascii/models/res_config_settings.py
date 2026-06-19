@@ -44,3 +44,8 @@ class SyscoonFinanceinterfaceConfigSettings(models.TransientModel):
         readonly=False,
         string="Use Vendor Reference",
     )
+    company_datev_reverse_credit_debit = fields.Boolean(
+        related="company_id.datev_reverse_credit_debit",
+        readonly=False,
+        string="Reverse Credit/Debit",
+    )

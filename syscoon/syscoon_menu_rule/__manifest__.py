@@ -2,7 +2,7 @@
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 {
     "name": "Syscoon Menu Rules",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "category": "Technical",
     "summary": "Restrict menu visibility per company",
     "license": "OPL-1",

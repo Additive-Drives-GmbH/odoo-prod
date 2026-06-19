@@ -6,8 +6,9 @@
         <field name="priority" eval="60"/>
         <field name="inherit_id" ref="syscoon_partner_accounts.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//block[@id='syscoon_partner_accounts_general_settings']" position="inside">
-                <setting string="Create Automatic Accounts" help="If you enable this option, Odoo will create the accounts automatically for you.">
+            <!-- Add Create Auto Account On after create_auto_number_on -->
+            <xpath expr="//setting[@id='create_auto_number_on_setting']" position="after">
+                <setting id="create_auto_account_on_setting" string="Create Automatic Accounts" help="If you enable this option, Odoo will create the accounts automatically for you.">
                     <field name="create_auto_account_on" widget="many2many_checkboxes"/>
                 </setting>
             </xpath>

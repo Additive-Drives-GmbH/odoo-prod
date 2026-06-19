@@ -105,12 +105,13 @@ class AccountMove(models.Model):
                 supplier_party.append(_etree_subelement(key, val))
 
     def _process_datev_xml_payment_conditions(self, data):
-        if data["mode"] == "extended" and self.invoice_payment_term_id:
-            payment_conditions = etree.SubElement(data["element"], "payment_conditions")
-            for key, val in self._prepare_datev_xml_payment_conditions(data).items():
-                payment_conditions.attrib[key] = data["key_apply"](
-                    data["template_keys"], key, _float_to_string(val)
-                )
+        if data["mode"] != "extended":
+            return
+        if not (self.invoice_payment_term_id or self.invoice_date_due):
+            return
+        payment_conditions = etree.SubElement(data["element"], "payment_conditions")
+        for key, val in self._prepare_datev_xml_payment_conditions(data).items():
+            payment_conditions.attrib[key] = _float_to_string(val)
 
     def _process_datev_xml_invoice_item_list(self, data):
         for item in self._prepare_datev_xml_invoice(data):
@@ -333,7 +334,7 @@ class AccountMove(models.Model):
         if partner_id.zip:
             vals["zip"] = partner_id.zip
         if partner_id.city:
-            vals["city"] = partner_id.city
+            vals["city"] = partner_id.city[:36]
         if partner_id.country_id:
             vals["country"] = partner_id.country_id.code
         if data["mode"] == "extended":
@@ -481,13 +482,16 @@ class AccountMove(models.Model):
         return value_list
 
     def _prepare_datev_xml_payment_conditions(self, data):
-        vals = {}
+        vals = {"currency": self.currency_id.name}
+        if self.invoice_date_due:
+            vals["due_date"] = self.invoice_date_due
         payment_term = self.invoice_payment_term_id
-        vals["currency"] = self.currency_id.name
-        vals["due_date"] = self.invoice_date_due
-        vals["payment_conditions_text"] = payment_term.name
-        if payment_term.datev_payment_conditons_id:
-            vals["payment_conditions_id"] = payment_term.datev_payment_conditons_id
+        if payment_term:
+            vals["payment_conditions_text"] = payment_term.name
+            if payment_term.datev_payment_conditons_id:
+                vals["payment_conditions_id"] = payment_term.datev_payment_conditons_id
+        else:
+            vals["payment_conditions_text"] = _("Due Date")
         for key, val in vals.items():
             vals[key] = data["key_apply"](data["template_keys"], key, val)
         return vals
@@ -501,7 +505,7 @@ class AccountMove(models.Model):
         text = self.env["syscoon.financeinterface"].text_from_html(
             self.narration, max_chars=60
         )
-        if text:
+        if not text:
             return False
         return {"type": "text", "context": text}
 

@@ -7,34 +7,35 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//block[@id='quick_edit_mode']" position="after">
-                <block title="Customer- / Supplier-Numbers" id="syscoon_financeinterface_general_settings">
-                    <setting company_dependent="1" help="Enable if you want to print the Customer Number at Customer Invoices or Refunds ">
-                        <field name="allow_account_number_report" string="Allow Customer-Number in Reports"/>
-                    </setting>
-                    <setting string="Create Automatic Numbers" help="If you enable this option, Odoo will create the customer/supplier numbers automatically for you.">
-                        <field name="create_auto_number_on" widget="many2many_checkboxes"/>
-                    </setting>
-                    <setting company_dependent="1" help="Customer number sequence for generating the customer number." invisible="not allow_account_number_report">
+                <block title="syscoon Automatic Account Generation" id="syscoon_automatic_generation_settings">
+                    <!-- Row 1: Customer Number Sequence | Supplier Number Sequence -->
+                    <setting id="customer_number_sequence_setting" company_dependent="1" help="Customer number sequence for generating the customer number.">
                         <label for="customer_number_sequence_id"/>
                         <div class="o_row">
                             <field name="customer_number_sequence_id" domain="[('company_id', '=', company_id), ('code', '=', 'partner.auto.customer.number')]"/>
-                            <button name="action_create_customer_sequence" type="object"
-                                string="Create Customer Number Sequence"
-                                help="Creates a new customer number sequence if it does not exist yet."
-                                class="btn-link mb-1 px-0" icon="fa-refresh"
-                                invisible="customer_number_sequence_id"/>
+                            <button name="action_create_customer_sequence" type="object" string="Create Customer Number Sequence" help="Creates a new customer number sequence if it does not exist yet." class="btn-link mb-1 px-0" icon="fa-refresh" invisible="customer_number_sequence_id"/>
                         </div>
                     </setting>
-                    <setting company_dependent="1" help="Supplier number sequence for generating the supplier number." invisible="not allow_account_number_report">
+                    <setting id="supplier_number_sequence_setting" company_dependent="1" help="Supplier number sequence for generating the supplier number.">
                         <label for="supplier_number_sequence_id"/>
                         <div class="o_row">
                             <field name="supplier_number_sequence_id" domain="[('company_id', '=', company_id), ('code', '=', 'partner.auto.supplier.number')]"/>
-                            <button name="action_create_supplier_sequence" type="object"
-                                string="Create Supplier Number Sequence"
-                                help="Creates a new supplier number sequence if it does not exist yet."
-                                class="btn-link mb-1 px-0" icon="fa-refresh"
-                                invisible="supplier_number_sequence_id"/>
+                            <button name="action_create_supplier_sequence" type="object" string="Create Supplier Number Sequence" help="Creates a new supplier number sequence if it does not exist yet." class="btn-link mb-1 px-0" icon="fa-refresh" invisible="supplier_number_sequence_id"/>
                         </div>
+                    </setting>
+                    <!-- Row 2: Add Number to Partner Ref -->
+                    <setting id="add_number_to_partner_ref_setting" company_dependent="1" help="Add Customer or Supplier Number to Partner Reference field.">
+                        <field name="add_number_to_partner_ref" string="Add Number to Partner Reference"/>
+                    </setting>
+                    <div>
+                        <!-- Row 3: Allow Customer-Number in Reports | (placeholder for syscoon_partner_accounts) -->
+                        <setting class="col-12" id="allow_account_number_report_setting" company_dependent="1" help="Enable if you want to print the Customer Number at Customer Invoices or Refunds">
+                            <field name="allow_account_number_report" string="Allow Customer-Number in Reports"/>
+                        </setting>
+                    </div>
+                    <!-- Row 4: Create Automatic Numbers -->
+                    <setting id="create_auto_number_on_setting" string="Create Automatic Numbers" help="If you enable this option, Odoo will create the customer/supplier numbers automatically for you.">
+                        <field name="create_auto_number_on" widget="many2many_checkboxes"/>
                     </setting>
                 </block>
             </xpath>

@@ -19,5 +19,5 @@ class ResCompany(models.Model):
     def write(self, vals):
         res = super().write(vals)
         if "restrict_menu_ids" in vals:
-            self.env["ir.ui.menu"].clear_caches()
+            self.env.registry.clear_cache()
         return res

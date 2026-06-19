@@ -1348,7 +1348,7 @@ AACHEN, NUERNBERG, OLCHING, ROSENHEIM, SCHLIERSEE, ZUERICH, ETC.</xsd:documentat
 </xsd:annotation>
 <xsd:restriction base="xsd:string">
 <xsd:minLength value="1" />
-<xsd:maxLength value="30" />
+<xsd:maxLength value="36" />
 </xsd:restriction>
 </xsd:simpleType>
 <xsd:simpleType name="p10020">

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e-20231215\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 10:14+0000\n"
-"PO-Revision-Date: 2024-01-04 10:14+0000\n"
+"POT-Creation-Date: 2026-03-18 15:19+0000\n"
+"PO-Revision-Date: 2026-03-18 15:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,10 +24,10 @@ msgstr "Aktiviere Debitoren- und Kreditorenkontengenerierung"
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
 msgid ""
 "Activate the Account Generation for this company. If activated, all options "
-"include the menu entries will be visible."
+"including the menu entries will be visible."
 msgstr ""
-"Die Kontengenerierung für dieses Unternehmen aktivieren. Wenn aktiviert, "
-"werden alle Optionen einschließlich der Menüeinträge sichtbar."
+"Kontogenerierung für dieses Unternehmen aktivieren. Wenn aktiviert, sind "
+"alle Optionen einschließlich der Menüeinträge sichtbar."
 
 #. module: syscoon_partner_accounts
 #: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_company__auto_account_creation
@@ -51,6 +51,17 @@ msgstr "Konfigurationseinstellungen"
 #: model:ir.model,name:syscoon_partner_accounts.model_res_partner
 msgid "Contact"
 msgstr "Kontakt"
+
+#. module: syscoon_partner_accounts
+#: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
+msgid "Copy Debitor/Creditor Numbers to Customer/Supplier"
+msgstr "Debitoren-/Kreditorennummern auf Kunden/Lieferanten kopieren"
+
+#. module: syscoon_partner_accounts
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_company__add_number_to_partner_number
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_config_settings__add_number_to_partner_number
+msgid "Copy Debitor/Creditor to Customer/Supplier"
+msgstr "Debitor/Kreditor auf Kunden/Lieferanten kopieren"
 
 #. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.syscoon_partern_accounts_partner_form
@@ -108,6 +119,18 @@ msgstr "Debitorennummer"
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.syscoon_partern_accounts_partner_form
 msgid "Finance Interface Debitor- and Creditor Numbers"
 msgstr "Finanzschnittstelle Debitoren- und Kreditorennummern"
+
+#. module: syscoon_partner_accounts
+#. odoo-python
+#: code:addons/syscoon_partner_accounts/models/res_partner.py:0
+msgid "No payable sequence defined for company %s"
+msgstr "Keine Kreditorensequenz für Unternehmen %s definiert"
+
+#. module: syscoon_partner_accounts
+#. odoo-python
+#: code:addons/syscoon_partner_accounts/models/res_partner.py:0
+msgid "No receivable sequence defined for company %s"
+msgstr "Keine Debitorensequenz für Unternehmen %s definiert"
 
 #. module: syscoon_partner_accounts
 #: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_company__payable_template_id
@@ -180,11 +203,11 @@ msgstr "Separate Debitoren- und Kreditorenkonten erzeugen"
 #. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
 msgid ""
-"Use separate accounts in chart of accounts. Option is not prefered, because "
-"Odoo is handling it differently."
+"Use separate accounts in chart of accounts. Option is not preferred, as Odoo"
+" handles this differently."
 msgstr ""
-"Verwendung von separaten Konten im Kontenplan. Diese Option wird nicht "
-"empfohlen, da Odoo dies anders handhabt."
+"Separate Konten im Kontenplan verwenden. Diese Option wird nicht empfohlen, "
+"da Odoo dies anders handhabt."
 
 #. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
@@ -192,6 +215,21 @@ msgid "Use separate debit and credit accounts"
 msgstr "Verwendung von separaten Debitoren- und Kreditorenkonten"
 
 #. module: syscoon_partner_accounts
+#: model:ir.model.fields,help:syscoon_partner_accounts.field_res_company__add_number_to_partner_number
+#: model:ir.model.fields,help:syscoon_partner_accounts.field_res_config_settings__add_number_to_partner_number
+msgid ""
+"When Debitor or Creditor number is created, automatically copy to Customer "
+"or Supplier number"
+msgstr ""
+"Wenn eine Debitoren- oder Kreditorennummer erstellt wird, automatisch auf "
+"Kunden- bzw. Lieferantennummer kopieren"
+
+#. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
-msgid "syscoon Automatic Account Generation"
-msgstr "syscoon Automatische Kontengenerierung"
+msgid ""
+"When enabled, creating a Debitor number automatically sets the Customer "
+"number to the same value. Same for Creditor and Supplier."
+msgstr ""
+"Wenn aktiviert, wird beim Erstellen einer Debitorennummer automatisch die "
+"Kundennummer auf denselben Wert gesetzt. Gleiches gilt für Kreditor und "
+"Lieferant."
