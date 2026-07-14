@@ -38,6 +38,7 @@ Changelog
 - 18.0.1.1.1: get purchaser orders no. and supplier no. from partner_id
   parent if they are not filled.
 - 18.0.1.1.2: adjust column ordered and delivered to be have bold fonts
+- 18.0.1.1.5: Picking Documents: Show the Origin field also on incoming shipments
 
 Bug Tracker
 ===========
