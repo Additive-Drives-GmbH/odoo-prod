@@ -46,6 +46,12 @@ Changelog
   - Standardized label text by removing unnecessary punctuation.
   - Adjusted SCSS styles: address element width and font sizing in DIN 5008 reports.
 - 18.0.1.0.8: Added general border width to reports
+- 18.0.1.0.9: DIN 5008 invoice report improvements:
+  - Limit the information block width to 100mm instead of letting it grow unbounded (which scaled down the whole page).
+  - Wrap only the Purchase Order No. value, and only at spaces.
+  - Let the e-mail value overflow the information block instead of wrapping.
+  - Show the ``our_nr_by_customer`` field only on customer documents (out_invoice/out_refund).
+  - Use a document-type specific report title (Invoice / Credit Note / Cancelled Invoice / Vendor Bill / Vendor Credit Note) with German translations (Stornorechnung, Gutschrift, ...).
 
 Bug Tracker
 ===========

@@ -74,15 +74,32 @@ $din-font-size: 9pt;
         }
 
         tr .information_block {
-            width: auto !important;
+            // task 70748: cap the info block at 100mm instead of letting it grow
+            // unbounded (auto + nowrap), which made the whole page scale down.
+            //width: 100mm !important;
+            max-width: 100mm !important;
 
             table {
-                width: auto !important;
+                width: 100% !important;
+                max-width: 100mm !important;
 
                 td {
                     white-space: nowrap;
                     vertical-align: top;
                     padding-right: 3mm;
+                }
+
+                // only the Purchase Order No. value wraps, and only at spaces
+                td.po_number {
+                    white-space: normal;
+                    overflow-wrap: normal;
+                    word-break: normal;
+                }
+
+                // the e-mail value must never wrap; it may overflow the 100mm
+                td.email_value {
+                    white-space: nowrap;
+                    overflow: visible;
                 }
             }
         }
