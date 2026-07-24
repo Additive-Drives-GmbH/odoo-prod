@@ -7,7 +7,7 @@ class AnalyticDistributionDisplayMixin(models.AbstractModel):
     _description = "Analytic Distribution Display Mixin"
 
     analytic_account_display = fields.Char(
-        string="Kostenstelle",
+        string="Analytic Account Display",
         compute="_compute_analytic_account_display",
         store=True,
         compute_sudo=True,
@@ -15,7 +15,7 @@ class AnalyticDistributionDisplayMixin(models.AbstractModel):
 
     @api.depends("analytic_distribution")
     def _compute_analytic_account_display(self):
-        precision = self.env["decimal.precision"].precision_get("Kostenstelle Anteil")
+        precision = self.env["decimal.precision"].precision_get("Analytic Percentage")
         AnalyticAccount = self.env["account.analytic.account"].sudo().with_context(active_test=False)
 
         for line in self:
@@ -27,18 +27,18 @@ class AnalyticDistributionDisplayMixin(models.AbstractModel):
             account_ids = [int(k) for k in distribution.keys()]
             accounts_by_id = {a.id: a for a in AnalyticAccount.browse(account_ids).exists()}
 
-            # Gruppieren nach Plan
+            # Grouping by plan
             by_plan = {}  # plan_id -> {"sequence": int, "entries": [(name, pct)]}
             for account_id_str, percentage in distribution.items():
                 account = accounts_by_id.get(int(account_id_str))
                 if not account:
-                    continue  # gelöschtes/verwaistes Konto -> überspringen
+                    continue  # deleted/orphaned Account -> skip
                 plan = account.plan_id
                 pct = float_round(percentage, precision_digits=precision)
                 by_plan.setdefault(plan.id, {"sequence": plan.sequence or 0, "entries": []})
                 by_plan[plan.id]["entries"].append((account.name, pct))
 
-            # Sortierung: primär Plan-Sequenz, sekundär Prozentsatz absteigend
+            # Sorting: primarily by plan sequence, secondary by percantage descending
             parts = []
             for plan_id in sorted(by_plan, key=lambda pid: by_plan[pid]["sequence"]):
                 entries = sorted(by_plan[plan_id]["entries"], key=lambda e: -e[1])
