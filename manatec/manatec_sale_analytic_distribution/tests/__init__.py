@@ -5,4 +5,4 @@
     Date created: 27.07.2026
 """
 
-from . import sale_order_line
+from . import test_analytic_distribution_display
