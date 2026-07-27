@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+    Author: Denis Orechov (denis.orechov@manatec.de)
+    Copyright: 2026, manaTec GmbH
+    Date created: 27.07.2026
+"""
+
 from odoo import api, fields, models
 from odoo.tools import float_round
 
@@ -24,19 +31,27 @@ class AnalyticDistributionDisplayMixin(models.AbstractModel):
                 line.analytic_account_display = ""
                 continue
 
-            account_ids = [int(k) for k in distribution.keys()]
+            account_ids = [
+                int(_id)
+                for k in distribution.keys()
+                for _id in str(k).split(",")
+                if _id.strip().isdigit()
+            ]
             accounts_by_id = {a.id: a for a in AnalyticAccount.browse(account_ids).exists()}
 
             # Grouping by plan
             by_plan = {}  # plan_id -> {"sequence": int, "entries": [(name, pct)]}
-            for account_id_str, percentage in distribution.items():
-                account = accounts_by_id.get(int(account_id_str))
-                if not account:
-                    continue  # deleted/orphaned Account -> skip
-                plan = account.plan_id
+            for k, percentage in distribution.items():
                 pct = float_round(percentage, precision_digits=precision)
-                by_plan.setdefault(plan.id, {"sequence": plan.sequence or 0, "entries": []})
-                by_plan[plan.id]["entries"].append((account.name, pct))
+                for _id in str(k).split(","):
+                    if not _id.strip().isdigit():
+                        continue
+                    account = accounts_by_id.get(int(_id.strip()))
+                    if not account:
+                        continue  # deleted/orphaned Account -> skip
+                    plan = account.plan_id
+                    by_plan.setdefault(plan.id, {"sequence": plan.sequence or 0, "entries": []})
+                    by_plan[plan.id]["entries"].append((account.name, pct))
 
             # Sorting: primarily by plan sequence, secondary by percantage descending
             parts = []
