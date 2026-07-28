@@ -12,23 +12,13 @@
                     <group string="Finance Interface Debitor- and Creditor Numbers">
                         <label for="debitor_number"/>
                         <div class="o_row">
-                            <field name="debitor_number" readonly="debitor_number"/>
-                            <button name="action_create_receivable_account" type="object"
-                                string="Create Debitor Account"
-                                help="Creates a new Debitor Account if it does not exist yet."
-                                class="btn-link mb-1 px-0" icon="fa-refresh"
-                                confirm="This will create a new Debitor Account."
-                                invisible="debitor_number"/>
+                            <field name="debitor_number" readonly="1"/>
+                            <button name="action_create_receivable_account" type="object" string="Create Debitor Account" help="Creates a new Debitor Account if it does not exist yet." class="btn-link mb-1 px-0" icon="fa-refresh" confirm="This will create a new Debitor Account." invisible="debitor_number"/>
                         </div>
                         <label for="creditor_number"/>
                         <div class="o_row">
-                            <field name="creditor_number" readonly="creditor_number"/>
-                            <button name="action_create_payable_account" type="object"
-                                string="Create Creditor Account"
-                                help="Creates a new Creditor Account if it does not exist yet."
-                                class="btn-link mb-1 px-0" icon="fa-refresh"
-                                confirm="This will create a new Creditor Account."
-                                invisible="creditor_number"/>
+                            <field name="creditor_number" readonly="1"/>
+                            <button name="action_create_payable_account" type="object" string="Create Creditor Account" help="Creates a new Creditor Account if it does not exist yet." class="btn-link mb-1 px-0" icon="fa-refresh" confirm="This will create a new Creditor Account." invisible="creditor_number"/>
                         </div>
                     </group>
                 </group>

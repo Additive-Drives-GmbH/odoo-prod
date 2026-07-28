@@ -43,3 +43,4 @@ class ResCompany(models.Model):
     )
     datev_use_bedi = fields.Boolean("Use BEDI Beleglink")
     datev_ref_from_ref = fields.Boolean()
+    datev_reverse_credit_debit = fields.Boolean()

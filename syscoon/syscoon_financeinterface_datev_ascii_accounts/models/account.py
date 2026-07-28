@@ -6,12 +6,5 @@ from odoo import fields, models
 class AccountAccount(models.Model):
     _inherit = "account.account"
 
-    datev_exported = fields.Boolean("Exported")
+    datev_exported = fields.Boolean("Exported", default=False)
     datev_diverse_account = fields.Boolean("Diverse Account")
-
-    # todo: why ??
-    def write(self, vals):
-        res = super().write(vals)
-        if "datev_exported" not in vals:
-            vals["datev_exported"] = False
-        return res

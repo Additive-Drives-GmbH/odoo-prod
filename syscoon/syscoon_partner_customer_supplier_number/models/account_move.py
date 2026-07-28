@@ -1,6 +1,6 @@
 # © 2025 syscoon Estonia OÜ (<https://syscoon.com>)
 # License OPL-1, See LICENSE file for full copyright and licensing details.
-from odoo import _, models
+from odoo import models
 
 
 class AccountMove(models.Model):
@@ -10,10 +10,9 @@ class AccountMove(models.Model):
         result = super()._post(soft=soft)
 
         company = self.env.company
-        if not company.allow_account_number_report:
-            return result
-
         create_numbers = [auto.code for auto in company.create_auto_number_on]
+        if not create_numbers:
+            return result
 
         for move in self:
             partner = move.partner_id.commercial_partner_id
@@ -36,12 +35,3 @@ class AccountMove(models.Model):
                 partner._create_numbers(company, types)
 
         return result
-
-    def _compute_l10n_din5008_template_data(self):
-        super()._compute_l10n_din5008_template_data()
-        for record in self:
-            if not record.company_id.allow_account_number_report:
-                continue
-            data = record.l10n_din5008_template_data
-            if record.partner_id.customer_number:
-                data.append((_("Customer No."), record.partner_id.customer_number))

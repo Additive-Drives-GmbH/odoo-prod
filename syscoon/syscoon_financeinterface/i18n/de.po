@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e-20231215\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 09:35+0000\n"
-"PO-Revision-Date: 2024-01-04 09:35+0000\n"
+"POT-Creation-Date: 2026-03-18 15:11+0000\n"
+"PO-Revision-Date: 2026-03-18 15:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,66 @@ msgid "(object._get_report_base_filename())"
 msgstr ""
 
 #. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "<span invisible=\"type != 'date_range'\"> to </span>"
+msgstr "<span invisible=\"type != 'date_range'\"> bis </span>"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_template_form
+msgid ""
+"<span>\n"
+"                                if you need to use python code in the force value field, you can use the following variables:<br/>\n"
+"                                # Available variables:<br/>\n"
+"                                #  - env: Odoo Environment on which the action is triggered<br/>\n"
+"                                #  - current_value: value of the heading key of the line<br/>\n"
+"                                #  - interface: Odoo Model of the templateModel on which the action is triggered; is a void recordset<br/>\n"
+"                                #  - uid, user: current user id and record of the current user<br/>\n"
+"                                #  - move: move record that is linked to this line while evaluated<br/>\n"
+"                                #  - time, datetime, dateutil, timezone: useful Python libraries<br/>\n"
+"                                #  - float_compare: Odoo function to compare floats based on specific precisions<br/><br/>\n"
+"\n"
+"                                # Example:<br/>\n"
+"                                #  - value = 'Static Value'<br/>\n"
+"                                #  - value = current_value and current_value[:6] or \"\"  # if you want to use the first 6 characters of the current value<br/>\n"
+"                                #  - value = current_value and current_value[2:] or \"\"  # if you want to use all characters of the current value except the first 2 characters<br/>\n"
+"                                #  - value = current_value and current_value[2:7] or \"\"  # if you want to use the characters 3 to 7 of the current value<br/>\n"
+"                                #  - value = (current_value or \"\").replace(\"/\", \"\")  # if you want to remove all slashes from the current value<br/>\n"
+"                                #  - value = (current_value or \"\").replace(\"-\", \"\")  # if you want to remove all dashes from the current value<br/>\n"
+"                                #  - value = (current_value or \"\").replace(\"_\", \"\")  # if you want to remove all underscores from the current value<br/>\n"
+"                                #  - value = interface.start_date<br/>\n"
+"                                #  - value = interface.end_date<br/>\n"
+"                                #  - value = move.ref or ''<br/>\n"
+"                                #  - value = move.partner_id.ref or ''<br/>\n"
+"                                #  - value = move.date and move.date.strftime('%Y-%m-%d') or ''<br/>\n"
+"                            </span>"
+msgstr ""
+"<span>\n"
+"                                Wenn Sie Python-Code im Feld 'Erzwungener Wert' verwenden möchten, können Sie folgende Variablen nutzen:<br/>\n"
+"                                # Verfügbare Variablen:<br/>\n"
+"                                #  - env: Odoo-Umgebung, in der die Aktion ausgelöst wird<br/>\n"
+"                                #  - current_value: Wert des Überschriftenschlüssels der Zeile<br/>\n"
+"                                #  - interface: Odoo-Modell des Vorlagenmodells, in dem die Aktion ausgelöst wird; ist ein leeres Recordset<br/>\n"
+"                                #  - uid, user: Aktuelle Benutzer-ID und Datensatz des aktuellen Benutzers<br/>\n"
+"                                #  - move: Buchungsdatensatz, der beim Auswerten mit dieser Zeile verknüpft ist<br/>\n"
+"                                #  - time, datetime, dateutil, timezone: Nützliche Python-Bibliotheken<br/>\n"
+"                                #  - float_compare: Odoo-Funktion zum Vergleichen von Gleitkommazahlen mit bestimmten Genauigkeiten<br/><br/>\n"
+"\n"
+"                                # Beispiel:<br/>\n"
+"                                #  - value = 'Statischer Wert'<br/>\n"
+"                                #  - value = current_value and current_value[:6] or \"\"  # Wenn Sie die ersten 6 Zeichen des aktuellen Werts verwenden möchten<br/>\n"
+"                                #  - value = current_value and current_value[2:] or \"\"  # Wenn Sie alle Zeichen außer den ersten 2 verwenden möchten<br/>\n"
+"                                #  - value = current_value and current_value[2:7] or \"\"  # Wenn Sie die Zeichen 3 bis 7 verwenden möchten<br/>\n"
+"                                #  - value = (current_value or \"\").replace(\"/\", \"\")  # Wenn Sie alle Schrägstriche entfernen möchten<br/>\n"
+"                                #  - value = (current_value or \"\").replace(\"-\", \"\")  # Wenn Sie alle Bindestriche entfernen möchten<br/>\n"
+"                                #  - value = (current_value or \"\").replace(\"_\", \"\")  # Wenn Sie alle Unterstriche entfernen möchten<br/>\n"
+"                                #  - value = interface.start_date<br/>\n"
+"                                #  - value = interface.end_date<br/>\n"
+"                                #  - value = move.ref or ''<br/>\n"
+"                                #  - value = move.partner_id.ref or ''<br/>\n"
+"                                #  - value = move.date and move.date.strftime('%Y-%m-%d') or ''<br/>\n"
+"                            </span>"
+
+#. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
 msgid "<strong>Account Moves</strong>"
 msgstr "<strong>Finanzbuchungen</strong>"
@@ -32,17 +92,27 @@ msgstr "<strong>Datum:</strong>"
 
 #. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
-msgid "<strong>Export Modus:</strong>"
-msgstr ""
+msgid "<strong>Date:</strong><br/>"
+msgstr "<strong>Datum:</strong><br/>"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_form
+msgid "<strong>Error:</strong>"
+msgstr "<strong>Fehler:</strong>"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
+msgid "<strong>Export Modus:</strong><br/>"
+msgstr "<strong>Export-Modus:</strong><br/>"
 
 #. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
 msgid "<strong>Log:</strong>"
-msgstr ""
+msgstr "<strong>Protokoll:</strong>"
 
 #. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
-msgid "<strong>Name:</strong>"
+msgid "<strong>Name:</strong><br/>"
 msgstr ""
 
 #. module: syscoon_financeinterface
@@ -51,14 +121,19 @@ msgid "<strong>Period:</strong>"
 msgstr "<strong>Periode:</strong>"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_template_line__type__ascii
+msgid "ASCII"
+msgstr ""
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_template_form
+msgid "ASCII Lines"
+msgstr "ASCII-Zeilen"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__account_moves_ids
 msgid "Account Moves"
 msgstr "Buchungen"
-
-#. module: syscoon_financeinterface
-#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_move_form_syscoon_financeinterface
-msgid "Account move is already exported. Do you want to proceed?"
-msgstr "Buchungen wurden bereits exportiert. Fortfahren?"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__message_needaction
@@ -79,6 +154,13 @@ msgid ""
 msgstr ""
 "Finanzschnittstelle für dieses Unternehmen aktivieren. Wenn aktiviert, sind "
 "alle Optionen einschließlich der Menüeinträge sichtbar."
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_configuration
+msgid "Activate the Reset Invoices to Draft after Export for this company"
+msgstr ""
+"Rechnungen nach dem Export auf Entwurf zurücksetzen für dieses Unternehmen "
+"aktivieren"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__activity_ids
@@ -105,9 +187,15 @@ msgid "Activity Type Icon"
 msgstr "Aktivitäts-Typ-Icon"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__amount_total
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
 msgid "Amount"
 msgstr "Betrag"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.constraint,message:syscoon_financeinterface.constraint_syscoon_financeinterface_item_unique_export_move
+msgid "An item already exists for this move in this export"
+msgstr "Für diese Buchung existiert in diesem Export bereits ein Eintrag"
 
 #. module: syscoon_financeinterface
 #: model:ir.model,name:syscoon_financeinterface.model_account_analytic_plan
@@ -121,9 +209,39 @@ msgid "Attachment Count"
 msgstr "# Anhänge"
 
 #. module: syscoon_financeinterface
-#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_export_wizard_view
-msgid "Cancel"
-msgstr "Abbrechen"
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__auto_process
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__export_auto_process
+msgid "Auto-Process"
+msgstr "Automatische Verarbeitung"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface_item.py:0
+msgid "Auto-process is enabled. Items will be processed automatically."
+msgstr ""
+"Automatische Verarbeitung ist aktiviert. Einträge werden automatisch "
+"verarbeitet."
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__is_batch_supported
+msgid "Batch Processing Supported"
+msgstr "Stapelverarbeitung unterstützt"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid "Can only process items when in 'Queued' state"
+msgstr "Einträge können nur im Status 'In Warteschlange' verarbeitet werden"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Cancel Batch"
+msgstr "Stapel abbrechen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_item__state__cancelled
+msgid "Cancelled"
+msgstr "Abgebrochen"
 
 #. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_configuration
@@ -145,6 +263,16 @@ msgid "Company"
 msgstr "Unternehmen"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_item__state__completed
+msgid "Completed"
+msgstr "Abgeschlossen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__completed_items
+msgid "Completed Items"
+msgstr "Abgeschlossene Einträge"
+
+#. module: syscoon_financeinterface
 #: model:ir.model,name:syscoon_financeinterface.model_res_config_settings
 msgid "Config Settings"
 msgstr "Konfigurationseinstellungen"
@@ -155,57 +283,54 @@ msgid "Configuration"
 msgstr "Konfiguration"
 
 #. module: syscoon_financeinterface
-#. odoo-python
-#: code:addons/syscoon_financeinterface/models/account_analytic_plan.py:0
-#, python-format
-msgid "Cost Center Already Assigned in %s"
-msgstr "Kostenstellen bereits zugewiesen in %s"
-
-#. module: syscoon_financeinterface
-#: model:ir.ui.menu,name:syscoon_financeinterface.syscoon_financenterface_wizard_action_view
-msgid "Create Finance Export"
-msgstr "Export erstellen"
-
-#. module: syscoon_financeinterface
-#: model:ir.actions.act_window,name:syscoon_financeinterface.syscoon_financeinterface_export_wizard_action
-msgid "Create Move Export"
-msgstr "Export erstellen"
-
-#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__create_uid
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__create_uid
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__create_uid
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__create_uid
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__create_uid
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__create_uid
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__create_date
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__create_date
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__create_date
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__create_date
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__create_date
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__create_date
 msgid "Created on"
 msgstr "Erstellt am"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__currency_id
+msgid "Currency"
+msgstr "Währung"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__mode__datev_ascii
+msgid "DATEV ASCII"
+msgstr ""
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__mode__datev_ascii_accounts
+msgid "DATEV ASCII Accounts"
+msgstr "DATEV ASCII Konten"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__mode__datev_xml
+msgid "DATEV XML"
+msgstr ""
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__period
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__date
-#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_export__type__date
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__type__date
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
 msgid "Date"
 msgstr "Datum"
 
 #. module: syscoon_financeinterface
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__date_from
-msgid "Date From"
-msgstr "Datum von"
-
-#. module: syscoon_financeinterface
-#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_export__type__date_range
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__type__date_range
 msgid "Date Range"
 msgstr "Datumsbereich"
-
-#. module: syscoon_financeinterface
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__date_to
-msgid "Date To"
-msgstr "Datum bis"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_analytic_plan__datev_cost_center
@@ -213,36 +338,82 @@ msgid "Datev Cost Center"
 msgstr "DATEV Kostenstellen"
 
 #. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Datev Export"
+msgstr "DATEV-Export"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Datev Import"
+msgstr "DATEV-Import"
+
+#. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
 msgid "Datum"
 msgstr ""
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_company__datev_default_journal_ids
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_config_settings__company_datev_default_journal_ids
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_configuration
+msgid "Default Journals"
+msgstr "Standard-Journale"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_configuration
+msgid ""
+"Default journals you want to have always in the export. You can add or "
+"remove further journals at any time here or directly in the form."
+msgstr ""
+"Standard-Journale, die immer im Export enthalten sein sollen. Sie können "
+"später weitere hinzufügen oder entfernen."
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__description
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__display_name
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__display_name
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__display_name
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__display_name
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__display_name
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__display_name
 msgid "Display Name"
 msgstr "Anzeigename"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__state__draft
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__end_date
+msgid "End Date"
+msgstr "Enddatum"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__state__error
+msgid "Error"
+msgstr "Fehler"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_bank_statement_line__export_id
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_move__export_id
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_payment__export_id
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__export_id
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__export_id
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
 msgid "Export"
 msgstr ""
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_bank_statement_line__export_account_counterpart
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_move__export_account_counterpart
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_payment__export_account_counterpart
 msgid "Export Account Counterpart"
 msgstr "Export Gegenkonto"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_bank_statement_line__export_account_counterpart_manual
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_move__export_account_counterpart_manual
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_payment__export_account_counterpart_manual
 msgid "Export Account Counterpart Manual"
 msgstr "Export Gegenkonto manuell setzen"
 
@@ -262,37 +433,59 @@ msgstr "Export Finanz-Interface"
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_bank_statement_line__export_finance_interface_active
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_move__export_finance_interface_active
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_payment__export_finance_interface_active
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_company__export_finance_interface_active
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_config_settings__company_export_finance_interface_active
 msgid "Export Finance Interface Active"
 msgstr "Finanzschnittstelle aktivieren"
 
 #. module: syscoon_financeinterface
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_company__export_finance_interface_sequence_id
-msgid "Export Financeinterface Sequence"
-msgstr "Finanzexport Sequenz"
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_form
+msgid "Export Item"
+msgstr "Export-Eintrag"
 
 #. module: syscoon_financeinterface
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__mode
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__mode
-msgid "Export Mode"
-msgstr "Export Modus"
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__item_ids
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Export Items"
+msgstr "Export-Einträge"
 
 #. module: syscoon_financeinterface
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__type
-msgid "Export Type"
-msgstr "Export Typ"
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_company__financeinterface_template_id
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_config_settings__company_financeinterface_template_id
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_template_form
+msgid "Export Template"
+msgstr "Export-Vorlage"
 
 #. module: syscoon_financeinterface
-#: model:ir.model,name:syscoon_financeinterface.model_syscoon_financeinterface_export
-msgid "Export Wizard for the syscoon financeinterface"
-msgstr "Export-Assistent für das syscoon Finanzinterface"
+#: model:ir.actions.act_window,name:syscoon_financeinterface.action_syscoon_financeinterface_template
+#: model:ir.ui.menu,name:syscoon_financeinterface.menu_syscoon_financeinterface_template
+msgid "Export Templates"
+msgstr "Export-Vorlagen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__state__export
+msgid "Exported"
+msgstr "Exportiert"
 
 #. module: syscoon_financeinterface
 #: model:ir.actions.report,name:syscoon_financeinterface.syscoon_financeinterface_report
 msgid "Exports"
 msgstr "Export-Protokol"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__expression
+msgid "Expression"
+msgstr "Ausdruck"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_item__state__failed
+msgid "Failed"
+msgstr "Fehlgeschlagen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__failed_items
+msgid "Failed Items"
+msgstr "Fehlgeschlagene Einträge"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__field
@@ -306,19 +499,29 @@ msgid "Finance Interface"
 msgstr "Finanzschnittstelle"
 
 #. module: syscoon_financeinterface
+#: model:ir.model,name:syscoon_financeinterface.model_syscoon_financeinterface_item
+msgid "Finance Interface Export Item"
+msgstr "Finanzschnittstelle Export-Eintrag"
+
+#. module: syscoon_financeinterface
+#: model:ir.actions.server,name:syscoon_financeinterface.ir_cron_item_processor_ir_actions_server
+msgid "Finance Interface Item Processor"
+msgstr "Finanzschnittstelle Eintragsverarbeitung"
+
+#. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_move_form_syscoon_financeinterface
 msgid "Financeinterface"
 msgstr "Finanzschnittstelle"
 
 #. module: syscoon_financeinterface
-#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_export_wizard_view
-#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
-msgid "Financial Export"
-msgstr "Finazexport"
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid "Financeinterface: %s"
+msgstr "Finanzschnittstelle: %s"
 
 #. module: syscoon_financeinterface
 #: model:ir.actions.act_window,name:syscoon_financeinterface.syscoon_financeinterface_action
-#: model:ir.ui.menu,name:syscoon_financeinterface.menu_syscoon_financeinterface_eport
+#: model:ir.ui.menu,name:syscoon_financeinterface.menu_syscoon_financeinterface_export
 msgid "Financial Exports"
 msgstr "Finanzexporte"
 
@@ -341,15 +544,34 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "FontAwesome Icon, z.B. fa-tasks"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__value_code
+msgid "Force Value"
+msgstr "Erzwungener Wert"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface_template_line__value_code
+msgid "Force a value for this field it can be evaluated from the move/line"
+msgstr ""
+"Erzwingen Sie einen Wert für dieses Feld, der aus der Buchung/Zeile "
+"ausgewertet werden kann"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__has_message
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__has_message
 msgid "Has Message"
 msgstr "Hat Nachricht"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__name
+msgid "Heading"
+msgstr "Überschrift"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__id
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__id
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__id
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__id
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__id
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__id
 msgid "ID"
 msgstr ""
 
@@ -380,10 +602,62 @@ msgid "If checked, some messages have a delivery error."
 msgstr "Wenn gewählt, ist das Senden einiger Nachrichten fehlgeschlagen."
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface__auto_process
+#: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface_item__export_auto_process
+msgid ""
+"If enabled, items are processed automatically by a background job. If "
+"disabled, you must click 'Process Items' to start processing manually."
+msgstr ""
+"Wenn aktiviert, werden Einträge automatisch durch einen Hintergrundjob "
+"verarbeitet. Wenn deaktiviert, müssen sie manuell verarbeitet werden."
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_template_form
+msgid "Info"
+msgstr ""
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__move_id
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__message_is_follower
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__message_is_follower
 msgid "Is Follower"
 msgstr "Ist ein Abonnent"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__is_journal_needed
+msgid "Is Journal Needed"
+msgstr "Journal erforderlich"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__is_range_needed
+msgid "Is Range Needed"
+msgstr "Datumsbereich erforderlich"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__is_type_selction_hidden
+msgid "Is Type Selction Hidden"
+msgstr "Typauswahl ausgeblendet"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__name
+msgid "Item Name"
+msgstr "Eintragsname"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface_item.py:0
+msgid "Item state: %s"
+msgstr "Eintragsstatus: %s"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface_item.py:0
+msgid "Item will be processed by cron"
+msgstr "Eintrag wird durch geplante Aufgabe verarbeitet"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__journal_id
@@ -397,18 +671,32 @@ msgid "Journal Entry"
 msgstr "Journalbuchung"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__journal_ids
+msgid "Journals"
+msgstr "Journale"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__write_uid
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__write_uid
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__write_uid
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__write_uid
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__write_uid
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__write_uid
 msgid "Last Updated by"
 msgstr "Zuletzt aktualisiert von"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__write_date
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__write_date
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_export__write_date
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__write_date
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__write_date
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__write_date
 msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__line_ids
+msgid "Line"
+msgstr "Zeile"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__log
@@ -418,12 +706,22 @@ msgstr "Protokoll"
 #. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
 msgid "Logs"
-msgstr ""
+msgstr "Protokolle"
 
 #. module: syscoon_financeinterface
-#: model:ir.model,name:syscoon_financeinterface.model_ir_ui_menu
-msgid "Menu"
-msgstr "Menü"
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface_item.py:0
+msgid "Manual Retry Blocked"
+msgstr "Manuelle Wiederholung blockiert"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface__items_limit
+msgid ""
+"Maximum number of invoices fetched when starting an export. Set to -1 for no"
+" limit. Use a positive value to limit memory usage."
+msgstr ""
+"Maximale Anzahl der beim Start eines Exports abgerufenen Rechnungen. Setzen "
+"Sie den Wert auf -1 für kein Limit."
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__message_has_error
@@ -436,6 +734,17 @@ msgstr "Fehler beim Senden der Nachricht"
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__message_ids
 msgid "Messages"
 msgstr "Nachrichten"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__mode
+msgid "Mode"
+msgstr "Export Modus"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid "Mode %s is require a 'Date Range' to export!"
+msgstr "Modus %s erfordert einen 'Datumsbereich' für den Export!"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_bookingtext_config__field__name
@@ -466,9 +775,16 @@ msgstr "Meine Aktivitäten Frist"
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__name
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__name
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__name
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
 msgid "Name"
 msgstr ""
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__activity_calendar_event_id
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Nächstes Aktivitäts-Kalenderereignis"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__activity_date_deadline
@@ -490,20 +806,24 @@ msgstr "Nächster Aktivitätstyp"
 
 #. module: syscoon_financeinterface
 #. odoo-python
-#: code:addons/syscoon_financeinterface/wizards/syscoon_financeinterface_export.py:0
-#, python-format
-msgid ""
-"No Export-Method selected. Please select one or install further Modules to "
-"provide an Export-Method!"
-msgstr ""
-"Keine Export-Methode ausgewählt. Bitte wählen Sie eine Exportmethode aus, "
-"oder installieren Sie weitere Module um eine Export-Methode wählen zu "
-"können!"
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid "No failed items to retry"
+msgstr "Keine fehlgeschlagenen Einträge zum Wiederholen"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid "No pending items to process"
+msgstr "Keine ausstehenden Einträge zur Verarbeitung"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__account_moves_count
+msgid "No: of Exported Records"
+msgstr "Anzahl exportierter Datensätze"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__res_company__export_finance_interface__none
 #: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__mode__none
-#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_export__mode__none
 msgid "None"
 msgstr "Keine"
 
@@ -514,10 +834,24 @@ msgid "Number of Actions"
 msgstr "Anzahl der Aktionen"
 
 #. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Number of Exported Records:"
+msgstr "Anzahl exportierter Datensätze:"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__message_has_error_counter
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__message_has_error_counter
 msgid "Number of errors"
 msgstr "Anzahl der Fehler"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface__batch_limit
+msgid ""
+"Number of items to process at a time (both cron and manual). Set to 0 to "
+"process all items at once."
+msgstr ""
+"Anzahl der gleichzeitig zu verarbeitenden Einträge (sowohl Cron als auch "
+"manuell). Setzen Sie 0, um alle auf einmal zu verarbeiten."
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface__message_needaction_counter
@@ -532,25 +866,177 @@ msgid "Number of messages with delivery error"
 msgstr "Anzahl der Nachrichten mit einem Fehler beim Senden."
 
 #. module: syscoon_financeinterface
-#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_bookingtext_config__field__partner_id_display_name
-msgid "Partner Name"
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__partner_id
+msgid "Partner"
 msgstr ""
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_bookingtext_config__field__partner_id_display_name
+msgid "Partner Name"
+msgstr "Partnername"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_item__state__pending
+msgid "Pending"
+msgstr "Ausstehend"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__pending_items
+msgid "Pending Items"
+msgstr "Ausstehende Einträge"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Period"
+msgstr "Zeitraum"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__batch_limit
+msgid "Process Limit"
+msgstr "Verarbeitungslimit"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Process Pending Items"
+msgstr "Ausstehende Einträge verarbeiten"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_list
+msgid "Process immediately"
+msgstr "Sofort verarbeiten"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid ""
+"Processed %(count)d items. Completed: %(completed)d, Failed: %(failed)d, "
+"Pending: %(pending)d"
+msgstr ""
+"%(count)d Einträge verarbeitet. Abgeschlossen: %(completed)d, "
+"Fehlgeschlagen: %(failed)d, Ausstehend: %(pending)d"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_item__state__processing
+msgid "Processing"
+msgstr "Wird verarbeitet"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid "Processing Complete"
+msgstr "Verarbeitung abgeschlossen"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface_item.py:0
+msgid "Processing method not implemented for this export mode."
+msgstr "Verarbeitungsmethode für diesen Export-Modus nicht implementiert."
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__progress
+msgid "Progress"
+msgstr "Fortschritt"
+
+#. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.export_report_document
-msgid "Protocol for exported acoount moves"
+msgid "Protocol for exported account moves"
 msgstr "Protokoll für den Buchungexport"
 
 #. module: syscoon_financeinterface
-#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_move_form_syscoon_financeinterface
-msgid "Reset to Draft"
-msgstr "Auf Entwurf zurücksetzen"
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_list
+msgid "Queue"
+msgstr "Warteschlange"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_form
+msgid "Queue Retry"
+msgstr "Wiederholung in Warteschlange"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_list
+msgid "Queue for cron processing"
+msgstr "Für geplante Verarbeitung in Warteschlange stellen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface__state__queued
+msgid "Queued"
+msgstr "In Warteschlange"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface_item.py:0
+msgid "Queued for Retry"
+msgstr "Für Wiederholung in Warteschlange"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__rating_ids
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__rating_ids
+msgid "Ratings"
+msgstr "Bewertungen"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_company__export_invoice_reset_active
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_res_config_settings__company_export_invoice_reset_active
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_configuration
+msgid "Reset Invoices to Draft after Export"
+msgstr "Rechnungen nach Export auf Entwurf zurücksetzen"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__activity_user_id
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__activity_user_id
 msgid "Responsible User"
 msgstr "Manager Veranstaltung"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__result
+msgid "Result"
+msgstr "Ergebnis"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__attachment_ids
+msgid "Result Files"
+msgstr "Ergebnisdateien"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface_item__result
+msgid "Result message or error details."
+msgstr "Ergebnismeldung oder Fehlerdetails."
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid ""
+"Retried %(count)d item(s). Success: %(success)d, Still Failed: %(failed)d"
+msgstr ""
+"%(count)d Eintrag/Einträge wiederholt. Erfolgreich: %(success)d, Weiterhin "
+"fehlgeschlagen: %(failed)d"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface_item.py:0
+msgid "Retry Complete"
+msgstr "Wiederholung abgeschlossen"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+msgid "Retry Failed"
+msgstr "Wiederholung fehlgeschlagen"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_form_view
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_form
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_financeinterface_item_list
+msgid "Retry Now"
+msgstr "Jetzt wiederholen"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__message_has_sms_error
@@ -564,40 +1050,48 @@ msgid "Search Finance Interface"
 msgstr "Suche Finanzschittstelle"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__items_limit
+msgid "Search Limit"
+msgstr "Suchlimit"
+
+#. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_configuration
 msgid "Select your default export interface."
 msgstr "Wählen Sie den Standard-Exportmodus aus."
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_bookingtext_config__sequence
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__sequence
 msgid "Sequence"
 msgstr "Sequenz"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_bank_statement_line__export_manual
 #: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_move__export_manual
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_payment__export_manual
 msgid "Set Account Counterpart"
 msgstr "Gegekonto setzen"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,help:syscoon_financeinterface.field_account_bank_statement_line__export_account_counterpart_manual
 #: model:ir.model.fields,help:syscoon_financeinterface.field_account_move__export_account_counterpart_manual
-#: model:ir.model.fields,help:syscoon_financeinterface.field_account_payment__export_account_counterpart_manual
 msgid "Set counterpart account manually"
 msgstr "Gegekonto manuell setzen"
 
 #. module: syscoon_financeinterface
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_bank_statement_line__show_export_to_draft_button
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_move__show_export_to_draft_button
-#: model:ir.model.fields,field_description:syscoon_financeinterface.field_account_payment__show_export_to_draft_button
-msgid "Show Export To Draft Button"
-msgstr "Zeige Export zu Entwurf Button"
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__start_date
+msgid "Start Date"
+msgstr "Startdatum"
 
 #. module: syscoon_financeinterface
-#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.syscoon_financeinterface_export_wizard_view
-msgid "Start Export"
-msgstr "Export starten"
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__state
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__export_state
+msgid "State"
+msgstr "Status"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_item__state
+msgid "Status"
+msgstr ""
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface__activity_state
@@ -616,9 +1110,44 @@ msgstr ""
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,help:syscoon_financeinterface.field_account_bank_statement_line__export_account_counterpart
 #: model:ir.model.fields,help:syscoon_financeinterface.field_account_move__export_account_counterpart
-#: model:ir.model.fields,help:syscoon_financeinterface.field_account_payment__export_account_counterpart
 msgid "Technical field needed for move exports"
 msgstr "Technisches Feld, benötigt für Buchungsexporte"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__template_id
+msgid "Template"
+msgstr "Vorlage"
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_template_line_form
+msgid "Template Line"
+msgstr "Vorlagenzeile"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid ""
+"The export method %s is not implemented. Please implement it in the model!"
+msgstr ""
+"Die Exportmethode %s ist nicht implementiert. Bitte implementieren Sie sie "
+"im Modell!"
+
+#. module: syscoon_financeinterface
+#. odoo-python
+#: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
+msgid "The start date must be smaller than the end date!"
+msgstr "Das Startdatum muss kleiner als das Enddatum sein!"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__total_items
+msgid "Total Items"
+msgstr "Einträge gesamt"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface__type
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__type
+msgid "Type"
+msgstr "Typ"
 
 #. module: syscoon_financeinterface
 #: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface__activity_exception_decoration
@@ -627,9 +1156,13 @@ msgid "Type of the exception activity on record."
 msgstr "Typ der Ausnahmeaktivität im Datensatz."
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__belegfeld_1_use_ref
+msgid "Use Customer Reference"
+msgstr "Kundenreferenz verwenden"
+
+#. module: syscoon_financeinterface
 #. odoo-python
 #: code:addons/syscoon_financeinterface/models/syscoon_financeinterface.py:0
-#, python-format
 msgid "Warning! Exports cannot be duplicated."
 msgstr "Achtung! Exporte können nicht dupliziert werden."
 
@@ -646,6 +1179,27 @@ msgid "Website communication history"
 msgstr "Website-Kommunikationshistorie"
 
 #. module: syscoon_financeinterface
+#: model:ir.model.fields,help:syscoon_financeinterface.field_syscoon_financeinterface__is_batch_supported
+msgid "Whether the current mode supports item-based batch processing."
+msgstr ""
+"Ob der aktuelle Modus eintragsbasierte Stapelverarbeitung unterstützt."
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__syscoon_financeinterface_template_line__type__xml
+msgid "XML"
+msgstr ""
+
+#. module: syscoon_financeinterface
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_template_form
+msgid "XML Lines"
+msgstr "XML-Zeilen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template__xml_line_ids
+msgid "Xml Line"
+msgstr "XML-Zeile"
+
+#. module: syscoon_financeinterface
 #: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__account_analytic_plan__datev_cost_center__add_to_kost1
 msgid "add to Datev KOST1"
 msgstr "zu DATEV KOST1 hinzufügen"
@@ -654,6 +1208,11 @@ msgstr "zu DATEV KOST1 hinzufügen"
 #: model:ir.model.fields.selection,name:syscoon_financeinterface.selection__account_analytic_plan__datev_cost_center__add_to_kost2
 msgid "add to Datev KOST2"
 msgstr "zu DATEV KOST2 hinzufügen"
+
+#. module: syscoon_financeinterface
+#: model:ir.model.fields,field_description:syscoon_financeinterface.field_syscoon_financeinterface_template_line__sequence
+msgid "line#"
+msgstr "Zeile#"
 
 #. module: syscoon_financeinterface
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface.view_syscoon_financeinterface_configuration
@@ -674,6 +1233,16 @@ msgstr "syscoon Finanzschnittstelle"
 #: model:ir.model,name:syscoon_financeinterface.model_syscoon_financeinterface
 msgid "syscoon Financial Interface"
 msgstr "syscoon Finanzinterface"
+
+#. module: syscoon_financeinterface
+#: model:ir.model,name:syscoon_financeinterface.model_syscoon_financeinterface_template
+msgid "syscoon Financial Interface  Export Template"
+msgstr "syscoon Finanzschnittstelle Export-Vorlage"
+
+#. module: syscoon_financeinterface
+#: model:ir.model,name:syscoon_financeinterface.model_syscoon_financeinterface_template_line
+msgid "syscoon Financial Interface  Template Lines"
+msgstr "syscoon Finanzschnittstelle Vorlagenzeilen"
 
 #. module: syscoon_financeinterface
 #: model:ir.model,name:syscoon_financeinterface.model_syscoon_financeinterface_bookingtext_config

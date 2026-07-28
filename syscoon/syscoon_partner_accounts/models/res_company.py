@@ -18,11 +18,35 @@ class ResCompany(models.Model):
         domain=[("code", "=", "partner.auto.payable")],
     )
     receivable_template_id = fields.Many2one(
-        "account.account", "Receivable Account Template"
+        "account.account",
+        "Receivable Account Template",
+        domain=[("account_type", "=", "asset_receivable")],
     )
     payable_template_id = fields.Many2one(
         "account.account",
         "Payable Account Template",
-        domain=[("type", "=", "liability_payable")],
+        domain=[("account_type", "=", "liability_payable")],
     )
     use_separate_accounts = fields.Boolean()
+    add_number_to_partner_number = fields.Boolean(
+        string="Copy Debitor/Creditor to Customer/Supplier",
+        help="When Debitor or Creditor number is created, automatically copy to Customer or Supplier number",
+        default=True,
+    )
+
+    def _get_partner_account_types(self, account_type=None):
+        """Extend to add account separation config.
+
+        Args:
+            account_type: 'receivable' or 'payable'
+
+        Returns:
+            dict with keys: asset_receivable/liability_payable, separate_accounts
+        """
+        types = super()._get_partner_account_types(account_type=account_type)
+
+        if types:
+            types["separate_accounts"] = bool(self.use_separate_accounts)
+            types["separate_numbers"] = not self.add_number_to_partner_number
+
+        return types

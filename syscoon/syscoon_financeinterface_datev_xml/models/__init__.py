@@ -3,5 +3,6 @@
 from . import syscoon_financeinterface_xml
 from . import account_move
 from . import syscoon_financeinterface
+from . import syscoon_financeinterface_item
 from . import res_company
 from . import res_config_settings

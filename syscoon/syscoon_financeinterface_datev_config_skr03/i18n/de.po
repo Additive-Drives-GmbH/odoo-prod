@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e-20231215\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 09:49+0000\n"
-"PO-Revision-Date: 2024-01-04 09:49+0000\n"
+"POT-Creation-Date: 2026-03-18 15:12+0000\n"
+"PO-Revision-Date: 2026-03-18 15:12+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,6 @@ msgstr "Steuer"
 #. module: syscoon_financeinterface_datev_config_skr03
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_config_skr03/models/res_company.py:0
-#, python-format
 msgid ""
 "You try to update the accounts for more than one company at the same time. "
 "This is not possible. Please contact your Administrator."

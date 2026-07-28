@@ -8,7 +8,7 @@
     </record>
 
     <record id="syscoon_automatic_mode_vendors" model="syscoon.accounts.automatic.mode">
-        <field name="name">Parnter (Credit Accounts)</field>
+        <field name="name">Partner (Credit Accounts)</field>
         <field name="code">partner_supplier</field>
     </record>
 

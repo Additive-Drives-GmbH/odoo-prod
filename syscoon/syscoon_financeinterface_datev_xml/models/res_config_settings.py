@@ -15,3 +15,9 @@ class SyscoonFinanceinterfaceConfigSettings(models.TransientModel):
     company_export_xml_analytic_accounts = fields.Boolean(
         related="company_id.export_xml_analytic_accounts", readonly=False
     )
+    module_syscoon_financeinterface_datev_xml_decrypt = fields.Boolean(
+        string="Decrypt PDF files that are encrypted",
+        help="This module allows to decrypt PDF files that are encrypted.",
+        related="company_id.module_syscoon_financeinterface_datev_xml_decrypt",
+        readonly=False,
+    )

@@ -3,7 +3,7 @@
 
 {
     "name": "Syscoon Partner Debit and Credit Accounts Automation",
-    "version": "18.0.0.0.1",
+    "version": "18.0.0.0.2",
     "author": "syscoon Estonia OÜ",
     "license": "OPL-1",
     "category": "Accounting",

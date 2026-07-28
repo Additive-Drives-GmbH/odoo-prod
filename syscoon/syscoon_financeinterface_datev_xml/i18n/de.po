@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e-20240126\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-20 13:17+0000\n"
-"PO-Revision-Date: 2024-02-20 13:17+0000\n"
+"POT-Creation-Date: 2026-03-18 15:14+0000\n"
+"PO-Revision-Date: 2026-03-18 15:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,16 +18,75 @@ msgstr ""
 #. module: syscoon_financeinterface_datev_xml
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
-#, python-format
+msgid " %d invoices failed."
+msgstr " %d Rechnungen fehlgeschlagen."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "%(move)s (id=%(move_id)s) could not be exported:"
+msgstr "%(move)s (ID=%(move_id)s) konnte nicht exportiert werden:"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
 msgid "%(name)s (id=%(move_id)s) could not be exported: "
 msgstr "%(name)s (id=%(move_id)s) konnte nicht exportiert werden: "
 
 #. module: syscoon_financeinterface_datev_xml
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
-#, python-format
-msgid "%s has been exported"
-msgstr "%s wurde exportiert"
+msgid ""
+"%(name)s (id=%(move_id)s) skipped: Has only XML, treated as X-Rechnung. Use "
+"X-Rechnungen export.\n"
+msgstr ""
+"%(name)s (ID=%(move_id)s) übersprungen: Enthält nur XML, wird als X-Rechnung"
+" behandelt. Verwenden Sie den X-Rechnungs-Exportmodus."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"%(name)s (id=%(move_id)s) skipped: Must have either:\n"
+"- One PDF attachment (with embedded X-Rechnung XML), or\n"
+"- One XML attachment (no PDF)\n"
+msgstr ""
+"%(name)s (ID=%(move_id)s) übersprungen: Muss entweder:\n"
+"- Einen PDF-Anhang (mit verknüpftem XML) oder\n"
+"- Einen XML-Anhang haben."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"%(name)s (id=%(move_id)s) skipped: Only vendor bills allowed in X-Rechnungen"
+" export.\n"
+msgstr ""
+"%(name)s (ID=%(move_id)s) übersprungen: Im X-Rechnungs-Exportmodus sind nur "
+"Lieferantenrechnungen erlaubt."
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid ""
+"<strong>File Size Limit: </strong>\n"
+"                    <span>The final export ZIP file must not exceed 476 MB (DATEV limitation). Adjust the Items Limit if needed.</span>"
+msgstr ""
+"<strong>Dateigrößenlimit: </strong>\n"
+"                    <span>Die endgültige Export-ZIP-Datei überschreitet möglicherweise die Größenbeschränkungen.</span>"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid ""
+"<strong>Note: </strong>\n"
+"                    <span>Auto Process is enabled by default. If disabled, you must click 'Process Items' to start processing manually.</span>"
+msgstr ""
+"<strong>Hinweis: </strong>\n"
+"                    <span>Automatische Verarbeitung ist standardmäßig aktiviert.</span>"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid "<strong>Partial Success: </strong>"
+msgstr "<strong>Teilweise erfolgreich: </strong>"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_view_move_form
@@ -37,20 +96,9 @@ msgstr "Buchungsdatum"
 #. module: syscoon_financeinterface_datev_xml
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
-#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
-#, python-format
 msgid "An error occurred while saving %(name)s export in %(dir_path)s"
 msgstr ""
 "Ein Fehler ist aufgetreten beim Speichern des %(name)s Exports in "
-"%(dir_path)s"
-
-#. module: syscoon_financeinterface_datev_xml
-#. odoo-python
-#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
-#, python-format
-msgid "An error occurred while saving %(timestamp)s export in %(dir_path)s"
-msgstr ""
-"Ein Fehler ist aufgetreten beim Speichern des %(timestamp)s Exports in "
 "%(dir_path)s"
 
 #. module: syscoon_financeinterface_datev_xml
@@ -59,16 +107,36 @@ msgid "Analytic Accounts"
 msgstr "Analytische Konten"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__res_company__export_xml_mode__bedi
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_mode__bedi
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface_export__xml_mode__bedi
-msgid "BEDI Link"
-msgstr ""
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_account_bank_statement_line__datev_bedi_export_id
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_account_move__datev_bedi_export_id
+msgid "BEDI Export"
+msgstr "BEDI-Export"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface_export__xml_invoices__both
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid "BEDI Invoices"
+msgstr "BEDI-Rechnungen"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__res_company__export_xml_mode__bedi
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_mode__bedi
+msgid "BEDI Link"
+msgstr "BEDI-Link"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__bedi_move_count
+msgid "BEDI Move Count"
+msgstr "BEDI-Buchungsanzahl"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__bedi_moves_ids
+msgid "Bedi Moves"
+msgstr "BEDI-Buchungen"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_invoices__both
 msgid "Both"
-msgstr "Beides"
+msgstr "Beide"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.view_syscoon_financeinterface_configuration_datev_xml
@@ -84,6 +152,13 @@ msgstr ""
 " mit GUIDs exportiert."
 
 #. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "Click 'Process Items' button to start processing"
+msgstr ""
+"Klicken Sie auf 'Einträge verarbeiten', um die Verarbeitung zu starten"
+
+#. module: syscoon_financeinterface_datev_xml
 #: model:ir.model,name:syscoon_financeinterface_datev_xml.model_res_company
 msgid "Companies"
 msgstr "Unternehmen"
@@ -94,23 +169,29 @@ msgid "Config Settings"
 msgstr "Konfigurationseinstellungen"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_xml__create_uid
-msgid "Created by"
-msgstr "Erstellt von"
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "Created %(count)d items (one per invoice)"
+msgstr "%(count)d Einträge erstellt (einer pro Rechnung)"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_xml__create_date
-msgid "Created on"
-msgstr "Erstellt am"
+#: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__working_zip_size
+msgid "Current size of the working ZIP file being built."
+msgstr "Aktuelle Größe der im Aufbau befindlichen ZIP-Arbeitsdatei."
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface_export__xml_invoices__customers
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_invoices__customers
 msgid "Customer Invoices"
 msgstr "Kundenrechnungen"
 
 #. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "DATEV Export Completed"
+msgstr "DATEV-Export abgeschlossen"
+
+#. module: syscoon_financeinterface_datev_xml
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__mode__datev_xml
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface_export__mode__datev_xml
 msgid "DATEV XML"
 msgstr ""
 
@@ -120,24 +201,51 @@ msgid "DATEV XML Document Data"
 msgstr "DATEV XML Dokumentdaten"
 
 #. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_res_company__module_syscoon_financeinterface_datev_xml_decrypt
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_res_config_settings__module_syscoon_financeinterface_datev_xml_decrypt
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.view_syscoon_financeinterface_configuration_datev_xml
+msgid "Decrypt PDF files that are encrypted"
+msgstr "Verschlüsselte PDF-Dateien entschlüsseln"
+
+#. module: syscoon_financeinterface_datev_xml
 #. odoo-python
-#: code:addons/syscoon_financeinterface_datev_xml/wizards/syscoon_financeinterface_xml.py:0
-#: code:addons/syscoon_financeinterface_datev_xml/wizards/syscoon_financeinterface_xml.py:0
-#, python-format
+#: code:addons/syscoon_financeinterface_datev_xml/models/account_move.py:0
 msgid "Description"
 msgstr "Beschreibung"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_xml__display_name
-msgid "Display Name"
-msgstr "Anzeigename"
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/account_move.py:0
+msgid "Due Date"
+msgstr "Fälligkeitsdatum"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.view_syscoon_financeinterface_configuration_datev_xml
 msgid ""
 "Enabling this option will add the analytic accounts in to the XML export."
 msgstr ""
-"Aktivieren Sie diese Option, um die analytischen Konten in den XML-Export "
+"Aktivieren Sie diese Option, um die analytischen Konten in den XML-Export"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "Error while export in %(dir_path)s: %(error)s"
+msgstr "Fehler beim Export in %(dir_path)s: %(error)s"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_tree_view
+msgid "Errors"
+msgstr "Fehler"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__exclude_bedi_exported
+msgid "Exclude BEDI"
+msgstr "BEDI ausschließen"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__exclude_bedi_exported
+msgid "Exclude already exported BEDI invoices"
+msgstr "Bereits exportierte BEDI-Rechnungen ausschließen"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_res_company__export_xml_analytic_accounts
@@ -154,38 +262,80 @@ msgstr "Export Finanz-Interface"
 #: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_res_company__export_xml_mode
 #: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_res_config_settings__company_export_xml_mode
 #: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__xml_mode
-#: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_export__xml_mode
 msgid "Export Methode: Standard: without Accounts, Extended: with Accounts"
 msgstr "Exportmethode: Standard: ohne Konten, Erweitert: mit Konten"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__mode
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_export__mode
-msgid "Export Mode"
-msgstr "Export Modus"
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid "Export Progress"
+msgstr "Exportfortschritt"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model,name:syscoon_financeinterface_datev_xml.model_syscoon_financeinterface_export
-msgid "Export Wizard for the syscoon financeinterface"
-msgstr "Export-Assistent für das syscoon Finanzinterface"
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"Export completed successfully - Final ZIP file created with %(completed)d "
+"processed invoices"
+msgstr ""
+"Export erfolgreich abgeschlossen – Endgültige ZIP-Datei mit %(completed)d "
+"erfolgreich verarbeiteten Einträgen erstellt."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"Export completed with partial success - Final ZIP file created with "
+"%(completed)d processed invoices. %(failed)d invoices failed. Check the "
+"Export Items tab for error details."
+msgstr ""
+"Export mit teilweisem Erfolg abgeschlossen – Endgültige ZIP-Datei mit "
+"%(completed)d erfolgreich verarbeiteten Einträgen erstellt."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "Export failed - No items were successfully processed"
+msgstr ""
+"Export fehlgeschlagen – Es wurden keine Einträge erfolgreich verarbeitet"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"Export started - Processing %(count)d invoices\n"
+"Processing mode: %(mode)s"
+msgstr ""
+"Export gestartet – %(count)d Rechnungen werden verarbeitet\n"
+"Verarbeitungsmodus: %(mode)s"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__res_company__export_xml_mode__extended
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_mode__extended
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface_export__xml_mode__extended
 msgid "Extended"
 msgstr "Erweitert"
 
 #. module: syscoon_financeinterface_datev_xml
 #. odoo-python
-#: code:addons/syscoon_financeinterface_datev_xml/wizards/syscoon_financeinterface_export.py:0
-#, python-format
-msgid ""
-"For the DATEV XML export you must select the type \"Date Range\" to do an "
-"export!"
-msgstr ""
-"Für den DATEV XML-Export müssen Sie den Typ \"Datumsbereich\" auswählen, um "
-"einen Export durchzuführen!"
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface_item.py:0
+msgid "Failed to generate PDF"
+msgstr "PDF-Generierung fehlgeschlagen"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface_item.py:0
+msgid "Failed to generate PDF content"
+msgstr "PDF-Inhalt konnte nicht generiert werden"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface_item.py:0
+msgid "Failed to generate XML for move"
+msgstr "XML für Buchung konnte nicht generiert werden"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model,name:syscoon_financeinterface_datev_xml.model_syscoon_financeinterface_item
+msgid "Finance Interface Export Item"
+msgstr "Finanzschnittstelle Export-Eintrag"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_res_company__export_xml_group_lines
@@ -206,9 +356,40 @@ msgstr ""
 "das gleiche analytische Konto und das gleiche analytische Tag haben."
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_xml__id
-msgid "ID"
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/account_move.py:0
+msgid "Grouped Invoice Line"
+msgstr "Gruppierte Rechnungszeile"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"Hint: Invoice has no exportable line items. All lines either have zero "
+"amount, are section headers, or notes. DATEV XML requires at least one line "
+"with a non-zero amount."
 msgstr ""
+"Hinweis: Die Rechnung hat keine exportierbaren Positionen. Alle Zeilen haben"
+" entweder Nullbetrag, sind storniert oder werden auf andere Weise "
+"ausgeschlossen."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "Hint: Invoice total amount is 0. Check if the lines are correct."
+msgstr ""
+"Hinweis: Der Gesamtbetrag der Rechnung ist 0. Prüfen Sie, ob die Zeilen "
+"korrekt sind."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"Hint: Some required XML elements are missing. Check invoice and partner data"
+" completeness."
+msgstr ""
+"Hinweis: Einige erforderliche XML-Elemente fehlen. Prüfen Sie vollständig "
+"Rechnungs- und Partnerdaten."
 
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_res_company__export_xml_analytic_accounts
@@ -217,70 +398,195 @@ msgid "If disabled no analytic account will be exported."
 msgstr "Wenn deaktiviert, wird kein analytisches Konto exportiert."
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_export__xml_invoices
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__xml_invoices
 msgid "Invoices"
 msgstr "Rechnungen"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_xml__write_uid
-msgid "Last Updated by"
-msgstr "Zuletzt aktualisiert von"
+#: model:ir.model,name:syscoon_financeinterface_datev_xml.model_account_move
+msgid "Journal Entry"
+msgstr "Journalbuchung"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_xml__write_date
-msgid "Last Updated on"
-msgstr "Zuletzt aktualisiert am"
+#: model:ir.model,name:syscoon_financeinterface_datev_xml.model_account_move_line
+msgid "Journal Item"
+msgstr "Buchungszeile"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__mode
+msgid "Mode"
+msgstr "Export Modus"
 
 #. module: syscoon_financeinterface_datev_xml
 #. odoo-python
-#: code:addons/syscoon_financeinterface_datev_xml/models/account_payment_term.py:0
-#, python-format
-msgid "Only a value between 1 and 99 is allowed."
-msgstr "Nur ein Wert zwischen 1 und 99 ist erlaubt."
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface_item.py:0
+msgid "No XML generated for move"
+msgstr "Kein XML für Buchung generiert"
 
 #. module: syscoon_financeinterface_datev_xml
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
-#, python-format
-msgid "Something went wrong: %s "
-msgstr "Etwas ist schief gelaufen: %s "
+msgid "No ZIP file could be created. Please check the logs."
+msgstr ""
+"Es konnte keine ZIP-Datei erstellt werden. Bitte prüfen Sie die Protokolle."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "No invoice types selected"
+msgstr "Keine Rechnungstypen ausgewählt"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"No invoices found to export.\n"
+"Date range: %(date)s\n"
+"Invoice type: %(type)s\n"
+"Please verify your filters and ensure posted invoices exist."
+msgstr ""
+"Keine Rechnungen zum Exportieren gefunden.\n"
+"Datumsbereich: %(date)s\n"
+"Rechnungstyp: %(type)s\n"
+"Bitte überprüfen Sie Ihre Filter."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "No invoices found to process"
+msgstr "Keine Rechnungen zur Verarbeitung gefunden"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "No items were successfully processed"
+msgstr "Keine Einträge wurden erfolgreich verarbeitet"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid "Number of Exported Records:"
+msgstr "Anzahl exportierter Datensätze:"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "Only draft exports can be started"
+msgstr "Nur Exporte im Entwurfsstatus können gestartet werden"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__working_zip_path
+msgid "Path to the incremental ZIP file being built during batch processing."
+msgstr ""
+"Pfad zur inkrementellen ZIP-Datei, die während der Stapelverarbeitung "
+"erstellt wird."
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid "Process Items"
+msgstr "Einträge verarbeiten"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid "Retry Failed Items"
+msgstr "Fehlgeschlagene Einträge wiederholen"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__res_company__export_xml_mode__standard
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_mode__standard
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface_export__xml_mode__standard
 msgid "Standard"
 msgstr ""
 
 #. module: syscoon_financeinterface_datev_xml
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
-#, python-format
+msgid ""
+"The PDF attached to invoice %(name)s appears to be corrupted.(id=%(id)s)\n"
+"ERROR details: \n"
+"%(error)s\n"
+msgstr ""
+"Das der Rechnung %(name)s beigefügte PDF scheint beschädigt zu sein. (ID=%(id)s)\n"
+"FEHLER bei der PDF-Verarbeitung"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid "The partner %(name)s has no %(label)s."
+msgstr "Der Partner %(name)s hat kein/keine %(label)s."
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
 msgid "There are no invoices to export in the selected date range!"
 msgstr "Es gibt keine Rechnungen zum Exportieren im ausgewählten Zeitraum!"
 
 #. module: syscoon_financeinterface_datev_xml
-#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface_export__xml_invoices__vendors
-msgid "Vendor Invoices"
+#: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_res_company__module_syscoon_financeinterface_datev_xml_decrypt
+#: model:ir.model.fields,help:syscoon_financeinterface_datev_xml.field_res_config_settings__module_syscoon_financeinterface_datev_xml_decrypt
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.view_syscoon_financeinterface_configuration_datev_xml
+msgid "This module allows to decrypt PDF files that are encrypted."
+msgstr ""
+"Dieses Modul ermöglicht die Entschlüsselung verschlüsselter PDF-Dateien."
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__move_count
+msgid "Total Moves"
+msgstr "Buchungen gesamt"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_invoices__vendors
+msgid "Vendor Bills"
 msgstr "Lieferantenrechnungen"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__working_zip_path
+msgid "Working ZIP Path"
+msgstr "Arbeits-ZIP-Pfad"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__working_zip_size
+msgid "Working ZIP Size"
+msgstr "Arbeits-ZIP-Größe"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_xml.selection__syscoon_financeinterface__xml_mode__x-rechnungen
+msgid "X-Rechnungen (ohne ZuGferd)"
+msgstr "X-Rechnungen (ohne ZUGFeRD)"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.view_syscoon_financeinterface_configuration_datev_xml
 msgid "XML Export Mode"
-msgstr ""
+msgstr "XML-Exportmodus"
 
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_res_company__export_xml_mode
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_res_config_settings__company_export_xml_mode
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface__xml_mode
-#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_xml.field_syscoon_financeinterface_export__xml_mode
 msgid "XML-Export Methode"
+msgstr "XML-Exportmethode"
+
+#. module: syscoon_financeinterface_datev_xml
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_xml/models/syscoon_financeinterface.py:0
+msgid ""
+"Your DATEV XML export '%s' has been completed. Processed %d invoices "
+"successfully."
 msgstr ""
+"Ihr DATEV XML-Export '%s' wurde abgeschlossen. %d Rechnungen wurden "
+"erfolgreich verarbeitet."
 
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model,name:syscoon_financeinterface_datev_xml.model_syscoon_financeinterface_xml
 msgid "definitions for the syscoon financeinterface DATEV XML-export"
 msgstr "Definitionen für den syscoon Finanzinterface DATEV XML-Export"
+
+#. module: syscoon_financeinterface_datev_xml
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.syscoon_financeinterface_xml_form_view
+msgid ""
+"item(s) failed to export. The export file contains only successful items. "
+"Check the Export Items tab for error details."
+msgstr ""
+"Eintrag/Einträge konnte(n) nicht exportiert werden. Die Exportdatei enthält "
+"nur erfolgreiche Einträge. Prüfen Sie die Protokolle."
 
 #. module: syscoon_financeinterface_datev_xml
 #: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_xml.view_syscoon_financeinterface_configuration_datev_xml
@@ -290,4 +596,4 @@ msgstr "syscoon Finanzschnittstelle (DATEV XML Einstellungen)"
 #. module: syscoon_financeinterface_datev_xml
 #: model:ir.model,name:syscoon_financeinterface_datev_xml.model_syscoon_financeinterface
 msgid "syscoon Financial Interface"
-msgstr "syscoon Finanzschnittstelle"
+msgstr "syscoon Finanzinterface"

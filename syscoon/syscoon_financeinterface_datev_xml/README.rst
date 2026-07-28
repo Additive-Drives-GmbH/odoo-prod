@@ -17,6 +17,27 @@ Description
 Changelog
 =========
 
+18.0.0.2.12
+-----------
+  * CUS-02333: Export <payment_conditions> with due_date and payment_conditions_text when an invoice has only a due date and no payment term
+
+18.0.0.2.11
+----------
+  * CUS-02074: Preserve embedded factur-x.xml in PDF exports by skipping merge for single PDFs
+
+18.0.0.2.9
+----------
+  * CUS-02098: add 'Retry Failed Items' button and fix log not clearing after successful retry
+
+18.0.0.2.8
+----------
+  * FML-00019: Removed creating invoice XML when only exporting BEDI
+
+18.0.0.2.7
+----------
+  * CUS-02012: Add option to decrypt PDF files that are encrypted
+  * 5011-00048-15: Adding batch processing for large exports to fix memory error
+
 18.0.0.2.6
 ----------
   * CUS-01914: Fix issues with bedi financeinterface exports
@@ -28,6 +49,7 @@ Changelog
 18.0.0.2.4
 ----------
   * 3d-00032-1: Made mandatory fields check for partner as system parameter configuration
+
 18.0.0.2.3
 ----------
   * CI-00: code cleanup

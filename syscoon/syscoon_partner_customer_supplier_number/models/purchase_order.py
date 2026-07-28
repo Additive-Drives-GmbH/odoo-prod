@@ -12,10 +12,9 @@ class PurchaseOrder(models.Model):
         """Extend the confirm button to create a supplier number"""
         company = self.env.company
 
-        if company.allow_account_number_report:
-            create_numbers = [auto.code for auto in company.create_auto_number_on]
-            if "po_supplier" in create_numbers:
-                partner = self.partner_id.commercial_partner_id
-                partner.action_create_supplier_number()
+        create_numbers = [auto.code for auto in company.create_auto_number_on]
+        if "po_supplier" in create_numbers:
+            partner = self.partner_id.commercial_partner_id
+            partner.action_create_supplier_number()
 
         return super().button_confirm()

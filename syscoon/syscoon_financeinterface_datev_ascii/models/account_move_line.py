@@ -78,68 +78,88 @@ class AccountMoveLine(models.Model):
     # ------------------------------------------
     # DATEV Export
     # ------------------------------------------
+    def _get_gross_amount(self, amount, currency):
+        """Calculate gross amount (including tax) without per-line rounding.
+
+        Odoo's compute_all() always rounds total_included via currency.round(),
+        even when round=False context is set. This causes rounding issues when
+        summing multiple lines (e.g., invoice total 508.13 becomes 508.16).
+
+        Solution: Use round=False to get unrounded tax amounts, then sum
+        total_excluded + tax amounts manually. Final rounding happens after
+        grouping in group_converted_move_lines().
+
+        Args:
+            amount: Net amount to calculate gross from
+            currency: Currency for tax calculation precision
+
+        Returns:
+            Unrounded gross amount (net + tax)
+        """
+        if not self.tax_ids:
+            return amount
+        taxes_res = self.tax_ids.with_context(round=False).compute_all(
+            amount,
+            currency=currency,
+            handle_price_include=False,
+        )
+        return taxes_res["total_excluded"] + sum(t["amount"] for t in taxes_res["taxes"])
+
     def generate_export_line(self, data):  # noqa: C901
-        """Generates the amount, the sign, the tax key and the tax case of the move line
-        Computes currencies and exchange rates"""
+        """Generates the amount, the sign, the tax key and the tax case of the move line.
+        Uses Odoo core price_total/price_subtotal for invoice lines.
+        """
         self.ensure_one()
         data["group"] = True
-        interface = data["interface"]
         export = data["lines"][self.id]["export"]
 
-        def _gross(
-            compute_type, amount, currency_id, hd_p_include, tax_ids, quantity=False
-        ):
-            """
-            @nested - compute the total include price for the line
-            """
-            if compute_type == "unit_total":
-                taxes_computed = tax_ids.compute_all(
-                    amount,
-                    quantity=quantity,
-                    currency=currency_id,
-                    product=self.product_id,
-                    partner=self.move_id.partner_id,
-                    handle_price_include=hd_p_include,
-                )
-            else:
-                taxes_computed = tax_ids.compute_all(
-                    amount, currency_id, handle_price_include=hd_p_include
-                )
-            return taxes_computed["total_included"]
-
-        is_curr_diff = (
-            self.currency_id
-            and self.currency_id != self.env.company.currency_id
-            and self.amount_currency != 0.0
+        # Determine if we can use core computed fields
+        is_invoice_product_line = (
+            self.display_type == "product" and self.move_id.is_invoice(True)
         )
-        total = abs(self.amount_currency) if is_curr_diff else (self.debit or self.credit)
-        if self.env.company.datev_export_method == "gross":
-            # =========================FIXME: Refactor=================================
-            # We need to refactor the code, no need to calculate the price based on taxes
-            # we can get the total with existing fields in account.move.line
-            # if we do we have to test following scenarios also
-            # 1. Check the 'entry' type journal entries are correctly calculating the total
-            # 2. Check there are some rounding issues as following export: 48.95 getting as 48.98
-            # URL: https://v16-0-dev-datev.odoo-test-staging.7open.eu/web#id=152
-            # {TODO: Concat the URL}
-            # &cids=3&menu_id=197&action=417&model=syscoon.financeinterface&view_type=form
-            # 3. Need to check moves with discount lines
-            # 4. Test with journal entries with taxes (move_type == 'entry')
-            # =========================================================================
-            is_entry = self.move_type == "entry"
-            price_unit = (
-                total if is_entry else self.price_unit * (1 - self.discount / 100.0)
-            )
-            quantity = 1 if is_entry else self.quantity
-            # Compute the total based on the taxes
-            total = _gross(
-                compute_type="unit_total",
-                amount=price_unit,
-                currency_id=self.currency_id,
-                hd_p_include=True,
-                tax_ids=self.tax_ids,
-                quantity=quantity,
-            )
+        is_gross = self.env.company.datev_export_method == "gross"
+
+        # Calculate total amount
+        if is_invoice_product_line:
+            # Invoice/bill product lines: use Odoo core price_subtotal
+            total = abs(self.price_subtotal)
+            if is_gross:
+                total = self._get_gross_amount(total, self.currency_id)
+        else:
+            # Journal entries or non-product lines: manual calculation
+            total = abs(self.balance)
+            if is_gross:
+                total = self._get_gross_amount(total, self.company_currency_id)
+
+        # Handle multi-currency
+        is_multi_currency = (
+            self.currency_id
+            and self.currency_id != self.company_currency_id
+            and self.amount_currency
+        )
+        if is_multi_currency:
+            # For multi-currency journal entries, calculate total from amount_currency
+            if not is_invoice_product_line:
+                total = abs(self.amount_currency)
+                if is_gross:
+                    total = self._get_gross_amount(total, self.currency_id)
+
+            # Calculate base_total (company currency equivalent)
+            base_total = abs(self.balance)
+            if is_gross:
+                base_total = self._get_gross_amount(base_total, self.company_currency_id)
+
+            export["WKZ Umsatz"] = self.currency_id.name
+            export["Basis-Umsatz"] = base_total  # Don't round here, round after grouping
+            export["WKZ Basis-Umsatz"] = self.company_currency_id.name
+            if self.balance:
+                export["Kurs"] = self.amount_currency / self.balance
+
+        # Don't round here - rounding happens after grouping in group_converted_move_lines
+        export["Umsatz (ohne Soll/Haben-Kz)"] = total
+
+        # Tax key handling (only for gross export method)
+        if is_gross:
             if tax_id := self.tax_ids[:1]:
                 if not self.account_id.datev_automatic_account:
                     if tax_id.datev_tax_key:
@@ -147,34 +167,13 @@ class AccountMoveLine(models.Model):
                     if tax_id.datev_tax_case:
                         export["Sachverhalt"] = tax_id.datev_tax_case
                 if tax_id.datev_country_id:
-                    country_code = tax_id.datev_country_id.code
-                    export["EU-Mitgliedstaat u. UStIdNr"] = country_code
+                    export["EU-Mitgliedstaat u. UStIdNr"] = tax_id.datev_country_id.code
                     export["EU-Steuersatz"] = tax_id.amount
-            else:
-                if (
-                    self.account_id.datev_automatic_account
-                    and self.account_id.datev_no_tax
-                ) or self.move_id.export_account_counterpart.datev_no_tax:
-                    export["BU-Schlüssel"] = "40"
-        if is_curr_diff:
-            base_total = abs(self.balance)
-            if self.env.company.datev_export_method == "gross" and self.tax_ids:
-                base_total = _gross(
-                    compute_type="direct",
-                    amount=base_total,
-                    currency_id=self.env.company.currency_id,
-                    hd_p_include=False,
-                    tax_ids=self.tax_ids,
-                )
-            export["WKZ Umsatz"] = self.currency_id.name
-            export["Basis-Umsatz"] = interface.currency_round(
-                base_total, self.env.company.currency_id
-            )
-            export["WKZ Basis-Umsatz"] = self.env.company.currency_id.name
-            export["Kurs"] = self.amount_currency / self.balance
-        export["Umsatz (ohne Soll/Haben-Kz)"] = interface.currency_round(
-            total, self.currency_id
-        )
+            elif (
+                self.account_id.datev_automatic_account and self.account_id.datev_no_tax
+            ) or self.move_id.export_account_counterpart.datev_no_tax:
+                export["BU-Schlüssel"] = "40"
+
         if self.account_id.datev_vatid_required:
             vat = (
                 self.move_id.partner_shipping_id.vat
@@ -182,8 +181,10 @@ class AccountMoveLine(models.Model):
                 or self.partner_id.vat
             )
             export["EU-Mitgliedstaat u. UStIdNr"] = vat
+
         export["Auftragsnummer"] = self.move_id.invoice_origin or ""
         export["Festschreibung"] = int(self.env.company.datev_enable_fixing)
+
         self._apply_kennzeichen(data)
         self._apply_konto(data)
         self._apply_belegdatum(data)
@@ -196,7 +197,10 @@ class AccountMoveLine(models.Model):
 
     def _apply_kennzeichen(self, data):
         export = data["lines"][self.id]["export"]
-        export["Soll/Haben-Kennzeichen"] = "S" if self.debit else "H"
+        if self.env.company.datev_reverse_credit_debit:
+            export["Soll/Haben-Kennzeichen"] = "H" if self.debit else "S"
+        else:
+            export["Soll/Haben-Kennzeichen"] = "S" if self.debit else "H"
 
     def _apply_belegfeld_1(self, data):
         export = data["lines"][self.id]["export"]
@@ -235,9 +239,11 @@ class AccountMoveLine(models.Model):
                 else move.service_delivery_date
             )
             if service_date:
-                export["Leistungsdatum"] = interface.convert_date(service_date)
+                export["Leistungsdatum"] = interface.convert_date(service_date, "%d%m%Y")
         elif move.delivery_date:
-            export["Leistungsdatum"] = interface.convert_date(move.delivery_date)
+            export["Leistungsdatum"] = interface.convert_date(
+                move.delivery_date, "%d%m%Y"
+            )
 
     def _apply_kost_accounts(self, data):
         if not self.analytic_distribution:
@@ -275,6 +281,11 @@ class AccountMoveLine(models.Model):
             export["Konto"] = _rlzero(self.account_id.code)
         if not export["Gegenkonto (ohne BU-Schlüssel)"]:
             export["Gegenkonto (ohne BU-Schlüssel)"] = _rlzero(counterpart_account.code)
+        if self.env.company.datev_reverse_credit_debit:
+            export["Konto"], export["Gegenkonto (ohne BU-Schlüssel)"] = (
+                export["Gegenkonto (ohne BU-Schlüssel)"],
+                export["Konto"],
+            )
 
     def _apply_buchungstext(self, data):
         export = data["lines"][self.id]["export"]
