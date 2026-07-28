@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <section class="container" style="font-size: 18px;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12">
+                    <h1 class="oe_slogan">
+                        manaTec Analytic Distribution Display (Kostenstelle Display)
+                    </h1>
+                </div>
+
+                <div class="col-sm-12">
+                    <h2 class="oe_slogan">Human-readable analytic distribution representation & custom decimal precision</h2>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <p>
+                        This module provides a reusable abstract mixin that translates Odoo's JSON-based
+                        <code style="font-size: 1em;">analytic_distribution</code>
+                        (Kostenverteilung) field into a human-readable string representation, sorted by analytic plan and percentage, along with custom decimal precision configuration.
+                    </p>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Features</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul style="padding: 0 16px;">
+                                <li>
+                                    <strong>Analytic Distribution Mixin (<code style="font-size: 1em;">analytic.distribution.display.mixin</code>):</strong>
+                                    Automatically parses
+                                    <code style="font-size: 1em;">analytic_distribution</code>
+                                    (Kostenverteilung) JSON data on records, groups analytic accounts by analytic plan (ordered by plan sequence), formats account names with distribution percentages,
+                                    and sorts entries within each plan primarily by plan sequence and secondarily by percentage descending.
+                                </li>
+                                <li>
+                                    <strong>Decimal Precision Configuration:</strong>
+                                    Adds a dedicated decimal precision setting named
+                                    <code style="font-size: 1em;">Analytic Percentage</code>
+                                    to control the rounding of analytic distribution percentages.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Technical Details</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <ul style="padding: 0 16px;">
+                        <li>
+                            <strong>Models Created / Extended:</strong>
+                            <code style="font-size: 1em;">analytic.distribution.display.mixin</code>: Abstract model providing
+                            <code style="font-size: 1em;">analytic_account_display</code>
+                            (Kostenstelle) (Char, computed, stored).
+                        </li>
+                        <li>
+                            <strong>Data / Records:</strong>
+                            <code style="font-size: 1em;">decimal.precision</code>: Adds
+                            <code style="font-size: 1em;">Analytic Percentage</code>
+                            precision record (
+                            <code style="font-size: 1em;">digits = 0</code>
+                            by default).
+                        </li>
+                        <li>
+                            <strong>Dependencies:</strong>
+                            <code style="font-size: 1em;">analytic</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Changelog</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-2">18.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Initial release: Reusable analytic distribution display mixin and decimal precision configuration.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container oe_dark" style="background: #EFEFEF;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12 oe_centeralign">
+                    <h2 class="oe_slogan">
+                        Contact & Support
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Do you like this module?
+                        <br/>
+                        <a href="https://www.odoo.com/apps/modules/browse?search=manatec" target="_blank">
+                            Try out our other apps!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32">
+                    <p>
+                        <a href="https://www.manatec.de" target="_blank">
+                            <img class="" src="manatec_logo.png" height="75"/>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Challenges with this module, wishes for more functions or questions about Odoo?
+                        <a href="https://www.manatec.de/contactus" target="_blank">
+                            Contact us!
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <footer>
+        <div class="container">
+            <div class="row oe_spaced">
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_leftalign">Version: 18.0.1.0.0</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_centeralign">Last Updated: 24.07.2026</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_rightalign">&copy; manaTec</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>

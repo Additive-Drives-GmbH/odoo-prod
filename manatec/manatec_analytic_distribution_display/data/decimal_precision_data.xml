@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="decimal_precision_analytic_percentage" model="decimal.precision">
+        <field name="name">Analytic Percentage</field>
+        <field name="digits">0</field>
+    </record>
+</odoo>

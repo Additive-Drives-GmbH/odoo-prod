@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* manatec_analytic_distribution_display
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-24 17:47+0000\n"
+"PO-Revision-Date: 2026-07-24 17:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_display_mixin__analytic_account_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__analytic_account_display
+msgid "Analytic Account Display"
+msgstr "Kostenstelle"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__analytic_distribution
+msgid "Analytic Distribution"
+msgstr "Kostenverteilung"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model,name:manatec_analytic_distribution_display.model_analytic_distribution_display_mixin
+msgid "Analytic Distribution Display Mixin"
+msgstr "Kostenstelle Display Mixin"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model,name:manatec_analytic_distribution_display.model_analytic_distribution_test_line
+msgid "Analytic Distribution Test Line"
+msgstr "Kostenverteilung Test Zeile"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__id
+msgid "ID"
+msgstr ""
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert von"
+
+#. module: manatec_analytic_distribution_display
+#: model:ir.model.fields,field_description:manatec_analytic_distribution_display.field_analytic_distribution_test_line__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"

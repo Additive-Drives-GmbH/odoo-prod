@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <section class="container" style="font-size: 18px;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12">
+                    <h1 class="oe_slogan">
+                        manaTec Sale Analytic Distribution Display
+                    </h1>
+                </div>
+
+                <div class="col-sm-12">
+                    <h2 class="oe_slogan">Analytic Distribution Display for Sale Order Lines</h2>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <p>
+                        This module extends Odoo Sale Order Lines (Verkaufsauftragszeile) with the analytic distribution display feature, integrating human-readable analytic account distribution
+                        strings into sale order forms.
+                    </p>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Features</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul style="padding: 0 16px;">
+                                <li>
+                                    <strong>Sale Order Line (Verkaufsauftragszeile) Extension:</strong>
+                                    Integrates the
+                                    <code style="font-size: 1em;">analytic.distribution.display.mixin</code>
+                                    into
+                                    <code style="font-size: 1em;">sale.order.line</code>
+                                    and adds the
+                                    <code style="font-size: 1em;">analytic_account_display</code>
+                                    (Kostenstelle) field to order lines in the sale order form view (positioned before the subtotal, optional and hidden by default).
+                                </li>
+                                <li>
+                                    <strong>Automatic Display:</strong>
+                                    Automatically computes and displays human-readable analytic account names and distribution percentages configured on sale order lines (Verkaufsauftragszeilen).
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Technical Details</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <ul style="padding: 0 16px;">
+                        <li>
+                            <strong>Models Modified:</strong>
+                            <code style="font-size: 1em;">sale.order.line</code>: Inherits <code style="font-size: 1em;">analytic.distribution.display.mixin</code>.
+                        </li>
+                        <li>
+                            <strong>Views Modified:</strong>
+                            <code style="font-size: 1em;">sale.view_order_form</code>: Adds
+                            <code style="font-size: 1em;">analytic_account_display</code>
+                            (Kostenstelle) field to the order line list view.
+                        </li>
+                        <li>
+                            <strong>Dependencies:</strong>
+                            <code style="font-size: 1em;">sale</code>,
+                            <code style="font-size: 1em;">manatec_analytic_distribution_display</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Changelog</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-2">18.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Initial release: Sale order line extension with analytic distribution display.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container oe_dark" style="background: #EFEFEF;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12 oe_centeralign">
+                    <h2 class="oe_slogan">
+                        Contact & Support
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Do you like this module?
+                        <br/>
+                        <a href="https://www.odoo.com/apps/modules/browse?search=manatec" target="_blank">
+                            Try out our other apps!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32">
+                    <p>
+                        <a href="https://www.manatec.de" target="_blank">
+                            <img class="" src="manatec_logo.png" height="75"/>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Challenges with this module, wishes for more functions or questions about Odoo?
+                        <a href="https://www.manatec.de/contactus" target="_blank">
+                            Contact us!
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <footer>
+        <div class="container">
+            <div class="row oe_spaced">
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_leftalign">Version: 18.0.1.0.0</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_centeralign">Last Updated: 24.07.2026</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_rightalign">&copy; manaTec</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
