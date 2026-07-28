@@ -4,25 +4,25 @@
         id="report_invoice_document_inherit"
         inherit_id="account.report_invoice_document"
     >
-        <xpath expr="//t[@t-set='forced_vat']" position="after">
-            <t t-set="euro_currency" t-value="env.ref('base.EUR')" />
-            <t
-                t-if="o.partner_id.lang == 'en_US' and o.currency_id.id != euro_currency.id"
-            >
-                <t t-set="foreign_partner" t-value="True" />
-            </t>
-            <t t-if="o.partner_id.lang == 'en_US'">
-                <t t-set="english_partner" t-value="True" />
-            </t>
-            <t
-                t-if="(o.partner_id.lang == 'en_US' and o.currency_id.id != euro_currency.id) or o.partner_id.lang == 'de_DE'"
-            >
-                <t t-set="vat_label" t-value="'UST-ID'" />
-            </t>
-            <t t-else="">
-                <t t-set="vat_label" t-value="'VAT-ID'" />
-            </t>
-        </xpath>
+<!--        <xpath expr="//t[@t-set='forced_vat']" position="after">-->
+<!--            <t t-set="euro_currency" t-value="env.ref('base.EUR')" />-->
+<!--            <t-->
+<!--                t-if="o.partner_id.lang == 'en_US' and o.currency_id.id != euro_currency.id"-->
+<!--            >-->
+<!--                <t t-set="foreign_partner" t-value="True" />-->
+<!--            </t>-->
+<!--            <t t-if="o.partner_id.lang == 'en_US'">-->
+<!--                <t t-set="english_partner" t-value="True" />-->
+<!--            </t>-->
+<!--            <t-->
+<!--                t-if="(o.partner_id.lang == 'en_US' and o.currency_id.id != euro_currency.id) or o.partner_id.lang == 'de_DE'"-->
+<!--            >-->
+<!--                <t t-set="vat_label" t-value="'UST-ID'" />-->
+<!--            </t>-->
+<!--            <t t-else="">-->
+<!--                <t t-set="vat_label" t-value="'VAT-ID'" />-->
+<!--            </t>-->
+<!--        </xpath>-->
         <!-- Remove  table-borderless -->
         <xpath expr="//table[@name='invoice_line_table']" position="attributes">
             <attribute
@@ -83,7 +83,7 @@
             </tr>
             <tr t-if="o.invoice_user_id.login">
                 <td>E-Mail</td>
-                <td>
+                <td class="email_value">
                     <t t-out="o.invoice_user_id.login" />
                 </td>
             </tr>
@@ -97,7 +97,12 @@
         <xpath expr="//t[@t-set='din5008_document_title']/span" position="after">
             <strong>
                 <span t-if="o.name">
-                Invoice No. <t t-out="o.name" /></span>
+                    <t t-if="o.state == 'cancel'">Cancelled Invoice No. </t>
+                    <t t-elif="o.move_type == 'out_refund'">Credit Note No. </t>
+                    <t t-elif="o.move_type == 'in_refund'">Vendor Credit Note No. </t>
+                    <t t-elif="o.move_type == 'in_invoice'">Vendor Bill No. </t>
+                    <t t-else="">Invoice No. </t>
+                    <t t-out="o.name" /></span>
             </strong>
         </xpath>
         <xpath expr="//tr[@t-if='o.invoice_date_due']" position="attributes">
@@ -112,16 +117,18 @@
             </tr>
         </xpath>
         <xpath expr="//tr[@t-if='o.ref']" position="after">
-            <tr t-if="o.commercial_partner_id.vat">
-                <td>VAT-Customer</td>
-                <td>
-                    <t t-out="o.commercial_partner_id.vat" />
-                </td>
-            </tr>
-            <tr t-if="o.partner_id.our_nr_by_customer">
+<!--            <tr t-if="o.commercial_partner_id.vat">-->
+<!--                <td>VAT-Customer</td>-->
+<!--                <td>-->
+<!--                    <t t-out="o.commercial_partner_id.vat" />-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr
+                t-if="o.move_type in ('out_invoice', 'out_refund') and o.partner_id.commercial_partner_id.our_nr_by_customer"
+            >
                 <td>Vendor/Supplier-No.</td>
                 <td>
-                    <t t-out="o.partner_id.our_nr_by_customer" />
+                    <t t-out="o.partner_id.commercial_partner_id.our_nr_by_customer" />
                 </td>
             </tr>
             <tr t-if="o.country_of_origin_id">
@@ -131,17 +138,35 @@
                 </td>
             </tr>
         </xpath>
-        <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="attributes">
-            <attribute name="class">d-none</attribute>
+<!--        <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="attributes">-->
+<!--            <attribute name="class">d-none</attribute>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="after">-->
+<!--            <td>Reference No.</td>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//tr[@t-if='o.ref']/td[1]" position="attributes">-->
+<!--            <attribute name="class">d-none</attribute>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//tr[@t-if='o.ref']/td[1]" position="after">-->
+<!--            <td>Purchase Order No.</td>-->
+<!--        </xpath>-->
+        <!-- only the Purchase Order No. value cell wraps (at spaces); see scss -->
+        <xpath expr="//tr[@t-if='o.ref']/td[last()]" position="attributes">
+            <attribute name="class">po_number</attribute>
         </xpath>
-        <xpath expr="//tr[@t-if='o.invoice_origin']/td[1]" position="after">
-            <td>Reference No.</td>
-        </xpath>
-        <xpath expr="//tr[@t-if='o.ref']/td[1]" position="attributes">
-            <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//tr[@t-if='o.ref']/td[1]" position="after">
-            <td>Purchase Order No.</td>
+        <!-- show vat regardless of the client, with dynamic vat label -->
+        <xpath
+            expr="//tr[@t-if='o.partner_id.commercial_partner_id == o.partner_id and o.partner_id.commercial_partner_id.vat']"
+            position="replace"
+        >
+            <tr t-if="o.partner_id.commercial_partner_id.vat">
+                <td>
+                    <t>VAT-Customer</t>
+                </td>
+                <td>
+                    <t t-out="o.partner_id.commercial_partner_id.vat" />
+                </td>
+            </tr>
         </xpath>
         <xpath expr="//div[hasclass('invoice_main')]" position="after">
             <div id="fiscal_position" class="clearfix mt-3">

@@ -14,14 +14,6 @@
             <t t-if="doc.partner_id.lang == 'en_US'">
                 <t t-set="english_partner" t-value="True" />
             </t>
-            <t
-                t-if="(doc.partner_id.lang == 'en_US' and doc.currency_id.id != euro_currency.id) or doc.partner_id.lang == 'de_DE'"
-            >
-                <t t-set="vat_label" t-value="'UST-ID'" />
-            </t>
-            <t t-else="">
-                <t t-set="vat_label" t-value="'VAT-ID'" />
-            </t>
         </xpath>
     </template>
 </odoo>

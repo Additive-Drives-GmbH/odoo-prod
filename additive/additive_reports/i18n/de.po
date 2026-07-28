@@ -46,6 +46,11 @@ msgid "All prices are net prices"
 msgstr "Alle Preise verstehen sich als Nettopreise"
 
 #. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Cancelled Invoice No."
+msgstr "Stornorechnung Nr."
+
+#. module: additive_reports
 #: model:ir.model,name:additive_reports.model_res_company
 msgid "Companies"
 msgstr "Unternehmen"
@@ -71,6 +76,11 @@ msgstr "Ursprungsland"
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "Country of Origin"
 msgstr "Ursprungsland"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Credit Note No."
+msgstr "Gutschrift Nr."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
@@ -139,6 +149,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
 msgid "VAT-Customer"
 msgstr "Ihre UST ID"
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Vendor Bill No."
+msgstr "Eingangsrechnung Nr."
+
+#. module: additive_reports
+#: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit
+msgid "Vendor Credit Note No."
+msgstr "Lieferantengutschrift Nr."
 
 #. module: additive_reports
 #: model_terms:ir.ui.view,arch_db:additive_reports.report_invoice_document_din5008_inherit

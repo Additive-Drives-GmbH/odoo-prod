@@ -139,7 +139,7 @@
                                     <span t-field="o.date_done" />
                                 </td>
                             </tr>
-                            <tr t-if="o.origin and o.picking_type_id.code == 'outgoing'">
+                            <tr t-if="o.origin and o.picking_type_id.code in ['outgoing','incoming']">
                                 <td class="info-label">Origin:</td>
                                 <td class="info-value">
                                     <span t-field="o.origin" />
