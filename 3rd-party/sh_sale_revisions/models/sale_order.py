@@ -5,6 +5,7 @@ from odoo import models, fields, _
 
 
 class SaleOrder(models.Model):
+    """Inherit Sale Order to add revision fields."""
     _inherit = "sale.order"
 
     sh_so_number = fields.Integer('SO Number', copy=False, default=1)
@@ -18,11 +19,14 @@ class SaleOrder(models.Model):
 
     so_count = fields.Integer(
         'Quality Checks', compute='_compute_get_qc_count')
-    sh_sale_revision_config = fields.Boolean("Enable Sale Revisions", related="company_id.sh_sale_revision")
+    sh_sale_revision_config = fields.Boolean(
+        "Enable Sale Revisions", related="company_id.sh_sale_revision")
 
-    parent_view_btn=fields.Boolean("Parent Btn",compute="_hide_parent_btn")
+    parent_view_btn = fields.Boolean(
+        "Parent Btn", compute="_compute_parent_view_btn")
 
     def open_quality_check(self):
+        """This method is used to open the quality check."""
         po = self.env['sale.order'].search(
             [('sh_sale_order_id', '=', self.id)])
         action = self.env.ref(
@@ -34,19 +38,19 @@ class SaleOrder(models.Model):
         return action
 
     def for_normal_purchase(self):
-        action= {
+        """This method is used for normal purchase."""
+        action = {
             "type": "ir.actions.act_window",
             "name": "Sale Order",
             "view_mode": "form",
             "res_model": "sale.order",
-            'res_id':self.sh_sale_order_id.id,
+            'res_id': self.sh_sale_order_id.id,
             'target': 'current'
         }
-        if action:
-            return action
-
+        return action
 
     def _compute_get_qc_count(self):
+        """This method is used to count the quality check."""
         if self:
             for rec in self:
                 rec.so_count = 0
@@ -55,6 +59,7 @@ class SaleOrder(models.Model):
                 rec.so_count = len(qc.ids)
 
     def sh_quotation_revision(self, default=None):
+        """This method is used to create the quotation revision."""
         if self:
             self.ensure_one()
             if default is None:
@@ -62,14 +67,15 @@ class SaleOrder(models.Model):
             if 'name' not in default:
                 if self.env.company.sh_manage_chatter_history:
                     message_vals = {
-                            'message_type' : 'comment',
-                            'model' : 'sale.order',
-                            'res_id' : self.id,
-                            'body' : 'Revision Order Number :'+_('%s/%s') % (self.name, self.sh_so_number)+"<br />"+'Create Date :'+' '+str(fields.Datetime.now())+'<br />'+'User :'+' '+str(self.env.user.name)
-                        }
+                        'message_type': 'comment',
+                        'model': 'sale.order',
+                        'res_id': self.id,
+                        'body': 'Revision Order Number :' + _('%(name)s/%(number)s', name=self.name, number=self.sh_so_number)+"<br />"+'Create Date :'+' '+str(fields.Datetime.now())+'<br />'+'User :'+' '+str(self.env.user.name)
+                    }
                     self.env['mail.message'].create(message_vals)
 
-                default['name'] = _('%s/%s') % (self.name, self.sh_so_number)
+                default['name'] = _(
+                    '%(name)s/%(number)s', name=self.name, number=self.sh_so_number)
                 default['state'] = 'draft'
                 default['origin'] = self.name
                 default['sh_sale_order_id'] = self.id
@@ -79,10 +85,14 @@ class SaleOrder(models.Model):
             sh_child_so = self.env['sale.order'].search(
                 [('sh_sale_order_id', '=', self.id)])
             self.sh_revision_so_id = [(6, 0, sh_child_so.ids)]
+            if self.state in ['draft', 'sent']:
+                self.action_cancel()
+        return True
 
-    def _hide_parent_btn(self):
+    def _compute_parent_view_btn(self):
+        """This method is used to hide the parent button."""
         for rec in self:
             if rec.sh_sale_order_id:
-                rec.parent_view_btn=False
+                rec.parent_view_btn = False
             else:
-                rec.parent_view_btn=True
+                rec.parent_view_btn = True

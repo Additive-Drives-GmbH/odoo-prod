@@ -1,10 +1,8 @@
-18.0.1 ( 23 Aug 2024 )
----------------------------
+19.0.1.0.0 ( Date : 4th August 2025 )
+-------
+- Initial release
 
-- Initial Release 
 
-
-18.0.2 ( 08 Oct 2024 )
----------------------------
-
-- change tree to list 
+19.0.2.0.0 ( Date : 24th December  2025 )
+-----------------------------------------
+[Add] Added sale order revision button  in draft state.
