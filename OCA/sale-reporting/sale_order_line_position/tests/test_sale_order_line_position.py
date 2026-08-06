@@ -8,28 +8,47 @@ class TestSaleOrderLinePosition(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-        cls.partner = cls.env.ref("base.res_partner_12")
-        cls.product = cls.env.ref("product.product_product_9")
-        cls.order = cls.env["sale.order"].create(
+        cls.partner = cls.env["res.partner"].create(
             {
-                "partner_id": cls.partner.id,
+                "name": "Test Partner",
+            }
+        )
+        cls.product = cls.env["product.product"].create(
+            {
+                "name": "Test Product",
+                "list_price": 100.0,
+            }
+        )
+
+    def setUp(self):
+        super().setUp()
+        self.order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner.id,
                 "order_line": [
                     (
                         0,
                         0,
                         {
-                            "product_id": cls.product.id,
-                            "product_uom": cls.product.uom_id.id,
+                            "product_id": self.product.id,
+                            "product_uom_id": self.product.uom_id.id,
                             "product_uom_qty": 3.0,
                         },
                     ),
-                    (0, 0, {"display_type": "line_section", "name": "Section"}),
                     (
                         0,
                         0,
                         {
-                            "product_id": cls.product.id,
-                            "product_uom": cls.product.uom_id.id,
+                            "display_type": "line_section",
+                            "name": "Section",
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": self.product.id,
+                            "product_uom_id": self.product.uom_id.id,
                             "product_uom_qty": 5.0,
                         },
                     ),
@@ -50,7 +69,7 @@ class TestSaleOrderLinePosition(TransactionCase):
                 {
                     "order_id": self.order.id,
                     "product_id": self.product.id,
-                    "product_uom": self.product.uom_id.id,
+                    "product_uom_id": self.product.uom_id.id,
                     "product_uom_qty": 9.0,
                 },
             ]
@@ -79,7 +98,7 @@ class TestSaleOrderLinePosition(TransactionCase):
                 {
                     "order_id": self.order.id,
                     "product_id": self.product.id,
-                    "product_uom": self.product.uom_id.id,
+                    "product_uom_id": self.product.uom_id.id,
                     "product_uom_qty": 15.0,
                 },
             ]
