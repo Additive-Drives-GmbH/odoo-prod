@@ -5,6 +5,7 @@ from odoo import fields, models
 
 
 class ResCompany(models.Model):
+    """Inherit Res Company to add fields."""
     _inherit = 'res.company'
 
     sh_sale_revision = fields.Boolean("Enable Sale Revisions")
@@ -12,11 +13,12 @@ class ResCompany(models.Model):
 
 
 class ResConfigSettings(models.TransientModel):
+    """Inherit Res Config Settings to add fields."""
     _inherit = 'res.config.settings'
 
     sh_sale_revision = fields.Boolean("Enable Sale Revisions",
                                       related="company_id.sh_sale_revision",
                                       readonly=False)
-    sh_manage_chatter_history=fields.Boolean("Manage Chatter History",
+    sh_manage_chatter_history = fields.Boolean("Manage Chatter History",
                                              related="company_id.sh_manage_chatter_history",
                                              readonly=False)

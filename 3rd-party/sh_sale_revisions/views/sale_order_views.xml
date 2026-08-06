@@ -20,7 +20,7 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_confirm']" position="after">
-                <button name="sh_quotation_revision" string="Sale Order Revisions" class="oe_highlight" type="object" invisible="sh_sale_revision_config == False or state != 'cancel'" />
+                <button name="sh_quotation_revision" string="Sale Order Revisions" class="oe_highlight" type="object" invisible="sh_sale_revision_config == False or state not in ['draft', 'sent', 'cancel']" />
             </xpath>
 
             <field name="name" position="after">
