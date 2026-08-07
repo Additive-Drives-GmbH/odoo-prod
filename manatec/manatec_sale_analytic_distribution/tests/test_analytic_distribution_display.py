@@ -51,7 +51,7 @@ class TestAnalyticDistributionDisplay(TransactionCase):
             "order_id": self.order.id,
             "product_id": self.product.id,
             "product_uom_qty": 1.0,
-            "product_uom": self.product.uom_id.id,
+            "product_uom_id": self.product.uom_id.id,
             "price_unit": 10.0,
             "name": "Test Line",
             "analytic_distribution": {}
@@ -63,7 +63,7 @@ class TestAnalyticDistributionDisplay(TransactionCase):
             "order_id": self.order.id,
             "product_id": self.product.id,
             "product_uom_qty": 1.0,
-            "product_uom": self.product.uom_id.id,
+            "product_uom_id": self.product.uom_id.id,
             "price_unit": 10.0,
             "name": "Test Line",
             "analytic_distribution": {str(self.acc1.id): 100.0}
@@ -75,7 +75,7 @@ class TestAnalyticDistributionDisplay(TransactionCase):
             "order_id": self.order.id,
             "product_id": self.product.id,
             "product_uom_qty": 1.0,
-            "product_uom": self.product.uom_id.id,
+            "product_uom_id": self.product.uom_id.id,
             "price_unit": 10.0,
             "name": "Test Line",
             "analytic_distribution": {
@@ -90,7 +90,7 @@ class TestAnalyticDistributionDisplay(TransactionCase):
             "order_id": self.order.id,
             "product_id": self.product.id,
             "product_uom_qty": 1.0,
-            "product_uom": self.product.uom_id.id,
+            "product_uom_id": self.product.uom_id.id,
             "price_unit": 10.0,
             "name": "Test Line",
             "analytic_distribution": {
@@ -105,7 +105,7 @@ class TestAnalyticDistributionDisplay(TransactionCase):
             "order_id": self.order.id,
             "product_id": self.product.id,
             "product_uom_qty": 1.0,
-            "product_uom": self.product.uom_id.id,
+            "product_uom_id": self.product.uom_id.id,
             "price_unit": 10.0,
             "name": "Test Line",
             "analytic_distribution": {
@@ -120,7 +120,7 @@ class TestAnalyticDistributionDisplay(TransactionCase):
             "order_id": self.order.id,
             "product_id": self.product.id,
             "product_uom_qty": 1.0,
-            "product_uom": self.product.uom_id.id,
+            "product_uom_id": self.product.uom_id.id,
             "price_unit": 10.0,
             "name": "Test Line",
             "analytic_distribution": {
@@ -135,7 +135,7 @@ class TestAnalyticDistributionDisplay(TransactionCase):
             "order_id": self.order.id,
             "product_id": self.product.id,
             "product_uom_qty": 1.0,
-            "product_uom": self.product.uom_id.id,
+            "product_uom_id": self.product.uom_id.id,
             "price_unit": 10.0,
             "name": "Test Line",
             "analytic_distribution": {f"{self.acc1.id},{self.acc2.id}": 100.0}
