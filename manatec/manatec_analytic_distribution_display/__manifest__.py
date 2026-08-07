@@ -7,7 +7,7 @@
     'website': 'https://www.manatec.de',
     'support': 'info@manatec.de',
     'category': 'Accounting/Analytic',
-    'version': '18.0.1.0.0',
+    'version': '19.0.1.0.0',
     'license': 'OPL-1',
     'depends': [
         'analytic',
