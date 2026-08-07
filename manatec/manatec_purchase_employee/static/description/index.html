@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <section class="container" style="font-size: 18px;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12">
+                    <h1 class="oe_slogan">
+                        manaTec Purchase Employee
+                    </h1>
+                </div>
+
+                <div class="col-sm-12">
+                    <h2 class="oe_slogan">Extends Purchase with needed fields and views</h2>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <p>This module extends the Odoo Purchase and HR modules to provide better employee tracking and shorthand identification on purchase orders.</p>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Features</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul style="padding: 0 16px;">
+                                <li>
+                                    <strong>HR Employee Extensions:</strong>
+                                    Adds a
+                                    <code style="font-size: 1em;">shorthand</code>
+                                    field to the employee model and public employee profile for easy identification.
+                                </li>
+                                <li>
+                                    <strong>Purchase Order Extensions:</strong>
+                                    Adds an
+                                    <code style="font-size: 1em;">employee_id</code>
+                                    and a computed
+                                    <code style="font-size: 1em;">shorthand</code>
+                                    field to Purchase Orders (positioned after the source document field).
+                                </li>
+                                <li>
+                                    <strong>Automatic Synchronization:</strong>
+                                    Automatically populates the shorthand when an employee is selected, and propagates updates from employee records to linked purchase orders.
+                                </li>
+                                <li>
+                                    <strong>Advanced Search & Filtering:</strong>
+                                    Provides dedicated search fields and quick filters for "Shorthand" in both Purchase Order and Request for Quotation search views.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Technical Details</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <ul style="padding: 0 16px;">
+                        <li>
+                            <strong>Models Modified:</strong>
+                            <code style="font-size: 1em;">hr.employee</code>, <code style="font-size: 1em;">hr.employee.public</code>, and <code style="font-size: 1em;">purchase.order</code>.
+                        </li>
+                        <li>
+                            <strong>Views Modified:</strong>
+                            Form views for employees and purchase orders, tree/list views, and search views for purchase orders and requests for quotation.
+                        </li>
+                        <li>
+                            <strong>Dependencies:</strong>
+                            <code style="font-size: 1em;">base</code>,
+                            <code style="font-size: 1em;">purchase</code>,
+                            <code style="font-size: 1em;">hr</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Changelog</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-2">18.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Initial release: Purchase order employee linking with shorthand tracking.</li>
+                            </ul>
+                        </div>
+                        <div class="col-2">19.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Migration to Odoo 19</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container oe_dark" style="background: #EFEFEF;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12 oe_centeralign">
+                    <h2 class="oe_slogan">
+                        Contact & Support
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Do you like this module?
+                        <br/>
+                        <a href="https://www.odoo.com/apps/modules/browse?search=manatec" target="_blank">
+                            Try out our other apps!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32">
+                    <p>
+                        <a href="https://www.manatec.de" target="_blank">
+                            <img class="" src="manatec_logo.png" height="75"/>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Challenges with this module, wishes for more functions or questions about Odoo?
+                        <a href="https://www.manatec.de/contactus" target="_blank">
+                            Contact us!
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <footer>
+        <div class="container">
+            <div class="row oe_spaced">
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_leftalign">Version: 19.0.1.0.0</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_centeralign">Last Updated: 07.08.2026</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_rightalign">&copy; manaTec</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>

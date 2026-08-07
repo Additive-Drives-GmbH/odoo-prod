@@ -5,8 +5,11 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='mobile_phone']" position="after">
-                <field name="shorthand"/>
+            <xpath expr="//field[@name='mobile_phone']/.." position="after">
+                <h5 class="d-flex align-items-baseline mb-0">
+                    <i class="fa fa-hashtag fa-fw me-1 text-primary" title="Shorthand"/>
+                    <field name="shorthand" placeholder="Shorthand" class="w-100 w-sm-75"/>
+                </h5>
             </xpath>
         </field>
     </record>
@@ -16,8 +19,11 @@
         <field name="model">hr.employee.public</field>
         <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='mobile_phone']" position="after">
-                <field name="shorthand"/>
+            <xpath expr="//field[@name='mobile_phone']/.." position="after">
+                <p class="d-flex align-items-baseline mb-0">
+                    <i class="fa fa-hashtag fa-fw me-1 text-primary" title="Shorthand"/>
+                    <field name="shorthand" placeholder="Shorthand"/>
+                </p>
             </xpath>
         </field>
     </record>
