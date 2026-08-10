@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <section class="container" style="font-size: 18px;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12">
+                    <h1 class="oe_slogan">
+                        manaTec HTML Editor Page Break (Seitenumbruch)
+                    </h1>
+                </div>
+
+                <div class="col-sm-12">
+                    <h2 class="oe_slogan">Add manual page breaks in Odoo's HTML editor and PDF reports</h2>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <p>
+                        This module adds a convenient page break (Seitenumbruch) feature to Odoo's HTML editor. Users can easily insert page breaks via the Powerbox command or shorthand, view them clearly in the editor backend, and ensure they render as clean page breaks in PDF reports and print outputs.
+                    </p>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Key Features</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul style="padding: 0 16px;">
+                                <li>
+                                    <strong>Powerbox Commands & Shorthands:</strong>
+                                    Quickly insert a page break by typing <code style="font-size: 1em;">/pagebreak</code> or <code style="font-size: 1em;">/seitenumbruch</code> in the HTML editor, or via the Powerbox menu.
+                                </li>
+                                <li>
+                                    <strong>Editor Backend Preview:</strong>
+                                    Displays a dedicated non-editable visual marker element so users can easily identify page breaks while editing content.
+                                </li>
+                                <li>
+                                    <strong>PDF Reports & Print Integration:</strong>
+                                    Automatically triggers clean page breaks (<code style="font-size: 1em;">page-break-after: always</code> / <code style="font-size: 1em;">break-after: page</code>) in PDF reports (such as sale orders, invoices, and custom reports) while hiding visual editor decorations.
+                                </li>
+                                <li>
+                                    <strong>Dark & Light Mode Styling:</strong>
+                                    Fully optimized visual styling for both Odoo light mode and dark mode interfaces.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Technical Details</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <ul style="padding: 0 16px;">
+                        <li>
+                            <strong>Plugin & Architecture:</strong>
+                            Implements <code style="font-size: 1em;">PageBreakPlugin</code> built on Odoo 19 HTML editor plugin system.
+                        </li>
+                        <li>
+                            <strong>Asset Integration:</strong>
+                            Includes SCSS styles for editor backend, frontend, readonly views, PDF report bundles (<code style="font-size: 1em;">web.report_assets_pdf</code>), and dark mode (<code style="font-size: 1em;">web.assets_web_dark</code>).
+                        </li>
+                        <li>
+                            <strong>Dependencies:</strong>
+                            <code style="font-size: 1em;">html_editor</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Changelog</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-2">19.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Initial release: Page break feature for Odoo 19 HTML editor and PDF reports.</li>
+                                <li>Added dark mode support and refined bright mode styling.</li>
+                                <li>Enhanced PDF report asset integration and cleaning handlers for robust document generation.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container oe_dark">
+            <div class="row oe_spaced">
+                <div class="col-sm-12 oe_centeralign">
+                    <h2 class="oe_slogan">
+                        Contact & Support
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Do you like this module?
+                        <br/>
+                        <a href="https://www.odoo.com/apps/modules/browse?search=manatec" target="_blank">
+                            Try out our other apps!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32">
+                    <p>
+                        <a href="https://www.manatec.de" target="_blank">
+                            <img class="" src="manatec_logo.png" height="75"/>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Challenges with this module, wishes for more functions or questions about Odoo?
+                        <a href="https://www.manatec.de/contactus" target="_blank">
+                            Contact us!
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <footer>
+        <div class="container">
+            <div class="row oe_spaced">
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_leftalign">Version: 19.0.1.0.0</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_centeralign">Last Updated: 06.07.2026</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_rightalign">&copy; manaTec</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
