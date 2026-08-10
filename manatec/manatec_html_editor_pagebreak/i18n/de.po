@@ -1,0 +1,40 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* manatec_html_editor_pagebreak
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-10 14:37+0000\n"
+"PO-Revision-Date: 2026-08-10 14:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: manatec_html_editor_pagebreak
+#. odoo-javascript
+#: code:addons/manatec_html_editor_pagebreak/static/src/page_break_plugin.js:0
+msgid "Insert a page break"
+msgstr "Seitenumbruch einfügen"
+
+#. module: manatec_html_editor_pagebreak
+#. odoo-javascript
+#: code:addons/manatec_html_editor_pagebreak/static/src/page_break_plugin.js:0
+msgid "Page Break"
+msgstr "Seitenumbruch"
+
+#. module: manatec_html_editor_pagebreak
+#. odoo-javascript
+#: code:addons/manatec_html_editor_pagebreak/static/src/page_break_plugin.js:0
+msgid "break"
+msgstr "umbruch"
+
+#. module: manatec_html_editor_pagebreak
+#. odoo-javascript
+#: code:addons/manatec_html_editor_pagebreak/static/src/page_break_plugin.js:0
+msgid "page"
+msgstr "seite"
