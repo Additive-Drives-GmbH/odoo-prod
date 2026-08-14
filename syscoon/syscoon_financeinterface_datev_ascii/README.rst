@@ -20,29 +20,46 @@ Usage
 Change Log
 ==========
 
-18.0.1.1.13
+19.0.1.1.16
 -----------
-  * 5011-00194: fix tax rounding correction skipped under round_globally due to float comparison; compare drift against safety threshold using currency precision
+  * 5011-00197: fix Soll/Haben indicator for moves booked with Odoo's storno accounting (negative debit/credit)
 
-18.0.1.1.12
+19.0.1.1.15
+-----------
+  * CUS-02333: fix Leistungsdatum not set to accounting date when bill date differs
+
+19.0.1.1.14
+-----------
+  * AP19-00106-4: accept the delivery address VAT-ID for datev_vatid_required accounts, matching the export fallback (delivery → invoice → line partner)
+
+19.0.1.1.13
+-----------
+  * 5011-00194: fix DATEV ASCII tax rounding correction skipped due to float comparison
+
+19.0.1.1.12
 -----------
   * DV19-00052: fix Leistungsdatum date format to DDMMYYYY (8-digit, 4-digit year) per DATEV specification
 
-18.0.1.1.11
+19.0.1.1.11
 -----------
   * DV19-00051: Add "Enable Reverse Credit/Debit" setting for DATEV ASCII export
 
-18.0.1.1.10
+19.0.1.1.10
 -----------
   * CUS-02207: fix tax rounding correction for journal entries and apply correction after rounding
 
-18.0.1.1.9
+19.0.1.1.9
+-----------
+  * CUS-02207: fix tax rounding correction for vendor bill DATEV ASCII export
+
+19.0.1.1.8
 -----------
   * CUS-02098: fix rounding issue in gross export by using compute_all with unrounded sum
 
-18.0.1.1.8
------------
-  * CUS-02056: Fix tax rounding difference in vendor bill exports
+19.0.1.1.7
+----------
+  * migration to Odoo 19.0
+  * ported from 18.0.1.1.7
 
 18.0.1.1.7
 -----------

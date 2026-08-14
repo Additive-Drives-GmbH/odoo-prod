@@ -17,6 +17,10 @@ Description
 
 Changelog
 =========
+ * 19.0.0.0.1
+  * migration to Odoo 19.0
+  * ported from 18.0.0.0.1
+
  * 18.0.0.0.1
   * Module upgraded to version 18.0
 

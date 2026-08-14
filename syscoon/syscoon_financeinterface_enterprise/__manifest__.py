@@ -3,7 +3,7 @@
 
 {
     "name": "syscoon Finanzinterface for Enterprise",
-    "version": "18.0.0.0.3",
+    "version": "19.0.0.0.3",
     "depends": [
         "account_accountant",
         "account_reports",

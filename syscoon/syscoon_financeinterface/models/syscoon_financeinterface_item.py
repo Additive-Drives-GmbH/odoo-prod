@@ -19,13 +19,10 @@ class SyscoonFinanceinterfaceItem(models.Model):
     _description = "Finance Interface Export Item"
     _order = "export_id, sequence"
 
-    _sql_constraints = [
-        (
-            "unique_export_move",
-            "UNIQUE(export_id, move_id)",
-            "An item already exists for this move in this export",
-        )
-    ]
+    _unique_export_move = models.Constraint(
+        "UNIQUE(export_id, move_id)",
+        "An item already exists for this move in this export",
+    )
 
     name = fields.Char("Item Name", required=True)
     export_id = fields.Many2one(
@@ -35,7 +32,7 @@ class SyscoonFinanceinterfaceItem(models.Model):
         ondelete="cascade",
         index=True,
     )
-    sequence = fields.Integer("Sequence", default=1, index=True)
+    sequence = fields.Integer(default=1, index=True)
 
     state = fields.Selection(
         [
@@ -66,9 +63,7 @@ class SyscoonFinanceinterfaceItem(models.Model):
     attachment_ids = fields.Many2many(
         "ir.attachment", string="Result Files", readonly=True, store=True
     )
-    result = fields.Text(
-        string="Result", readonly=True, help="Result message or error details."
-    )
+    result = fields.Text(readonly=True, help="Result message or error details.")
 
     # Related fields for UI visibility conditions
     export_auto_process = fields.Boolean(related="export_id.auto_process", readonly=True)
@@ -257,7 +252,7 @@ class SyscoonFinanceinterfaceItem(models.Model):
             for item in items_to_process:
                 try:
                     # Process item in the export's company context
-                    item.process_item()
+                    item.with_company(export.company_id).process_item()
                 except Exception as e:
                     _logger.error("Error in _cron_process_items: %s", str(e))
                     continue

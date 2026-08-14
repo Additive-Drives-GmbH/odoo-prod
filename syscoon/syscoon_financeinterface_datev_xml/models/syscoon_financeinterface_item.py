@@ -37,15 +37,14 @@ class SyscoonFinanceinterfaceItem(models.Model):
             self.write({"state": "processing"})
             export = self.export_id
 
-            # Process files in memory
+            # Process files in memory - returns list of (filename, raw_bytes)
             attachments_data = self._get_move_documents(export)
 
-            if not attachments_data:
-                # This might happen if config prevents generation, but we shouldn't error out
-                # unnecessarily if it's a valid case (e.g. BEDI exclusion), though usually
-                # we want at least one file. For now, treat as success but empty.
-                pass
+            # Write directly to working ZIP from raw bytes (skip base64 cycle)
+            if attachments_data and export.mode == "datev_xml":
+                export._append_raw_to_working_zip(attachments_data)
 
+            # Create attachments for record keeping
             created_attachments = self.env["ir.attachment"]
             for name, content in attachments_data:
                 attachment = self._create_attachment(name, content)
@@ -69,6 +68,7 @@ class SyscoonFinanceinterfaceItem(models.Model):
         move = self.move_id
         documents = []
         is_bedi = export.xml_mode == "bedi"
+        is_xrechnung = export.xml_mode == "x-rechnungen"
 
         # Generate XML (skip validation for BEDI mode)
         vals = export.generate_export_invoices(export.xml_mode, move)
@@ -76,11 +76,6 @@ class SyscoonFinanceinterfaceItem(models.Model):
         if not vals.get("moves_ok"):
             error_msg = vals.get("error_str", _("Failed to generate XML for move"))
             raise UserError(error_msg)
-
-        # Generate PDF
-        single_pdf, pdf_errors = export.get_invoice_pdf(move)
-        if pdf_errors or not single_pdf:
-            raise UserError(pdf_errors or _("Failed to generate PDF"))
 
         clean_number = "".join(CLEAN_NUMBER_PATTERN.findall(move.name or ""))
         if not clean_number:
@@ -99,17 +94,24 @@ class SyscoonFinanceinterfaceItem(models.Model):
             )
             documents.append((f"{clean_number}.xml", xml_bytes))
 
-        # Prepare PDF content
-        pdf_content = single_pdf.content
-        if not pdf_content:
-            raise UserError(_("Failed to generate PDF content"))
+        # DV19-00056: X-Rechnungen export only includes XML, skip PDF generation
+        if not is_xrechnung:
+            # Generate PDF
+            single_pdf, pdf_errors = export.get_invoice_pdf(move)
+            if pdf_errors or not single_pdf:
+                raise UserError(pdf_errors or _("Failed to generate PDF"))
 
-        pdf_bytes = (
-            pdf_content
-            if isinstance(pdf_content, (bytes, bytearray))  # noqa: UP038
-            else bytes(pdf_content)
-        )
-        documents.append((f"{clean_number}.pdf", pdf_bytes))
+            # Prepare PDF content
+            pdf_content = single_pdf.content
+            if not pdf_content:
+                raise UserError(_("Failed to generate PDF content"))
+
+            pdf_bytes = (
+                pdf_content
+                if isinstance(pdf_content, (bytes, bytearray))  # noqa: UP038
+                else bytes(pdf_content)
+            )
+            documents.append((f"{clean_number}.pdf", pdf_bytes))
 
         return documents
 

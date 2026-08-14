@@ -4,16 +4,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 15:12+0000\n"
-"PO-Revision-Date: 2026-03-18 15:12+0000\n"
+"POT-Creation-Date: 2026-03-11 15:54+0000\n"
+"PO-Revision-Date: 2026-03-11 15:54+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: German\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python
@@ -161,6 +162,11 @@ msgid "Booked"
 msgstr "Gebucht"
 
 #. module: syscoon_financeinterface_datev_import
+#: model_terms:ir.ui.view,arch_db:syscoon_financeinterface_datev_import.syscoon_datev_import_form_view
+msgid "Booking"
+msgstr "Buchung"
+
+#. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config__delimiter
 msgid "CSV Delimiter"
 msgstr "CSV Trenner"
@@ -253,7 +259,7 @@ msgstr "DATEV Skonto-Konto"
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_bank_statement_line__syscoon_datev_import_id
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_move__syscoon_datev_import_id
 msgid "DATEV Import"
-msgstr "DATEV-Import"
+msgstr ""
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model,name:syscoon_financeinterface_datev_import.model_syscoon_datev_import_config_rows
@@ -345,6 +351,8 @@ msgid "Discount Amount"
 msgstr "Skontobetrag"
 
 #. module: syscoon_financeinterface_datev_import
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_move__display_name
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_tax__display_name
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__display_name
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_assignment__display_name
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config__display_name
@@ -356,7 +364,7 @@ msgstr "Anzeigename"
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_assignment__domain
 msgid "Domain"
-msgstr "Domäne"
+msgstr "Bereich"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_import.selection__syscoon_datev_import__state__draft
@@ -443,6 +451,8 @@ msgid "Headerrow"
 msgstr "Kopfzeile"
 
 #. module: syscoon_financeinterface_datev_import
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_move__id
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_account_tax__id
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import__id
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_assignment__id
 #: model:ir.model.fields,field_description:syscoon_financeinterface_datev_import.field_syscoon_datev_import_config__id
@@ -646,7 +656,7 @@ msgstr "Buchungs %s nicht ausgeglichen"
 #. odoo-python
 #: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
 msgid "Move %s reconciled"
-msgstr "Buchung %s abgestimmt"
+msgstr "Buchung %s ausgeglichen"
 
 #. module: syscoon_financeinterface_datev_import
 #: model:syscoon.datev.import.assignment,name:syscoon_financeinterface_datev_import.assignment_move_date
@@ -884,6 +894,67 @@ msgstr "Steuer IDs"
 #: model:syscoon.datev.import.assignment,name:syscoon_financeinterface_datev_import.assignment_tax_key
 msgid "Tax Key"
 msgstr "Steuerschlüssel"
+
+#. module: syscoon_financeinterface_datev_import
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
+msgid ""
+"The import file could not be decoded with the configured encoding "
+"'%(encoding)s' (%(error)s). Please check the encoding set in the import "
+"template."
+msgstr ""
+"Die Importdatei konnte nicht mit der eingestellten Kodierung '%(encoding)s' "
+"dekodiert werden (%(error)s). Bitte prüfen Sie die in der Importvorlage "
+"eingestellte Kodierung."
+
+#. module: syscoon_financeinterface_datev_import
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
+msgid ""
+"The import file could not be parsed as a valid DATEV CSV/ASCII file (error "
+"near line %(line)s: %(error)s). Please check that the file is a CSV file and"
+" that the delimiter, quote character and encoding set in the import template"
+" are correct."
+msgstr ""
+"Die Importdatei konnte nicht als gültige DATEV-CSV/ASCII-Datei verarbeitet "
+"werden (Fehler bei Zeile %(line)s: %(error)s). Bitte prüfen Sie, ob es sich "
+"um eine CSV-Datei handelt und ob Trennzeichen, Anführungszeichen und "
+"Kodierung in der Importvorlage korrekt sind."
+
+#. module: syscoon_financeinterface_datev_import
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
+msgid ""
+"The uploaded file is not a plain text/CSV file (it contains binary data). "
+"Please upload a valid DATEV ASCII/CSV file."
+msgstr ""
+"Die hochgeladene Datei ist keine reine Text-/CSV-Datei (sie enthält "
+"Binärdaten). Bitte laden Sie eine gültige DATEV-ASCII/CSV-Datei hoch."
+
+#. module: syscoon_financeinterface_datev_import
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
+msgid ""
+"The uploaded file looks like an Excel or OpenDocument file (.xlsx/.ods), but"
+" only DATEV ASCII/CSV text files are supported. Please save it as CSV (in "
+"Excel: 'Save As' > 'CSV (semicolon delimited)') and upload it again."
+msgstr ""
+"Die hochgeladene Datei scheint eine Excel- oder OpenDocument-Datei "
+"(.xlsx/.ods) zu sein, es werden jedoch nur DATEV-ASCII/CSV-Textdateien "
+"unterstützt. Bitte speichern Sie die Datei als CSV (in Excel: 'Speichern "
+"unter' > 'CSV (Trennzeichen-getrennt)') und laden Sie sie erneut hoch."
+
+#. module: syscoon_financeinterface_datev_import
+#. odoo-python
+#: code:addons/syscoon_financeinterface_datev_import/models/import_datev.py:0
+msgid ""
+"The uploaded file looks like an old Excel file (.xls), but only DATEV "
+"ASCII/CSV text files are supported. Please save it as CSV and upload it "
+"again."
+msgstr ""
+"Die hochgeladene Datei scheint eine alte Excel-Datei (.xls) zu sein, es "
+"werden jedoch nur DATEV-ASCII/CSV-Textdateien unterstützt. Bitte speichern "
+"Sie die Datei als CSV und laden Sie sie erneut hoch."
 
 #. module: syscoon_financeinterface_datev_import
 #. odoo-python

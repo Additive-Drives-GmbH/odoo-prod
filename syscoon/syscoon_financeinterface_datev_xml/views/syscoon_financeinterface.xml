@@ -34,11 +34,18 @@
                 <attribute name="invisible">state == 'export' or (mode == 'datev_xml' and pending_items > 0)</attribute>
             </xpath>
 
+            <!-- Override Reset button to also check bedi_move_count and working_zip_path -->
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="invisible">state == 'draft' and not account_moves_count and not total_items and not bedi_move_count and not working_zip_path</attribute>
+            </xpath>
+
             <!-- Add XML mode fields after mode -->
             <xpath expr="//field[@name='mode']" position="after">
                 <field name="is_batch_supported" invisible="1"/>
+                <field name="bedi_move_count" invisible="1"/>
+                <field name="working_zip_path" invisible="1"/>
                 <field name="xml_mode" invisible="mode != 'datev_xml'" readonly="state != 'draft'"/>
-                <field name="xml_invoices" invisible="mode != 'datev_xml'" readonly="state != 'draft'"/>
+                <field name="xml_invoices" invisible="mode != 'datev_xml'" readonly="state != 'draft' or xml_mode == 'x-rechnungen'" force_save="1"/>
                 <field name="exclude_bedi_exported" invisible="mode != 'datev_xml'" readonly="state != 'draft'" widget="boolean_toggle"/>
             </xpath>
 

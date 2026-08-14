@@ -505,7 +505,7 @@ class AccountMove(models.Model):
         text = self.env["syscoon.financeinterface"].text_from_html(
             self.narration, max_chars=60
         )
-        if not text:
+        if text:
             return False
         return {"type": "text", "context": text}
 

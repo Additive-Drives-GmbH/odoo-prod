@@ -64,7 +64,15 @@ class AccountMoveLine(models.Model):
                         name=line_name,
                     )
                 )
-            if line.account_id.datev_vatid_required and not line.partner_id.vat:
+            # The VAT-ID written to the DATEV export (see generate_export_line)
+            # falls back through delivery → invoice → line partner, so the
+            # requirement is satisfied if ANY of those carries a VAT-ID.
+            vatid_partner_vat = (
+                line.move_id.partner_shipping_id.vat
+                or line.move_id.partner_id.vat
+                or line.partner_id.vat
+            )
+            if line.account_id.datev_vatid_required and not vatid_partner_vat:
                 errors.append(
                     _(
                         "%(name)s needs the VAT-ID, but in the Partner "
@@ -197,10 +205,18 @@ class AccountMoveLine(models.Model):
 
     def _apply_kennzeichen(self, data):
         export = data["lines"][self.id]["export"]
+        # With storno accounting the reversal is booked as a negative amount on
+        # the side of the original entry (core `_compute_debit_credit`), so the
+        # filled debit/credit field is then the inverse of the economic side and
+        # the side has to be taken from the sign of the balance. Without storno
+        # accounting the booked debit/credit field is reported as it is.
+        is_debit = (
+            self.balance > 0.0 if self.company_id.account_storno else bool(self.debit)
+        )
         if self.env.company.datev_reverse_credit_debit:
-            export["Soll/Haben-Kennzeichen"] = "H" if self.debit else "S"
+            export["Soll/Haben-Kennzeichen"] = "H" if is_debit else "S"
         else:
-            export["Soll/Haben-Kennzeichen"] = "S" if self.debit else "H"
+            export["Soll/Haben-Kennzeichen"] = "S" if is_debit else "H"
 
     def _apply_belegfeld_1(self, data):
         export = data["lines"][self.id]["export"]
@@ -232,6 +248,7 @@ class AccountMoveLine(models.Model):
             export["Belegdatum"] = interface.convert_date(
                 move.invoice_date, self.env.company.datev_voucher_date_format
             )
+            export["Leistungsdatum"] = interface.convert_date(move.date, "%d%m%Y")
         if "activate_service_date" in move._fields and move.activate_service_date:
             service_date = (
                 move.service_end_date

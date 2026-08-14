@@ -17,9 +17,14 @@ Usage
 Change Log
 ==========
 
-18.0.0.0.12
+19.0.0.0.12
+-----------
+  * CUS-02368: Changing city cutoff in XML and ASCII
+
+19.0.0.0.11
 ----------
-  * 5011-00193: removed ineffective write method, added explicit default for datev_exported field
+  * migration to Odoo 19.0
+  * ported from 18.0.0.0.11
 
 18.0.0.0.11
 ----------

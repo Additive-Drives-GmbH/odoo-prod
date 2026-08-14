@@ -64,15 +64,17 @@ class ImportDatev(models.Model):
 
     name = fields.Char(
         readonly=True,
-        default=lambda self: self.env["ir.sequence"].get("syscoon.datev.import.sequence")
+        default=lambda self: self.env["ir.sequence"].next_by_code(
+            "syscoon.datev.import.sequence"
+        )
         or "-",
     )
     description = fields.Char(required=True)
     template_id = fields.Many2one("syscoon.datev.import.config", string="Import Template")
     journal_id = fields.Many2one("account.journal", required=True)
     one_move = fields.Boolean("In one move?")
-    start_date = fields.Date(required=True, default=fields.Date.today())
-    end_date = fields.Date(required=True, default=fields.Date.today())
+    start_date = fields.Date(required=True, default=fields.Date.today)
+    end_date = fields.Date(required=True, default=fields.Date.today)
     log_line = fields.One2many("syscoon.datev.import.log", "parent_id", "Log")
     account_move_ids = fields.One2many(
         "account.move", "syscoon_datev_import_id", "Account Moves"
@@ -220,7 +222,20 @@ class ImportDatev(models.Model):
             raise UserError(_("No Import File uploaded, please upload one!"))
         if len(attachment) == 1:
             file = base64.decodebytes(attachment.datas)
-            file = file.decode(self.get_import_config()["encoding"])
+            self._check_import_file_format(file)
+            encoding = self.get_import_config()["encoding"]
+            try:
+                file = file.decode(encoding)
+            except (UnicodeDecodeError, LookupError) as error:
+                raise UserError(
+                    _(
+                        "The import file could not be decoded with the "
+                        "configured encoding '%(encoding)s' (%(error)s). "
+                        "Please check the encoding set in the import template.",
+                        encoding=encoding,
+                        error=error,
+                    )
+                ) from error
             return file
         raise UserError(
             _(
@@ -228,6 +243,41 @@ class ImportDatev(models.Model):
                 "Please make sure that there is only one attached CSV-file."
             )
         )
+
+    def _check_import_file_format(self, raw):
+        """Reject uploads that are not plain-text CSV/ASCII files.
+
+        Excel/OpenDocument workbooks (.xlsx/.ods are ZIP archives), old
+        Excel files (.xls, OLE2) and other binary files would otherwise be
+        decoded into binary garbage and crash the CSV parser with a cryptic
+        server error. Raise a clear UserError instead.
+        """
+        if raw.startswith(b"PK\x03\x04"):
+            raise UserError(
+                _(
+                    "The uploaded file looks like an Excel or OpenDocument "
+                    "file (.xlsx/.ods), but only DATEV ASCII/CSV text files "
+                    "are supported. Please save it as CSV (in Excel: "
+                    "'Save As' > 'CSV (semicolon delimited)') and upload it "
+                    "again."
+                )
+            )
+        if raw.startswith(b"\xd0\xcf\x11\xe0"):
+            raise UserError(
+                _(
+                    "The uploaded file looks like an old Excel file (.xls), "
+                    "but only DATEV ASCII/CSV text files are supported. "
+                    "Please save it as CSV and upload it again."
+                )
+            )
+        if b"\x00" in raw:
+            raise UserError(
+                _(
+                    "The uploaded file is not a plain text/CSV file (it "
+                    "contains binary data). Please upload a valid DATEV "
+                    "ASCII/CSV file."
+                )
+            )
 
     def get_import_config(self):
         if not self.template_id:
@@ -282,8 +332,21 @@ class ImportDatev(models.Model):
             StringIO(file), delimiter=config["delimiter"], quotechar=config["quotechar"]
         )
         pre_import_list = []
-        for row in reader:
-            pre_import_list.append(dict(row))
+        try:
+            for row in reader:
+                pre_import_list.append(dict(row))
+        except csv.Error as error:
+            raise UserError(
+                _(
+                    "The import file could not be parsed as a valid DATEV "
+                    "CSV/ASCII file (error near line %(line)s: %(error)s). "
+                    "Please check that the file is a CSV file and that the "
+                    "delimiter, quote character and encoding set in the "
+                    "import template are correct.",
+                    line=reader.line_num,
+                    error=error,
+                )
+            ) from error
         import_list = []
         struct = self.get_import_struct()
         for row in pre_import_list:
@@ -668,15 +731,15 @@ class ImportDatev(models.Model):
                         partner_debit_id = _partner("debitor", v["import_value"])
                         partner_credit_id = _partner("creditor", v["import_value"])
                         if partner_debit_id:
-                            debit_line["account_id"] = (
-                                partner_debit_id.property_account_receivable_id
-                            )
+                            debit_line[
+                                "account_id"
+                            ] = partner_debit_id.property_account_receivable_id
                             debit_line["partner_id"] = partner_debit_id.id
                             credit_line["partner_id"] = partner_debit_id.id
                         if partner_credit_id:
-                            debit_line["account_id"] = (
-                                partner_credit_id.property_account_payable_id
-                            )
+                            debit_line[
+                                "account_id"
+                            ] = partner_credit_id.property_account_payable_id
                             debit_line["partner_id"] = partner_credit_id.id
                             credit_line["partner_id"] = partner_credit_id.id
                 if v["type"].type == "counteraccount":
@@ -701,9 +764,9 @@ class ImportDatev(models.Model):
                                 )
                             )
                         if partner_credit_id:
-                            credit_line["account_id"] = (
-                                partner_credit_id.property_account_payable_id
-                            )
+                            credit_line[
+                                "account_id"
+                            ] = partner_credit_id.property_account_payable_id
                             credit_line["partner_id"] = partner_credit_id.id
                             debit_line["partner_id"] = partner_credit_id.id
                         if len(partner_debit_id) > 1:
@@ -715,9 +778,9 @@ class ImportDatev(models.Model):
                                 )
                             )
                         if partner_debit_id:
-                            credit_line["account_id"] = (
-                                partner_debit_id.property_account_receivable_id
-                            )
+                            credit_line[
+                                "account_id"
+                            ] = partner_debit_id.property_account_receivable_id
                             credit_line["partner_id"] = partner_debit_id.id
                             debit_line["partner_id"] = partner_debit_id.id
                     if tax_id and not tax_direction:

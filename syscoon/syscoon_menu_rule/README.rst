@@ -17,9 +17,12 @@ Description
 ChangeLog
 =========
 
-18.0.1.0.1
+19.0.1.0.0
 ----------
-* 5011-00188: Fix log warning with clear_cache() function
+* Migration to Odoo 19.0
+* Updated `@tools.ormcache` to use `_get_group_ids()` method
+* Fixed cache clearing to use `env.registry.clear_cache()` instead of deprecated `clear_caches()`
+* Verified menu restriction functionality with v19.0
 
 18.0.1.0.0
 ----------

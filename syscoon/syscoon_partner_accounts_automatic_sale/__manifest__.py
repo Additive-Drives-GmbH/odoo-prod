@@ -3,7 +3,7 @@
 
 {
     "name": "Syscoon Partner Debit Accounts Automation on Sales Orders",
-    "version": "18.0.0.0.1",
+    "version": "19.0.0.0.1",
     "author": "syscoon Estonia OÜ",
     "license": "OPL-1",
     "category": "Accounting",

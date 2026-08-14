@@ -90,11 +90,10 @@ class AccountMove(models.Model):
                     lambda line: line.account_id.account_type
                     in ("asset_receivable", "liability_payable")
                 )
-                check_hr_expense_installed = self.check_module_installed("hr_expense")
                 if payment_term_lines[:1].account_id:
                     move.export_account_counterpart = payment_term_lines[:1].account_id
                     continue
-                if check_hr_expense_installed and move.expense_sheet_id:
+                if "expense_ids" in move._fields and move.expense_ids:
                     move.export_account_counterpart = default_account.id
                     continue
             # If the move is an automatic exchange rate entry, take the gain/loss account

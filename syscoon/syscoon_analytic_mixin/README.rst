@@ -14,6 +14,13 @@ Description
 ===========
 #. Helper module for ease to fetch analytic accounts
 
+Changelog
+=========
+
+* 19.0.0.0.1
+  * migration to Odoo 19.0
+  * initial version
+
 Credits
 -------
 

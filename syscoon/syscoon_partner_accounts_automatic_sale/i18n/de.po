@@ -4,16 +4,27 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 15:20+0000\n"
-"PO-Revision-Date: 2026-03-18 15:20+0000\n"
+"POT-Creation-Date: 2026-03-12 08:29+0000\n"
+"PO-Revision-Date: 2026-03-12 08:29+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: German\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: syscoon_partner_accounts_automatic_sale
+#: model:ir.model.fields,field_description:syscoon_partner_accounts_automatic_sale.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: syscoon_partner_accounts_automatic_sale
+#: model:ir.model.fields,field_description:syscoon_partner_accounts_automatic_sale.field_sale_order__id
+msgid "ID"
+msgstr ""
 
 #. module: syscoon_partner_accounts_automatic_sale
 #: model:syscoon.accounts.automatic.mode,name:syscoon_partner_accounts_automatic_sale.syscoon_automatic_mode_sale_order

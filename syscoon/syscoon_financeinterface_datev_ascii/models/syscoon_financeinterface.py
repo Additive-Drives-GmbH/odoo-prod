@@ -8,13 +8,13 @@ from io import StringIO
 from dateutil.relativedelta import relativedelta
 from odoo import Command, _, fields, models
 from odoo.exceptions import UserError
-from pytz import timezone
 
 _logger = logging.getLogger(__name__)
 
 
 class SyscoonFinanceinterface(models.Model):
     """Inherits the basic class to provide the export for DATEV ASCII"""
+
     _inherit = "syscoon.financeinterface"
 
     mode = fields.Selection(
@@ -71,8 +71,8 @@ class SyscoonFinanceinterface(models.Model):
             }
         )
         ctx = {"skip_invoice_sync": True, "skip_invoice_line_sync": True}
-        self.write({"state": "export"})
-        return moves.with_context(**ctx).write({"export_id": self.id})
+        moves.with_context(**ctx).write({"export_id": self.id})
+        return self.write({"state": "export"})
 
     def _draft_datev_ascii(self):
         """Method that generates the csv export by the given parameters"""
@@ -136,14 +136,15 @@ class SyscoonFinanceinterface(models.Model):
                 + f"{int(self.env.company.fiscalyear_last_month) + 1:02d}"
                 + "01"
             )
-        ctx_tz = timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")
         header.update(
             {
                 "Versionsnummer": 700,
                 "Datenkategorie": 21,
                 "Formatname": "Buchungsstapel",
                 "Formatversion": 9,
-                "Erzeugtam": fields.datetime.now(ctx_tz).strftime("%Y%m%d%H%M%S%f")[:-3],
+                "Erzeugtam": fields.Datetime.context_timestamp(
+                    self, fields.Datetime.now()
+                ).strftime("%Y%m%d%H%M%S%f")[:-3],
                 "Exportiertvon": self.env.user.partner_id.name,
                 "Berater": self.env.company.datev_accountant_number or "10000",
                 "Mandant": self.env.company.datev_client_number or "10000",

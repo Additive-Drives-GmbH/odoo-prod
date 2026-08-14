@@ -200,11 +200,10 @@ class SyscoonFinanceinterface(models.Model):
         """Start item-based export processing.
 
         Creates one item per invoice and sets state to 'queued'.
-        If auto_process is True, triggers the cron job to process items automatically.
-        If auto_process is False, user must click 'Process Items' button manually.
+        If auto_process is True, triggers the cron job automatically.
+        If auto_process is False, user must click 'Process Items' manually.
         """
         total_count = self.move_count
-
         if total_count == 0:
             date_info = f"{self.start_date}"
             if self.end_date and self.end_date != self.start_date:
@@ -222,11 +221,10 @@ class SyscoonFinanceinterface(models.Model):
                     type=invoice_type,
                 )
             )
-
         return self.start_batch_processing()
 
     def _export_datev_xml_sync(self):
-        """Original synchronous export method for smaller datasets"""
+        """Original synchronous export method for smaller datasets (deprecated)"""
 
         def clean_move_number(move):
             """
@@ -234,14 +232,31 @@ class SyscoonFinanceinterface(models.Model):
             number consisting only of
             alphanumeric characters
             """
-            return "".join(CLEAN_NUMBER_PATTERN.findall(move.name or ""))
+            return "".join(re.findall(r"\w+", move.name or ""))
 
         invoice_mode = self.xml_mode
-
-        move_domain = self._get_move_domain()
-        if not move_domain:
-            raise UserError(_("No invoice types selected"))
-
+        invoice_selection = self.xml_invoices
+        exclude_bedi_exported = self.exclude_bedi_exported
+        invoice_type = []
+        self.write(
+            {
+                "xml_mode": invoice_mode,
+            }
+        )
+        if invoice_selection in ["customers", "both"]:
+            invoice_type.extend(["out_invoice", "out_refund"])
+        if invoice_selection in ["vendors", "both"]:
+            invoice_type.extend(["in_invoice", "in_refund"])
+        move_domain = [
+            ("date", ">=", self.start_date),
+            ("date", "<=", self.end_date),
+            ("move_type", "in", invoice_type),
+            ("state", "=", "posted"),
+        ]
+        if invoice_mode != "bedi":
+            move_domain.append(("export_id", "=", False))
+        if exclude_bedi_exported:
+            move_domain.append(("datev_bedi_export_id", "=", False))
         moves = self.env["account.move"].search(move_domain)
         if not moves:
             raise UserError(
@@ -315,32 +330,6 @@ class SyscoonFinanceinterface(models.Model):
         if log_messages:
             self.write({"log": "\n".join(log_messages)})
 
-    def _link_datev_xml_accounts_move_batch(self, batch):
-        """Link moves from batch processing"""
-        ctx = {"skip_invoice_sync": True, "skip_invoice_line_sync": True}
-
-        completed_items = batch.batch_item_ids.filtered(lambda x: x.state == "completed")
-        processed_moves = completed_items.mapped("move_id")
-        error_messages = []
-
-        for item in batch.batch_item_ids.filtered(lambda x: x.state == "failed"):
-            if item.result:
-                error_messages.append(f"Item {item.sequence}: {item.result}")
-
-        if processed_moves:
-            if self.xml_mode == "bedi":
-                processed_moves.with_context(**ctx).write(
-                    {"datev_bedi_export_id": self.id}
-                )
-            else:
-                processed_moves.with_context(**ctx).write({"export_id": self.id})
-
-        # Non-blocking notes (e.g. city truncated to 30 chars for the XML)
-        log_messages = error_messages + self._get_city_length_warnings(processed_moves)
-        if log_messages:
-            error_log = "\n".join(log_messages)
-            self.write({"log": error_log})
-
     def _get_city_length_warnings(self, moves):
         """Return non-blocking log notes for partners whose city exceeds the
         DATEV city limit of 36 characters.
@@ -385,7 +374,7 @@ class SyscoonFinanceinterface(models.Model):
         ]
 
     def _check_partner_data(self, move):
-        """Check if the partner"s address and account data are complete."""
+        """Check if the partner's address and account data are complete."""
         param_config_obj = self.env["ir.config_parameter"].sudo()
 
         # Read config parameters and parse comma-separated values
@@ -423,130 +412,131 @@ class SyscoonFinanceinterface(models.Model):
             ] + errors
         return errors
 
+    def _get_move_xml_attachments(self, move):
+        """Collect the XML attachments of a move for the DATEV XML export.
+
+        A bill created from an e-invoice (journal upload, Documents, mail
+        alias) stores its XML linked to the ``ubl_cii_xml_file`` binary
+        field. Such attachments carry ``res_field`` and are hidden from
+        ``move.attachment_ids`` because ``ir.attachment._search`` adds an
+        implicit ``res_field = False`` filter. XML files uploaded by
+        non-system users are stored with mimetype ``text/plain``
+        (``ir.attachment._check_contents``), so the file extension is
+        checked in addition to the mimetype.
+        """
+        attachments = move.attachment_ids | self.env["ir.attachment"].search(
+            [
+                ("res_model", "=", "account.move"),
+                ("res_id", "=", move.id),
+                ("res_field", "=", "ubl_cii_xml_file"),
+            ]
+        )
+        return attachments.filtered(
+            lambda a: a.mimetype in ("application/xml", "text/xml")
+            or (a.name or "").lower().endswith(".xml")
+        )
+
     def _get_existing_xml(self, move, invoice_mode):
         if invoice_mode != "x-rechnungen":
-            return move.attachment_ids.filtered(lambda a: a.mimetype == "application/xml")
+            return self._get_move_xml_attachments(move)
         return False
 
-    def generate_export_invoices(self, invoice_mode, moves):
+    def generate_export_invoices(self, invoice_mode, moves):  # noqa: C901
         """Generates a list of dicts which have all the export lines to DATEV"""
-        result = {
-            "error_str": "",
-            "move_xmls": [],
-            "move_errors": [],
-            "moves_ok": self.env["account.move"],
-        }
-        failed_moves = []
+        error_str = ""
+        move_xmls = []
+        move_errors = []
+        moves_with_xml = []
+        moves_stat = {"success": self.env["account.move"], "failed": []}
 
         for move in moves:
             try:
-                xml, errors = self._process_single_move(move, invoice_mode)
+                error_list = []
 
-                if errors:
-                    result["move_errors"].append(move.id)
-                    result["error_str"] += "\n".join(errors) + "\n"
+                xml_attachments = self._get_move_xml_attachments(move)
+                pdf_attachments = move.attachment_ids.filtered(
+                    lambda a: a.mimetype == "application/pdf"
+                )
+
+                if invoice_mode == "x-rechnungen":
+                    # Only export vendor bills
+                    if move.move_type not in ["in_invoice", "in_refund"]:
+                        move_errors.append(move.id)
+                        error_str += _(
+                            "%(name)s (id=%(move_id)s) skipped: Only vendor bills "
+                            "allowed in X-Rechnungen export.\n",
+                            name=move.name,
+                            move_id=move.id,
+                        )
+                        continue
+
+                    # X-Rechnungen only exports XML, check XML attachments first
+                    if xml_attachments:
+                        xml = xml_attachments[0].raw
+                    else:
+                        move_errors.append(move.id)
+                        error_str += _(
+                            "%(name)s (id=%(move_id)s) skipped: "
+                            "No XML attachment found for X-Rechnungen export.\n",
+                            name=move.name,
+                            move_id=move.id,
+                        )
+                        continue
+
                 else:
-                    result["move_xmls"].append(xml)
-                    result["moves_ok"] |= move
+                    # Standard / Extended / BEDI
+                    # Vendor bill with XML only, treat as X-Rechnung so skip
+                    if (
+                        move.move_type in ["in_invoice", "in_refund"]
+                        and xml_attachments
+                        and not pdf_attachments
+                    ):
+                        move_errors.append(move.id)
+                        error_str += _(
+                            "%(name)s (id=%(move_id)s) skipped: Has only XML, treated as X-Rechnung."
+                            " Use X-Rechnungen export.\n",
+                            name=move.name,
+                            move_id=move.id,
+                        )
+                        continue
+
+                    # If both PDF and XML are attached,ignore XML, generate XML from move
+                    # Proceed normally to generate XML (skip for BEDI mode)
+                    if invoice_mode == "bedi":
+                        xml = b""  # Empty bytes for BEDI mode - no invoice XML needed
+                        error_list = []
+                    else:
+                        xml, error_list = self.get_invoice_xml(move, invoice_mode)
+
+                if not error_list:
+                    move_xmls.append(xml)
+                    moves_with_xml.append(move.id)
+                else:
+                    move_errors.append(move.id)
+                    error_str += "\n".join(error_list) + "\n"
+
+                moves_stat["success"] += move
 
             except Exception as e:
-                failed_moves.append({"move": move.name, "error": str(e)})
+                moves_stat["failed"].append({"move": move.name, "error": str(e)})
 
-        if failed_moves:
-            self._raise_failed_moves_error(failed_moves)
-
-        return result
-
-    def _process_single_move(self, move, invoice_mode):
-        """Process a single move and return XML and errors"""
-        xml_attachments, pdf_attachments = self._get_move_attachments(move)
-
-        if invoice_mode == "x-rechnungen":
-            return self._process_xrechnung_move(move, xml_attachments, pdf_attachments)
-
-        return self._process_standard_move(
-            move, invoice_mode, xml_attachments, pdf_attachments
-        )
-
-    def _get_move_attachments(self, move):
-        """Get XML and PDF attachments from move"""
-        attachments = move.attachment_ids
-        xml_attachments = attachments.filtered(lambda a: a.mimetype == "application/xml")
-        pdf_attachments = attachments.filtered(lambda a: a.mimetype == "application/pdf")
-        return xml_attachments, pdf_attachments
-
-    def _process_xrechnung_move(self, move, xml_attachments, pdf_attachments):
-        """Process move for X-Rechnungen mode - Vendor Bills.
-
-        Accepts two valid scenarios:
-        1. Vendor bill with PDF attachment (contains embedded X-Rechnung XML)
-        2. Vendor bill with separate XML attachment only (no PDF)
-        """
-        # Only export vendor bills
-        if move.move_type not in ["in_invoice", "in_refund"]:
-            error = _(
-                "%(name)s (id=%(move_id)s) skipped: Only vendor bills allowed "
-                "in X-Rechnungen export.\n",
-                name=move.name,
-                move_id=move.id,
+        if moves_stat["failed"]:
+            error_text = "\n\n".join(
+                [f'{stat["move"]}\n\n{stat["error"]}' for stat in moves_stat["failed"]]
             )
-            return None, [error]
+            error_text = [
+                "Execution failed! The XML file is preventing the following",
+                f"moves from proceeding.\n{error_text}",
+            ]
+            raise ValidationError(_(" ".join(error_text)))
 
-        # Option A: Vendor bill with PDF attachment (contains embedded X-Rechnung XML)
-        # Export the PDF as-is - the XML is embedded inside it
-        if pdf_attachments:
-            # Return empty bytes, PDF will be handled separately in batch processing
-            return b"", []
-
-        # Option B: Vendor bill with separate XML attachment (no PDF)
-        if xml_attachments:
-            return xml_attachments[0].raw, []
-
-        # Neither valid scenario
-        error = _(
-            "%(name)s (id=%(move_id)s) skipped: Must have either:\n"
-            "- One PDF attachment (with embedded X-Rechnung XML), or\n"
-            "- One XML attachment (no PDF)\n",
-            name=move.name,
-            move_id=move.id,
-        )
-        return None, [error]
-
-    def _process_standard_move(
-        self, move, invoice_mode, xml_attachments, pdf_attachments
-    ):
-        """Process move for Standard/Extended/BEDI modes"""
-        # Vendor bill with XML only, treat as X-Rechnung so skip
-        if (
-            move.move_type in ["in_invoice", "in_refund"]
-            and xml_attachments
-            and not pdf_attachments
-        ):
-            error = _(
-                "%(name)s (id=%(move_id)s) skipped: Has only XML, treated as X-Rechnung. "
-                "Use X-Rechnungen export.\n",
-                name=move.name,
-                move_id=move.id,
-            )
-            return None, [error]
-
-        # BEDI mode: Skip XML generation, only PDF is needed per invoice
-        if invoice_mode == "bedi":
-            return b"", []
-
-        # Generate XML from move
-        return self.get_invoice_xml(move, invoice_mode)
-
-    def _raise_failed_moves_error(self, failed_moves):
-        """Raise validation error for failed moves"""
-        error_text = "\n\n".join(
-            [f"{stat['move']}\n\n{stat['error']}" for stat in failed_moves]
-        )
-        error_message = [
-            "Execution failed! The XML file is preventing the following",
-            f"moves from proceeding.\n{error_text}",
-        ]
-        raise ValidationError(_(" ".join(error_message)))
+        moves_ok = self.env["account.move"].browse(moves_with_xml)
+        return {
+            "move_errors": move_errors,
+            "error_str": error_str,
+            "move_xmls": move_xmls,
+            "moves_ok": moves_ok,
+        }
 
     def get_invoice_pdf(self, moves):
         """Return the PDF report for a given invoice.
@@ -618,13 +608,41 @@ class SyscoonFinanceinterface(models.Model):
             # Generate invoice documents
             # If account_edi_ubl_cii is installed, factur-x.xml will be embedded
             # If not, we get a plain PDF using Odoo's standard flow
-            move_send._generate_invoice_documents(invoices_data)
+            try:
+                move_send._generate_invoice_documents(invoices_data)
+            except Exception as e:
+                # Log error and fall back to plain PDF
+                error_msg = _(
+                    "Factur-X XML generation failed for %(name)s (id=%(id)s): "
+                    "%(error)s\nContinuing with plain PDF only.",
+                    name=move.name,
+                    id=move.id,
+                    error=str(e),
+                )
+                _logger.warning(error_msg)
+                # Append to export log field
+                current_log = self.log or ""
+                self.log = current_log + error_msg + "\n"
 
             # Extract the generated PDF content
             if invoice_data.get("pdf_attachment_values"):
                 pdf_contents.append(invoice_data["pdf_attachment_values"]["raw"])
             elif move.invoice_pdf_report_id:
                 pdf_contents.append(base64.b64decode(move.invoice_pdf_report_id.datas))
+            else:
+                # Fallback: generate plain PDF using the report from invoice_data
+                pdf_report = invoice_data["pdf_report"]
+                result, _report_type = (
+                    self.env["ir.actions.report"]
+                    .with_company(move.company_id)
+                    ._pre_render_qweb_pdf(pdf_report.report_name, res_ids=[move.id])
+                )
+                # Extract PDF content from the OrderedDict structure
+                # _pre_render_qweb_pdf returns: OrderedDict({move_id: {'stream': BytesIO}})
+                if result and move.id in result:
+                    pdf_stream = result[move.id].get("stream")
+                    if pdf_stream:
+                        pdf_contents.append(pdf_stream.getvalue())
 
         return pdf_contents
 
@@ -759,7 +777,7 @@ class SyscoonFinanceinterface(models.Model):
         Consumes the docs generator and additionally
         writes an xml file with info of the made exports
         """
-        written_doc = namedtuple("written_doc", ["inv", "name", "xml_path", "pdf_path"])
+        WrittenDoc = namedtuple("WrittenDoc", ["inv", "name", "xml_path", "pdf_path"])
 
         def get_doc_paths(doc):
             # Return PDF path and XML path if it exists (None for BEDI mode)
@@ -773,7 +791,7 @@ class SyscoonFinanceinterface(models.Model):
             # Handle None xml_path for BEDI mode (no invoice XML generated)
             xp = xml_path.replace(dir_path + "/", "") if xml_path else None
             pp = pdf_path.replace(dir_path + "/", "")
-            written_docs.append(written_doc._make((move_id, name, xp, pp)))
+            written_docs.append(WrittenDoc._make((move_id, name, xp, pp)))
             xml, errors = self.get_documents_xml(written_docs, invoice_mode)
             xml_path, file_err = self.write_export_invoice_info(dir_path, xml)
             if file_err:
@@ -895,10 +913,15 @@ class SyscoonFinanceinterface(models.Model):
     def _get_move_domain(self):
         """Get the domain for moves to process - shared between compute and create"""
         invoice_type = []
-        if self.xml_invoices in ["customers", "both"]:
-            invoice_type.extend(["out_invoice", "out_refund"])
-        if self.xml_invoices in ["vendors", "both"]:
-            invoice_type.extend(["in_invoice", "in_refund"])
+        if self.xml_mode == "x-rechnungen":
+            # DV19-00056: X-Rechnungen exports vendor bills only, regardless of
+            # the "Invoices" selection (which is locked to vendors in the UI).
+            invoice_type = ["in_invoice", "in_refund"]
+        else:
+            if self.xml_invoices in ["customers", "both"]:
+                invoice_type.extend(["out_invoice", "out_refund"])
+            if self.xml_invoices in ["vendors", "both"]:
+                invoice_type.extend(["in_invoice", "in_refund"])
 
         if not invoice_type:
             return []
@@ -1283,6 +1306,9 @@ class SyscoonFinanceinterface(models.Model):
         if self.xml_mode == "bedi":
             # BEDI: skip all XML except document.xml
             return filename.endswith(".xml") and not filename.endswith("document.xml")
+        if self.xml_mode == "x-rechnungen":
+            # DV19-00056: X-Rechnungen exports only XML, skip all PDFs
+            return filename.endswith(".pdf")
         # Other modes: don't skip any files
         return False
 
@@ -1393,11 +1419,7 @@ class SyscoonFinanceinterface(models.Model):
                 inv=move, name=move.name, xml_path="", pdf_path=file_info["pdf"]
             )
         if self.xml_mode == "x-rechnungen":
-            # X-Rechnungen: either PDF with embedded XML or XML only
-            if "pdf" in file_info:
-                return written_doc(
-                    inv=move, name=move.name, xml_path="", pdf_path=file_info["pdf"]
-                )
+            # DV19-00056: X-Rechnungen uses only XML, no PDF
             if "xml" in file_info:
                 return written_doc(
                     inv=move, name=move.name, xml_path=file_info["xml"], pdf_path=""
@@ -1533,12 +1555,14 @@ class SyscoonFinanceinterface(models.Model):
         failed_count = len(self.item_ids.filtered(lambda x: x.state == "failed"))
 
         body = _(
-            "Your DATEV XML export '%s' has been completed. "
-            "Processed %d invoices successfully."
-        ) % (self.name, completed_count)
+            "Your DATEV XML export '%(name)s' has been completed. "
+            "Processed %(count)d invoices successfully.",
+            name=self.name,
+            count=completed_count,
+        )
 
         if failed_count > 0:
-            body += _(" %d invoices failed.") % failed_count
+            body += _(" %(count)d invoices failed.", count=failed_count)
 
         self.env["mail.message"].create(
             {

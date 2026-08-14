@@ -30,17 +30,26 @@ Description
 Changelog
 =========
 
-18.0.1.0.8
+19.0.1.0.9
 ----------
   * DV19-00052: fix Leistungsdatum template regex to use non-capturing groups preventing date value duplication in ASCII export
 
-18.0.1.0.7
+19.0.1.0.8
 ----------
   * CUS-02098: add action_retry_failed_items() method to retry all failed export items at once
 
+19.0.1.0.7
+----------
+  * DV19-00004-6: Fix fields with same table and columns in syscoon_financeinterface
+
+19.0.1.0.6
+----------
+  * migration to Odoo 19.0
+  * ported from 18.0.1.0.6
+
 18.0.1.0.6
 ----------
-  * 5011-00095-2: Finance interface menuitem is automatically active without
+  * 5011-00095-2: Finance interface menuitem is automatically active without 
   checking the company specific configuration fixed
 
 18.0.1.0.5

@@ -17,17 +17,41 @@ Description
 Changelog
 =========
 
-18.0.0.2.12
+19.0.0.2.14
+-----------
+  * 5000-00056:
+    * Fix X-Rechnungen export skipping bills whose e-invoice XML is linked to the ubl_cii_xml_file binary field (e.g. bills migrated from earlier versions), which is hidden from move.attachment_ids by the implicit res_field filter
+    * Detect XML attachments stored with mimetype text/plain (XML uploaded by users without Settings access) via the file extension
+
+19.0.0.2.13
+-----------
+  * DV19-00056: Restrict X-Rechnungen export to Vendor Bills only - the "Invoices" field is locked to Vendor Bills and customer invoices are excluded from the move selection
+
+19.0.0.2.12
+-----------
+  * DV19-00056: X-Rechnungen export now only includes XML files, excluding Odoo-generated PDFs from the ZIP and document.xml manifest
+  * DV19-00056: Fix XML attachment detection to support both application/xml and text/xml mimetypes for imported XRechnung files
+
+19.0.0.2.11
+-----------
+  * CUS-02368: Changing city cutoff in XML and ASCII
+
+19.0.0.2.10
 -----------
   * CUS-02333: Export <payment_conditions> with due_date and payment_conditions_text when an invoice has only a due date and no payment term
 
-18.0.0.2.11
+19.0.0.2.9
 ----------
   * CUS-02074: Preserve embedded factur-x.xml in PDF exports by skipping merge for single PDFs
 
-18.0.0.2.9
+19.0.0.2.8
 ----------
   * CUS-02098: add 'Retry Failed Items' button and fix log not clearing after successful retry
+
+19.0.0.2.7
+----------
+  * migration to Odoo 19.0
+  * ported from 18.0.0.2.8
 
 18.0.0.2.8
 ----------
@@ -36,7 +60,6 @@ Changelog
 18.0.0.2.7
 ----------
   * CUS-02012: Add option to decrypt PDF files that are encrypted
-  * 5011-00048-15: Adding batch processing for large exports to fix memory error
 
 18.0.0.2.6
 ----------
