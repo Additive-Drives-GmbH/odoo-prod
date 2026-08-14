@@ -7,8 +7,8 @@
         <field name="arch" type="xml">
             <form string="Datev Import">
                 <header>
-                    <button string="Export" name="action_export" invisible= "state != 'draft'" type="object"/>
-                    <button string="Reset" name="action_draft" invisible= "state == 'draft'" type="object"/>
+                    <button string="Export" name="action_export" invisible="state != 'draft'" type="object"/>
+                    <button string="Reset" name="action_draft" invisible="state == 'draft' and not account_moves_count and not total_items" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,export,done"/>
                 </header>
                 <sheet string="Datev Export">
@@ -19,10 +19,12 @@
                     </div>
                     <group>
                         <group>
-                            <field name="mode" readonly= "state != 'draft'"/>
+                            <field name="mode" readonly="state != 'draft'"/>
                             <field name="is_range_needed" invisible="1"/>
                             <field name="is_type_selction_hidden" invisible="1"/>
                             <field name="is_journal_needed" invisible="1"/>
+                            <field name="total_items" invisible="1"/>
+                            <field name="account_moves_count" invisible="1"/>
                         </group>
                         <group>
                             <field name="type" readonly="state != 'draft'" invisible="is_type_selction_hidden"/>

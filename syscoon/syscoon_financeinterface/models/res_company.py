@@ -24,7 +24,10 @@ class ResCompany(models.Model):
         ),
     )
     datev_default_journal_ids = fields.Many2many(
-        "account.journal",
+        comodel_name="account.journal",
+        relation="syscoon_finance_company_journal_rel",
+        column1="company_id",
+        column2="journal_id",
         string="Default Journals",
         domain="[('company_id', '=', company_id)]",
     )

@@ -105,7 +105,9 @@ class SyscoonFinanceinterfaceXML(models.AbstractModel):
                 tree_property.attrib["key"] = "InvoiceType"
                 tree_property.attrib["value"] = doc.inv._get_datev_xml_document_value()
                 document.append(extension)
-                extension = etree.Element("extension", {qname: "File"})
-                extension.attrib["name"] = doc.pdf_path
-                document.append(extension)
+                # DV19-00056: skip PDF reference for X-Rechnungen (XML only)
+                if doc.pdf_path:
+                    extension = etree.Element("extension", {qname: "File"})
+                    extension.attrib["name"] = doc.pdf_path
+                    document.append(extension)
         return archive

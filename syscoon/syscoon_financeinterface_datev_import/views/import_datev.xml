@@ -46,13 +46,17 @@
                 </header>
                 <sheet string="Datev Import">
                     <group>
-                        <field name="name"/>
-                        <field name="description"/>
-                        <field name="template_id"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                        <field name="journal_id" domain="[('company_id', '=', company_id)]"/>
-                        <field name="company_id"/>
+                        <group string="Import">
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="template_id"/>
+                        </group>
+                        <group string="Booking">
+                            <field name="journal_id" domain="[('company_id', '=', company_id)]"/>
+                            <field name="company_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Datev Import Log">

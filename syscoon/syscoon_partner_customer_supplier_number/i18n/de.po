@@ -4,16 +4,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 15:20+0000\n"
-"PO-Revision-Date: 2026-03-18 15:20+0000\n"
+"POT-Creation-Date: 2026-03-12 08:29+0000\n"
+"PO-Revision-Date: 2026-03-12 08:29+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: German\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: syscoon_partner_customer_supplier_number
 #: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__add_number_to_partner_ref
@@ -24,12 +25,12 @@ msgstr "Nummer hinzufügen zu Partnernummer"
 #. module: syscoon_partner_customer_supplier_number
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
 msgid "Add Customer or Supplier Number to Partner Reference field."
-msgstr "Kunden- oder Lieferantennummer zum Feld 'Partnerreferenz' hinzufügen."
+msgstr "Kunden- oder Lieferantennummer zum Partnerreferenzfeld hinzufügen."
 
 #. module: syscoon_partner_customer_supplier_number
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
 msgid "Add Number to Partner Reference"
-msgstr "Nummer zur Partnerreferenz hinzufügen"
+msgstr "Nummer zu Partnerreferenz hinzufügen"
 
 #. module: syscoon_partner_customer_supplier_number
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
@@ -150,9 +151,15 @@ msgid "Customer number sequence for generating the customer number."
 msgstr "Kundennummernsequenz zur Generierung der Kundennummer."
 
 #. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_account_move__display_name
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__display_name
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_partner__display_name
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_sale_order__display_name
 #: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__display_name
 msgid "Display Name"
-msgstr "Name"
+msgstr "Anzeigename"
 
 #. module: syscoon_partner_customer_supplier_number
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
@@ -164,6 +171,12 @@ msgstr ""
 "oder Gutschriften drucken möchten"
 
 #. module: syscoon_partner_customer_supplier_number
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_account_move__id
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_purchase_order__id
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_company__id
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_config_settings__id
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_res_partner__id
+#: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_sale_order__id
 #: model:ir.model.fields,field_description:syscoon_partner_customer_supplier_number.field_syscoon_numbers_automatic_mode__id
 msgid "ID"
 msgstr ""
@@ -285,7 +298,7 @@ msgstr "Dies wird eine neue Lieferantennummer erstellen."
 #. module: syscoon_partner_customer_supplier_number
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_customer_supplier_number.res_config_settings_view_form
 msgid "syscoon Automatic Account Generation"
-msgstr "syscoon Automatische Kontogenerierung"
+msgstr "syscoon Automatische Kontengenerierung"
 
 #. module: syscoon_partner_customer_supplier_number
 #: model:ir.model,name:syscoon_partner_customer_supplier_number.model_syscoon_numbers_automatic_mode

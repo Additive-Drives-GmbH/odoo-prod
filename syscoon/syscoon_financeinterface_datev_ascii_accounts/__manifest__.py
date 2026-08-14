@@ -2,7 +2,7 @@
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 {
     "name": "syscoon Finanzinterface - Datev ASCII Account Export",
-    "version": "18.0.0.0.13",
+    "version": "19.0.0.0.12",
     "depends": ["syscoon_financeinterface_datev_ascii", "syscoon_partner_accounts"],
     "author": "syscoon Estonia OÜ",
     "license": "OPL-1",

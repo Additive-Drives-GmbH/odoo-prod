@@ -34,8 +34,12 @@ Configurable Automatic Number Generation: Choose exactly when customer and suppl
 Changelog
 =========
 
-* 18.0.1.0.1
+* 19.0.1.0.1
   * CUS-02113: Code cleanup - fix method name typo (custmer -> customer), fix N+1 query in account_move
+
+* 19.0.1.0.0
+  * migration to Odoo 19.0
+  * ported from 18.0.1.0.0
 
 * 18.0.1.0.0
   * Added new syscoon.numbers.automatic.mode model to define number generation modes

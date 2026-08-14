@@ -16,6 +16,10 @@ Description
 
 Changelog
 =========
+* 19.0.0.0.3
+  * migration to Odoo 19.0
+  * ported from 18.0.0.0.3
+
 * 18.0.0.0.3
   * Refactor from version 16.0.0.0.1
 

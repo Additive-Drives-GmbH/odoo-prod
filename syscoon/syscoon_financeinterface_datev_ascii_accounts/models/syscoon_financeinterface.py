@@ -6,7 +6,6 @@ import dateutil.relativedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import float_repr
-from pytz import timezone
 
 _logger = logging.getLogger(__name__)
 
@@ -90,8 +89,8 @@ class SyscoonFinanceinterface(models.Model):
                 "datas": csv_file,
             }
         )
-        self.write({"state": "export"})
-        return partner_ids.write({"datev_exported": "true"})
+        partner_ids.write({"datev_exported": "true"})
+        return self.write({"state": "export"})
 
     def _draft_datev_ascii_accounts(self):
         """Method that generates the csv export by the given parameters"""
@@ -223,8 +222,10 @@ class SyscoonFinanceinterface(models.Model):
         if partner_id.vat and partner_id.vat[:2] in self._get_eu_vat_code():
             values["EU-Land"] = partner_id.vat[:2]
             values["EU-UStID"] = partner_id.vat[2:]
-        if partner_id.title:
-            values["Anrede"] = _clean_str(partner_id.title.name)
+        # Note: partner.title (res.partner.title) was removed in Odoo 19.0
+        # Use partner name as fallback for "Anrede" (salutation)
+        if partner_id.name:
+            values["Anrede"] = _clean_str(partner_id.name)
         values["Adressart"] = "STR"
         values["Straße"] = _clean_str(partner_id.street)
         values["Postleitzahl"] = _clean_str(partner_id.zip)
@@ -349,8 +350,8 @@ class SyscoonFinanceinterface(models.Model):
         header["Datenkategorie"] = 16
         header["Formatname"] = "Debitoren/Kreditoren"
         header["Formatversion"] = 5
-        header["Erzeugtam"] = fields.datetime.now(
-            timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")
+        header["Erzeugtam"] = fields.Datetime.context_timestamp(
+            self, fields.Datetime.now()
         ).strftime("%Y%m%d%H%M%S%f")[:-3]
         header["Exportiertvon"] = self.env.user.partner_id.name
         header["Berater"] = self.env.company.datev_accountant_number

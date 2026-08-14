@@ -12,7 +12,7 @@
             if records:
                 action = records.create_new_bedi_uuid()
         </field>
-        <field name="groups_id" eval="[(4, ref('base.group_no_one'))]"/>
+        <field name="group_ids" eval="[(4, ref('base.group_no_one'))]"/>
     </record>
 
 </odoo>

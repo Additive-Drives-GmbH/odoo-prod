@@ -148,9 +148,7 @@ class AccountMove(models.Model):
         if self.currency_id.is_zero(rounding_diff):
             return
 
-        # Safety: only correct small drifts to avoid masking real data issues.
-        # Compare with currency precision to ignore float representation noise
-        # (e.g. 61.17 - 61.12 == 0.05000000000000426 in IEEE-754).
+        # Safety: only correct small drifts to avoid masking real data issues
         max_correction = 0.05 * len(lines)
         if (
             float_compare(

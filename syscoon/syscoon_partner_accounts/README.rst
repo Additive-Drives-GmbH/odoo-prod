@@ -24,11 +24,15 @@ Description
 Changelog
 =========
 
-## 18.0.0.0.8
+## 19.0.0.0.8
   * CUS-02239: Make debitor and creditor number fields always readonly on partner form
 
-## 18.0.0.0.6
+## 19.0.0.0.6
   * CUS-02113: Code cleanup - add domain filter for receivable template, add null checks for sequences, fix grammar in help text
+
+## 19.0.0.0.5
+  * migration to Odoo 19.0
+  * ported from 18.0.0.0.5
 
 ## 18.0.0.0.5
   * 5011-00048-3: Add filters for debitor and creditor number to contacts and partner related reports

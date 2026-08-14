@@ -4,16 +4,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 15:19+0000\n"
-"PO-Revision-Date: 2026-03-18 15:19+0000\n"
+"POT-Creation-Date: 2026-03-12 08:27+0000\n"
+"PO-Revision-Date: 2026-03-12 08:27+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: German\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
@@ -26,8 +27,8 @@ msgid ""
 "Activate the Account Generation for this company. If activated, all options "
 "including the menu entries will be visible."
 msgstr ""
-"Kontogenerierung für dieses Unternehmen aktivieren. Wenn aktiviert, sind "
-"alle Optionen einschließlich der Menüeinträge sichtbar."
+"Aktiviert die Kontengenerierung für dieses Unternehmen. Wenn aktiviert, sind"
+" alle Optionen einschließlich der Menüeinträge sichtbar."
 
 #. module: syscoon_partner_accounts
 #: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_company__auto_account_creation
@@ -55,13 +56,13 @@ msgstr "Kontakt"
 #. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
 msgid "Copy Debitor/Creditor Numbers to Customer/Supplier"
-msgstr "Debitoren-/Kreditorennummern auf Kunden/Lieferanten kopieren"
+msgstr "Debitoren-/Kreditorennummern in Kunden-/Lieferantennummer kopieren"
 
 #. module: syscoon_partner_accounts
 #: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_company__add_number_to_partner_number
 #: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_config_settings__add_number_to_partner_number
 msgid "Copy Debitor/Creditor to Customer/Supplier"
-msgstr "Debitor/Kreditor auf Kunden/Lieferanten kopieren"
+msgstr "Debitoren-/Kreditorennummer in Kunden-/Lieferantennummer kopieren"
 
 #. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.syscoon_partern_accounts_partner_form
@@ -116,9 +117,23 @@ msgid "Debitor Number"
 msgstr "Debitorennummer"
 
 #. module: syscoon_partner_accounts
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_company__display_name
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.syscoon_partern_accounts_partner_form
 msgid "Finance Interface Debitor- and Creditor Numbers"
 msgstr "Finanzschnittstelle Debitoren- und Kreditorennummern"
+
+#. module: syscoon_partner_accounts
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_company__id
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_config_settings__id
+#: model:ir.model.fields,field_description:syscoon_partner_accounts.field_res_partner__id
+msgid "ID"
+msgstr ""
 
 #. module: syscoon_partner_accounts
 #. odoo-python
@@ -221,8 +236,8 @@ msgid ""
 "When Debitor or Creditor number is created, automatically copy to Customer "
 "or Supplier number"
 msgstr ""
-"Wenn eine Debitoren- oder Kreditorennummer erstellt wird, automatisch auf "
-"Kunden- bzw. Lieferantennummer kopieren"
+"Wenn eine Debitoren- oder Kreditorennummer erstellt wird, automatisch in die"
+" Kunden- oder Lieferantennummer übernehmen"
 
 #. module: syscoon_partner_accounts
 #: model_terms:ir.ui.view,arch_db:syscoon_partner_accounts.res_config_settings_view_form
@@ -231,5 +246,5 @@ msgid ""
 "number to the same value. Same for Creditor and Supplier."
 msgstr ""
 "Wenn aktiviert, wird beim Erstellen einer Debitorennummer automatisch die "
-"Kundennummer auf denselben Wert gesetzt. Gleiches gilt für Kreditor und "
-"Lieferant."
+"Kundennummer auf denselben Wert gesetzt. Gleiches gilt für Kreditoren und "
+"Lieferanten."

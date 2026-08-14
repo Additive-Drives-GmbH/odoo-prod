@@ -21,6 +21,17 @@ Details of the module:
 Change Log
 ==========
 
+19.0.0.0.6
+----------
+  * CUS-02391: Reject non-CSV/Excel uploads with a clear error instead of a server crash
+  * CUS-02391: Improve import form layout (two-column groups)
+
+19.0.0.0.5
+----------
+  * migration to Odoo 19.0
+  * ported from 18.0.0.0.5
+  * fixed field defaults for date fields (removed parentheses)
+
 18.0.0.0.5
 ----------
   * CUS-01698: fixing error on import with discount tax

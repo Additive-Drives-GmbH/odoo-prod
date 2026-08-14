@@ -10,7 +10,7 @@
                 <div class="row align-items-start flex-wrap">
                     <div class="col-auto me-5 mb-2">
                         <strong>Date:</strong><br/>
-                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                        <span t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
                     </div>
                     <div class="col-auto me-5 mb-2">
                         <strong>Name:</strong><br/>

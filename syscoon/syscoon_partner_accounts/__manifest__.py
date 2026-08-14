@@ -2,7 +2,7 @@
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 {
     "name": "syscoon Partner Debit and Credit Accounts",
-    "version": "18.0.0.0.8",
+    "version": "19.0.0.0.8",
     "author": "syscoon Estonia OÜ",
     "license": "OPL-1",
     "category": "Accounting",

@@ -132,6 +132,7 @@ class SyscoonFinanceinterface(models.Model):
     )
     progress = fields.Float("Progress", compute="_compute_item_statistics", store=True)
 
+    @api.depends("account_moves_ids")
     def _compute_account_moves_count(self):
         for rec in self:
             rec.account_moves_count = len(rec.account_moves_ids)
@@ -294,7 +295,7 @@ class SyscoonFinanceinterface(models.Model):
 
     def copy(self, default=None):
         """Prevent the copy of the object"""
-        if self._context.get("prevent_copy", True):
+        if self.env.context.get("prevent_copy", True):
             raise UserError(_("Warning! Exports cannot be duplicated."))
         return super().copy(default=default)
 
@@ -437,20 +438,45 @@ class SyscoonFinanceinterface(models.Model):
         }
 
     def retry_failed_items(self):
-        """Reset all failed items to pending and restart processing."""
-        self.ensure_one()
-        failed_items = self.item_ids.filtered(lambda x: x.state == "failed")
-        if not failed_items:
-            raise UserError(_("No failed items to retry"))
+        """Reset failed items (kept for compatibility)."""
+        return self.reset_items()
 
-        failed_items.write(
-            {"state": "pending", "result": False, "attachment_ids": [Command.clear()]}
+    def reset_items(self):
+        """Reset failed and processing items back to pending."""
+        self.ensure_one()
+        target_items = self.item_ids.filtered(
+            lambda x: x.state in ["failed", "processing"]
+        )
+        if not target_items:
+            raise UserError(_("No failed or processing items to reset"))
+
+        target_items.write(
+            {
+                "state": "pending",
+                "result": False,
+                "attachment_ids": [Command.clear()],
+            }
         )
         self.write({"state": "queued"})
 
         # Only trigger auto-processing for modes that support batch processing
         if self.auto_process and self._supports_batch_processing():
             self.env["syscoon.financeinterface.item"]._trigger_processing()
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Reset Complete"),
+                "message": _(
+                    "Reset %(count)d item(s) to pending. You can process them again.",
+                    count=len(target_items),
+                ),
+                "type": "info",
+                "sticky": False,
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
 
     def action_retry_failed_items(self):
         """Retry all failed items immediately.
@@ -500,21 +526,21 @@ class SyscoonFinanceinterface(models.Model):
     def _update_state_after_processing(self):
         """Update the export state based on item results.
 
-        Override in mode-specific modules if different logic is needed.
-
         State logic:
         - If pending items remain: stay in 'queued'
         - If completed items exist: let _finalize_export() set 'export' state
           (even if some items failed - partial success is still a success)
         - If ALL items failed (no completed): set 'error' state
+
+        Override in mode-specific modules if different logic is needed.
         """
         if self.pending_items > 0:
             # Still have pending items, stay in queued
             return
 
         if self.completed_items > 0:
-            # We have successful exports - _finalize_export() will handle state
-            # Don't set error even if some items failed (partial success)
+            # We have successful items - let _finalize_export() handle state
+            # The failed_items field will indicate partial failures
             return
 
         # Only set error if ALL items failed (no completed items)

@@ -4,16 +4,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-18 15:12+0000\n"
-"PO-Revision-Date: 2026-03-18 15:12+0000\n"
+"POT-Creation-Date: 2026-03-11 15:53+0000\n"
+"PO-Revision-Date: 2026-03-11 15:53+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: German\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: syscoon_financeinterface_datev_config_skr04
 #: model:ir.model,name:syscoon_financeinterface_datev_config_skr04.model_account_account
@@ -24,6 +25,20 @@ msgstr "Konto"
 #: model:ir.model,name:syscoon_financeinterface_datev_config_skr04.model_res_company
 msgid "Companies"
 msgstr "Unternehmen"
+
+#. module: syscoon_financeinterface_datev_config_skr04
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_config_skr04.field_account_account__display_name
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_config_skr04.field_account_tax__display_name
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_config_skr04.field_res_company__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: syscoon_financeinterface_datev_config_skr04
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_config_skr04.field_account_account__id
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_config_skr04.field_account_tax__id
+#: model:ir.model.fields,field_description:syscoon_financeinterface_datev_config_skr04.field_res_company__id
+msgid "ID"
+msgstr ""
 
 #. module: syscoon_financeinterface_datev_config_skr04
 #: model:ir.model.fields.selection,name:syscoon_financeinterface_datev_config_skr04.selection__res_company__datev_auto_set_accounts__skr04

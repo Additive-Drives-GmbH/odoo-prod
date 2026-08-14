@@ -1,4 +1,4 @@
-# © 2026 syscoon Estonia OÜ (<https://syscoon.com>)
+# © 2025 syscoon Estonia OÜ (<https://syscoon.com>)
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 
 from odoo import fields
@@ -8,6 +8,8 @@ from odoo.tests.common import tagged
 
 @tagged("post_install", "syscoon", "-at_install")
 class TestReverseCreditDebit(AccountTestInvoicingCommon):
+    chart_template = "de_skr03"
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -20,33 +22,41 @@ class TestReverseCreditDebit(AccountTestInvoicingCommon):
                 "datev_account_code_digits": 4,
             }
         )
-        cls.test_move = cls.env["account.move"].create(
-            {
-                "move_type": "entry",
-                "date": fields.Date.from_string("2024-01-01"),
-                "line_ids": [
-                    (
-                        0,
-                        None,
-                        {
-                            "name": "debit line",
-                            "account_id": cls.company_data["default_account_revenue"].id,
-                            "debit": 1000.0,
-                            "credit": 0.0,
-                        },
-                    ),
-                    (
-                        0,
-                        None,
-                        {
-                            "name": "credit line",
-                            "account_id": cls.company_data["default_account_expense"].id,
-                            "debit": 0.0,
-                            "credit": 1000.0,
-                        },
-                    ),
-                ],
-            }
+        cls.test_move = (
+            cls.env["account.move"]
+            .sudo()
+            .create(
+                {
+                    "move_type": "entry",
+                    "date": fields.Date.from_string("2024-01-01"),
+                    "line_ids": [
+                        (
+                            0,
+                            None,
+                            {
+                                "name": "debit line",
+                                "account_id": cls.company_data[
+                                    "default_account_revenue"
+                                ].id,
+                                "debit": 1000.0,
+                                "credit": 0.0,
+                            },
+                        ),
+                        (
+                            0,
+                            None,
+                            {
+                                "name": "credit line",
+                                "account_id": cls.company_data[
+                                    "default_account_expense"
+                                ].id,
+                                "debit": 0.0,
+                                "credit": 1000.0,
+                            },
+                        ),
+                    ],
+                }
+            )
         )
 
     def _get_export_data(self, line):
@@ -118,10 +128,7 @@ class TestReverseCreditDebit(AccountTestInvoicingCommon):
         debit_line._apply_konto(data)
         account_code = debit_line.account_id.code
         counterpart_code = self.test_move.export_account_counterpart.code
-        self.assertEqual(
-            data["lines"][debit_line.id]["export"]["Konto"],
-            account_code,
-        )
+        self.assertEqual(data["lines"][debit_line.id]["export"]["Konto"], account_code)
         self.assertEqual(
             data["lines"][debit_line.id]["export"]["Gegenkonto (ohne BU-Schlüssel)"],
             counterpart_code,
@@ -136,8 +143,7 @@ class TestReverseCreditDebit(AccountTestInvoicingCommon):
         account_code = debit_line.account_id.code
         counterpart_code = self.test_move.export_account_counterpart.code
         self.assertEqual(
-            data["lines"][debit_line.id]["export"]["Konto"],
-            counterpart_code,
+            data["lines"][debit_line.id]["export"]["Konto"], counterpart_code
         )
         self.assertEqual(
             data["lines"][debit_line.id]["export"]["Gegenkonto (ohne BU-Schlüssel)"],

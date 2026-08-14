@@ -2,7 +2,7 @@
 # License OPL-1, See LICENSE file for full copyright and licensing details.
 {
     "name": "syscoon Financeinterface",
-    "version": "18.0.1.0.8",
+    "version": "19.0.1.0.9",
     "depends": ["account", "hr_expense", "syscoon_analytic_mixin", "syscoon_menu_rule"],
     "author": "syscoon Estonia OÜ",
     "license": "OPL-1",

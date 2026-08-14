@@ -98,9 +98,8 @@ class ResPartner(models.Model):
         # (separate_numbers is False means copy is enabled)
         if (
             values["debitor_number"]
-            and not self.debitor_number
             and not values["customer_number"]
-            and types.get("separate_numbers") is False
+            and not types.get("separate_numbers")
         ):
             values["customer_number"] = values["debitor_number"]
         # NOTE: Removed separate number creation logic - customer_number creation
@@ -131,9 +130,8 @@ class ResPartner(models.Model):
         # (separate_numbers is False means copy is enabled)
         if (
             values["creditor_number"]
-            and not self.creditor_number
             and not values["supplier_number"]
-            and types.get("separate_numbers") is False
+            and not types.get("separate_numbers")
         ):
             values["supplier_number"] = values["creditor_number"]
         # NOTE: Removed separate number creation logic - supplier_number creation

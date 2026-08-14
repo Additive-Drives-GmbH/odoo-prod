@@ -3,7 +3,7 @@
 
 {
     "name": "Finanzinterface - SDD Bridge for DATEV",
-    "version": "18.0.0.0.1",
+    "version": "19.0.0.0.1",
     "depends": [
         "syscoon_financeinterface_datev_ascii_accounts",
         "account_sepa_direct_debit",

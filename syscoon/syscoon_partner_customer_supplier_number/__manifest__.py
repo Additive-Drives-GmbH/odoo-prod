@@ -12,7 +12,7 @@ that the customer number appears on invoices and refunds.
     "license": "OPL-1",
     "website": "https://syscoon.com",
     "category": "Accounting",
-    "version": "18.0.1.0.3",
+    "version": "19.0.1.0.2",
     "depends": [
         "l10n_din5008",
         "sale",

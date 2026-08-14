@@ -8,7 +8,7 @@ class IrUiMenu(models.Model):
     _inherit = "ir.ui.menu"
 
     @api.model
-    @tools.ormcache("frozenset(self.env.user.groups_id.ids)", "debug")
+    @tools.ormcache("frozenset(self.env.user._get_group_ids())", "debug")
     def _visible_menu_ids(self, debug=False):
         """
         Return the ids of menu items that should be visible for the current company,
@@ -33,7 +33,10 @@ class IrUiMenu(models.Model):
     def _active_company(self):
         cids = request and request.httprequest.cookies.get("cids")
         if cids:
-            cids = [int(cid) for cid in cids.split("-")]
+            if "," in cids:
+                cids = [int(cid) for cid in cids.split(",")]
+            else:
+                cids = [int(cid) for cid in cids.split("-")]
         return (
             self.env["res.company"].browse(cids[0])
             if cids and all(cid in self.env.user.company_ids.ids for cid in cids)
