@@ -1,0 +1,2307 @@
+{
+	"info": {
+		"_postman_id": "643bb5df-5d6e-4f40-ad49-a5ffb6beabf9",
+		"name": "Pipedrive API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33916775"
+	},
+	"item": [
+		{
+			"name": "Organizations",
+			"item": [
+				{
+					"name": "Get organization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/2377?filter_id=22248",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"2377"
+							],
+							"query": [
+								{
+									"key": "filter_id",
+									"value": "22248"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/3684",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"3684"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/2472/activities",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"2472",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization deals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/2571/deals",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"2571",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/1104/persons",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"1104",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization by search method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/search?term=Com&fields=name",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"search"
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "Com"
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization mailMessages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/588/mailMessages",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"588",
+								"mailMessages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organization Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizationFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizationFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create organization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Company60\",\n   \"address\": \"Ahmedabad University, Commerce Six Roads, Naranpark Society, Navrangpura, Ahmedabad, Gujarat, India\",\n    \"address_admin_area_level_1\": null,\n    \"address_country\": null,\n    \"address_postal_code\": null,\n    \"address_locality\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update organization detail",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Echobitz IT Solution PVT LTD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organization",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizations/3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Filters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/filters/26",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"filters",
+								"26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Filters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Filter Organizations by Update Time\", // Specify a name for your filter\n    \"type\": \"org\",\n    \"conditions\": {\n        \"glue\": \"and\",\n        \"conditions\": [\n            {\n                \"glue\": \"and\",\n                \"conditions\": [\n                    {\n                        \"object\": \"organization\",\n                        \"field_id\": \"7\",\n                        \"operator\": \">\",\n                        \"value\": \"2024-04-04\",\n                        \"extra_value\": null\n                    }\n                ]\n            },\n            {\n                \"glue\": \"or\",\n                \"conditions\": []\n            }\n        ]\n    }\n}\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/filters",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"filters"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Persons",
+			"item": [
+				{
+					"name": "Get All Persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/1857",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"1857"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person by search method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/search?term=Meet&fields=name",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"search"
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "Meet"
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/2/activities",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"2",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person deals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/243/deals",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"243",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person mailMassages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/588/mailMessages",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"588",
+								"mailMessages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/1/products",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Person Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/personFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"personFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Meet\",\n    \"last_name\": \"Donga 103\",\n    \"name\": \"Meet Donga 103\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update person",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"\",\n    \"last_name\": \"\",\n    \"name\": \"Meet Donga 8539\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/1854",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"1854"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Person",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/10",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deals",
+			"item": [
+				{
+					"name": "Get All Deals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deal details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/851",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"851"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deals By Search Method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/search?term=lost&fields=custom_fields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"search"
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "lost"
+								},
+								{
+									"key": "fields",
+									"value": "custom_fields"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deal Activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/588/activities",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"588",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deal participants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/4/participants",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"4",
+								"participants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deal Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/588/products",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"588",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deals summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/summary",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deal Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/dealFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"dealFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deal Stages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/stages",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"stages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Deal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"company2 deal\",\n    \"probability\": 67.78\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Deal",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Odoo Company 1's opportunityyy\",\n    \"probability\": 78.89 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/569",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"569"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deal",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/deals/10",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"deals",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leads",
+			"item": [
+				{
+					"name": "Get All leads",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "87b1f21aba2e9bc0b73fb801a375cf324bc37ea8",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api_token",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"mobile pricing\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/leads?archived_status=not_archived&sort=id ASC&filter_id=13331",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"leads"
+							],
+							"query": [
+								{
+									"key": "archived_status",
+									"value": "not_archived"
+								},
+								{
+									"key": "sort",
+									"value": "id ASC"
+								},
+								{
+									"key": "filter_id",
+									"value": "13331"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lead details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/leads/3deadc60-5563-11ef-aa3e-6bce5e2c1ec4",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"leads",
+								"3deadc60-5563-11ef-aa3e-6bce5e2c1ec4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lead by Search method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/leads/search?exact_match=true&include_fields=lead.was_seen&start=0&limit=10\n&person_id=1&organization_id=2&term=cold&fields=custom_fields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"leads",
+								"search"
+							],
+							"query": [
+								{
+									"key": "exact_match",
+									"value": "true"
+								},
+								{
+									"key": "include_fields",
+									"value": "lead.was_seen"
+								},
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10\n"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "person_id",
+									"value": "1"
+								},
+								{
+									"key": "organization_id",
+									"value": "2"
+								},
+								{
+									"key": "term",
+									"value": "cold"
+								},
+								{
+									"key": "fields",
+									"value": "custom_fields"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lead Fields",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/leadFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"leadFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lead Activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/activities?filter_id=12526",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"activities"
+							],
+							"query": [
+								{
+									"key": "filter_id",
+									"value": "12526"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Lead",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Postman Leads\",\n    \"person_id\": 2\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/leads",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"leads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update person detail",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"last_name\": \"Donga\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/persons/2",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"persons",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Lead",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Postman Leads\",\n    \"value\": {\n        \"amount\": 2300,\n        \"currency\": \"USD\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/leads/0a372bd0-edb7-11ee-8c37-6719fc11c022",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"leads",
+								"0a372bd0-edb7-11ee-8c37-6719fc11c022"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Lead",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/leads/0a372bd0-edb7-11ee-8c37-6719fc11c022",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"leads",
+								"0a372bd0-edb7-11ee-8c37-6719fc11c022"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lead Channels",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Linkdin\",\n    \"provider_channel_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/channels",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"channels"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/products?filter_id=16069&start=0&limit=2",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "filter_id",
+									"value": "16069"
+								},
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/products/473",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products",
+								"473"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by Search Method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/products/search?term=pro&fields=name",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "pro"
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product related deals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/products/3/deals",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products",
+								"3",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/productFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"productFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create a product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Product 10\",\n    \"code\": \"02\",\n    \"prices\": [\n                {\n                    \"price\": 3400,\n                    \"currency\": \"USD\"\n                }\n    ]       \n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/products",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"prices\": [\n            {\n                \"price\": 3000,\n                \"currency\": \"USD\"\n            }\n        ]\n}        ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/products/4",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/products/4",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/users",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Neel\",\n    \"email\": \"neel@test.com\",\n    \"active_flag\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/users",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "Meetings",
+					"item": [
+						{
+							"name": "Get All Meetings",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Calls",
+					"item": [
+						{
+							"name": "Get All Calls",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Notes",
+					"item": [
+						{
+							"name": "Get all notes",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Filter Organizations by Update Time\",\n    \"type\": \"activity\",\n    \"conditions\": {\n        \"glue\": \"and\",\n        \"conditions\": [\n            {\n                \"glue\": \"and\",\n                \"conditions\": [\n                    {\n                        \"object\": \"activity\",\n                        \"field_id\": \"title\",\n                        \"operator\": \"=\",\n                        \"value\": \"company1 lead\",\n                        \"extra_value\": \"None\"\n                    }\n                ]\n            },\n            {\n                \"glue\": \"or\",\n                \"conditions\": []\n            }\n        ]\n    }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/notes",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"notes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get note details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/notes/23",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"notes",
+										"23"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get notes comment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/notes/23/comments",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"notes",
+										"23",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create a note",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Hello Pripedrive\",\n    \"person_id\": \"2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/notes",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"notes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create note",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Postman note updated\",\n    \"org_id\": \"2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/notes/4",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"notes",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Notes",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/notes/4",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"notes",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Emails",
+					"item": [
+						{
+							"name": "Get All Emails",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tasks",
+					"item": [
+						{
+							"name": "Get All Tasks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/tasks",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get task details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/tasks/1",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"tasks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Create a new task\",\n    \"project_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/tasks",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Task Copy",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Update a new task \",\n    \"project_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.pipedrive.com/v1/tasks/6",
+									"protocol": "https",
+									"host": [
+										"api",
+										"pipedrive",
+										"com"
+									],
+									"path": [
+										"v1",
+										"tasks",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All Activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/activities",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get activity details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/activities/273",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"activities",
+								"273"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Activity Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/activityFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"activityFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create activity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deal_id\": \"1\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/activities",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update activity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"done\": 1,\n    \"type\": \"meeting\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/activities/17",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"activities",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Activity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/activities/17",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"activities",
+								"17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Custom Fields",
+			"item": [
+				{
+					"name": "Company Sync to Odoo Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"sync_to_odoo\",\n    \"field_type\": \"enum\",\n    \"options\": [\n        {\"label\": \"Yes\"},\n        {\"label\": \"No\"}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizationFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizationFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company Odoo Id Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"odoo_id\",\n    \"field_type\": \"text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/organizationFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizationFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contact Sync to Odoo Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"sync_to_odoo\",\n    \"field_type\": \"enum\",\n    \"options\": [\n        {\"label\": \"Yes\"},\n        {\"label\": \"No\"}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/personFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"personFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contact Odoo Id Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"odoo_id\",\n    \"field_type\": \"text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/personFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"personFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deal Sync to Odoo Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"sync_to_odoo\",\n    \"field_type\": \"enum\",\n    \"options\": [\n        {\"label\": \"Yes\"},\n        {\"label\": \"No\"}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/dealFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"dealFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deal Odoo Id Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"odoo_id\",\n    \"field_type\": \"text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/dealFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"dealFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Sync to Odoo Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"sync_to_odoo\",\n    \"field_type\": \"enum\",\n    \"options\": [\n        {\"label\": \"Yes\"},\n        {\"label\": \"No\"}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/productFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"productFields"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Odoo Id Field",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"odoo_id\",\n    \"field_type\": \"text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.pipedrive.com/v1/productFields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"pipedrive",
+								"com"
+							],
+							"path": [
+								"v1",
+								"productFields"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "cc10fcc91d131cab4c1656ff930dc05ce748e7fd",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api_token",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

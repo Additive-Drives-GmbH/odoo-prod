@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_opd_dealmapper_tree" model="ir.ui.view">
+        <field name="name">opd.dealmapper.tree</field>
+        <field name="model">opd.dealmapper</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="field_id" optional="show"/>
+                <field name="internal_name" optional="show"/>
+                <field name="label_name" optional="show"/>
+                <field name="field_type" optional="show"/>
+                <field name="pipedrive_instance_name" optional="show"/>
+                <field name="system_name" optional="show"/>
+                <field name="field_definition" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_opd_dealmapper_form" model="ir.ui.view">
+        <field name="name">opd.dealmapper.form</field>
+        <field name="model">opd.dealmapper</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="field_id"/>
+                            <field name="pipedrive_instance_name"/>
+                            <field name="system_name"/>
+                        </group>
+                        <group>
+                            <field name="internal_name"/>
+                            <field name="label_name"/>
+                            <field name="field_type"/>
+                            <field name="field_definition"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_opd_dealmapper" model="ir.actions.act_window">
+        <field name="name">Deal Fields</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">opd.dealmapper</field>
+        <field name="view_mode">list,form</field>
+        <field name="context"></field>
+    </record>
+
+
+    <menuitem id="menu_dealmapper"
+              name="Opportunity Fields"
+              action="action_opd_dealmapper"
+              parent="menu_fieldmapper_master"
+              sequence="4"/>
+
+</odoo>

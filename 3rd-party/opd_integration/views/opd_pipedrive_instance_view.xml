@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_opd_pipedriveinstance_tree">
+        <field name="name">opd.pipedriveinstance.tree</field>
+        <field name="model">opd.pipedriveinstance</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" optional="show"/>
+                <field name="pagination_size" optional="show"/>
+                <field name="is_connected" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_opd_pipedriveinstance_form">
+        <field name="name">opd.pipedriveinstance.form</field>
+        <field name="model">opd.pipedriveinstance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <style>
+
+                        o-form-buttonbox .btn.oe_stat_button > .o_stat_info, .o-form-buttonbox .btn.oe_stat_button >
+                        span, .o-form-buttonbox .btn.oe_stat_button > .o_field_statinfo {
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-weight: 800;
+                        max-width: 100%;
+                        padding-right: 6px;
+                        line-height: 1.3;
+                        }
+
+                        .fw-bolder{
+                            font-size: 16px;
+                        }
+                        .o_input{
+                            padding: 12px 20px;
+                        }
+
+                        .o_form_statusbar{
+                            justify-content : flex-end !important;
+                            gap: 0 !important;
+                        }
+
+                        .o_statusbar_buttons{
+                        }
+
+                        .o_statusbar_buttons button{
+                            border-left: 2px solid black;
+                        }
+
+                        #pipedrive_to_odoo {
+                            width: 225px;
+                            background-color: #211c52;
+                            color: white;
+                            margin-top: 15px;
+                        }
+
+                        #odoo_to_pipedrive {
+                            width: 225px;
+                            background-color: #432c3d;
+                            color: white;
+                            margin-top: 15px;
+                        }
+
+                        .o_cell button[name="action_import_activity_fields"]{
+                            width: 200px;
+                            background-color: #71639e;
+                            color: white;
+                        }
+
+
+                        .o_cell .btn-secondary{
+                            width: 200px;
+                            background-color: #211c52;
+                            color: white;
+                        }
+
+                        .o-form-buttonbox button[name="test_connection"]{
+                            background-color: #211c52;
+                            color: white;
+                        }
+
+                        .o-form-buttonbox button[name="action_create_required_pipedrive_custom_fields"],
+                        .o_setup_fields_button {
+                            background-color: #1a7f64 !important;
+                            border-color: #1a7f64 !important;
+                            color: white !important;
+                        }
+
+                        .o-form-buttonbox button[name="action_create_required_pipedrive_custom_fields"]:hover,
+                        .o_setup_fields_button:hover {
+                            background-color: #156b53 !important;
+                            border-color: #156b53 !important;
+                            color: white !important;
+                        }
+
+                        .o-form-buttonbox button[name="action_create_required_pipedrive_custom_fields"] .fa,
+                        .o_setup_fields_button .fa,
+                        .o_setup_fields_text {
+                            color: white !important;
+                        }
+
+                        .btn-create-pipedrive-fields{
+                            width: 260px;
+                            background-color: #1a7f64 !important;
+                            border-color: #1a7f64 !important;
+                            color: white !important;
+                            margin-right: 8px;
+                        }
+
+                        .btn-create-pipedrive-fields:hover{
+                            background-color: #156b53 !important;
+                            border-color: #156b53 !important;
+                            color: white !important;
+                        }
+
+                        .btn-create-pipedrive-fields .fa{
+                            color: white !important;
+                        }
+
+                        .o_horizontal_separator{
+                            font-size: 14px;
+                            color: #432c3d;
+                        }
+
+                        #import_activity_fields{
+                            background-color: #71639e;
+                            margin-top: 40px;
+                        }
+
+                        #odoo_company_dropdown_mapping_0, #pipedrive_company_dropdown_mapping_0, #odoo_contacts_dropdown_mapping_0, #pipedrive_contacts_dropdown_mapping_0,
+                        #odoo_lead_dropdown_mapping_0, #pipedrive_lead_dropdown_mapping_0, #odoo_deal_dropdown_mapping_0, #pipedrive_deal_dropdown_mapping_0,
+                        #odoo_product_dropdown_mapping_0,#pipedrive_product_dropdown_mapping_0 {
+                            min-height: 220px;
+                        }
+
+                        .o_opd_deal_mapping_help {
+                            margin: 8px 16px 16px 16px;
+                        }
+                        .o_opd_deal_mapping_help ul {
+                            margin-bottom: 0;
+                            padding-left: 20px;
+                        }
+                        .o_opd_deal_mapping_help li {
+                            margin-bottom: 6px;
+                        }
+
+                    </style>
+                    <div class="oe_button_box" name="button_box">
+                        <button string="Active/Inactive" name="toggle_visibility" type="object"
+                                class="btn btn-primary o_toggle_visibility_button" icon="fa-hand-o-right">
+                            <span class="o_toggle_visibility_text"
+                                  invisible="is_connected == True">Active
+                            </span>
+                            <span class="o_toggle_visibility_text"
+                                  invisible="is_connected == False">Inactive
+                            </span>
+                        </button>
+
+                        <button string="Test Connection" name="test_connection" type="object"
+                                class="btn btn-primary o_test_connection_button">
+                            <span>
+                                <i class="fa fa-plug" aria-hidden="true" title="Description" style="color: white;"></i>
+                            </span>
+                            <span class="o_test_connection_text">Test API Connection</span>
+                        </button>
+
+                        <button string="Setup Required Pipedrive Fields"
+                                name="action_create_required_pipedrive_custom_fields"
+                                type="object"
+                                class="btn btn-primary o_setup_fields_button"
+                                title="Create sync_to_odoo and odoo_id custom fields on all Pipedrive entities">
+                            <span>
+                                <i class="fa fa-magic" aria-hidden="true" title="Setup Fields"></i>
+                            </span>
+                            <span class="o_setup_fields_text">Setup Fields</span>
+                        </button>
+
+                        <button name="action_view_schedulers"
+                            type="object"
+                            string="Schedulers"
+                            class="oe_stat_button"
+                            icon="fa-clock-o">
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <h2>
+                            <field name="name"/>
+                        </h2>
+                    </div>
+                    <group string="Pipedrive Instance">
+                        <group>
+                            <field name="api_token" password="True"/>
+                            <field name="is_connected" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="pagination_size"/>
+                            <field name="api_base_url" placeholder='https://yourcompany.pipedrive.com/api/v2'/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        Use <b>Setup Fields</b> to automatically create the required Pipedrive custom fields
+                        (<code>sync_to_odoo</code> and <code>odoo_id</code>) for Companies, Contacts,
+                        Opportunities, and Products. Leads use the same custom fields as Opportunities (deals).
+                    </div>
+                    <notebook>
+
+                    <!--   ****************** User Fields ********************* -->
+
+                        <page string="Users" name="Users">
+                            <group>
+                                <group string="Odoo To Pipedrive" id="otp">
+                                    <field name="is_users_sync_odoo_to_pipedrive" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="odoo_users_last_sync_date" string="Last Sync Datetime"/>
+                                    <button name="odoo_to_pipedrive_users" id='odoo_to_pipedrive' icon="fa-refresh"
+                                            string='SYNC ODOO TO PIPEDRIVE' type="object"/>
+                                </group>
+                                <group string="Pipedrive To Odoo" id="pto">
+                                    <field name="is_users_sync_pipedrive_to_odoo" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="pipedrive_users_last_sync_date" string="Last Sync Datetime"/>
+                                    <button name="pipedrive_to_odoo_users" id='pipedrive_to_odoo'
+                                            string='SYNC PIPEDRIVE TO ODOO' icon="fa-refresh" type="object"/>
+                                </group>
+                            </group>
+                            <p style="color: red;">Currently we have mapped only id, name and email fields</p>
+                        </page>
+
+                        <!--   ****************** Company Fields ********************* -->
+
+                        <page string="Companies" name="Companies">
+                            <group>
+                                <group string="Odoo To Pipedrive" class="otp">
+                                    <field name="is_company_sync_odoo_to_pipedrive" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="odoo_company_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="odoo_company_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Auto-generated when you import fields. Manual editing is disabled to prevent invalid mappings."/>
+                                </group>
+                                <group string="Pipedrive To Odoo" class="custom_group_class">
+                                    <field name="is_company_sync_pipedrive_to_odoo" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="pipedrive_company_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="pipedrive_company_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Auto-generated when you import fields. Manual editing is disabled to prevent invalid mappings."/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="SYNC RELATED MODULES (ODOO to Pipedrive)">
+                                    <group>
+                                        <field name="odoo_company_related_contacts" string="Contacts" widget="boolean_toggle"/>
+                                        <field name="odoo_company_related_leads" string="Leads" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="odoo_company_related_deals" string="Opportunities" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                                <group string="SYNC RELATED MODULES (Pipedrive to ODOO)">
+                                    <group>
+                                       <field name="pipedrive_company_related_contacts" string="Contacts" widget="boolean_toggle"/>
+                                        <field name="pipedrive_company_related_leads" string="Leads" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="pipedrive_company_related_deals" string="Opportunities" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <group>
+                                    <group>
+                                        <field name="is_company_notes" widget="boolean_toggle"/>
+                                        <field name="is_company_emails" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_company_tasks" widget="boolean_toggle"/>
+                                        <field name="is_company_files" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="is_company_meetings" widget="boolean_toggle"/>
+                                    <field name="is_company_calls" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                     <button name="odoo_to_pipedrive_company" id='odoo_to_pipedrive'
+                                            string='SYNC ODOO TO PIPEDRIVE' icon="fa-refresh" type="object"/>
+                                </group>
+                                <group>
+                                      <button name="pipedrive_to_odoo_company" id='pipedrive_to_odoo'
+                                            string='SYNC PIPEDRIVE TO ODOO' icon="fa-refresh" type="object"/>
+                                </group>
+                            </group>
+                            <separator name="field_Mapping" string="Field Mapping"/>
+                            <field name="companies_line_ids" string="">
+                                <list editable="bottom">
+                                    <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                    <field name="odoo_fields_type"/>
+                                    <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                    <field name="pipedrive_fields_type"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                        <field name="odoo_fields_type"/>
+                                        <field name="pipedrive_fields_record"/>
+                                        <field name="pipedrive_fields_type" options="{'no_create': True}"/>
+                                        <field name="description"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <button name="action_create_required_pipedrive_custom_fields_company" type="object"
+                                    string="Create Required Pipedrive Fields" icon="fa-magic"
+                                    class="btn-create-pipedrive-fields"/>
+                            <button name="action_import_companies_fields" type="object" string="Import Company Fields"
+                                    icon="fa-upload"
+                                    class="oe_highlight"/>
+                        </page>
+
+                        <!--   ****************** Contact Fields ********************* -->
+
+                        <page string="Contacts" name="Contacts">
+                            <group>
+                                <group string="Odoo To Pipedrive" id="otp">
+                                    <field name="is_contact_sync_odoo_to_pipedrive" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="odoo_contact_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="odoo_contacts_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Auto-generated when you import fields. Manual editing is disabled to prevent invalid mappings."/>
+                                </group>
+                                <group string="Pipedrive To Odoo" id="pto">
+                                    <field name="is_contact_sync_pipedrive_to_odoo" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="pipedrive_contact_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="pipedrive_contacts_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Auto-generated when you import fields. Manual editing is disabled to prevent invalid mappings."/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="SYNC RELATED MODULES (ODOO to Pipedrive)">
+                                    <group>
+                                        <field name="odoo_contact_related_companies" string="Companies" widget="boolean_toggle"/>
+                                        <field name="odoo_contact_related_leads" string="Leads" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="odoo_contact_related_deals" string="Opportunities" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                                <group string="SYNC RELATED MODULES (Pipedrive to ODOO)">
+                                    <group>
+                                        <field name="pipedrive_contact_related_companies" string="Companies" widget="boolean_toggle"/>
+                                        <field name="pipedrive_contact_related_leads" string="Leads" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="pipedrive_contact_related_deals" string="Opportunities" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <group>
+                                    <group>
+                                        <field name="is_contact_notes" widget="boolean_toggle"/>
+                                        <field name="is_contact_emails" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_contact_tasks" widget="boolean_toggle"/>
+                                        <field name="is_contact_files" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="is_contact_meetings" widget="boolean_toggle"/>
+                                        <field name="is_contact_calls" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                     <button name="odoo_to_pipedrive_contact" id='odoo_to_pipedrive'
+                                            string='SYNC ODOO TO PIPEDRIVE' icon="fa-refresh" type="object"/>
+                                </group>
+                                <group>
+                                     <button name="pipedrive_to_odoo_contact" id='pipedrive_to_odoo'
+                                            string='SYNC PIPEDRIVE TO ODOO' icon="fa-refresh"  type="object"/>
+                                </group>
+                            </group>
+                            <separator name="field_Mapping" string="Field Mapping"/>
+                            <field name="contacts_line_ids" string="">
+                                <list editable="bottom">
+                                    <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                    <field name="odoo_fields_type"/>
+                                    <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                    <field name="pipedrive_fields_type"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                        <field name="odoo_fields_type"/>
+                                        <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                        <field name="pipedrive_fields_type"/>
+                                        <field name="description"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <button name="action_create_required_pipedrive_custom_fields_contact" type="object"
+                                    string="Create Required Pipedrive Fields" icon="fa-magic"
+                                    class="btn-create-pipedrive-fields"/>
+                            <button name="action_import_contacts_fields" type="object" string="Import Contact Fields"
+                                    icon="fa-upload"
+                                    class="oe_highlight"/>
+                        </page>
+
+                        <!--   ****************** Lead Fields ********************* -->
+
+                        <page string="Leads" name="Leads">
+                            <group>
+                                <group string="Odoo To Pipedrive" id="otp">
+                                    <field name="is_lead_sync_odoo_to_pipedrive" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="odoo_lead_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="odoo_lead_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Read-only JSON auto-generated from Pipedrive channel options. Use 'Refresh Channel Mapping' or 'Import Lead Fields' to rebuild."/>
+                                </group>
+                                <group string="Pipedrive To Odoo" id="pto">
+                                    <field name="is_lead_sync_pipedrive_to_odoo" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="pipedrive_lead_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="pipedrive_lead_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Read-only JSON auto-generated from Pipedrive channel options. Use 'Refresh Channel Mapping' or 'Import Lead Fields' to rebuild."/>
+                                </group>
+                            </group>
+                            <div class="alert alert-info o_opd_deal_mapping_help" role="status" colspan="2">
+                                <p><strong>Lead channel mapping guide</strong></p>
+                                <ul>
+                                    <li>
+                                        <strong>Channel (<code>channel</code> → <code>source_id</code>):</strong>
+                                        Built from Pipedrive marketing channel options (dealFields API).
+                                        Each channel is matched to an Odoo <strong>UTM Source</strong> by
+                                        <strong>exact name</strong>, then by <strong>list order</strong> if names differ.
+                                    </li>
+                                    <li>
+                                        <strong>How many Odoo sources do you need?</strong>
+                                        Create one UTM Source in Odoo (CRM → Configuration → UTM Sources) for each
+                                        Pipedrive channel, or rely on order-based mapping when counts match.
+                                    </li>
+                                    <li>
+                                        <strong>When to refresh:</strong>
+                                        After adding or renaming channels in Pipedrive or UTM sources in Odoo, or when
+                                        lead sync logs a dropdown warning for <code>channel</code> / <code>source_id</code>.
+                                    </li>
+                                </ul>
+                            </div>
+                            <group>
+                                <group>
+                                </group>
+                                <group string="SYNC RELATED MODULES (Pipedrive to ODOO)">
+                                    <group>
+                                        <field name="pipedrive_lead_related_contacts" string="Contacts" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="pipedrive_lead_related_companies" string="Companies" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <group>
+                                    <group>
+                                        <field name="is_lead_notes" widget="boolean_toggle"/>
+                                        <field name="is_lead_emails" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_lead_tasks" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="is_lead_meetings" widget="boolean_toggle"/>
+                                    <field name="is_lead_calls" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <button name="odoo_to_pipedrive_lead" id='odoo_to_pipedrive'
+                                            string='SYNC ODOO TO PIPEDRIVE' icon="fa-refresh" type="object"/>
+                                </group>
+                                <group>
+                                    <button name="pipedrive_to_odoo_lead" id='pipedrive_to_odoo'
+                                            string='SYNC PIPEDRIVE TO ODOO' icon="fa-refresh" type="object"/>
+                                </group>
+                            </group>
+                            <separator name="field_Mapping" string="Field Mapping"/>
+                            <field name="leads_line_ids" string="">
+                                <list editable="bottom">
+                                    <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                    <field name="odoo_fields_type"/>
+                                    <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                    <field name="pipedrive_fields_type"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                        <field name="odoo_fields_type"/>
+                                        <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                        <field name="pipedrive_fields_type"/>
+                                        <field name="description"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <button name="action_create_required_pipedrive_custom_fields_lead" type="object"
+                                    string="Create Required Pipedrive Fields" icon="fa-magic"
+                                    class="btn-create-pipedrive-fields"/>
+                            <button name="action_import_leads_fields" type="object" string="Import Lead Fields"
+                                    icon="fa-upload"
+                                    class="oe_highlight"/>
+                            <button name="action_refresh_lead_dropdown_mapping" type="object"
+                                    string="Refresh Channel Mapping" icon="fa-refresh"
+                                    help="Rebuild channel/source_id dropdown JSON from Pipedrive channel options."/>
+                        </page>
+
+                        <!--   ****************** Opportunity Fields ********************* -->
+
+                        <page string="Opportunities" name="Opportunities">
+                            <group>
+                                <group string="Odoo To Pipedrive" id="otp">
+                                    <field name="is_deal_sync_odoo_to_pipedrive" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="odoo_deal_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="odoo_deal_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Read-only JSON auto-generated from Pipedrive. Use 'Refresh Stage &amp; Pipeline Mapping' or 'Import Deal Fields' to rebuild. Manual editing is disabled."/>
+                                </group>
+                                <group string="Pipedrive To Odoo" id="pto">
+                                    <field name="is_deal_sync_pipedrive_to_odoo" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="pipedrive_deal_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="pipedrive_deal_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="Read-only JSON auto-generated from Pipedrive. Use 'Refresh Stage &amp; Pipeline Mapping' or 'Import Deal Fields' to rebuild. Manual editing is disabled."/>
+                                </group>
+                            </group>
+                            <div class="alert alert-info o_opd_deal_mapping_help" role="status" colspan="2">
+                                <p><strong>Stage &amp; pipeline mapping guide</strong></p>
+                                <ul>
+                                    <li>
+                                        <strong>Stages (<code>stage_id</code>):</strong>
+                                        Mappings are built from your live Pipedrive stages (v2 API).
+                                        Each Pipedrive stage is matched to an Odoo CRM stage first by
+                                        <strong>exact name</strong>, then by <strong>pipeline order</strong>
+                                        (Pipedrive stage order vs Odoo stage sequence).
+                                    </li>
+                                    <li>
+                                        <strong>How many Odoo stages do you need?</strong>
+                                        Create at least one Odoo CRM stage for each open Pipedrive stage in the pipeline
+                                        (Won/Lost are mapped separately). If Pipedrive has 5 open stages but Odoo has
+                                        only 2 regular stages, only 2 will map and sync may skip deals on unmapped stages.
+                                    </li>
+                                    <li>
+                                        <strong>Pipelines (<code>pipeline_id</code>):</strong>
+                                        Each Pipedrive <strong>pipeline name</strong> must match an Odoo
+                                        <strong>Sales Team</strong> name exactly (case-insensitive).
+                                        If you have only <strong>one pipeline</strong> in Pipedrive and
+                                        <strong>one sales team</strong> in Odoo, they are linked automatically.
+                                    </li>
+                                    <li>
+                                        <strong>Empty <code>"pipeline_id": {}</code>?</strong>
+                                        No Pipedrive pipeline name matched an Odoo sales team.
+                                        Rename the pipeline in Pipedrive or the sales team in Odoo
+                                        (CRM → Configuration → Sales Teams) so the names are the same, then click
+                                        <strong>Refresh Stage &amp; Pipeline Mapping</strong>.
+                                    </li>
+                                    <li>
+                                        <strong>When to refresh:</strong>
+                                        After adding or renaming stages/pipelines in Pipedrive or Odoo, or when deal
+                                        sync logs a dropdown configuration warning for <code>stage_id</code>.
+                                    </li>
+                                </ul>
+                            </div>
+                            <group>
+                                <group>
+                                </group>
+                                <group string="SYNC RELATED MODULES (PIPEDRIVE TO ODOO)">
+                                    <group>
+                                        <field name="pipedrive_deal_related_companies" string="Companies" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="pipedrive_deal_related_contacts" string="Contacts" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <group>
+                                    <group>
+                                        <field name="is_deal_notes" widget="boolean_toggle"/>
+                                        <field name="is_deal_emails" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_deal_tasks" widget="boolean_toggle"/>
+                                        <field name="is_deal_files" widget="boolean_toggle"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="is_deal_meetings" widget="boolean_toggle"/>
+                                    <field name="is_deal_calls" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                     <button name="odoo_to_pipedrive_deal" id='odoo_to_pipedrive'
+                                            string='SYNC ODOO TO PIPEDRIVE' icon="fa-refresh" type="object"/>
+                                </group>
+                                <group>
+                                    <button name="pipedrive_to_odoo_deal" id='pipedrive_to_odoo'
+                                            string='SYNC PIPEDRIVE TO ODOO' icon="fa-refresh" type="object"/>
+                                </group>
+                            </group>
+                            <separator name="field_Mapping" string="Field Mapping"/>
+                            <field name="deals_line_ids" string="">
+                                <list editable="bottom">
+                                    <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                    <field name="odoo_fields_type"/>
+                                    <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                    <field name="pipedrive_fields_type"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                        <field name="odoo_fields_type"/>
+                                        <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                        <field name="pipedrive_fields_type" />
+                                        <field name="description"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <button name="action_create_required_pipedrive_custom_fields_deal" type="object"
+                                    string="Create Required Pipedrive Fields" icon="fa-magic"
+                                    class="btn-create-pipedrive-fields"/>
+                            <button name="action_import_deals_fields" type="object" string="Import Deal Fields"
+                                    icon="fa-upload"
+                                    class="oe_highlight"/>
+                            <button name="action_refresh_deal_dropdown_mapping" type="object"
+                                    string="Refresh Stage &amp; Pipeline Mapping" icon="fa-refresh"
+                                    help="Rebuild stage_id and pipeline_id dropdown JSON from Pipedrive v2 stages and pipelines."/>
+                        </page>
+
+                        <!--   ****************** Product Fields ********************* -->
+
+                        <page string="Products" name="Products">
+                            <group>
+                                <group string="Odoo To Pipedrive" id="otp">
+                                    <field name="is_product_sync_odoo_to_pipedrive" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="odoo_product_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="odoo_product_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="JSON mapping for dropdown fields (e.g. sync_to_pipedrive, categ_id). Edit manually as needed."/>
+                                    <button name="odoo_to_pipedrive_product" id='odoo_to_pipedrive' icon="fa-refresh"
+                                            string='SYNC ODOO TO PIPEDRIVE' type="object"/>
+                                </group>
+                                <group string="Pipedrive To Odoo" id="pto">
+                                    <field name="is_product_sync_pipedrive_to_odoo" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="pipedrive_product_last_sync_date" string="Last Sync Datetime"/>
+                                    <field name="pipedrive_product_dropdown_mapping" string="Dropdown Mapping"
+                                           style="height: 250px; overflow: auto;"
+                                           help="JSON mapping for dropdown fields (e.g. sync_to_odoo, category). Edit manually as needed."/>
+                                    <button name="pipedrive_to_odoo_product" id='pipedrive_to_odoo' icon="fa-refresh"
+                                            string='SYNC PIPEDRIVE TO ODOO' type="object"/>
+                                </group>
+                            </group>
+                            <separator name="field_Mapping" string="Field Mapping"/>
+                            <field name="products_line_ids" string="">
+                                <list editable="bottom">
+                                    <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                    <field name="odoo_fields_type"/>
+                                    <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                    <field name="pipedrive_fields_type"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="odoo_fields_record" options="{'no_create': True}"/>
+                                        <field name="odoo_fields_type"/>
+                                        <field name="pipedrive_fields_record" options="{'no_create': True}"/>
+                                        <field name="pipedrive_fields_type"/>
+                                        <field name="description"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <button name="action_create_required_pipedrive_custom_fields_product" type="object"
+                                    string="Create Required Pipedrive Fields" icon="fa-magic"
+                                    class="btn-create-pipedrive-fields"/>
+                            <button name="action_import_products_fields" type="object" string="Import Product Fields"
+                                    icon="fa-upload"
+                                    class="oe_highlight"/>
+                        </page>
+
+                    <!--  ************** Sync Association *************** -->
+
+                        <page string="Sync Association" name="Sync Association">
+                            <p style="color: #432c3d; font-size: 20px; font-weight: bolder; margin-top: 20px">Activities
+                                [Notes, Calls, Tasks, Meetings, Emails]
+                            </p>
+                            <hr style="margin-bottom: 10px;"></hr>
+                            <group>
+                                <group string="Pipedrive To Odoo" id="pto">
+                                    <field name="is_activity_sync_pipedrive_to_odoo" string="Activate Schedular" widget="boolean_toggle"/>
+                                    <field name="pipedrive_activity_last_sync_date" string="Last Sync Datetime"/>
+                                    <button name="pipedrive_to_odoo_activity" id='pipedrive_to_odoo' icon="fa-refresh"
+                                            string='SYNC RELATED ACTIVITIES' type="object"/>
+                                </group>
+                            </group>
+                            <group>
+                                <button name="action_import_activity_fields" id='import_activity_fields'
+                                        string='Import Activity Fields' class="oe_highlight" type="object"/>
+                            </group>
+                        </page>
+
+                        <!-- ********************* Delete Logger Fields ***************** -->
+
+                         <page string="Delete Logger" name="Delete Logger">
+                            <group>
+                                <group>
+                                    <field name="remove_log_scheduler" string="Remove Logger Records Schedular" widget="boolean_toggle"/>
+                                    <field name="remove_log_month"/>
+                                </group>
+                            </group>
+                             <group>
+                                <button name="delete_pipedrive_filters_in_batches" id='import_activity_fields'
+                                        string='Delete Filters' class="btn btn-primary o_form_button" type="object" icon="fa-trash"/>
+                            </group>
+                             <group>
+                                 <button name="sync_lead_labels_from_pipedrive"
+                                        string='Import Lead Labels' class="btn btn-primary o_form_button" type="object" icon="fa-refresh"/>
+                             </group>
+                             <group>
+                                  <button name="sync_lead_labels_to_pipedrive"
+                                        string='Export Lead Labels' class="btn btn-primary o_form_button" type="object" icon="fa-refresh"/>
+                             </group>
+                        </page>
+
+                    </notebook>
+                </sheet>
+               <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_hospital_opd_pipedriveinstance_search">
+        <field name="name">opd.pipedriveinstance.search</field>
+        <field name="model">opd.pipedriveinstance</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_opd_pipedriveinstance">
+        <field name="name">Pipedrive Instance</field>
+        <field name="res_model">opd.pipedriveinstance</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+        <field name="help" type='html'>
+            <p class='o_view_nocontent_smiling_face'>
+                Create Your First Pipedrive Instance !
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_opd_pipedriveinstance"
+              parent="menu_opd_root"
+              action="action_opd_pipedriveinstance"
+              name="Pipedrive Instance"
+              sequence="1"/>
+</odoo>
