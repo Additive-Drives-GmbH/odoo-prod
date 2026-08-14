@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_oh_integration_pipedriveinstances_tree" model="ir.ui.view">
+        <field name="name">opd_integration.pipedrivelogger.tree</field>
+        <field name="model">opd_integration.pipedrivelogger</field>
+        <field name="arch" type="xml">
+            <list decoration-success="log_type == 'success'" decoration-danger="log_type == 'error'" decoration-warning="log_type == 'warning'" decoration-info="log_type == 'info'" sample="1" multi_edit="1">
+                <field name="integration_direction" optional="show"/>
+                <field name="module_name" optional="show"/>
+                <field name="operation_performed_by" optional="show"/>
+                <field name="record_id" optional="show"/>
+                <field name="pipedrive_datetime" optional="show"/>
+                <field name="operation" optional="show"/>
+                <field name="log_type" decoration-success="log_type == 'success'" decoration-danger="log_type == 'error'" decoration-warning="log_type == 'warning'" decoration-info="log_type == 'info'" widget="badge" optional="show"/>
+                <field name="description" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_opd_integration_pipedrivelogger_form" model="ir.ui.view">
+        <field name="name">opd_integration.pipedrivelogger.form</field>
+        <field name="model">opd_integration.pipedrivelogger</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h2>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="integration_direction"/>
+                            <field name="module_name"/>
+                            <field name="operation_performed_by"/>
+                            <field name="record_id"/>
+                            <field name="operation"/>
+                            <field name="request_payload"/>
+                            <field name="resolution_status"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                            <field name="pipedrive_datetime"/>
+                            <field name="error_code"/>
+                            <field name="error_details"/>
+                            <field name="response_payload"/>
+                            <field name="log_type"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_opd_integration_pipedrivelogger" model="ir.actions.act_window">
+        <field name="name">Pipedrive Logger</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">opd_integration.pipedrivelogger</field>
+        <field name="view_mode">list,form</field>
+        <field name="context"></field>
+    </record>
+
+    <menuitem id="menu_pipedrivelogger"
+              name="Pipedrive Logger"
+              parent="menu_opd_root"
+              sequence="1"/>
+
+    <menuitem id="submenu_pipedrivelogger"
+              name="Pipedrive Logger"
+              action="action_opd_integration_pipedrivelogger"
+              parent="menu_pipedrivelogger"
+              sequence="1"/>
+
+</odoo>

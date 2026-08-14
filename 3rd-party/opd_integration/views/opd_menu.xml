@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_opd_root"
+              name="Odoo Pipedrive Integration"
+              web_icon="opd_integration,static/description/icon.png"
+              groups="group_opd_integration_admin"
+              sequence="0"/>
+</odoo>

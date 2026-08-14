@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_crm_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='lead']" position="after">
+                     <page string="Pipedrive Integration" name="Pipedrive Integration">
+                         <group>
+                             <field name="pipedrive_id"/>
+                             <field name="sync_to_pipedrive"/>
+                             <field name="odoo_hash"/>
+                         </group>
+                     </page>
+                </xpath>
+                 <xpath expr="//div[@name='button_box']" position="inside">
+                     <button name="crm_record_send_to_pipedrive" class="oe_stat_button oe_highlight" icon="fa-refresh" string='SYNC TO PIPEDRIVE' type="object"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_crm_deal_tree_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.list</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="field[@name='lead_properties']" position="after">
+                   <field name="pipedrive_id" optional="show"/>
+                    <field name="sync_to_pipedrive" optional="show"/>
+                    <field name="odoo_hash" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="view_crm_lead_tree_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.list</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="field[@name='name']" position="after">
+                    <field name="pipedrive_id" optional="show"/>
+                    <field name="sync_to_pipedrive" optional="show"/>
+                    <field name="odoo_hash" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="action_crm_list_view_add_button" model="ir.actions.server">
+            <field name="name">Sync To Pipedrive</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="binding_model_id" ref="model_crm_lead"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                model.crm_record_send_to_pipedrive()
+            </field>
+        </record>
+
+        <record id="view_crm_tag_form_inherit_pipedrive" model="ir.ui.view">
+            <field name="name">crm.tag.form.inherit.pipedrive</field>
+            <field name="model">crm.tag</field>
+            <field name="inherit_id" ref="sales_team.sales_team_crm_tag_view_form"/>
+            <field name="arch" type="xml">
+                <!-- Insert after color field -->
+                <xpath expr="//field[@name='color']" position="after">
+                    <field name="pipedrive_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

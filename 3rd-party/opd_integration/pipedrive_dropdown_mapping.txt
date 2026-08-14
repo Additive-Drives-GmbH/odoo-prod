@@ -1,0 +1,193 @@
+Odoo to Pipedrive
+
+company:
+
+{
+    "company_category": {
+        "category1": "20",
+        "category2": "21",
+        "category3": "22"
+    },
+   "company_size": {
+        "small": "23",
+        "medium": "24",
+        "large": "25"
+    },
+"sync_to_pipedrive": {
+        "yes": "81",
+        "no": "82"
+    }
+}
+
+
+contact:
+
+{
+    "person_type": {
+        "male": "26",
+        "female": "27",
+        "others": "28"
+    },
+   "sync_to_pipedrive": {
+        "yes": "83",
+        "no": "84"
+    }
+}
+
+lead:
+
+{
+    "price_level": {
+        "low": "29",
+        "medium": "30",
+        "high": "31"
+    },
+  "sync_to_pipedrive": {
+        "yes": "85",
+        "no": "86"
+    },
+"source_id": {
+        "1": 42,
+        "2": 43,
+        "3": 44,
+        "4":45,
+        "5":46
+    }
+}
+
+deal:
+
+
+{
+  "price_level": {
+        "low": "29",
+        "medium": "30",
+        "high": "31"
+    },
+    "stage_id": {
+        "1": "1",
+         "2": "2",
+        "3": "3",
+        "4":"won",
+        "5": "lost"
+    },
+     "sync_to_pipedrive": {
+        "yes": "85",
+        "no": "86"
+    }
+}
+
+product
+
+{
+   "price_level": {
+        "low": "33",
+        "medium": "34",
+        "high": "35"
+    },
+  "sync_to_pipedrive": {
+        "yes": "87",
+        "no": "88"
+    },
+"categ_id": {
+        "1": 15,
+        "2": 32
+    }
+}
+
+
+Pipedrive to Odoo
+
+company:
+
+{
+    "ae611b289499cc9ac7b027cafe196ccfd9422845": {
+        "20": "category1",
+        "21": "category2",
+        "22": "category3"
+    },
+   "735720bcc0af33eabf3ba32e57547e4d26006e3b": {
+        "23": "small",
+        "24": "medium",
+        "25": "large"
+    },
+  "bcb704c48e57979677fd54ea146966b5b182f7b1": {
+        "81": "yes",
+        "82": "no"
+    }
+}
+
+contact:
+
+{
+    "8f70f275210110f78ca9b5d7587143bb4837b60b": {
+        "26": "male",
+        "27": "female",
+        "28": "others"
+    },
+   "c23feeb8d16c85366ea2e636238fff3e977ebe58": {
+        "83": "yes",
+        "84": "no"
+    }
+}
+
+lead:
+
+{
+    "debd89a004dee6f2ce7f320cfef9a6308097db4b": {
+        "29": "low",
+        "30": "medium",
+        "31": "high"
+    },
+ "4539b134da0c0e6ed368d00a0f9049e220d5fb54": {
+        "85": "yes",
+        "86": "no"
+    },
+ "channel": {
+        "42": "1",
+        "43": "2",
+        "44": "3",
+        "45":"4",
+        "46": "5",
+       "47": "6"
+    }
+}
+
+deal:
+
+{
+    "debd89a004dee6f2ce7f320cfef9a6308097db4b": {
+        "29": "low",
+        "30": "medium",
+        "31": "high"
+    },
+    "stage_id": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "won": 4,
+        "lost": 5
+    },
+    "4539b134da0c0e6ed368d00a0f9049e220d5fb54": {
+        "85": "yes",
+        "86": "no"
+    }
+}
+
+product:
+
+{
+   "1b5cf8dc37e7b4e81038526286bf5ca81336c610": {
+        "33": "low",
+        "34": "medium",
+        "35": "high"
+    },
+   "22b1a2d1e16e8d0130c1e5ccdcba8ca5ee6a49ba": {
+        "87": "yes",
+        "88": "no"
+    }, 
+   "category": {
+        "15": 1,
+        "32": 2
+    }
+}

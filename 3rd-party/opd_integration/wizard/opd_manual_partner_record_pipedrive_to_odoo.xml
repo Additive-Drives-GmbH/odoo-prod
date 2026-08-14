@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_opd_pto_partner_wizard_form">
+        <field name="name">opd.pto.partner.wizard.form</field>
+        <field name="model">opd.pto.partner.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Manual Push Pipedrive to Odoo Records">
+                <style>
+                    .modal-dialog {
+                        position: relative;
+                        width: 600px;
+                        height: 400px;
+                        margin: 0.5rem;
+                        pointer-events: none;
+                    .o_input {
+                        border: 1px solid var(--o-input-border-color);
+                        border-width: 0 0 1px 0;
+                        padding: 2px 4px;
+                    }
+                </style>
+               <group>
+                   <field name="pipedrive_partner_module"/>
+                   <field name="pipedrive_record_id" placeholder="123,456,789"/>
+               </group>
+                 <p style="color:red;"><b>Notes: </b>For multiple records push, the format will be <b>123,456,789</b>. For single record push, the format will be <b>123</b>.</p>
+                <footer>
+                    <button name="action_send_partner_record_pipedrive_to_odoo" type="object" string="Sync Pipedrive to Odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_opd_pto_partner_wizard_form">
+        <field name="name">Manual Push Pipedrive to Odoo Records</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">opd.pto.partner.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_opd_partner_pipedrivetoodoowizard"
+              name="Pipedrive Integration"
+              action="action_opd_pto_partner_wizard_form"
+              parent="contacts.menu_contacts"
+              sequence="2"/>
+
+</odoo>
