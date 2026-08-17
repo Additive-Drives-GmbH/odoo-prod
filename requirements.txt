@@ -1,0 +1,6 @@
+# Odoo upgrade-util: helper functions for writing upgrade/migration scripts
+# (from odoo.upgrade import util). Needed for the pre-migrate scripts in
+# ife/ife_base to remove ife_textblock during the 18.0 -> 19.0 upgrade.
+# https://www.odoo.com/documentation/19.0/developer/reference/upgrades/upgrade_utils.html#installation
+# Pinned to a commit for reproducible builds; bump when re-testing the upgrade.
+odoo_upgrade @ git+https://github.com/odoo/upgrade-util@8095579b83f8249fcbc9a258d0408af4c4642e14
