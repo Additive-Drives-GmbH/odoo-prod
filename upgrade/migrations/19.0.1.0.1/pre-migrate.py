@@ -38,6 +38,13 @@ MODULES_TO_INSTALL = [
 
 
 def migrate(cr, version):
+    # Remove obsolete view from additive_quotation_report that refers to removed field country_of_origin_id
+    # the view gets called, before the module gets removed, so we do it "manually" beforehand
+    # This prevents errors when sale module is updated before additive_quotation_report
+    _logger.info("Removing obsolete records from additive_quotation_report")
+    util.remove_record(cr, "additive_quotation_report.view_sale_order_form_inherit")
+    util.remove_record(cr, "additive_quotation_report.field_sale_order__country_of_origin_id")
+
     for module in MODULES_TO_REMOVE:
         _logger.info("Removing module %s", module)
         util.remove_module(cr, module)
