@@ -34,15 +34,15 @@
                 </p>
             </t>
         </xpath>
-        <!-- Remove  table-borderless -->
+        <!-- Remove table-borderless -->
         <xpath expr="//table[hasclass('o_main_table')]" position="attributes">
-            <attribute name="class">o_has_total_table table o_main_table</attribute>
+            <attribute name="class" remove="table-borderless" separator=" "></attribute>
         </xpath>
         <!-- hide tax column -->
         <xpath expr="//th[@name='th_taxes']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
-        <xpath expr="//td[@name='td_taxes']" position="attributes">
+        <xpath expr="//td[@name='td_product_taxes']" position="attributes">
             <attribute name="t-attf-class">{{'d-none'}}</attribute>
         </xpath>
         <!-- rename quantity -->
@@ -60,7 +60,7 @@
             <th name="th_subtotal" class="text-end">Line Price</th>
         </xpath>
         <!-- center section line -->
-        <xpath expr="//td[@name='td_section_line']" position="attributes">
+        <xpath expr="//td[@name='td_section_group_name']" position="attributes">
             <attribute name="class">text-center</attribute>
         </xpath>
         <!-- hide total table -->
@@ -96,16 +96,18 @@
                 name="t-options"
             >{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}</attribute>
         </xpath>
-        <xpath
-            expr="//table/thead/tr/th[hasclass('text-start')][1]"
-            position="attributes"
-        >
-            <attribute name="class">text-start d-none</attribute>
-        </xpath>
-        <xpath expr="//table/thead/tr/th[hasclass('text-start')][1]" position="after">
-            <th class="text-start">Pos.</th>
-        </xpath>
-        <xpath expr="//span[@t-field='line.product_uom']" position="attributes">
+        <!-- hier wurde die ursprüngliche POs spalte ausgeblendet und wieder eingeblendet... why??? -->
+<!--        <xpath-->
+<!--            expr="//table/thead/tr/th[hasclass('text-start')][1]"-->
+<!--            position="attributes"-->
+<!--        >-->
+<!--            <attribute name="class">text-start d-none</attribute>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//table/thead/tr/th[hasclass('text-start')][1]" position="after">-->
+<!--            <th class="text-start">Pos.</th>-->
+<!--        </xpath>-->
+
+        <xpath expr="//span[@t-field='line.product_uom_id']" position="attributes">
             <attribute name="class">d-none</attribute>
         </xpath>
         <!-- add new column item-->
@@ -132,12 +134,6 @@
                 <td>Payment Terms:</td>
                 <td>
                     <div t-field="doc.payment_term_id.name"/>
-                </td>
-            </tr>
-            <tr t-if="doc.country_of_origin_id">
-                <td>Country of Origin:</td>
-                <td>
-                    <div t-field="doc.country_of_origin_id.code"/>
                 </td>
             </tr>
         </xpath>

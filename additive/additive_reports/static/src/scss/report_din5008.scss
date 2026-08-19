@@ -117,3 +117,19 @@ $din-font-size: 9pt;
 table.o_main_table tr.o_line_section td {
     background-color: #a0a0a0 !important;
 }
+
+.din_page div#total {
+    tr.o_subtotal td {
+        border-top: none !important;
+    }
+
+    table {
+        border-left: 1px solid black !important;
+        border-right: 1px solid black !important;
+
+        td, th {
+            border-left: 1px solid black !important;
+            border-right: 1px solid black !important;
+        }
+    }
+}

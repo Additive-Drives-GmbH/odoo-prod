@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 15:04+0000\n"
-"PO-Revision-Date: 2026-04-21 15:04+0000\n"
+"POT-Creation-Date: 2026-08-19 08:56+0000\n"
+"PO-Revision-Date: 2026-08-19 08:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,44 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "<span class=\"fw-bold\">Expected Arrival:</span>"
-msgstr "<span class=\"fw-bold\">Erwartete Ankunft:</span>"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "<span class=\"fw-bold\">Invoice Addresse:</span>"
-msgstr "<span class=\"fw-bold\">Addresse für Rechnungen:</span>"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "<span class=\"fw-bold\">Payment Terms:</span>"
-msgstr "<span class=\"fw-bold\">Zahlungsbedingung:</span>"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "<span class=\"fw-bold\">Shipping Address:</span>"
-msgstr "<span class=\"fw-bold\">Lieferadresse:</span>"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "<span>invoice@additive-drives.de</span>"
+#: model_terms:ir.ui.view,arch_db:additive_purchase_report.external_layout_din5008_purchase_sender_vat
+msgid "<span>|</span>"
 msgstr ""
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-msgid "Best regards<br/><br/>"
-msgstr "Mit freundlichen Grüßen<br/><br/>"
-
-#. module: additive_purchase_report
-#: model:ir.model,name:additive_purchase_report.model_res_company
-msgid "Companies"
-msgstr "Unternehmen"
-
-#. module: additive_purchase_report
-#: model:ir.model,name:additive_purchase_report.model_res_config_settings
-msgid "Config Settings"
-msgstr "Konfigurationseinstellungen"
 
 #. module: additive_purchase_report
 #: model:ir.model,name:additive_purchase_report.model_res_partner
@@ -63,18 +28,12 @@ msgstr "Kontakt"
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
 msgid "Customer Nr.:"
-msgstr "Kundennr.:"
+msgstr "Kunden-Nr.:"
 
 #. module: additive_purchase_report
-#: model:ir.model.fields,field_description:additive_purchase_report.field_res_company__disable_purchase_position_recompute
-#: model:ir.model.fields,field_description:additive_purchase_report.field_res_config_settings__disable_purchase_position_recompute
-msgid "Do not recompute positions on purchase orders"
-msgstr ""
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.view_res_config_settings_form
-msgid "Do not recompute positions when line is removed"
-msgstr ""
+#: model:ir.model.fields,field_description:additive_purchase_report.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
@@ -82,74 +41,17 @@ msgid "Email:"
 msgstr ""
 
 #. module: additive_purchase_report
-#: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order__locked_positions
-msgid "Locked Positions"
+#: model:ir.model.fields,field_description:additive_purchase_report.field_res_partner__id
+msgid "ID"
 msgstr ""
 
 #. module: additive_purchase_report
 #: model:ir.model.fields,field_description:additive_purchase_report.field_res_partner__our_nr_by_vendor
 #: model:ir.model.fields,field_description:additive_purchase_report.field_res_users__our_nr_by_vendor
 msgid "Our Number by Vendor"
-msgstr "Kundennr"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
-msgid "Phone:"
-msgstr "Telefon:"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_purchaseorder_document_inherit
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.view_purchase_order_form_inherit
-msgid "Pos"
-msgstr ""
-
-#. module: additive_purchase_report
-#: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order_line__position
-msgid "Position"
-msgstr ""
-
-#. module: additive_purchase_report
-#: model:ir.model.fields,field_description:additive_purchase_report.field_purchase_order_line__position_formatted
-msgid "Position Formatted"
-msgstr ""
+msgstr "Kundennummer bei Lieferant"
 
 #. module: additive_purchase_report
 #: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
 msgid "Project:"
 msgstr "Projekt:"
-
-#. module: additive_purchase_report
-#: model:ir.model,name:additive_purchase_report.model_purchase_order
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
-msgid "Purchase Order"
-msgstr "Bestellung"
-
-#. module: additive_purchase_report
-#: model:ir.model,name:additive_purchase_report.model_purchase_order_line
-msgid "Purchase Order Line"
-msgstr "Bestellzeile"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.view_res_config_settings_form
-msgid "Purchase Order Line Positions"
-msgstr ""
-
-#. module: additive_purchase_report
-#: model:ir.actions.server,name:additive_purchase_report.action_compute_purchase_position
-msgid "Recompute positions"
-msgstr ""
-
-#. module: additive_purchase_report
-#: model:ir.model,name:additive_purchase_report.model_ir_actions_report
-msgid "Report Action"
-msgstr "Berichtsaktion"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
-msgid "Request for Quotation"
-msgstr "Bestellanfrage"
-
-#. module: additive_purchase_report
-#: model_terms:ir.ui.view,arch_db:additive_purchase_report.report_common_purchase_din5008_template_document_information_inherit
-msgid "VAT:"
-msgstr "Ihre Ust.Id:"
