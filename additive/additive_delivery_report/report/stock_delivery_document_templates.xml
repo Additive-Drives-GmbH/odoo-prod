@@ -46,13 +46,10 @@
     >
         <!-- hide the product name and show only the description -->
         <xpath
-            expr="//td[1]/span[@t-field='move_line.product_id']"
+            expr="//span[@t-field='move_line.product_id']"
             position="attributes"
         >
             <attribute name="class">d-none</attribute>
-        </xpath>
-        <xpath expr="//td[1]/p" position="attributes">
-            <attribute name="t-if">description != ''</attribute>
         </xpath>
     </template>
 </odoo>
