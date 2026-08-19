@@ -2,7 +2,7 @@
     "name": "Additive Delivery Reports",
     "summary": "Extend and Adjust Delivery Note Report",
     "category": "Reporting",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "license": "LGPL-3",
     "author": "manaTec GmbH",
     "website": "https://www.manatec.de",
