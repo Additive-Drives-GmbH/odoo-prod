@@ -2,7 +2,7 @@
     "name": "Additive Quotation Report",
     "summary": "Quotation Report Customisations for Additive",
     "category": "Custom",
-    "version": "19.0.1.0",
+    "version": "19.0.1.0.6",
     "license": "LGPL-3",
     "author": "manaTec GmbH",
     "website": "https://www.manatec.de",

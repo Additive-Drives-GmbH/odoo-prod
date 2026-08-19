@@ -2,7 +2,7 @@
     "name": "Additive Reports",
     "summary": "Reports Customisations for Additive",
     "category": "Custom",
-    "version": "19.0.1.0.9",
+    "version": "19.0.1.0.10",
     "license": "LGPL-3",
     "author": "manaTec GmbH",
     "website": "https://www.manatec.de",
