@@ -43,6 +43,12 @@ def migrate(cr, version):
     util.remove_record(cr, "additive_quotation_report.view_sale_order_form_inherit")
     util.remove_record(cr, "additive_quotation_report.field_sale_order__country_of_origin_id")
 
+    # Remove obsolete view from additive_reports that refers to removed field country_of_origin_id
+    # This prevents errors when account module is updated before additive_reports
+    _logger.info("Removing obsolete records from additive_reports")
+    util.remove_record(cr, "additive_reports.view_account_move_form_inherit")
+    util.remove_record(cr, "additive_reports.field_account_move__country_of_origin_id")
+
     # Remove obsolete view from additive_purchase_report that refers to removed field disable_purchase_position_recompute
     # This prevents errors when purchase module is updated before additive_purchase_report
     _logger.info("Removing obsolete records from additive_purchase_report")
