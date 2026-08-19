@@ -51,6 +51,14 @@ def migrate(cr, version):
     util.remove_record(cr, "additive_reports.report_invoice_document_din5008_inherit")
     util.remove_record(cr, "additive_reports.view_partner_form_inherit")
     util.remove_record(cr, "additive_reports.field_res_partner__our_nr_by_customer")
+    util.remove_record(cr, "additive_reports.field_res_partner__purchase_order_no")
+
+    # Remove obsolete view from additive_delivery_report that refers to removed field purchase_order_no
+    # This prevents errors when stock module is updated before additive_delivery_report
+    _logger.info("Removing obsolete records from additive_delivery_report")
+    util.remove_record(cr, "additive_delivery_report.view_partner_form_delivery_note")
+    util.remove_record(cr, "additive_delivery_report.external_layout_delivery_title")
+    util.remove_record(cr, "additive_delivery_report.field_res_partner__purchase_order_no")
 
     # Remove obsolete view from additive_purchase_report that refers to removed field disable_purchase_position_recompute
     # This prevents errors when purchase module is updated before additive_purchase_report
