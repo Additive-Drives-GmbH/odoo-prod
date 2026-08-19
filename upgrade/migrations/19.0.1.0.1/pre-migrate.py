@@ -24,7 +24,6 @@ MODULES_TO_REMOVE = [
     "crm_project_create",
     "mail_message_destiny_link_template",
     "project_template",
-    "stock_picking_report_custom_description",
 ]
 
 # Modules to install as part of the upgrade. Not listed in `depends` because
@@ -55,6 +54,15 @@ def migrate(cr, version):
     util.remove_record(cr, "additive_purchase_report.field_purchase_order__locked_positions")
     util.remove_record(cr, "additive_purchase_report.field_purchase_order_line__position")
     util.remove_record(cr, "additive_purchase_report.field_purchase_order_line__position_formatted")
+
+    # Special handling for stock_picking_report_custom_description
+    # Using util.remove_module caused a MissingError because Odoo.sh attempts to update it
+    # despite it being removed. We set it to 'to remove' instead of deleting the record.
+    _logger.info("Setting module stock_picking_report_custom_description to 'to remove'")
+    cr.execute(
+        "UPDATE ir_module_module SET state='to remove' "
+        "WHERE name='stock_picking_report_custom_description' AND state != 'uninstalled'"
+    )
 
     for module in MODULES_TO_REMOVE:
         _logger.info("Removing module %s", module)
