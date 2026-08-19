@@ -39,11 +39,22 @@ MODULES_TO_INSTALL = [
 
 def migrate(cr, version):
     # Remove obsolete view from additive_quotation_report that refers to removed field country_of_origin_id
-    # the view gets called, before the module gets removed, so we do it "manually" beforehand
     # This prevents errors when sale module is updated before additive_quotation_report
     _logger.info("Removing obsolete records from additive_quotation_report")
     util.remove_record(cr, "additive_quotation_report.view_sale_order_form_inherit")
     util.remove_record(cr, "additive_quotation_report.field_sale_order__country_of_origin_id")
+
+    # Remove obsolete view from additive_purchase_report that refers to removed field disable_purchase_position_recompute
+    # This prevents errors when purchase module is updated before additive_purchase_report
+    _logger.info("Removing obsolete records from additive_purchase_report")
+    util.remove_record(cr, "additive_purchase_report.view_res_config_settings_form")
+    util.remove_record(cr, "additive_purchase_report.view_purchase_order_form_inherit")
+    util.remove_record(cr, "additive_purchase_report.action_compute_purchase_position")
+    util.remove_record(cr, "additive_purchase_report.field_res_company__disable_purchase_position_recompute")
+    util.remove_record(cr, "additive_purchase_report.field_res_config_settings__disable_purchase_position_recompute")
+    util.remove_record(cr, "additive_purchase_report.field_purchase_order__locked_positions")
+    util.remove_record(cr, "additive_purchase_report.field_purchase_order_line__position")
+    util.remove_record(cr, "additive_purchase_report.field_purchase_order_line__position_formatted")
 
     for module in MODULES_TO_REMOVE:
         _logger.info("Removing module %s", module)
