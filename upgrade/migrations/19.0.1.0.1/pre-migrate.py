@@ -48,6 +48,9 @@ def migrate(cr, version):
     _logger.info("Removing obsolete records from additive_reports")
     util.remove_record(cr, "additive_reports.view_account_move_form_inherit")
     util.remove_record(cr, "additive_reports.field_account_move__country_of_origin_id")
+    util.remove_record(cr, "additive_reports.report_invoice_document_din5008_inherit")
+    util.remove_record(cr, "additive_reports.view_partner_form_inherit")
+    util.remove_record(cr, "additive_reports.field_res_partner__our_nr_by_customer")
 
     # Remove obsolete view from additive_purchase_report that refers to removed field disable_purchase_position_recompute
     # This prevents errors when purchase module is updated before additive_purchase_report
