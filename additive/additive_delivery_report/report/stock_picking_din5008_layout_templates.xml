@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="external_layout_din5008_delivery_info"
+        inherit_id="l10n_din5008.external_layout_din5008"
+    >
+        <xpath expr="//div[@id='din5008_report_main_address']" position="before">
+            <t t-if="o and o._name == 'stock.picking'">
+                <t t-set="din5008_document_information">
+                    <t t-set="responsible_user" t-value="o.user_id or o.sale_id.user_id" />
+                    <t t-set="origin_countries" t-value="o._get_origin_countries()" />
+                    <div class="information_block">
+                        <table>
+                            <tr t-if="responsible_user and responsible_user.email">
+                                <td>E-Mail</td>
+                                <td>
+                                    <span t-esc="responsible_user.email" />
+                                </td>
+                            </tr>
+                            <tr t-if="origin_countries">
+                                <td>Country of Origin</td>
+                                <td>
+                                    <span t-esc="origin_countries" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

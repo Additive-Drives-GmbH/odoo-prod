@@ -2,26 +2,19 @@
     "name": "Additive Reports",
     "summary": "Reports Customisations for Additive",
     "category": "Custom",
-    "version": "18.0.1.0.9",
+    "version": "19.0.1.0.9",
     "license": "LGPL-3",
-    "author": "IFE Gesellschaft für Forschung und Entwicklung",
-    "website": "https://www.ife.de",
+    "author": "manaTec GmbH",
+    "website": "https://www.manatec.de",
     "depends": [
         "web",
         "l10n_din5008",
-        "sale",
         "account",
-        "sale_stock",
-        "syscoon_partner_accounts",
+        "stock_delivery"
     ],
     "data": [
-        "report/invoice_totals_template.xml",
         "report/l10n_din5008_templates.xml",
-        "report/sale_report_templates.xml",
         "report/invoice_report_templates.xml",
-        "views/res_company_views.xml",
-        "views/res_partner_views.xml",
-        "views/account_move_views.xml",
     ],
     "assets": {
         "web.report_assets_common": [
