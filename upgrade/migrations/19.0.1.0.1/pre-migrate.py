@@ -33,6 +33,7 @@ MODULES_TO_REMOVE = [
 MODULES_TO_INSTALL = [
     "manatec_html_editor_pagebreak",
     "opd_integration",
+    "manatec_sale_texts"
 ]
 
 
