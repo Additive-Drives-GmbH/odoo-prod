@@ -1,6 +1,6 @@
 {
     "name": "Upgrade 18.0 to 19.0",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.1",
     "author": "manaTec GmbH",
     "category": "Hidden/Tools",
     "website": "https://www.ife.de",
