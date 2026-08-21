@@ -13,11 +13,13 @@
     'license': 'OPL-1',
     'depends': [
         'sale',
+        'ife_textblock_sale',
     ],
     'data': [
         'views/sale_order_views.xml',
         'views/sale_order_portal_templates.xml',
         'report/sale_report_templates.xml',
+        'data/migrate_text_blocks_server_action.xml',
     ],
     'installable': True,
     'auto_install': False,
