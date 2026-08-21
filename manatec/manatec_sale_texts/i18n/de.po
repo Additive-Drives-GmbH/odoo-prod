@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* manatec_sale_texts
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 08:43+0000\n"
+"PO-Revision-Date: 2026-08-21 08:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: manatec_sale_texts
+#: model:ir.model.fields,field_description:manatec_sale_texts.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: manatec_sale_texts
+#: model:ir.model.fields,field_description:manatec_sale_texts.field_sale_order__id
+msgid "ID"
+msgstr ""
+
+#. module: manatec_sale_texts
+#: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_portal_content_inherit_pre_text
+msgid "Introduction"
+msgstr "Einleitung"
+
+#. module: manatec_sale_texts
+#: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_view_form_inherit_pre_post_text
+msgid "Post-Text"
+msgstr ""
+
+#. module: manatec_sale_texts
+#: model:ir.model.fields,field_description:manatec_sale_texts.field_sale_order__pre_text
+#: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_view_form_inherit_pre_post_text
+msgid "Pre-Text"
+msgstr ""
+
+#. module: manatec_sale_texts
+#: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_view_form_inherit_pre_post_text
+msgid "Pre-Text..."
+msgstr "Vortext..."
+
+#. module: manatec_sale_texts
+#: model:ir.model,name:manatec_sale_texts.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
