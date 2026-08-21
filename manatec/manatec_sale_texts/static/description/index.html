@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <section class="container" style="font-size: 18px;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12">
+                    <h1 class="oe_slogan">
+                        manaTec Sale Pre/Post Text
+                    </h1>
+                </div>
+
+                <div class="col-sm-12">
+                    <h2 class="oe_slogan">Pre-Text and Post-Text for Sale Orders</h2>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <p>
+                        This module extends Odoo Sale Orders (Verkaufsauftrag) with a Pre-Text tab printed before the
+                        product table on the quotation/order PDF report and the online quotation preview, and moves
+                        the Terms and Conditions (AGB) field into its own Post-Text tab.
+                    </p>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Features</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul style="padding: 0 16px;">
+                                <li>
+                                    <strong>Sale Order (Verkaufsauftrag) Extension:</strong>
+                                    Adds a
+                                    <code style="font-size: 1em;">pre_text</code>
+                                    (Html) field to
+                                    <code style="font-size: 1em;">sale.order</code>.
+                                </li>
+                                <li>
+                                    <strong>Pre-Text Tab:</strong>
+                                    Adds a "Pre-Text" notebook page directly after "Order Lines", containing the
+                                    <code style="font-size: 1em;">pre_text</code>
+                                    field.
+                                </li>
+                                <li>
+                                    <strong>Post-Text Tab:</strong>
+                                    Adds a "Post-Text" notebook page directly after "Pre-Text", relocating the
+                                    existing Terms and Conditions (AGB)
+                                    <code style="font-size: 1em;">note</code>
+                                    field out of the "Order Lines" page.
+                                </li>
+                                <li>
+                                    <strong>Report Extension:</strong>
+                                    Prints the
+                                    <code style="font-size: 1em;">pre_text</code>
+                                    field on the quotation/order PDF report, directly before the product data table.
+                                </li>
+                                <li>
+                                    <strong>Online Preview Extension:</strong>
+                                    Shows the
+                                    <code style="font-size: 1em;">pre_text</code>
+                                    field in the online quotation preview (customer portal), directly before the
+                                    product data table, the same way Terms &amp; Conditions and Payment Terms are shown.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Technical Details</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <ul style="padding: 0 16px;">
+                        <li>
+                            <strong>Models Modified:</strong>
+                            <code style="font-size: 1em;">sale.order</code>: Adds the
+                            <code style="font-size: 1em;">pre_text</code> (Html) field.
+                        </li>
+                        <li>
+                            <strong>Views Modified:</strong>
+                            <code style="font-size: 1em;">sale.view_order_form</code>: Adds "Pre-Text" and "Post-Text"
+                            pages after "Order Lines"; relocates the
+                            <code style="font-size: 1em;">note</code> field into "Post-Text".
+                        </li>
+                        <li>
+                            <strong>Reports Modified:</strong>
+                            <code style="font-size: 1em;">sale.report_saleorder_document</code>: Prints
+                            <code style="font-size: 1em;">pre_text</code> before the product table.
+                        </li>
+                        <li>
+                            <strong>Portal Templates Modified:</strong>
+                            <code style="font-size: 1em;">sale.sale_order_portal_content</code>: Shows
+                            <code style="font-size: 1em;">pre_text</code> before the product table in the online
+                            quotation preview.
+                        </li>
+                        <li>
+                            <strong>Dependencies:</strong>
+                            <code style="font-size: 1em;">sale</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Changelog</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-2">19.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Initial release: Pre-Text and Post-Text tabs for Sale Orders.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container oe_dark" style="background: #EFEFEF;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12 oe_centeralign">
+                    <h2 class="oe_slogan">
+                        Contact &amp; Support
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Do you like this module?
+                        <br/>
+                        <a href="https://www.odoo.com/apps/modules/browse?search=manatec" target="_blank">
+                            Try out our other apps!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32">
+                    <p>
+                        <a href="https://www.manatec.de" target="_blank">
+                            <img class="" src="manatec_logo.png" height="75"/>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Challenges with this module, wishes for more functions or questions about Odoo?
+                        <a href="https://www.manatec.de/contactus" target="_blank">
+                            Contact us!
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <footer>
+        <div class="container">
+            <div class="row oe_spaced">
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_leftalign">Version: 19.0.1.0.0</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_centeralign">Last Updated: 21.08.2026</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_rightalign">&copy; manaTec</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
