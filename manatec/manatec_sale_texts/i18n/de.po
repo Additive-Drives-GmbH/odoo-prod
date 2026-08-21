@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-21 10:02+0000\n"
-"PO-Revision-Date: 2026-08-21 10:02+0000\n"
+"POT-Creation-Date: 2026-08-21 10:53+0000\n"
+"PO-Revision-Date: 2026-08-21 10:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: manatec_sale_texts
+#: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_portal_content_inherit_manatec_pre_text
+msgid "Introduction"
+msgstr "Einleitung"
 
 #. module: manatec_sale_texts
 #: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_view_form_inherit_manatec_texts
@@ -25,7 +30,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_portal_content_inherit_manatec_pre_text
 #: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_view_form_inherit_manatec_texts
 msgid "Pre-Text"
-msgstr "Vortext"
+msgstr ""
 
 #. module: manatec_sale_texts
 #: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_view_form_inherit_manatec_texts
@@ -36,8 +41,3 @@ msgstr "Vortext..."
 #: model:ir.model,name:manatec_sale_texts.model_sale_order
 msgid "Sales Order"
 msgstr "Verkaufsauftrag"
-
-#. module: manatec_sale_texts
-#: model_terms:ir.ui.view,arch_db:manatec_sale_texts.sale_order_view_form_inherit_manatec_texts
-msgid "Terms and conditions..."
-msgstr "Allgemeine Geschäftsbedingungen"
