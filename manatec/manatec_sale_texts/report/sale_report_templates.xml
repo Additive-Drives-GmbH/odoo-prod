@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_inherit_manatec_pre_text" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table[hasclass('o_main_table')]" position="before">
+            <div t-if="not is_html_empty(doc.pre_text)" class="oe_structure" name="pre_text">
+                <span t-field="doc.pre_text"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
