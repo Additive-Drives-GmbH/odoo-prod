@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* manatec_crm_buyer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-01 13:11+0000\n"
+"PO-Revision-Date: 2026-09-01 13:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: manatec_crm_buyer
+#: model:ir.model.fields,field_description:manatec_crm_buyer.field_crm_lead__buyer_id
+#: model_terms:ir.ui.view,arch_db:manatec_crm_buyer.crm_lead_view_form_inherit_buyer
+msgid "Buyer"
+msgstr "Einkäufer"
+
+#. module: manatec_crm_buyer
+#: model:ir.model.fields,field_description:manatec_crm_buyer.field_crm_lead__buyer_email
+#: model_terms:ir.ui.view,arch_db:manatec_crm_buyer.crm_lead_view_form_inherit_buyer
+msgid "Buyer Email"
+msgstr "Email Einkäufer"
+
+#. module: manatec_crm_buyer
+#: model_terms:ir.ui.view,arch_db:manatec_crm_buyer.crm_lead_view_form_inherit_buyer
+msgid "Buyer Information"
+msgstr "Einkäuferinformationen"
+
+#. module: manatec_crm_buyer
+#: model:ir.model.fields,field_description:manatec_crm_buyer.field_crm_lead__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: manatec_crm_buyer
+#: model:ir.model.fields,field_description:manatec_crm_buyer.field_crm_lead__id
+msgid "ID"
+msgstr ""
+
+#. module: manatec_crm_buyer
+#: model:ir.model,name:manatec_crm_buyer.model_crm_lead
+msgid "Lead"
+msgstr "Lead/Opportunity"

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <section class="container" style="font-size: 18px;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12">
+                    <h1 class="oe_slogan">
+                        manaTec CRM Buyer
+                    </h1>
+                </div>
+
+                <div class="col-sm-12">
+                    <h2 class="oe_slogan">Buyer Contact for Leads and Opportunities</h2>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <p>
+                        This module extends Odoo CRM Leads/Opportunities with a Buyer field, linking the customer-side
+                        purchasing contact (res.partner) and storing their email for quick reference, shown in the
+                        Contacts tab under Contact Information.
+                    </p>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Features</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul style="padding: 0 16px;">
+                                <li>
+                                    <strong>Lead/Opportunity Extension:</strong>
+                                    Adds
+                                    <code style="font-size: 1em;">buyer_id</code>
+                                    (Many2one to
+                                    <code style="font-size: 1em;">res.partner</code>) and
+                                    <code style="font-size: 1em;">buyer_email</code>
+                                    (Char) fields to
+                                    <code style="font-size: 1em;">crm.lead</code>.
+                                </li>
+                                <li>
+                                    <strong>Contact Information:</strong>
+                                    Shows the Buyer and Buyer Email fields in the "Contacts" tab, under
+                                    "Contact Information", next to the existing contact fields.
+                                </li>
+                                <li>
+                                    <strong>Computed &amp; Read-only:</strong>
+                                    The Buyer Email field is computed from the selected Buyer contact's email and
+                                    cannot be edited manually.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Technical Details</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <ul style="padding: 0 16px;">
+                        <li>
+                            <strong>Models Modified:</strong>
+                            <code style="font-size: 1em;">crm.lead</code>: Adds the
+                            <code style="font-size: 1em;">buyer_id</code> (Many2one) field and the
+                            <code style="font-size: 1em;">buyer_email</code> (Char, computed and stored, read-only)
+                            field.
+                        </li>
+                        <li>
+                            <strong>Views Modified:</strong>
+                            <code style="font-size: 1em;">crm.crm_lead_view_form</code>: Adds the Buyer and Buyer
+                            Email fields inside the "Contact Information" group of the "Contacts" tab.
+                        </li>
+                        <li>
+                            <strong>Dependencies:</strong>
+                            <code style="font-size: 1em;">crm</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Changelog</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-2">19.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Initial release: Buyer contact and email for Leads/Opportunities.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container oe_dark" style="background: #EFEFEF;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12 oe_centeralign">
+                    <h2 class="oe_slogan">
+                        Contact &amp; Support
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Do you like this module?
+                        <br/>
+                        <a href="https://www.odoo.com/apps/modules/browse?search=manatec" target="_blank">
+                            Try out our other apps!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32">
+                    <p>
+                        <a href="https://www.manatec.de" target="_blank">
+                            <img class="" src="manatec_logo.png" height="75"/>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Challenges with this module, wishes for more functions or questions about Odoo?
+                        <a href="https://www.manatec.de/contactus" target="_blank">
+                            Contact us!
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <footer>
+        <div class="container">
+            <div class="row oe_spaced">
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_leftalign">Version: 19.0.1.0.0</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_centeralign">Last Updated: 01.09.2026</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_rightalign">&copy; manaTec</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>

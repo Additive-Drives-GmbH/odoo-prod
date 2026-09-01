@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit_buyer" model="ir.ui.view">
+        <field name="name">crm.lead.view.form.inherit.buyer</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <!-- add it to opportunities in the 'contact' tab -->
+            <xpath expr="//page[@name='lead']//field[@name='contact_name']/../.." position="after">
+                <group string="Buyer Information">
+                    <field name="buyer_id" string="Buyer"/>
+                    <field name="buyer_email" string="Buyer Email" widget="email"/>
+                </group>
+            </xpath>
+            <!-- add it to leads below the Mail fields -->
+            <xpath expr="//group[@name='lead_info']//field[@name='phone']/.." position="after">
+                <field name="buyer_id" string="Buyer"/>
+                <field name="buyer_email" string="Buyer Email" widget="email"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

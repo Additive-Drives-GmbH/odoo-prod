@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ir_cron_check_nda_expiry" model="ir.cron">
+        <field name="name">Contact: Check NDA Expiry</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">NDA_MONTHS_BEFORE = 1
+NDA_ACTIVITY_TYPE_XMLID = 'mail.mail_activity_data_todo'
+NDA_DEFAULT_USER_ID = 2
+
+activity_type = env.ref(NDA_ACTIVITY_TYPE_XMLID, raise_if_not_found=False)
+default_user = env['res.users'].browse(NDA_DEFAULT_USER_ID)
+today = datetime.datetime.today().date()
+
+partners = model.search([('nda_valid_until', '!=', False)])
+for partner in partners:
+    if not activity_type:
+        continue
+    threshold_date = partner.nda_valid_until - dateutil.relativedelta.relativedelta(months=NDA_MONTHS_BEFORE)
+    if today &lt; threshold_date:
+        continue
+    if partner.activity_ids.filtered(lambda activity: activity.activity_type_id == activity_type):
+        continue
+
+    has_user = bool(partner.user_id)
+    has_buyer = bool(partner.buyer_id)
+    if has_user != has_buyer:
+        responsible = partner.user_id or partner.buyer_id
+    else:
+        responsible = default_user
+    if not responsible:
+        continue
+
+    lang = env['res.lang']._lang_get(responsible.lang or env.user.lang)
+    date_format = lang.date_format or '%m/%d/%Y'
+    formatted_date = partner.nda_valid_until.strftime(date_format)
+
+    partner.activity_schedule(
+        act_type_xmlid=NDA_ACTIVITY_TYPE_XMLID,
+        user_id=responsible.id,
+        date_deadline=partner.nda_valid_until,
+        summary=f"NDA prüfen! Läuft am {formatted_date} aus.",
+    )</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

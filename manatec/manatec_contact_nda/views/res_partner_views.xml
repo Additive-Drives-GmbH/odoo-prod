@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_form_inherit_nda" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.nda</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='container_row_2']" position="inside">
+                <group string="NDA" name="nda">
+                    <field name="nda_valid_until"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

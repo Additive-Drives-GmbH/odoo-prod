@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <section class="container" style="font-size: 18px;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12">
+                    <h1 class="oe_slogan">
+                        manaTec Contact NDA
+                    </h1>
+                </div>
+
+                <div class="col-sm-12">
+                    <h2 class="oe_slogan">NDA Expiry Tracking and Reminders for Contacts</h2>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <p>
+                        This module extends Odoo Contacts with an NDA Valid Until date field and a scheduled
+                        action that creates a reminder activity a configurable number of months before expiry,
+                        assigned to a sensibly-chosen responsible user.
+                    </p>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Features</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul style="padding: 0 16px;">
+                                <li>
+                                    <strong>Contact Extension:</strong>
+                                    Adds
+                                    <code style="font-size: 1em;">nda_valid_until</code>
+                                    (Date) to
+                                    <code style="font-size: 1em;">res.partner</code>, shown in the
+                                    "Sales &amp; Purchase" tab.
+                                </li>
+                                <li>
+                                    <strong>Scheduled Action:</strong>
+                                    Adds a "Contact: Check NDA Expiry" scheduled action that runs daily and
+                                    creates a reminder activity a configurable number of months before the
+                                    NDA's expiry date.
+                                </li>
+                                <li>
+                                    <strong>Logic Lives in the Cron, Not the Module:</strong>
+                                    No extra database fields, and no Python method in the module either —
+                                    the months-before threshold, the activity type, the default responsible
+                                    user, and the full reminder logic are plain, freely editable Python
+                                    directly in the scheduled action's code.
+                                </li>
+                                <li>
+                                    <strong>Responsible User Logic:</strong>
+                                    If exactly one of the contact's Salesperson or Buyer is set, that person
+                                    gets the activity; if neither or both are set, the configured default user
+                                    is used instead.
+                                </li>
+                                <li>
+                                    <strong>No Duplicate Reminders:</strong>
+                                    A contact already having a pending activity of the configured type is
+                                    skipped.
+                                </li>
+                                <li>
+                                    <strong>Localized Date:</strong>
+                                    The activity summary shows the expiry date formatted according to the
+                                    responsible user's language.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Technical Details</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <ul style="padding: 0 16px;">
+                        <li>
+                            <strong>Models Modified:</strong>
+                            <code style="font-size: 1em;">res.partner</code>: Adds
+                            <code style="font-size: 1em;">nda_valid_until</code> (Date) only.
+                        </li>
+                        <li>
+                            <strong>Views Modified:</strong>
+                            <code style="font-size: 1em;">base.view_partner_form</code>: Adds the NDA field.
+                        </li>
+                        <li>
+                            <strong>Data:</strong>
+                            Ships the "Contact: Check NDA Expiry" scheduled action, including its full
+                            reminder logic, inactive by default.
+                        </li>
+                        <li>
+                            <strong>Dependencies:</strong>
+                            <code style="font-size: 1em;">purchase</code>,
+                            <code style="font-size: 1em;">mail</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+                    <h3 class="oe_slogan">Changelog</h3>
+                </div>
+
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row">
+                        <div class="col-2">19.0.1.0.0</div>
+                        <div class="col-10" style="padding: 0 4.16%;">
+                            <ul style="padding: 0 16px;">
+                                <li>Initial release: NDA expiry tracking and reminder activities for Contacts.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container oe_dark" style="background: #EFEFEF;">
+            <div class="row oe_spaced">
+                <div class="col-sm-12 oe_centeralign">
+                    <h2 class="oe_slogan">
+                        Contact &amp; Support
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Do you like this module?
+                        <br/>
+                        <a href="https://www.odoo.com/apps/modules/browse?search=manatec" target="_blank">
+                            Try out our other apps!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32">
+                    <p>
+                        <a href="https://www.manatec.de" target="_blank">
+                            <img class="" src="manatec_logo.png" height="75"/>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 oe_centeralign oe_mb32" style="font-size:18px;">
+                    <p>
+                        Challenges with this module, wishes for more functions or questions about Odoo?
+                        <a href="https://www.manatec.de/contactus" target="_blank">
+                            Contact us!
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <footer>
+        <div class="container">
+            <div class="row oe_spaced">
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_leftalign">Version: 19.0.1.0.0</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_centeralign">Last Updated: 01.09.2026</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 class="oe_slogan oe_rightalign">&copy; manaTec</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
