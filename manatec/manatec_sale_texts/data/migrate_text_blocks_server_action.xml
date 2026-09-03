@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_server_migrate_text_blocks_to_pre_post_text" model="ir.actions.server">
+        <field name="name">Migrate Text Blocks to Pre-/Post-Text</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_system')])]"/>
+        <field name="code"><![CDATA[
+if not records:
+    raise UserError("Bitte wähle mindestens einen Sale Order aus, bevor du diese Aktion ausführst.")
+
+for order in records:
+    if order.above_text_block_ids:
+        order["pre_text"] = "<br/>".join(
+            text for text in order.above_text_block_ids.sorted("sequence").mapped("text") if text
+        )
+    if order.bottom_text_block_ids:
+        order["note"] = "<br/>".join(
+            text for text in order.bottom_text_block_ids.sorted("sequence").mapped("text") if text
+        )
+]]></field>
+    </record>
+</odoo>
